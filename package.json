@@ -1,0 +1,39 @@
+{
+  "name": "saas-ui",
+  "version": "0.0.1",
+  "description": "Percona Platform SaaS UI",
+  "private": true,
+  "scripts": {
+    "build": "lerna run build --scope='@percona/platform-ui'",
+    "test": "lerna run test --scope='@percona/platform-ui' --ci"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/percona-platform/saas-ui.git"
+  },
+  "keywords": [
+    "ui",
+    "percona"
+  ],
+  "author": "info@percona.com",
+  "license": "AGPL-3.0-only",
+  "bugs": {
+    "url": "https://jira.percona.com/browse/SAAS"
+  },
+  "homepage": "https://github.com/percona-platform/saas-ui#readme",
+  "dependencies": {
+    "lerna": "^3.22.1"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/@types/*",
+      "**/@types/*/**"
+    ]
+  },
+  "engines": {
+    "node": ">=12 <13"
+  }
+}
