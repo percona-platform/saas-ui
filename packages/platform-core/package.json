@@ -1,0 +1,37 @@
+{
+  "name": "@percona/platform-core",
+  "version": "0.0.1",
+  "description": "Platform UI core components",
+  "keywords": [
+    "ui",
+    "components"
+  ],
+  "author": "Percona <info@percona.com>",
+  "homepage": "https://github.com/percona-platform/saas-ui/tree/master/packages/core#readme",
+  "license": "Apache-2.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index",
+    "test": "echo \"Done: ran dummy tests from the root\" && exit 0"
+  },
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/percona-platform/saas-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/percona-platform/saas-ui/issues"
+  },
+  "dependencies": {
+    "@grafana/ui": "^7.1.5",
+    "emotion": "^10.0.27"
+  }
+}
