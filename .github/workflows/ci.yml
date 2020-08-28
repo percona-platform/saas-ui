@@ -1,0 +1,107 @@
+---
+name: CI
+on:
+  schedule:
+    # run every Sunday to re-populate caches after they are cleaned on Saturday
+    - cron: "0 12 * * 0"
+  push:
+    branches:
+      - main
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    timeout-minutes: 10
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout code
+        uses: percona-platform/checkout@v2.3.1
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: percona-platform/setup-node@v2.1.1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable node_modules cache
+        uses: percona-platform/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+
+      - name: Install tools
+        run: make init
+
+      - name: Bootstrap projects
+        run: make bootstrap
+
+      - name: Run tests
+        run: make test
+
+  docker:
+    name: Build Docker image
+    timeout-minutes: 10
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout code
+        uses: percona-platform/checkout@v2.3.1
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: percona-platform/setup-node@v2.1.1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable node_modules cache
+        uses: percona-platform/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+
+      - name: Install tools
+        run: make init
+
+      - name: Enable experimental Docker features for --squash flag
+        run: sudo .github/workflows/enable-docker-experimental.sh
+
+      - name: Login in Docker registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u $GITHUB_ACTOR docker.pkg.github.com --password-stdin
+
+      - name: Extract Docker image tag
+        run: bin/extract-image-tag
+
+      - name: Bootstrap projects
+        run: make bootstrap
+
+      - name: Build artifacts
+        run: make build
+
+      - name: Build Docker image with tag "${{ env.DOCKER_TAG }}"
+        run: make docker-build
+
+      - name: Push Docker image with tag "${{ env.DOCKER_TAG }}"
+        run: make docker-push
