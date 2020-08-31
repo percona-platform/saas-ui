@@ -1,6 +1,6 @@
 {
   "name": "@percona/platform-ui",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Percona Enterprise Platform UI",
   "private": false,
   "homepage": "https://platform.percona.com",
