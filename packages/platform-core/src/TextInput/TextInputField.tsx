@@ -14,7 +14,7 @@ export interface TextInputFieldProps {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
-  label: string;
+  label?: string;
   name: string;
   onChange?: (value: string) => undefined;
   placeholder?: string;
@@ -48,34 +48,31 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
 
     return (
       <Field name={name} validate={validate}>
-        {({ input, meta }: TextFieldRenderProps) => {
-          console.log(name, meta);
-          return (
-            <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
-              {label && (
-                <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>
-                  {`${label}${required ? ' *' : ''}`}
-                </label>
+        {({ input, meta }: TextFieldRenderProps) => (
+          <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
+            {label && (
+              <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>
+                {`${label}${required ? ' *' : ''}`}
+              </label>
+            )}
+            <input
+              id={inputId}
+              type="text"
+              {...input}
+              disabled={disabled}
+              placeholder={placeholder}
+              data-qa={`${name}-text-input`}
+              className={cx(
+                styles.input,
+                { invalid: (alwaysShowError || meta.touched) && meta.error },
+                className,
               )}
-              <input
-                id={inputId}
-                type="text"
-                {...input}
-                disabled={disabled}
-                placeholder={placeholder}
-                data-qa={`${name}-text-input`}
-                className={cx(
-                  styles.input,
-                  { invalid: (alwaysShowError || meta.touched) && meta.error },
-                  className,
-                )}
-              />
-              <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
-                {meta.touched && meta.error}
-              </div>
+            />
+            <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
+              {meta.touched && meta.error}
             </div>
-          );
-        }}
+          </div>
+        )}
       </Field>
     );
   },
