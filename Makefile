@@ -16,10 +16,10 @@ init:                   ## Install development tools
 	npm install -g lerna
 
 bootstrap:              ## Bootstrap projects
-	lerna bootstrap --ci
+	lerna bootstrap --ci && lerna link
 
 test:                   ## Run tests
-	lerna run test
+	lerna run test:ci
 
 build:                  ## Build projects artifacts
 	lerna run build
