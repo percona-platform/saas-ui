@@ -2548,6 +2548,21 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@percona/platform-core@latest":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@percona/platform-core/-/platform-core-0.1.1.tgz#e9dfccded472e7e95cfbb5061c4899d8aa81818d"
+  integrity sha512-94S2pdLKzt20sirpd36OFvCRvlIr0qZ5BhF/G0BiQDsiQ2QPO6FproU8B528cE881V21XKP1xADSwDMCVw3oMw==
+  dependencies:
+    "@testing-library/jest-dom" "^5.11.4"
+    "@testing-library/react" "^10.4.9"
+    "@testing-library/user-event" "^12.1.3"
+    "@types/jest" "^24.0.0"
+    "@types/node" "^12.0.0"
+    "@types/react" "^16.9.0"
+    "@types/react-dom" "^16.9.0"
+    react-scripts "3.4.3"
+    typescript "~3.7.5"
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
