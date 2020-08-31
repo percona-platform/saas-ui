@@ -2,6 +2,7 @@
   "name": "@percona/platform-core",
   "version": "0.0.1",
   "description": "Platform UI core components",
+  "private": false,
   "keywords": [
     "ui",
     "components"
@@ -9,29 +10,89 @@
   "author": "Percona <info@percona.com>",
   "homepage": "https://github.com/percona-platform/saas-ui/tree/master/packages/core#readme",
   "license": "Apache-2.0",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index",
-    "test": "echo \"Done: ran dummy tests from the root\" && exit 0"
+  "main": "dist/js/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/js/index.d.ts",
+  "publishConfig": {
+    "access": "public",
+    "tag": "prerelease"
   },
   "directories": {
-    "src": "src"
+    "dist": "dist"
   },
   "files": [
-    "src"
+    "dist",
+    "package.json"
   ],
-  "publishConfig": {
-    "access": "public"
+  "dependencies": {
+    "@grafana/data": "7.1.3",
+    "@grafana/ui": "7.1.3",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "emotion": "^10.0.27",
+    "final-form": "^4.20.1",
+    "react": "16.12.0",
+    "react-dom": "16.12.0",
+    "react-final-form": "^6.5.1",
+    "react-scripts": "3.4.3",
+    "typescript": "~3.7.5"
+  },
+  "scripts": {
+    "clean": "rimraf dist",
+    "start": "yarn build:types && yarn build:babel:esm --skip-initial-build --watch --verbose",
+    "dev": "yarn build:types && yarn build:babel:esm --skip-initial-build --watch --verbose",
+    "test": "react-scripts test --verbose",
+    "test:ci": "CI=true react-scripts test",
+    "eject": "react-scripts eject",
+    "build": "yarn clean && yarn build:babel && yarn build:types && node ./scripts/copy-ts.js",
+    "build:babel": "concurrently 'yarn build:babel:esm && yarn build:babel:umd' 'yarn build:babel:cjs'",
+    "build:babel:cjs": "BABEL_ENV=cjs babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/js --presets=@babel/env",
+    "build:babel:esm": "BABEL_ENV=esm babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/esm",
+    "build:babel:umd": "BABEL_ENV=umd babel --source-maps --extensions '.js' dist/esm --out-dir dist/umd --plugins=transform-es2015-modules-umd",
+    "build:types": "tsc -p tsconfig.dts.json",
+    "publish": "npm publish"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/plugin-transform-typescript": "^7.11.0",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-plugin-typescript-to-proptypes": "^1.2.1",
+    "concurrently": "^5.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
+    "jest-enzyme": "^7.1.2"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/percona-platform/saas-ui.git"
   },
   "bugs": {
-    "url": "https://github.com/percona-platform/saas-ui/issues"
-  },
-  "dependencies": {
-    "@grafana/ui": "^7.1.5",
-    "emotion": "^10.0.27"
+    "url": "https://jira.percona.com/browse/PMM"
   }
 }

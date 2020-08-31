@@ -6,19 +6,18 @@ SaaS UI.
 
 ## Local development
 
-In order to setup local dev environment please run the following commands:
+In order to setup the local development environment please run the following commands:
 
 ```bash
     npm i -g yarn lerna
-    yarn install
     lerna bootstrap
     lerna run start --scope=@percona/platform-ui
 ```
 
 ## Most useful commands
 
-- Start the development: `lerna run start --scope=@percona/platform-core`
-- Run tests: `lerna run tests`
-- Build artifacts: `lerna run build`
-- Add a dependency to a select package: `lerna add moment --scope=@platform/core`
-- Add a dev dependency to a select package: `lerna add react-router-dom --scope=@platform/ui --dev`
+- Start the development of a particular package: `lerna run start --scope=@percona/platform-ui`
+- Run tests for all packages: `lerna run tests`
+- Build artifacts for all packages: `lerna run build`
+- Add a dependency to a particular package: `lerna add moment --scope=@platform/core`
+- Add a dev dependency to a particular package: `lerna add react-router-dom --scope=@platform/ui --dev`

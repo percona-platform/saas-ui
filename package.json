@@ -4,8 +4,8 @@
   "description": "Percona Platform SaaS UI",
   "private": true,
   "scripts": {
-    "build": "lerna run build --scope='@percona/platform-ui'",
-    "test": "lerna run test --scope='@percona/platform-ui' --ci"
+    "build": "lerna run build",
+    "test": "lerna run test:ci"
   },
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   "author": "info@percona.com",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://jira.percona.com/browse/SAAS"
+    "url": "https://jira.percona.com/browse/PMM"
   },
   "homepage": "https://github.com/percona-platform/saas-ui#readme",
   "dependencies": {
