@@ -28,7 +28,7 @@ export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
     }
 
     &.invalid input + span {
-      box-shadow: inset 0 0 5px ${(theme.colors as any).red};
+      box-shadow: inset 0 0 5px ${theme.colors.formInputBorderInvalid};
     }
   `,
   checkboxLabel: css`

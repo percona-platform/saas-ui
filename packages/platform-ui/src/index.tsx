@@ -1,14 +1,21 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import { App } from "./App/App";
-import * as serviceWorker from "./serviceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { ThemeContext } from '@grafana/ui';
+import { getTheme } from '@percona/platform-core';
+import { App } from './App/App';
+import './index.css';
+import * as serviceWorker from './serviceWorker';
+
+// NOTE: light theme is the default
+const light = getTheme('light');
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ThemeContext.Provider value={light}>
+      <App />
+    </ThemeContext.Provider>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
