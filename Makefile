@@ -16,13 +16,13 @@ init:                   ## Install development tools
 	npm install -g lerna
 
 bootstrap:              ## Bootstrap projects
-	lerna bootstrap --ci
+	lerna bootstrap
 
 test:                   ## Run tests
-	lerna run test
+	lerna run test:ci
 
 build:                  ## Build projects artifacts
-	lerna run build
+	lerna run build --scope='@percona/platform-core' && lerna run build --scope='@percona/platform-ui'
 
 docker-build:           ## Build Docker image
 	docker build --squash --tag $(DOCKER_IMAGE) .

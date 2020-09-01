@@ -103,5 +103,5 @@ jobs:
       - name: Build Docker image with tag "${{ env.DOCKER_TAG }}"
         run: make docker-build
 
-      - name: Push Docker image with tag "${{ env.DOCKER_TAG }}"
+      - name: Push Docker image
         run: make docker-push

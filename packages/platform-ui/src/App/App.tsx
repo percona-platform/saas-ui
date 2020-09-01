@@ -1,7 +1,8 @@
-import React, { FC } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { styles } from "./App.styles";
-import logo from "../assets/percona-logo.svg";
+import React, { FC } from 'react';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { LoginPage } from '../pages/Login';
+import { styles } from './App.styles';
+import logo from '../assets/percona-logo.svg';
 
 export const App: FC = () => {
   return (
@@ -27,7 +28,7 @@ export const App: FC = () => {
 
         <Switch>
           <Route path="/login">
-            <Login />
+            <LoginPage />
           </Route>
           <Route path="/signup">
             <Signup />
@@ -49,10 +50,6 @@ export const App: FC = () => {
 
 function Home() {
   return <h2>Home</h2>;
-}
-
-function Login() {
-  return <h2>Login</h2>;
 }
 
 function Logout() {

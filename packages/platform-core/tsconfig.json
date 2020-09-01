@@ -7,6 +7,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -15,6 +16,6 @@
     "noEmit": true,
     "jsx": "react"
   },
-  "include": ["src", "./node_modules/@testing-library/jest-dom/extend-expect.d.ts"],
-  "exclude": ["build", "node_modules"]
+  "include": ["src"],
+  "exclude": ["dist", "node_modules"]
 }
