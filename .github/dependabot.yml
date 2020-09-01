@@ -13,11 +13,3 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/platform-core"
-    schedule:
-      interval: "weekly"
-  - package-ecosystem: "npm"
-    directory: "/platform-ui"
-    schedule:
-      interval: "weekly"
