@@ -1,11 +1,19 @@
-# `@platform/core`
+# @percona/platform-core
 
-> TODO: description
+Percona Enterprise Platform Core UI.
 
-## Usage
+## Local development
 
+In order to setup the local development environment please run the following commands:
+
+```bash
+    npm i -g yarn lerna
+    lerna bootstrap
 ```
-const core = require('@platform/core');
 
-// TODO: DEMONSTRATE API
-```
+## Most useful commands
+
+- Start the development: `lerna run start --scope=@percona/platform-core`
+- Run tests: `lerna run test --scope=@percona/platform-core`
+- Build artifacts: `lerna run build --scope=@percona/platform-core`
+- Publish the package: `lerna run publish --scope=@percona/platform-core`
