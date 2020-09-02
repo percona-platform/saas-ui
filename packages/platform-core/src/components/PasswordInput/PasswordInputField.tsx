@@ -49,31 +49,31 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
 
     return (
       <Field {...fieldConfig} name={name} validate={validate}>
-        {({ input, meta }: PasswordFieldRenderProps) => (
-          <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
-            {label && (
-              <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>
-                {`${label}${required ? ' *' : ''}`}
-              </label>
-            )}
-            <input
-              id={inputId}
-              type="password"
-              {...input}
-              disabled={disabled}
-              placeholder={placeholder}
-              data-qa={`${name}-password-input`}
-              className={cx(
-                styles.input,
-                { invalid: (alwaysShowError || meta.touched) && meta.error },
-                className,
+        {({ input, meta }: PasswordFieldRenderProps) => {
+          const validationError = ((alwaysShowError && meta.modified) || meta.touched) && meta.error;
+
+          return (
+            <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
+              {label && (
+                <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>
+                  {`${label}${required ? ' *' : ''}`}
+                </label>
               )}
-            />
-            <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
-              {meta.touched && meta.error}
+              <input
+                id={inputId}
+                type="password"
+                {...input}
+                disabled={disabled}
+                placeholder={placeholder}
+                data-qa={`${name}-password-input`}
+                className={cx(styles.input, { invalid: !!validationError }, className)}
+              />
+              <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
+                {validationError}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        }}
       </Field>
     );
   },
