@@ -9,12 +9,11 @@ import { getStyles } from './TextInput.styles';
  * Note: the validation error message will only be displayed after the input has been
  * touched and then blurred. To override this you have to pass `alwaysShowError={false}`.
  */
-export interface TextInputFieldProps {
+export interface TextInputFieldProps extends UseFieldConfig<string> {
   alwaysShowError?: boolean;
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
-  fieldConfig?: UseFieldConfig<string>;
   label?: string;
   name: string;
   onChange?: (value: string) => undefined;
@@ -34,12 +33,12 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
     className,
     disabled = false,
     fieldClassName,
-    fieldConfig,
     label,
     name,
     placeholder,
     required = false,
     validators,
+    ...fieldConfig
   }) => {
     const theme = useTheme();
     const styles = useMemo(() => getStyles(theme), [theme]);
@@ -79,3 +78,5 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
     );
   },
 );
+
+TextInputField.displayName = 'TextInputField';

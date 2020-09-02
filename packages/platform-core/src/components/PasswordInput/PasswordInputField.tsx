@@ -9,12 +9,11 @@ import { getStyles } from './PasswordInput.styles';
  * Note: the validation error message will only be displayed after the input has been
  * touched and then blurred. To override this you have to pass `alwaysShowError={false}`.
  */
-export interface PasswordInputFieldProps {
+export interface PasswordInputFieldProps extends UseFieldConfig<string> {
   alwaysShowError?: boolean;
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
-  fieldConfig?: UseFieldConfig<string>;
   label?: string;
   name: string;
   onChange?: (value: string) => undefined;
@@ -34,12 +33,12 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
     fieldClassName,
     className,
     disabled = false,
-    fieldConfig,
     label,
     name,
     placeholder,
     required = false,
     validators,
+    ...fieldConfig
   }) => {
     const theme = useTheme();
     const styles = useMemo(() => getStyles(theme), [theme]);
@@ -79,3 +78,5 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
     );
   },
 );
+
+PasswordInputField.displayName = 'PasswordInputField';
