@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { useTheme } from '@grafana/ui';
-import { LoginPage } from '../pages/Login';
+import { LoginPage } from 'pages/Login';
 import { getAppStyles } from './App.styles';
-import logo from '../assets/percona-logo.svg';
+import logo from 'assets/percona-logo.svg';
 
 export const App: FC = () => {
   const theme = useTheme();
