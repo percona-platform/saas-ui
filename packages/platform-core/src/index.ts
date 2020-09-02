@@ -1,3 +1,3 @@
+export * from './components';
 export * from './shared';
-export * from './TextInput';
-export * from './Theming';
+export * from './theming';

@@ -1,5 +1,5 @@
-import defaultTheme, { commonColorsPalette } from './default';
 import { GrafanaThemeType, GrafanaTheme } from '@grafana/data';
+import defaultTheme, { commonColorsPalette } from './default';
 
 const basicColors = {
   //#464c54

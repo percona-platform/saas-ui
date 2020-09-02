@@ -1,19 +1,20 @@
 import React, { FC, useMemo } from 'react';
-import { Field, FieldMetaState, FieldInputProps } from 'react-final-form';
+import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
-import { Validator, compose } from '../shared/validators';
-import { getStyles } from './TextInput.styles';
+import { Validator, compose } from '../../shared/validators';
+import { getStyles } from './PasswordInput.styles';
 
 /**
  * Note: the validation error message will only be displayed after the input has been
  * touched and then blurred. To override this you have to pass `alwaysShowError={false}`.
  */
-export interface TextInputFieldProps {
+export interface PasswordInputFieldProps {
   alwaysShowError?: boolean;
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  fieldConfig?: UseFieldConfig<string>;
   label?: string;
   name: string;
   onChange?: (value: string) => undefined;
@@ -22,17 +23,18 @@ export interface TextInputFieldProps {
   validators?: Validator[];
 }
 
-export interface TextFieldRenderProps {
+export interface PasswordFieldRenderProps {
   input: FieldInputProps<string>;
   meta: FieldMetaState<string>;
 }
 
-export const TextInputField: FC<TextInputFieldProps> = React.memo(
+export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
   ({
     alwaysShowError = false,
     fieldClassName,
     className,
     disabled = false,
+    fieldConfig,
     label,
     name,
     placeholder,
@@ -47,8 +49,8 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
     ]);
 
     return (
-      <Field name={name} validate={validate}>
-        {({ input, meta }: TextFieldRenderProps) => (
+      <Field {...fieldConfig} name={name} validate={validate}>
+        {({ input, meta }: PasswordFieldRenderProps) => (
           <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
             {label && (
               <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>
@@ -57,11 +59,11 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
             )}
             <input
               id={inputId}
-              type="text"
+              type="password"
               {...input}
               disabled={disabled}
               placeholder={placeholder}
-              data-qa={`${name}-text-input`}
+              data-qa={`${name}-password-input`}
               className={cx(
                 styles.input,
                 { invalid: (alwaysShowError || meta.touched) && meta.error },

@@ -64,15 +64,16 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
+    "jest-canvas-mock": "^2.2.0",
     "jest-enzyme": "^7.1.2"
   },
   "peerDependencies": {
     "@grafana/data": "7.1.3",
     "@grafana/ui": "7.1.3",
     "emotion": "^10.0.27",
+    "final-form": "^4.20.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "final-form": "^4.20.1",
     "react-final-form": "^6.5.1"
   },
   "eslintConfig": {

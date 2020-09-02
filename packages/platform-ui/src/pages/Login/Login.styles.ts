@@ -10,7 +10,7 @@ const centeredButton = css`
 
 export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
   legend: css`
-    color: ${theme.colors.formLabel};
+    color: ${theme.colors.text};
     font-size: ${theme.typography.heading.h3};
     font-weight: ${theme.typography.weight.regular};
     margin: ${theme.spacing.formMargin};
@@ -22,30 +22,14 @@ export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
     padding: 0;
     vertical-align: baseline;
   `,
-  checkboxWrapper: css`
-    label {
-      text-align: left;
-    }
-
-    &.invalid input + span {
-      box-shadow: inset 0 0 5px ${theme.colors.formInputBorderInvalid};
-    }
-  `,
-  checkboxLabel: css`
-    display: inline-block;
-    line-height: 1.7;
-    padding-right: ${theme.spacing.formInputPaddingHorizontal};
-  `,
-  formWrapper: css`
-    align-items: start;
-    display: flex;
-    flex-direction: column;
-    margin-right: 30px;
-  `,
   form: css`
     max-width: 300px;
     min-width: 150px;
     width: 100%;
+  `,
+  divider: css`
+    margin: 1.5em 0px;
+    text-align: center;
   `,
   submitButton: css`
     ${centeredButton}
