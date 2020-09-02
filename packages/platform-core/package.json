@@ -1,6 +1,6 @@
 {
   "name": "@percona/platform-core",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Platform UI core components",
   "private": false,
   "keywords": [
@@ -31,7 +31,7 @@
     "test": "react-scripts test --verbose",
     "test:ci": "CI=true react-scripts test",
     "eject": "react-scripts eject",
-    "build": "yarn clean && yarn build:babel && yarn build:types && node ./scripts/copy-ts.js",
+    "build": "yarn clean && yarn build:babel && yarn build:types && node ./scripts/copy-ts.js && node ./scripts/copy-package.js",
     "build:babel": "concurrently 'yarn build:babel:esm && yarn build:babel:umd' 'yarn build:babel:cjs'",
     "build:babel:cjs": "BABEL_ENV=cjs babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/js --presets=@babel/env",
     "build:babel:esm": "BABEL_ENV=esm babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/esm",
