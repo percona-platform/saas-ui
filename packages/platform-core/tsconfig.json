@@ -11,6 +11,11 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/shared/*": ["shared/*"],
+      "@/theming/*": ["theming/*"]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
