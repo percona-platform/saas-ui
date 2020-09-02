@@ -1,19 +1,25 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
     "declaration": true,
     "emitDeclarationOnly": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "outDir": "dist/js",
     "jsx": "react",
     "lib": ["es2017", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "outDir": "dist/js",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/shared/*": ["shared/*"],
+      "@/theming/*": ["theming/*"]
+    },
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
     "target": "es5"
   },
   "include": ["./src/*", "./src/**/*"],
-  "exclude": ["./src/**/**.test.tsx", "./src/**/**.test.ts", "dist", "node_modules"]
+  "exclude": ["./src/**/**.test.tsx", "./src/**/**.test.ts"]
 }

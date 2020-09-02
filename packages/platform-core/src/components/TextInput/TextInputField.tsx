@@ -1,8 +1,8 @@
 import React, { FC, useMemo } from 'react';
-import { Field, FieldMetaState, FieldInputProps } from 'react-final-form';
+import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
-import { Validator, compose } from '../shared/validators';
+import { Validator, compose } from '@/shared/validators';
 import { getStyles } from './TextInput.styles';
 
 /**
@@ -14,6 +14,7 @@ export interface TextInputFieldProps {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  fieldConfig?: UseFieldConfig<string>;
   label?: string;
   name: string;
   onChange?: (value: string) => undefined;
@@ -30,9 +31,10 @@ export interface TextFieldRenderProps {
 export const TextInputField: FC<TextInputFieldProps> = React.memo(
   ({
     alwaysShowError = false,
-    fieldClassName,
     className,
     disabled = false,
+    fieldClassName,
+    fieldConfig,
     label,
     name,
     placeholder,
@@ -47,7 +49,7 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
     ]);
 
     return (
-      <Field name={name} validate={validate}>
+      <Field {...fieldConfig} name={name} validate={validate}>
         {({ input, meta }: TextFieldRenderProps) => (
           <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
             {label && (

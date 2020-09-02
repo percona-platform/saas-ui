@@ -1,20 +1,16 @@
 import React, { FC } from 'react';
-import { Form } from 'react-final-form';
-import { useTheme } from '@grafana/ui';
-import { TextInputField, validators } from '@percona/platform-core';
+import { Form, FormRenderProps } from 'react-final-form';
+import { useTheme, Button } from '@grafana/ui';
+import { LoaderButton, PasswordInputField, TextInputField, validators, sleep } from '@percona/platform-core';
 import { Messages } from './Login.messages';
 import { getLoginStyles } from './Login.styles';
 import { Credentials } from './Login.types';
 
-const {
-  containsLowercase,
-  containsNumber,
-  containsUppercase,
-  email,
-  minLength: minLenthValidator,
-  required,
-} = validators;
-const minLength = minLenthValidator(8);
+const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
+const minLength = validators.minLength(8);
+
+const emailValidators = [required, email];
+const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
 export const LoginPage: FC = () => {
   const theme = useTheme();
@@ -22,7 +18,7 @@ export const LoginPage: FC = () => {
 
   const handleSignInFormSubmit = async (credentials: Credentials) => {
     try {
-      await Promise.resolve(true);
+      await sleep();
     } catch (e) {
       console.error(e);
     }
@@ -30,24 +26,35 @@ export const LoginPage: FC = () => {
 
   return (
     <Form onSubmit={handleSignInFormSubmit}>
-      {({ handleSubmit, pristine, submitting, valid }: any) => (
+      {({ handleSubmit, pristine, submitting, valid }: FormRenderProps) => (
         <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
           <legend className={styles.legend}>{Messages.signIn}</legend>
-          <TextInputField name="email" label={Messages.emailLabel} validators={[required, email]} required />
-          <TextInputField
+          <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
+          <PasswordInputField
             name="password"
             label={Messages.passwordLabel}
-            validators={[required, minLength, containsNumber, containsLowercase, containsUppercase]}
+            validators={passwordValidators}
             required
           />
-          <button
+          <LoaderButton
             data-qa="login-submit-button"
             className={styles.signInButton}
             type="submit"
+            loading={submitting}
             disabled={!valid || submitting || pristine}
           >
             {Messages.signIn}
-          </button>
+          </LoaderButton>
+          <div className={styles.divider}>{Messages.or}</div>
+          <Button
+            data-qa="signup-action-button"
+            className={styles.signInButton}
+            type="button"
+            variant="link"
+            disabled={submitting}
+          >
+            {Messages.signUp}
+          </Button>
         </form>
       )}
     </Form>

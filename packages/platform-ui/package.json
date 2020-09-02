@@ -5,9 +5,6 @@
   "private": false,
   "homepage": "https://platform.percona.com",
   "license": "Apache-2.0",
-  "directories": {
-    "build": "build"
-  },
   "files": [
     "build",
     "package.json",
@@ -30,7 +27,7 @@
   "dependencies": {
     "@grafana/data": "7.1.3",
     "@grafana/ui": "7.1.3",
-    "@percona/platform-core": "latest",
+    "@percona/platform-core": "^0.1.6",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.1.3",
