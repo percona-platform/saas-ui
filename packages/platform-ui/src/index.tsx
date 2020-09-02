@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { ThemeContext } from '@grafana/ui';
 import { getTheme } from '@percona/platform-core';
 import { App } from './App/App';
-import './font-awesome.css';
-import './index.css';
+import './styles/font-awesome.css';
+import './styles/global.css';
 import * as serviceWorker from './serviceWorker';
 
 /**
