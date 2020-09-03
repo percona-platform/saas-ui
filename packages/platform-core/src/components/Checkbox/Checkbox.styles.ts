@@ -17,7 +17,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       }
     `,
     label: css`
-      font-size: ${theme.typography.size.sm};
+      font-size: ${theme.typography.size.md};
       font-weight: ${theme.typography.weight.semibold};
       line-height: 1.25;
       padding: ${theme.spacing.formLabelPadding};

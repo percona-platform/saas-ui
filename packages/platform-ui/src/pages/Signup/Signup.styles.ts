@@ -35,11 +35,11 @@ export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
     ${centeredButton}
     margin-bottom: ${theme.spacing.formInputMargin};
   `,
-  loginButton: css`
+  signupButton: css`
     ${centeredButton}
     margin-bottom: ${theme.spacing.formInputMargin};
   `,
-  gotoSignup: css`
+  gotoLogin: css`
     ${centeredButton}
     color: ${theme.colors.linkExternal};
     text-decoration: none;

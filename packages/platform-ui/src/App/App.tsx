@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { useTheme } from '@grafana/ui';
-import { LoginPage } from 'pages/Login';
+import { LoginPage, SignupPage } from 'pages';
 import { getAppStyles } from './App.styles';
 import logo from 'assets/percona-logo.svg';
 
@@ -46,13 +46,13 @@ export const App: FC = () => {
           <div className={styles.rightZone}>
             <Switch>
               <Route path="/" exact>
-                <Home />
+                <LoginPage />
               </Route>
               <Route path="/login">
                 <LoginPage />
               </Route>
               <Route path="/signup">
-                <Signup />
+                <SignupPage />
               </Route>
               <Route path="/logout">
                 <Logout />
@@ -68,16 +68,8 @@ export const App: FC = () => {
   );
 };
 
-function Home() {
-  return <h2>Home</h2>;
-}
-
 function Logout() {
   return <h2>Logout</h2>;
-}
-
-function Signup() {
-  return <h2>Sign up</h2>;
 }
 
 function NotFound() {
