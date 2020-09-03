@@ -47,7 +47,11 @@ export const CheckboxField: FC<CheckboxProps> = ({
                 className={styles.input}
               />
               <span className={styles.checkmark} />
-              {label && <span className={styles.label}>{label}</span>}
+              {label && (
+                <span className={styles.label} data-qa={`${name}-field-label`}>
+                  {label}
+                </span>
+              )}
             </label>
             <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
               {meta.touched && meta.error}
