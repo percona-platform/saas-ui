@@ -1,28 +1,48 @@
 import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
-import { useTheme, Button } from '@grafana/ui';
-import { LoaderButton, PasswordInputField, TextInputField, validators, sleep } from '@percona/platform-core';
+import { useTheme, Button, LinkButton } from '@grafana/ui';
+import {
+  CheckboxField,
+  LoaderButton,
+  PasswordInputField,
+  TextInputField,
+  validators,
+  sleep,
+} from '@percona/platform-core';
+import { PASSWORD_MIN_LENGTH, PRIVACY_POLICY_URL, TERMS_OF_SERVICE_URL } from 'core';
 import { Messages } from './Login.messages';
 import { getLoginStyles } from './Login.styles';
 import { Credentials } from './Login.types';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
-const minLength = validators.minLength(8);
+const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
+const handleSignInFormSubmit = async (credentials: Credentials) => {
+  try {
+    await sleep();
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 export const LoginPage: FC = () => {
   const theme = useTheme();
   const styles = getLoginStyles(theme);
-
-  const handleSignInFormSubmit = async (credentials: Credentials) => {
-    try {
-      await sleep();
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const CheckboxLabel: FC = () => (
+    <span data-qa="sign-up-agreement-checkbox-label" className={styles.checkboxLabel}>
+      {`${Messages.agreementFirstPart} `}
+      <LinkButton className={styles.link} variant="link" href={TERMS_OF_SERVICE_URL}>
+        {Messages.termsOfService}
+      </LinkButton>
+      {` ${Messages.agreementSecondPart} `}
+      <LinkButton className={styles.link} variant="link" href={PRIVACY_POLICY_URL}>
+        {Messages.privacyPolicy}
+      </LinkButton>
+    </span>
+  );
 
   return (
     <Form onSubmit={handleSignInFormSubmit}>
@@ -43,6 +63,8 @@ export const LoginPage: FC = () => {
             alwaysShowError
             required
           />
+          <CheckboxField name="consent" label={<CheckboxLabel />} />
+
           <LoaderButton
             data-qa="login-submit-button"
             className={styles.signInButton}

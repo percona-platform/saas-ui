@@ -22,7 +22,5 @@ In order to setup the local development environment please run the following com
 
 - Install a package `np` globally with `npm i -g np`
 - cd to /packages/platform-core
-- Bump up the version with `npm version patch` or `npm version minor` or `npm version major`
-- Commit the changes with `git add . && git commit -m "Version bump"`
 - Publish from a non-main branch `np patch --no-release-draft --any-branch --yolo --tag=latest`
 - Publish from the main branch `np patch --no-release-draft --yolo --tag=latest`
