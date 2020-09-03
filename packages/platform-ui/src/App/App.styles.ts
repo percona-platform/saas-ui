@@ -59,6 +59,6 @@ export const getAppStyles = stylesFactory((theme: GrafanaTheme) => ({
     flex: 0 1 55%;
     justify-content: start;
     align-items: center;
-    padding: 0em 6em;
+    padding: 0em 12em;
   `,
 }));
