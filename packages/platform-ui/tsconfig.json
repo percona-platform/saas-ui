@@ -16,6 +16,5 @@
     "strict": true,
     "target": "es5"
   },
-  "include": ["src", "./node_modules/@testing-library/jest-dom/extend-expect.d.ts"],
-  "exclude": ["build", "node_modules"]
+  "include": ["src", "./node_modules/@testing-library/jest-dom/extend-expect.d.ts"]
 }

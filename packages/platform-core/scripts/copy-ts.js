@@ -5,13 +5,17 @@ const fse = require('fs-extra');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const srcDir = path.join('./src');
-const distDir = path.join('./dist/js');
+const jsDistDir = path.join('./dist/js');
+const esmDistDir = path.join('./dist/esm');
 
 const files = glob.sync('**/*.d.ts', {
-  cwd: srcDir
+  cwd: srcDir,
 });
-files.forEach(file => {
+
+files.forEach((file) => {
   const from = path.join(srcDir, file);
-  const to = path.join(distDir, file);
-  fse.copySync(from, to);
+  const toJsDir = path.join(jsDistDir, file);
+  const toEsmDir = path.join(esmDistDir, file);
+  fse.copySync(from, toJsDir);
+  fse.copySync(from, toEsmDir);
 });

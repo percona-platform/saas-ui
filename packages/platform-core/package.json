@@ -28,12 +28,12 @@
     "test": "react-scripts test --verbose",
     "test:ci": "CI=true react-scripts test",
     "eject": "react-scripts eject",
-    "build": "yarn clean && yarn build:babel && yarn build:types && node ./scripts/copy-ts.js",
+    "build": "yarn clean && yarn build:babel && yarn build:types",
     "build:babel": "yarn build:babel:cjs && yarn build:babel:esm && yarn build:babel:umd",
     "build:babel:cjs": "BABEL_ENV=cjs babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/js",
     "build:babel:esm": "BABEL_ENV=esm babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/esm",
     "build:babel:umd": "BABEL_ENV=umd babel --source-maps --extensions '.js' dist/esm --out-dir dist/umd --plugins=transform-es2015-modules-umd",
-    "build:types": "tsc -p tsconfig.dts.json",
+    "build:types": "tsc -p tsconfig.dts.json --outFile dist/js/index.d.ts && tsc -p tsconfig.dts.json --outFile dist/esm/index.d.ts",
     "publish": "npm publish"
   },
   "dependencies": {

@@ -9,7 +9,6 @@
     "lib": ["es2017", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "dist/js",
     "paths": {
       "@/components/*": ["components/*"],
       "@/shared/*": ["shared/*"],
