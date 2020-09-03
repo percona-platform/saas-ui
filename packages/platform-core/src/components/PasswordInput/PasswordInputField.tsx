@@ -22,7 +22,7 @@ export interface PasswordInputFieldProps extends UseFieldConfig<string> {
   validators?: Validator[];
 }
 
-export interface PasswordFieldRenderProps {
+interface PasswordFieldRenderProps {
   input: FieldInputProps<string>;
   meta: FieldMetaState<string>;
 }

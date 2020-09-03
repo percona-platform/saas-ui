@@ -22,7 +22,7 @@ export interface TextInputFieldProps extends UseFieldConfig<string> {
   validators?: Validator[];
 }
 
-export interface TextFieldRenderProps {
+interface TextFieldRenderProps {
   input: FieldInputProps<string>;
   meta: FieldMetaState<string>;
 }
