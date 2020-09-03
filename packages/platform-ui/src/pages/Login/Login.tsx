@@ -32,7 +32,7 @@ export const LoginPage: FC = () => {
   const theme = useTheme();
   const styles = getLoginStyles(theme);
   const CheckboxLabel: FC = () => (
-    <span data-qa="sign-up-agreement-checkbox-label" className={styles.checkboxLabel}>
+    <span data-qa="signup-consent-checkbox-label">
       {`${Messages.agreementFirstPart} `}
       <LinkButton className={styles.link} variant="link" href={TERMS_OF_SERVICE_URL}>
         {Messages.termsOfService}

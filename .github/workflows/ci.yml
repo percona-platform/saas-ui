@@ -37,7 +37,6 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-            ~/.npm
           key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
@@ -77,7 +76,6 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-            ~/.npm
           key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
