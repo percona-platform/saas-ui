@@ -34,14 +34,14 @@ export const CheckboxField: FC<CheckboxProps> = ({
   ]);
 
   return (
-    <Field {...fieldConfig} name={name} validate={validate}>
+    <Field {...fieldConfig} type="checkbox" name={name} validate={validate}>
       {({ input, meta }: CheckboxFieldRenderProps) => {
         return (
           <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
             <label className={styles.wrapper}>
               <input
-                type="checkbox"
                 {...input}
+                type="checkbox"
                 disabled={disabled}
                 data-qa={`${name}-checkbox-input`}
                 className={styles.input}
