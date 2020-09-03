@@ -20,7 +20,6 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       font-size: ${theme.typography.size.sm};
       font-weight: ${theme.typography.weight.semibold};
       line-height: 1.25;
-      margin: ${theme.spacing.formLabelMargin};
       padding: ${theme.spacing.formLabelPadding};
       color: ${theme.colors.formLabel};
       padding-left: ${spacing.formSpacingBase}px;
@@ -34,8 +33,6 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       position: absolute;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
       opacity: 0;
       &:focus + span {
         outline: 2px dotted transparent;

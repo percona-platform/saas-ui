@@ -13,7 +13,7 @@ init:                   ## Install development tools
 	cd tools && go build -o ../bin/extract-image-tag ./extract-image-tag
 	cd tools && go build -o ../bin/get-stale-packages ./get-stale-packages
 
-	yarn global add lerna
+	npm install -g lerna
 
 bootstrap:              ## Bootstrap projects
 	lerna bootstrap && lerna link
