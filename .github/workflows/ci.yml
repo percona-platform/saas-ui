@@ -48,6 +48,9 @@ jobs:
       - name: Bootstrap projects
         run: make bootstrap
 
+      - name: Build artifacts
+        run: make build
+
       - name: Run tests
         run: make test
 

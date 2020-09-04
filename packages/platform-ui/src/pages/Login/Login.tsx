@@ -14,7 +14,7 @@ const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const handleSignInFormSubmit = async (credentials: Credentials) => {
+const handleLoginInFormSubmit = async (credentials: Credentials) => {
   try {
     await sleep();
   } catch (e) {
@@ -27,22 +27,15 @@ export const LoginPage: FC = () => {
   const styles = getLoginStyles(theme);
 
   return (
-    <Form onSubmit={handleSignInFormSubmit}>
+    <Form onSubmit={handleLoginInFormSubmit}>
       {({ handleSubmit, pristine, submitting, valid }: FormRenderProps) => (
         <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
           <legend className={styles.legend}>{Messages.signIn}</legend>
-          <TextInputField
-            name="email"
-            label={Messages.emailLabel}
-            validators={emailValidators}
-            alwaysShowError
-            required
-          />
+          <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
           <PasswordInputField
             name="password"
             label={Messages.passwordLabel}
             validators={passwordValidators}
-            alwaysShowError
             required
           />
           <LoaderButton

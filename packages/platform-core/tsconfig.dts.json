@@ -9,11 +9,6 @@
     "lib": ["es2017", "dom"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "paths": {
-      "@/components/*": ["components/*"],
-      "@/shared/*": ["shared/*"],
-      "@/theming/*": ["theming/*"]
-    },
     "skipLibCheck": true,
     "strict": true,
     "strictNullChecks": true,
