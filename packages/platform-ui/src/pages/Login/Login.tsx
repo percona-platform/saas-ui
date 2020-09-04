@@ -2,7 +2,14 @@ import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
 import { Link } from 'react-router-dom';
-import { LoaderButton, PasswordInputField, TextInputField, validators, sleep } from '@percona/platform-core';
+import {
+  LoaderButton,
+  PasswordInputField,
+  TextareaInputField,
+  TextInputField,
+  validators,
+  sleep,
+} from '@percona/platform-core';
 import { PASSWORD_MIN_LENGTH } from 'core';
 import { Messages } from './Login.messages';
 import { getLoginStyles } from './Login.styles';
@@ -38,6 +45,7 @@ export const LoginPage: FC = () => {
             validators={passwordValidators}
             required
           />
+          <TextareaInputField name="editor" label="Editor" validators={[required]} required />
           <LoaderButton
             data-qa="login-submit-button"
             className={styles.loginButton}

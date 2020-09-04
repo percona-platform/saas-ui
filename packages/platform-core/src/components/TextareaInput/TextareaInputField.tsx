@@ -9,7 +9,7 @@ import { getStyles } from './TextInput.styles';
  * Note: the validation error message will be displayed once the the input has been modified.
  * To show the error message on blur you have to pass `showErrorOnBlur`.
  */
-export interface TextInputFieldProps extends UseFieldConfig<string> {
+export interface TextareaInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
@@ -18,18 +18,18 @@ export interface TextInputFieldProps extends UseFieldConfig<string> {
   onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
+  rows?: number;
   showErrorOnBlur?: boolean;
   validators?: Validator[];
 }
 
-interface TextFieldRenderProps {
+interface TextareaFieldRenderProps {
   input: FieldInputProps<string>;
   meta: FieldMetaState<string>;
 }
 
-export const TextInputField: FC<TextInputFieldProps> = React.memo(
+export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
   ({
-    showErrorOnBlur = false,
     className,
     disabled = false,
     fieldClassName,
@@ -37,6 +37,8 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
     name,
     placeholder,
     required = false,
+    rows = 5,
+    showErrorOnBlur = false,
     validators,
     ...fieldConfig
   }) => {
@@ -49,7 +51,7 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
 
     return (
       <Field {...fieldConfig} name={name} validate={validate}>
-        {({ input, meta }: TextFieldRenderProps) => {
+        {({ input, meta }: TextareaFieldRenderProps) => {
           const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
           return (
@@ -59,13 +61,13 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
                   {`${label}${required ? ' *' : ''}`}
                 </label>
               )}
-              <input
+              <textarea
                 id={inputId}
-                type="text"
                 {...input}
+                rows={rows}
                 disabled={disabled}
                 placeholder={placeholder}
-                data-qa={`${name}-text-input`}
+                data-qa={`${name}-textarea-input`}
                 className={cx(styles.input, { invalid: !!validationError }, className)}
               />
               <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
@@ -79,4 +81,4 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
   },
 );
 
-TextInputField.displayName = 'TextInputField';
+TextareaInputField.displayName = 'TextareaInputField';

@@ -10,7 +10,6 @@ import { getStyles } from './PasswordInput.styles';
  * To show the error message on blur you have to pass `showErrorOnBlur`.
  */
 export interface PasswordInputFieldProps extends UseFieldConfig<string> {
-  showErrorOnBlur?: boolean;
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
@@ -19,6 +18,7 @@ export interface PasswordInputFieldProps extends UseFieldConfig<string> {
   onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
+  showErrorOnBlur?: boolean;
   validators?: Validator[];
 }
 
