@@ -8,12 +8,14 @@ import {
   PasswordInputField,
   TextInputField,
   validators,
-  sleep,
+  // sleep,
 } from '@percona/platform-core';
 import { PASSWORD_MIN_LENGTH, PRIVACY_POLICY_URL, TERMS_OF_SERVICE_URL } from 'core';
 import { Messages } from './Signup.messages';
 import { getLoginStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
+import { AuthAPIClient } from "core/apis/Auth_apiServiceClientPb";
+import { SignUpRequest } from "core/apis/auth_api_pb";
 
 const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -23,7 +25,23 @@ const passwordValidators = [required, minLength, containsNumber, containsLowerca
 
 const handleSignInFormSubmit = async (credentials: Credentials) => {
   try {
-    await sleep();
+    const apiClient = new AuthAPIClient(
+      "https://platform-dev.percona.com",
+      null,
+      null
+    );
+
+    const request = new SignUpRequest();
+
+    request.setEmail(credentials.email);
+    request.setPassword(credentials.password);
+
+    const call = apiClient.signUp(request, {}, (err, resp) => {
+      console.log(err, resp);
+    });
+    call.on("status", (status: any) => {
+      console.log(status);
+    });
   } catch (e) {
     console.error(e);
   }
@@ -54,14 +72,14 @@ export const SignupPage: FC = () => {
             name="email"
             label={Messages.emailLabel}
             validators={emailValidators}
-            alwaysShowError
+            // alwaysShowError
             required
           />
           <PasswordInputField
             name="password"
             label={Messages.passwordLabel}
             validators={passwordValidators}
-            alwaysShowError
+            // alwaysShowError
             required
           />
           <CheckboxField name="consent" label={<CheckboxLabel />} validators={[requiredTrue]} />
