@@ -3,12 +3,12 @@ import { Field, FieldInputProps, FieldMetaState, UseFieldConfig } from 'react-fi
 import { useTheme } from '@grafana/ui';
 import { cx } from 'emotion';
 import { getStyles } from './Checkbox.styles';
-import { Validator, compose } from '@/shared/validators';
+import { Validator, compose } from '../../shared/validators';
 
 export interface CheckboxProps extends UseFieldConfig<boolean> {
   disabled?: boolean;
   fieldClassName?: string;
-  label?: string;
+  label?: string | JSX.Element;
   name: string;
   onChange?: (value: boolean) => undefined;
   validators?: Validator[];

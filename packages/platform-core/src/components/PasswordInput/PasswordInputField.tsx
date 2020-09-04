@@ -2,19 +2,19 @@ import React, { FC, useMemo } from 'react';
 import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
-import { Validator, compose } from '@/shared/validators';
+import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './PasswordInput.styles';
 
 /**
- * Note: the validation error message will only be displayed after the input has been
- * touched and then blurred. To override this you have to pass `alwaysShowError={false}`.
+ * Note: the validation error message will be displayed once the the input has been modified.
+ * To show the error message on blur you have to pass `showErrorOnBlur`.
  */
 export interface PasswordInputFieldProps extends UseFieldConfig<string> {
-  alwaysShowError?: boolean;
+  showErrorOnBlur?: boolean;
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
-  label?: string;
+  label?: string | JSX.Element;
   name: string;
   onChange?: (value: string) => undefined;
   placeholder?: string;
@@ -29,7 +29,7 @@ interface PasswordFieldRenderProps {
 
 export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
   ({
-    alwaysShowError = false,
+    showErrorOnBlur = false,
     fieldClassName,
     className,
     disabled = false,
@@ -50,7 +50,7 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
     return (
       <Field {...fieldConfig} name={name} validate={validate}>
         {({ input, meta }: PasswordFieldRenderProps) => {
-          const validationError = ((alwaysShowError && meta.modified) || meta.touched) && meta.error;
+          const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
           return (
             <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>

@@ -31,18 +31,11 @@ export const LoginPage: FC = () => {
       {({ handleSubmit, pristine, submitting, valid }: FormRenderProps) => (
         <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
           <legend className={styles.legend}>{Messages.signIn}</legend>
-          <TextInputField
-            name="email"
-            label={Messages.emailLabel}
-            validators={emailValidators}
-            alwaysShowError
-            required
-          />
+          <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
           <PasswordInputField
             name="password"
             label={Messages.passwordLabel}
             validators={passwordValidators}
-            alwaysShowError
             required
           />
           <LoaderButton
