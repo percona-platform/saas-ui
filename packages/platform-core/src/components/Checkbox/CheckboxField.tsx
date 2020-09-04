@@ -1,14 +1,14 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, ReactNode } from 'react';
 import { Field, FieldInputProps, FieldMetaState, UseFieldConfig } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
 import { cx } from 'emotion';
 import { getStyles } from './Checkbox.styles';
-import { Validator, compose } from '@/shared/validators';
+import { Validator, compose } from '../../shared/validators';
 
 export interface CheckboxProps extends UseFieldConfig<boolean> {
   disabled?: boolean;
   fieldClassName?: string;
-  label?: string;
+  label?: string | ReactNode;
   name: string;
   onChange?: (value: boolean) => undefined;
   validators?: Validator[];

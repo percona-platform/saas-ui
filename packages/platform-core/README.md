@@ -20,7 +20,11 @@ In order to setup the local development environment please run the following com
 
 ## Publishing
 
-- Install a package `np` globally with `npm i -g np`
-- cd to /packages/platform-core
-- Publish from a non-main branch `np patch --no-release-draft --any-branch --yolo --tag=latest`
-- Publish from the main branch `np patch --no-release-draft --yolo --tag=latest`
+- Install a package `np` globally: `npm i -g np`
+- Gp to platform-core: `cd packages/platform-core`
+- Publish from a branch other than main: `np patch --no-release-draft --any-branch --yolo` or
+- Publish from the main branch `np patch --no-release-draft --yolo`
+
+## Important
+
+- This project does not leverage imports through statics paths because `tsc` does not properly support them when generating types.

@@ -3,13 +3,13 @@ import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-fi
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
-import { getStyles } from './PasswordInput.styles';
+import { getStyles } from './TextInput.styles';
 
 /**
  * Note: the validation error message will be displayed once the the input has been modified.
  * To show the error message on blur you have to pass `showErrorOnBlur`.
  */
-export interface PasswordInputFieldProps extends UseFieldConfig<string> {
+export interface TextareaInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
@@ -18,25 +18,29 @@ export interface PasswordInputFieldProps extends UseFieldConfig<string> {
   onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
+  rows?: number;
+  resize?: 'vertical' | 'horizontal' | 'both';
   showErrorOnBlur?: boolean;
   validators?: Validator[];
 }
 
-interface PasswordFieldRenderProps {
+interface TextareaFieldRenderProps {
   input: FieldInputProps<string>;
   meta: FieldMetaState<string>;
 }
 
-export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
+export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
   ({
-    showErrorOnBlur = false,
-    fieldClassName,
     className,
     disabled = false,
+    fieldClassName,
     label,
     name,
     placeholder,
     required = false,
+    resize = 'vertical',
+    rows = 5,
+    showErrorOnBlur = false,
     validators,
     ...fieldConfig
   }) => {
@@ -49,7 +53,7 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
 
     return (
       <Field {...fieldConfig} name={name} validate={validate}>
-        {({ input, meta }: PasswordFieldRenderProps) => {
+        {({ input, meta }: TextareaFieldRenderProps) => {
           const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
           return (
@@ -59,14 +63,18 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
                   {`${label}${required ? ' *' : ''}`}
                 </label>
               )}
-              <input
+              <textarea
                 id={inputId}
-                type="password"
                 {...input}
+                rows={rows}
                 disabled={disabled}
                 placeholder={placeholder}
-                data-qa={`${name}-password-input`}
-                className={cx(styles.input, { invalid: !!validationError }, className)}
+                data-qa={`${name}-textarea-input`}
+                className={cx(
+                  styles.input,
+                  { invalid: !!validationError, [resize]: resize !== 'both' },
+                  className,
+                )}
               />
               <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
                 {validationError}
@@ -79,4 +87,4 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
   },
 );
 
-PasswordInputField.displayName = 'PasswordInputField';
+TextareaInputField.displayName = 'TextareaInputField';
