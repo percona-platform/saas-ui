@@ -19,6 +19,7 @@ export interface TextareaInputFieldProps extends UseFieldConfig<string> {
   placeholder?: string;
   required?: boolean;
   rows?: number;
+  resize?: 'vertical' | 'horizontal' | 'both';
   showErrorOnBlur?: boolean;
   validators?: Validator[];
 }
@@ -37,6 +38,7 @@ export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
     name,
     placeholder,
     required = false,
+    resize = 'vertical',
     rows = 5,
     showErrorOnBlur = false,
     validators,
@@ -68,7 +70,11 @@ export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
                 disabled={disabled}
                 placeholder={placeholder}
                 data-qa={`${name}-textarea-input`}
-                className={cx(styles.input, { invalid: !!validationError }, className)}
+                className={cx(
+                  styles.input,
+                  { invalid: !!validationError, [resize]: resize !== 'both' },
+                  className,
+                )}
               />
               <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
                 {validationError}

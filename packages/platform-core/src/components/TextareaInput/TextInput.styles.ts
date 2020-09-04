@@ -37,6 +37,12 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       z-index: 0;
       height: ${spacing.formInputHeight};
       width: 100%;
+      &.vertical {
+        resize: vertical;
+      }
+      &.horizontal {
+        resize: horizontal;
+      }
       border-width: 1px;
       border-style: solid;
       border-color: ${colors.formInputBorder};
