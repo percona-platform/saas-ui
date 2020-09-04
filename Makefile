@@ -16,7 +16,14 @@ init:                   ## Install development tools
 	npm install -g lerna
 
 bootstrap:              ## Bootstrap projects
-	lerna bootstrap && lerna link
+	lerna bootstrap
+	lerna link
+
+dev:                   ## Run the ui dev locally
+	lerna bootstrap
+	lerna run build --scope='@percona/platform-core'
+	lerna link
+	lerna run start --scope='@percona/platform-ui'
 
 generate-types:         ## Generate typescript types
 	lerna run build:types --scope='@percona/platform-core'
