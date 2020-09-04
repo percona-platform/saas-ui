@@ -73,7 +73,7 @@ export const getAppStyles = stylesFactory((theme: GrafanaTheme) => ({
       right: 50%;
       width: 1px;
       height: 50%;
-      background-color: grey;
+      background-color: ${theme.palette.gray85};
     }
   `,
   description: css`
@@ -82,16 +82,18 @@ export const getAppStyles = stylesFactory((theme: GrafanaTheme) => ({
       // No preset value here
       font-size: 16px;
       max-width: 350px;
+      margin-bottom: 0;
     }
     @media (min-width: ${theme.breakpoints.lg}) {
       font-size: ${theme.typography.size.lg};
       max-width: 400px;
+      margin-bottom: 0;
     }
     @media (max-width: ${theme.breakpoints.sm}) {
       display: none;
     }
     max-width: 350px;
-    margin-top: 2em;
+    margin: 2em 0 3em;
     text-align: center;
   `,
   rightZone: css`
