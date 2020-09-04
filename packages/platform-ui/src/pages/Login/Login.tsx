@@ -2,14 +2,7 @@ import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
 import { Link } from 'react-router-dom';
-import {
-  LoaderButton,
-  PasswordInputField,
-  TextareaInputField,
-  TextInputField,
-  validators,
-  sleep,
-} from '@percona/platform-core';
+import { LoaderButton, PasswordInputField, TextInputField, validators, sleep } from '@percona/platform-core';
 import { PASSWORD_MIN_LENGTH } from 'core';
 import { Messages } from './Login.messages';
 import { getLoginStyles } from './Login.styles';
@@ -21,7 +14,7 @@ const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const handleSignInFormSubmit = async (credentials: Credentials) => {
+const handleLoginInFormSubmit = async (credentials: Credentials) => {
   try {
     await sleep();
   } catch (e) {
@@ -34,7 +27,7 @@ export const LoginPage: FC = () => {
   const styles = getLoginStyles(theme);
 
   return (
-    <Form onSubmit={handleSignInFormSubmit}>
+    <Form onSubmit={handleLoginInFormSubmit}>
       {({ handleSubmit, pristine, submitting, valid }: FormRenderProps) => (
         <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
           <legend className={styles.legend}>{Messages.signIn}</legend>
@@ -45,7 +38,6 @@ export const LoginPage: FC = () => {
             validators={passwordValidators}
             required
           />
-          <TextareaInputField name="editor" label="Editor" validators={[required]} required />
           <LoaderButton
             data-qa="login-submit-button"
             className={styles.loginButton}

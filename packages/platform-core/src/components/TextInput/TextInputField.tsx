@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, ReactNode } from 'react';
 import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
@@ -13,7 +13,7 @@ export interface TextInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
-  label?: string | JSX.Element;
+  label?: string | ReactNode;
   name: string;
   onChange?: (value: string) => undefined;
   placeholder?: string;
