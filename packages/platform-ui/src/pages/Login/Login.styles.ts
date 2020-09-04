@@ -24,7 +24,7 @@ export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
   `,
   form: css`
     max-width: 325px;
-    min-width: 150px;
+    min-width: 250px;
     width: 100%;
   `,
   divider: css`

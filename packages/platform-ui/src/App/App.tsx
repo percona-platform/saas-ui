@@ -22,6 +22,7 @@ export const App: FC = () => {
             PostgreSQL and MongoDB databases.
           </div>
         </div>
+        <div className={styles.centerZone} />
         <div className={styles.rightZone}>
           <Switch>
             <Route path="/" exact>

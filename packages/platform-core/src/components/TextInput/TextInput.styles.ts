@@ -3,7 +3,7 @@ import { GrafanaTheme } from '@grafana/data';
 import { stylesFactory } from '@grafana/ui';
 
 export const getStyles = stylesFactory((theme: GrafanaTheme) => {
-  const { colors, palette, spacing, typography } = theme;
+  const { border, colors, palette, spacing, typography } = theme;
   return {
     field: css`
       &:not(:last-child) {
@@ -37,7 +37,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       z-index: 0;
       height: ${spacing.formInputHeight};
       width: 100%;
-      border-width: 1px;
+      border-width: ${border.width.sm};
       border-style: solid;
       border-color: ${colors.formInputBorder};
       &.invalid {
