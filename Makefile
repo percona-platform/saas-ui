@@ -18,11 +18,15 @@ init:                   ## Install development tools
 bootstrap:              ## Bootstrap projects
 	lerna bootstrap && lerna link
 
+generate-types:         ## Generate typescript types
+	lerna run build:types --scope='@percona/platform-core'
+
 test:                   ## Run tests
 	lerna run test:ci
 
 build:                  ## Build projects artifacts
-	lerna run build --scope='@percona/platform-core' && lerna run build --scope='@percona/platform-ui'
+	lerna run build --scope='@percona/platform-core'
+	lerna run build --scope='@percona/platform-ui'
 
 docker-build:           ## Build Docker image
 	docker build --squash --tag $(DOCKER_IMAGE) .

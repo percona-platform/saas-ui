@@ -48,6 +48,9 @@ jobs:
       - name: Bootstrap projects
         run: make bootstrap
 
+      - name: Generate types
+        run: make generate-types
+
       - name: Run tests
         run: make test
 
