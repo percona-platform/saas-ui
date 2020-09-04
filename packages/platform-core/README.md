@@ -24,3 +24,7 @@ In order to setup the local development environment please run the following com
 - cd to /packages/platform-core
 - Publish from a non-main branch `np patch --no-release-draft --any-branch --yolo --tag=latest`
 - Publish from the main branch `np patch --no-release-draft --yolo --tag=latest`
+
+## Important
+
+- This project does not leverage imports through statics paths because `tsc` does not properly support them when generating types.
