@@ -45,6 +45,7 @@
     "react-final-form": "^6.5.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-toastify": "^6.0.8",
     "typescript": "~3.7.5"
   },
   "devDependencies": {

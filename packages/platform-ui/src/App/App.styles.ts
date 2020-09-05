@@ -13,6 +13,9 @@ export const getAppStyles = stylesFactory((theme: GrafanaTheme) => ({
       padding: 0.5em 4em;
     }
   `,
+  toastBody: css`
+    padding: 0.5em;
+  `,
   main: css`
     display: flex;
     padding: 2em;

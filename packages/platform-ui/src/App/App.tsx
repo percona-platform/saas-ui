@@ -4,6 +4,8 @@ import { useTheme } from '@grafana/ui';
 import { LoginPage, SignupPage } from 'pages';
 import { getAppStyles } from './App.styles';
 import logo from 'assets/percona-logo.svg';
+import { ToastContainer, Slide } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 export const App: FC = () => {
   const theme = useTheme();
@@ -12,6 +14,19 @@ export const App: FC = () => {
   return (
     <Router>
       <main className={styles.main}>
+        <ToastContainer
+          bodyClassName={styles.toastBody}
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          transition={Slide}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <div className={styles.leftZone}>
           <div className={styles.logo}>
             <img src={logo} alt="Percona Logo" />
