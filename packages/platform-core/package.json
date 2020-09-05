@@ -28,7 +28,7 @@
     "test": "react-scripts test --verbose",
     "test:ci": "CI=true react-scripts test",
     "eject": "react-scripts eject",
-    "build": "yarn clean && yarn build:babel && yarn build:types",
+    "build": "yarn clean && yarn build:babel && yarn build:types && yarn copy-api-dts",
     "build:babel": "yarn build:babel:cjs && yarn build:babel:esm && yarn build:babel:umd",
     "build:babel:cjs": "BABEL_ENV=cjs babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/js",
     "build:babel:esm": "BABEL_ENV=esm babel --source-maps --extensions '.js,.ts,.tsx' src --out-dir dist/esm",
@@ -37,6 +37,9 @@
     "build:types:cjs": "tsc -p tsconfig.dts.json --outDir dist/js",
     "build:types:esm": "tsc -p tsconfig.dts.json --outDir dist/esm",
     "protoc": "protoc -I protobuf protobuf/*.proto --js_out=import_style=commonjs:src/shared/apis --grpc-web_out=import_style=typescript,mode=grpcwebtext:src/shared/apis",
+    "copy-api-dts:js": "cp src/shared/apis/*.d.ts dist/js/shared/apis",
+    "copy-api-dts:esm": "cp src/shared/apis/*.d.ts dist/esm/shared/apis",
+    "copy-api-dts": "yarn copy-api-dts:js && yarn copy-api-dts:esm",
     "publish": "npm publish"
   },
   "dependencies": {
