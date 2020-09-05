@@ -76,6 +76,11 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "np": {
+    "yolo": true,
+    "anyBranch": true,
+    "releaseDraft": false
+  },
   "browserslist": {
     "production": [
       ">0.2%",

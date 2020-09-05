@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeContext } from '@grafana/ui';
 import { getTheme } from '@percona/platform-core';
-import { App } from './App/App';
+import { RootRoute } from 'components/Root';
 import './styles/font-awesome.css';
 import './styles/global.css';
 import * as serviceWorker from './serviceWorker';
@@ -21,7 +22,9 @@ const light = getTheme('light');
 ReactDOM.render(
   <React.StrictMode>
     <ThemeContext.Provider value={light}>
-      <App />
+      <Router>
+        <RootRoute />
+      </Router>
     </ThemeContext.Provider>
   </React.StrictMode>,
   document.getElementById('root'),
