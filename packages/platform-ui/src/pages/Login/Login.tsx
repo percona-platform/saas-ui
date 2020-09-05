@@ -1,49 +1,44 @@
 import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
-import { Link } from 'react-router-dom';
-import { LoaderButton, PasswordInputField, TextInputField, validators, apis } from '@percona/platform-core';
-import { PLATFORM_AUTH_API_BASE_URL, PASSWORD_MIN_LENGTH } from 'core';
+import { Link, useHistory } from 'react-router-dom';
+import { Routes } from 'core/routes'
+import { LoaderButton, PasswordInputField, TextInputField, validators } from '@percona/platform-core';
+import { PASSWORD_MIN_LENGTH } from 'core';
 import { Messages } from './Login.messages';
 import { getLoginStyles } from './Login.styles';
 import { Credentials } from './Login.types';
 import { toast } from 'react-toastify';
+import { signIn } from './Login.service'
+import * as grpcWeb from 'grpc-web';
 
-const { AuthPB, AuthGRPC } = apis;
-const { AuthAPIClient } = AuthGRPC;
-const { SignInRequest } = AuthPB;
 const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const handleLoginInFormSubmit = async (credentials: Credentials) => {
-  try {
-    const apiClient = new AuthAPIClient(PLATFORM_AUTH_API_BASE_URL, null, null);
-
-    const request = new SignInRequest();
-
-    request.setEmail(credentials.email);
-    request.setPassword(credentials.password);
-
-    apiClient.signIn(request, {}, (err) => {
-      if (err) {
-        toast(`${Messages.errors.signInFailed}`, { type: 'error' });
-        throw err.message;
-      } else {
-        toast(`${Messages.signInSucceeded} ${credentials.email}`, { type: 'success' });
-      }
-    });
-  } catch (e) {
-    toast(`${Messages.errors.signInFailed}`, { type: 'error' });
-    console.error(e);
-  }
-};
+const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
 
 export const LoginPage: FC = () => {
   const theme = useTheme();
   const styles = getLoginStyles(theme);
+  const history = useHistory();
+
+  const handleLoginInFormSubmit = async (credentials: Credentials) => {
+    try {
+      await signIn(credentials);
+      toast(`${Messages.signInSucceeded} ${credentials.email}`, { type: TOAST_SUCCESS });
+      history.push(Routes.welcome);
+    } catch (e) {
+      console.error(e);
+      if (e.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
+        toast(`${e.message}`, { type: TOAST_ERROR });
+      } else {
+        toast(`${Messages.errors.signInFailed}`, { type: TOAST_ERROR });
+      }
+    }
+  };
 
   return (
     <Form onSubmit={handleLoginInFormSubmit}>
