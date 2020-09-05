@@ -1,16 +1,18 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { TestContainer } from 'components/TestContainer';
-import { Anonymous } from './Anonymous';
+import { PrivateLayout } from './PrivateLayout';
 
-describe('Anonymous Layout::', () => {
-  it('renders component on a default route /login', () => {
+describe('PrivateLayout::', () => {
+  it('renders children when authenticated', () => {
     const { container } = render(
       <TestContainer>
-        <Anonymous />
+        <PrivateLayout>
+          <legend>Logout</legend>
+        </PrivateLayout>
       </TestContainer>,
     );
     const legend = container.querySelector('legend');
-    expect(legend).toHaveTextContent('Login');
+    expect(legend).toHaveTextContent('Logout');
   });
 });

@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { PrivateRoute, Authenticated } from 'components';
 import { LoginPage, SignupPage } from 'pages';
+import { PublicLayout, PrivateLayout } from 'components/Layouts';
 
-export const RootComponent: FC = () => {
+export const Main: FC = () => {
   return (
     <Switch>
-      <Route path="/" exact>
-        <LoginPage />
-      </Route>
+      <PrivateRoute path="/" exact>
+        <Authenticated />
+      </PrivateRoute>
       <Route path="/login">
         <LoginPage />
       </Route>
@@ -25,9 +27,17 @@ export const RootComponent: FC = () => {
 };
 
 function Logout() {
-  return <h2>Logout</h2>;
+  return (
+    <PrivateLayout>
+      <h2>Logout Page</h2>
+    </PrivateLayout>
+  );
 }
 
 function NotFound() {
-  return <h2>Page Not Found</h2>;
+  return (
+    <PublicLayout>
+      <h2>Page Not Found</h2>
+    </PublicLayout>
+  );
 }
