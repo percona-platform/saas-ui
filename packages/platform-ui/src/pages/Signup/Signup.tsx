@@ -8,15 +8,18 @@ import {
   PasswordInputField,
   TextInputField,
   validators,
+  apis
 } from '@percona/platform-core';
-import { PASSWORD_MIN_LENGTH } from 'core';
+import { PLATFORM_AUTH_API_BASE_URL, PASSWORD_MIN_LENGTH } from 'core';
 import { Messages } from './Signup.messages';
 import { getLoginStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
-import { AuthAPIClient } from "core/apis/Auth_apiServiceClientPb";
-import { SignUpRequest } from "core/apis/auth_api_pb";
+import { toast } from 'react-toastify';
 
+const { AuthPB, AuthGRPC } = apis;
+const { AuthAPIClient } = AuthGRPC;
+const { SignUpRequest } = AuthPB;
 const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
@@ -25,24 +28,23 @@ const passwordValidators = [required, minLength, containsNumber, containsLowerca
 
 const handleSignInFormSubmit = async (credentials: Credentials) => {
   try {
-    const apiClient = new AuthAPIClient(
-      "https://platform-dev.percona.com",
-      null,
-      null
-    );
+    const apiClient = new AuthAPIClient(PLATFORM_AUTH_API_BASE_URL, null, null);
 
     const request = new SignUpRequest();
 
     request.setEmail(credentials.email);
     request.setPassword(credentials.password);
 
-    const call = apiClient.signUp(request, {}, (err, resp) => {
-      console.log(err, resp);
-    });
-    call.on("status", (status: any) => {
-      console.log(status);
+    apiClient.signUp(request, {}, (err) => {
+      if (err) {
+        toast(`${Messages.errors.signUpFailed}`, { type: 'error' });
+        throw err.message;
+      } else {
+        toast(`${Messages.signUpSucceeded}`, { type: 'success' });
+      }
     });
   } catch (e) {
+    toast(`${Messages.errors.signUpFailed}`, { type: 'error' });
     console.error(e);
   }
 };
