@@ -8,44 +8,30 @@ import {
   PasswordInputField,
   TextInputField,
   validators,
-  apis
 } from '@percona/platform-core';
-import { PLATFORM_AUTH_API_BASE_URL, PASSWORD_MIN_LENGTH } from 'core';
+import { PASSWORD_MIN_LENGTH } from 'core';
 import { Messages } from './Signup.messages';
 import { getLoginStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 import { toast } from 'react-toastify';
+import { signUp } from './Signup.service'
 
-const { AuthPB, AuthGRPC } = apis;
-const { AuthAPIClient } = AuthGRPC;
-const { SignUpRequest } = AuthPB;
 const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const handleSignInFormSubmit = async (credentials: Credentials) => {
+const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
+
+const handleSignUpFormSubmit = async (credentials: Credentials) => {
   try {
-    const apiClient = new AuthAPIClient(PLATFORM_AUTH_API_BASE_URL, null, null);
-
-    const request = new SignUpRequest();
-
-    request.setEmail(credentials.email);
-    request.setPassword(credentials.password);
-
-    apiClient.signUp(request, {}, (err) => {
-      if (err) {
-        toast(`${Messages.errors.signUpFailed}`, { type: 'error' });
-        throw err.message;
-      } else {
-        toast(`${Messages.signUpSucceeded}`, { type: 'success' });
-      }
-    });
+    await signUp(credentials);
+    toast(`${Messages.signUpSucceeded} ${credentials.email}`, { type: TOAST_SUCCESS });
   } catch (e) {
-    toast(`${Messages.errors.signUpFailed}`, { type: 'error' });
     console.error(e);
+    toast(`${Messages.errors.signUpFailed}`, { type: TOAST_ERROR });
   }
 };
 
@@ -54,7 +40,7 @@ export const SignupPage: FC = () => {
   const styles = getLoginStyles(theme);
 
   return (
-    <Form onSubmit={handleSignInFormSubmit}>
+    <Form onSubmit={handleSignUpFormSubmit}>
       {({ handleSubmit, pristine, submitting, valid }: FormRenderProps) => (
         <form data-qa="signup-form" className={styles.form} onSubmit={handleSubmit}>
           <legend className={styles.legend}>{Messages.signUp}</legend>
@@ -77,7 +63,7 @@ export const SignupPage: FC = () => {
           </LoaderButton>
           <div className={styles.divider}>{Messages.or}</div>
           <Link to="/login" data-qa="signup-action-button" className={styles.gotoLogin}>
-            Login
+            {Messages.signIn}
           </Link>
         </form>
       )}
