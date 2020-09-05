@@ -5,6 +5,7 @@ import { LoginPage, SignupPage } from 'pages';
 import { getAppStyles } from './App.styles';
 import logo from 'assets/percona-logo.svg';
 import { ToastContainer, Slide } from 'react-toastify';
+import { Routes } from 'core/routes'
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export const App: FC = () => {
@@ -39,16 +40,16 @@ export const App: FC = () => {
         </div>
         <div className={styles.rightZone}>
           <Switch>
-            <Route path="/" exact>
+            <Route path={Routes.root} exact>
               <LoginPage />
             </Route>
-            <Route path="/login">
+            <Route path={Routes.login}>
               <LoginPage />
             </Route>
-            <Route path="/signup">
+            <Route path={Routes.signup}>
               <SignupPage />
             </Route>
-            <Route path="/logout">
+            <Route path={Routes.logout}>
               <Logout />
             </Route>
             <Route path="*">
