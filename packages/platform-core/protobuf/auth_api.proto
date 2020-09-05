@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package percona.platform.auth.v1;
+
+option go_package = "authv1";
+
+import "google/protobuf/timestamp.proto";
+
+// AuthAPI provides API for authentication and authorization for Percona services.
+service AuthAPI {
+  // SignUp creates new user with given email and password.
+  rpc SignUp(SignUpRequest) returns (SignUpResponse);
+  // SignIn checks user authentication, creates session and returns session ID.
+  rpc SignIn(SignInRequest) returns (SignInResponse);
+  // SignOut terminates user session.
+  rpc SignOut(SignOutRequest) returns (SignOutResponse);
+  // RefreshSession refreshes session timeout.
+  rpc RefreshSession(RefreshSessionRequest) returns (RefreshSessionResponse);
+  // ResetPassword initiates user's password reset procedure.
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
+}
+
+message SignUpRequest {
+  // User email.
+  string email = 1;
+  // User password.
+  string password = 2;
+}
+
+message SignUpResponse {}
+
+message SignInRequest {
+  // User email.
+  string email = 1;
+  // User password.
+  string password = 2;
+}
+
+message SignInResponse {
+  // Session ID.
+  string session_id = 1;
+  // Session expiration time.
+  google.protobuf.Timestamp expire_time = 2;
+}
+
+message SignOutRequest {}
+
+message SignOutResponse {}
+
+message RefreshSessionRequest {}
+
+message RefreshSessionResponse {
+  // Session expiration time.
+  google.protobuf.Timestamp expire_time = 1;
+}
+
+message ResetPasswordRequest {
+  // User email.
+  string email = 1;
+}
+
+message ResetPasswordResponse {}
