@@ -9,7 +9,7 @@ import { store } from 'store';
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 import { authLoginAction } from 'store/auth';
-import { Credentials } from 'store/types';
+import { Credentials } from 'store';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);

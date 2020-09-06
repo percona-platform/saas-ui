@@ -2,8 +2,8 @@ import { createAsyncAction, ActionType, getType } from 'typesafe-actions';
 import { AuthState } from '../types';
 
 const DEFAULT_STATE: AuthState = {
-  authenticated: true,
-  email: 'alex@tymchuk.org',
+  authenticated: false,
+  email: undefined,
   pending: false,
 };
 
@@ -11,6 +11,12 @@ export const authLoginAction = createAsyncAction(
   'LOGIN_USER_REQUEST',
   'LOGIN_USER_SUCCESS',
   'LOGIN_USER_FAILURE',
+)<{ email: string; password: string }, undefined, Error>();
+
+export const authSignupAction = createAsyncAction(
+  'SIGNUP_USER_REQUEST',
+  'SIGNUP_USER_SUCCESS',
+  'SIGNUP_USER_FAILURE',
 )<{ email: string; password: string }, undefined, Error>();
 
 export const authLogoutAction = createAsyncAction(
@@ -23,12 +29,13 @@ export type AuthActions = ActionType<typeof authLoginAction> | ActionType<typeof
 
 export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthActions): AuthState {
   switch (action.type) {
-    // TODO: add logout & signup actions
+    // TODO: signup actions
+    // Login
     case getType(authLoginAction.request):
       return {
         ...state,
         email: action.payload.email,
-        pending: false,
+        pending: true,
       };
     case getType(authLoginAction.success):
       return {
@@ -41,6 +48,24 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
         ...state,
         authenticated: false,
         email: undefined,
+        pending: false,
+      };
+    // Logout
+    case getType(authLogoutAction.request):
+      return {
+        ...state,
+        pending: true,
+      };
+    case getType(authLogoutAction.success):
+      return {
+        ...state,
+        authenticated: false,
+        email: undefined,
+        pending: false,
+      };
+    case getType(authLogoutAction.failure):
+      return {
+        ...state,
         pending: false,
       };
     default:

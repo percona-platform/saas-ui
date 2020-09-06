@@ -1,4 +1,4 @@
-import { AuthState } from './types';
+import { AuthState } from './auth';
 
 export interface AppState {
   auth: AuthState;
