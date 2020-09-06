@@ -7,7 +7,7 @@ import { PublicLayout } from 'components';
 import { PASSWORD_MIN_LENGTH } from 'core';
 import { store } from 'store';
 import { Messages } from './Login.messages';
-import { getLoginStyles } from './Login.styles';
+import { getStyles } from './Login.styles';
 import { authLoginAction } from 'store/auth';
 import { Credentials } from 'store/types';
 
@@ -19,7 +19,7 @@ const passwordValidators = [required, minLength, containsNumber, containsLowerca
 
 export const LoginPage: FC = () => {
   const theme = useTheme();
-  const styles = getLoginStyles(theme);
+  const styles = getStyles(theme);
   const history = useHistory();
 
   const handleLoginSubmit = useCallback(

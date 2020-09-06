@@ -2,8 +2,8 @@ import { createAsyncAction, ActionType, getType } from 'typesafe-actions';
 import { AuthState } from '../types';
 
 const DEFAULT_STATE: AuthState = {
-  authenticated: false,
-  email: undefined,
+  authenticated: true,
+  email: 'alex@tymchuk.org',
   pending: false,
 };
 

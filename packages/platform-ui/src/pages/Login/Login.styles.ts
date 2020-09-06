@@ -8,7 +8,7 @@ const centeredButton = css`
   justify-content: center;
 `;
 
-export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
+export const getStyles = stylesFactory((theme: GrafanaTheme) => ({
   legend: css`
     color: ${theme.colors.text};
     font-size: ${theme.typography.heading.h3};

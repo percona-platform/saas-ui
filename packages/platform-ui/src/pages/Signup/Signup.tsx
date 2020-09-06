@@ -13,7 +13,7 @@ import {
 import { PublicLayout } from 'components';
 import { PASSWORD_MIN_LENGTH } from 'core';
 import { Messages } from './Signup.messages';
-import { getLoginStyles } from './Signup.styles';
+import { getStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 
@@ -33,7 +33,7 @@ const handleSignInFormSubmit = async (credentials: Credentials) => {
 
 export const SignupPage: FC = () => {
   const theme = useTheme();
-  const styles = getLoginStyles(theme);
+  const styles = getStyles(theme);
 
   return (
     <PublicLayout>
