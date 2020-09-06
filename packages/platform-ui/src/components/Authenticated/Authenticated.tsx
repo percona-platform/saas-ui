@@ -43,6 +43,7 @@ export const Authenticated: FC = () => {
             loading={pending}
             disabled={pending}
             onClick={logout}
+            className={styles.logoutButton}
           >
             Logout
           </LoaderButton>

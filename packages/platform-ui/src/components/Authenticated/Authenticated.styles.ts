@@ -10,9 +10,12 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => ({
       margin-top: 2em;
     }
   `,
-  logoutLink: css`
-    color: ${theme.colors.linkExternal};
-    text-align: center;
-    text-decoration: none;
+  // TODO: make this work in platform-core
+  logoutButton: css`
+    width: 180px;
+    & > span {
+      justify-content: center;
+      width: 100%;
+    }
   `,
 }));
