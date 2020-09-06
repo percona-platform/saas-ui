@@ -29,7 +29,7 @@ export const Main: FC = () => {
 function Logout() {
   return (
     <PrivateLayout>
-      <h2>You have been succesfully logged out</h2>
+      <h2>You have successfully logged out</h2>
       <br />
       <LinkButton href="/" data-qa="gohome-action-button">
         Home Page
