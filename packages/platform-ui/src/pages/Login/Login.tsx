@@ -1,13 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { LoaderButton, PasswordInputField, TextInputField, validators, sleep } from '@percona/platform-core';
 import { PublicLayout } from 'components';
 import { PASSWORD_MIN_LENGTH } from 'core';
+import { store } from 'store';
 import { Messages } from './Login.messages';
 import { getLoginStyles } from './Login.styles';
-import { Credentials } from './Login.types';
+import { authLoginAction } from 'store/auth';
+import { Credentials } from 'store/types';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -15,17 +17,25 @@ const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const handleLoginSubmit = async (credentials: Credentials) => {
-  try {
-    await sleep();
-  } catch (e) {
-    console.error(e);
-  }
-};
-
 export const LoginPage: FC = () => {
   const theme = useTheme();
   const styles = getLoginStyles(theme);
+  const history = useHistory();
+
+  const handleLoginSubmit = useCallback(
+    async (credentials: Credentials) => {
+      try {
+        store.dispatch(authLoginAction.request(credentials));
+        await sleep();
+        store.dispatch(authLoginAction.success());
+        history.replace('/');
+      } catch (e) {
+        store.dispatch(authLoginAction.failure(new Error('Could not authenticate')));
+        console.error(e);
+      }
+    },
+    [history],
+  );
 
   return (
     <PublicLayout>

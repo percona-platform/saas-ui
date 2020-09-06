@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { PrivateRoute, Authenticated } from 'components';
+import { PrivateRoute, Authenticated, PublicLayout, PrivateLayout } from 'components';
 import { LoginPage, SignupPage } from 'pages';
-import { PublicLayout, PrivateLayout } from 'components/Layouts';
 
 export const Main: FC = () => {
   return (

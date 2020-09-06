@@ -1,5 +1,5 @@
-import { Auth } from './types';
+import { AuthState } from './types';
 
 export interface AppState {
-  auth: Auth;
+  auth: AuthState;
 }

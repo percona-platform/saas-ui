@@ -1,4 +1,10 @@
-export interface Auth {
+export interface AuthState {
   authenticated: boolean;
-  user?: string;
+  email?: string;
+  pending: boolean;
+}
+
+export interface Credentials {
+  email: string;
+  password: string;
 }
