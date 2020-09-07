@@ -16,9 +16,10 @@ import { getStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 import { toast } from 'react-toastify';
-import { signUp } from './Signup.service'
+import { signUp } from './Signup.service';
 import { store } from 'store';
 import { authSignupAction } from 'store/auth';
+import { Routes } from 'core/routes';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -38,7 +39,7 @@ export const SignupPage: FC = () => {
       await signUp(credentials);
       store.dispatch(authSignupAction.success());
       toast(`${Messages.signUpSucceeded} ${credentials.email}`, { type: TOAST_SUCCESS });
-      history.replace('/');
+      history.replace(Routes.root);
     } catch (e) {
       store.dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
       console.error(e);
@@ -70,8 +71,8 @@ export const SignupPage: FC = () => {
               {Messages.signUp}
             </LoaderButton>
             <div className={styles.divider}>{Messages.or}</div>
-            <Link to="/login" data-qa="signup-action-button" className={styles.gotoLogin}>
-              Login
+            <Link to={Routes.login} data-qa="signup-action-button" className={styles.gotoLogin}>
+              {Messages.signIn}
             </Link>
           </form>
         )}

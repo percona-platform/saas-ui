@@ -13,6 +13,7 @@ import { Credentials } from 'store';
 import { toast } from 'react-toastify';
 import { signIn } from './Login.service'
 import * as grpcWeb from 'grpc-web';
+import { Routes } from 'core/routes'
 
 const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -33,7 +34,7 @@ export const LoginPage: FC = () => {
         await signIn(credentials);
         toast(`${Messages.signInSucceeded} ${credentials.email}`, { type: TOAST_SUCCESS });
         store.dispatch(authLoginAction.success());
-        history.replace('/');
+        history.replace(Routes.root);
       } catch (e) {
         store.dispatch(authLoginAction.failure(new Error(Messages.errors.signInFailed)));
         console.error(e);
@@ -70,8 +71,8 @@ export const LoginPage: FC = () => {
               {Messages.signIn}
             </LoaderButton>
             <div className={styles.divider}>{Messages.or}</div>
-            <Link to="/signup" data-qa="signup-action-button" className={styles.gotoSignup}>
-              Sign up
+            <Link to={Routes.signup} data-qa="signup-action-button" className={styles.gotoSignup}>
+              {Messages.signUp}
             </Link>
           </form>
         )}
