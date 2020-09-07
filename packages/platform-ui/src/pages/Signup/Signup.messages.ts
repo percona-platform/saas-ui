@@ -14,6 +14,7 @@ export const Messages = {
   passwordLabel: 'Password',
   emailLabel: 'Email',
   errors: {
+    emailAlreadyExists: 'emailAlreadyExists',
     signInFailed: 'There was a problem during the login process, please try again',
     signUpFailed: 'There was a problem during the sign up process, please try again',
   },

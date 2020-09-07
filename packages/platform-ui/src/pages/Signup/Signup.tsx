@@ -20,6 +20,7 @@ import { signUp } from './Signup.service';
 import { store } from 'store';
 import { authSignupAction } from 'store/auth';
 import { Routes } from 'core/routes';
+import * as grpcWeb from 'grpc-web';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -42,8 +43,14 @@ export const SignupPage: FC = () => {
       history.replace(Routes.root);
     } catch (e) {
       store.dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
-      console.error(e);
-      toast(`${Messages.errors.signUpFailed}`, { type: TOAST_ERROR });
+      if (e.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
+        // TODO (nicolalamacchia): since it's not always true that INVALID_ARGUMENT === email already exists
+        //                         find a better way with the back end team to improve this check
+        toast(Messages.errors.emailAlreadyExists, { type: TOAST_ERROR });
+      } else {
+        toast(Messages.errors.signUpFailed, { type: TOAST_ERROR });
+        console.error(e);
+      }
     }
   };
 

@@ -37,11 +37,11 @@ export const LoginPage: FC = () => {
         history.replace(Routes.root);
       } catch (e) {
         store.dispatch(authLoginAction.failure(new Error(Messages.errors.signInFailed)));
-        console.error(e);
         if (e.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
-          toast(`${e.message}`, { type: TOAST_ERROR });
+          toast(e.message, { type: TOAST_ERROR });
         } else {
           toast(Messages.errors.signInFailed, { type: TOAST_ERROR });
+          console.error(e);
         }
       }
     },
