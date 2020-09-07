@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { css } from 'emotion'
 import { Switch, Route } from 'react-router-dom';
-import { PrivateRoute, Authenticated, PublicLayout, PrivateLayout } from 'components';
+import { PrivateRoute, PublicRoute, Authenticated, PublicLayout, PrivateLayout } from 'components';
 import { LoginPage, SignupPage } from 'pages';
 import { LinkButton } from '@grafana/ui';
 import { toast, ToastContainer, Slide } from 'react-toastify';
@@ -39,12 +39,12 @@ export const Main: FC = () => {
         <PrivateRoute path={Routes.root} exact>
           <Authenticated />
         </PrivateRoute>
-        <Route path={Routes.login}>
+        <PublicRoute path={Routes.login}>
           <LoginPage />
-        </Route>
-        <Route path={Routes.signup}>
+        </PublicRoute>
+        <PublicRoute path={Routes.signup}>
           <SignupPage />
-        </Route>
+        </PublicRoute>
         <Route path={Routes.logout}>
           <Logout />
         </Route>
