@@ -11,7 +11,7 @@ export const authRefreshAction = createAsyncAction(
   'LOGIN_REFRESH_REQUEST',
   'LOGIN_REFRESH_SUCCESS',
   'LOGIN_REFRESH_FAILURE',
-)<{ email: string; }, undefined, Error>();
+)<undefined, undefined, Error>();
 
 export const authLoginAction = createAsyncAction(
   'LOGIN_USER_REQUEST',
@@ -39,7 +39,6 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
     case getType(authRefreshAction.request):
       return {
         ...state,
-        email: action.payload.email,
         pending: true,
       };
     case getType(authRefreshAction.success):

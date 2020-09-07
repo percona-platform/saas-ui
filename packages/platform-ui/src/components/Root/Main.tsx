@@ -7,17 +7,14 @@ import { LinkButton } from '@grafana/ui';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import { Routes } from 'core/routes'
 import { refreshSession } from './Root.service';
-import { useSelector } from 'react-redux';
-import { getAuth, store, authRefreshAction } from 'store';
+import { store, authRefreshAction } from 'store';
 import * as grpcWeb from 'grpc-web';
 import 'react-toastify/dist/ReactToastify.min.css';
 
 export const Main: FC = () => {
-  const { email } = useSelector(getAuth);
-
   const callRefreshSession = useCallback(async () => {
     try {
-      store.dispatch(authRefreshAction.request({ email: email! }));
+      store.dispatch(authRefreshAction.request());
       await refreshSession();
       store.dispatch(authRefreshAction.success());
     } catch (e) {
@@ -28,7 +25,7 @@ export const Main: FC = () => {
         console.error(e);
       }
     }
-  }, [email])
+  }, [])
 
   useEffect(() => {
     callRefreshSession();
