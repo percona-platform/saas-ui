@@ -1,15 +1,15 @@
 import React, { FC, useCallback, useEffect } from 'react';
-import { css } from 'emotion'
+import { css } from 'emotion';
 import { Switch, Route } from 'react-router-dom';
 import { PrivateRoute, PublicRoute, Authenticated } from 'components';
 import { LoginPage, SignupPage } from 'pages';
 import { toast, ToastContainer, Slide } from 'react-toastify';
-import { Routes } from 'core/routes'
+import { Routes } from 'core/routes';
 import { refreshSession } from './Main.service';
 import { store, authRefreshAction } from 'store';
 import * as grpcWeb from 'grpc-web';
 import 'react-toastify/dist/ReactToastify.min.css';
-import { Messages } from './Main.messages'
+import { Messages } from './Main.messages';
 
 export const Main: FC = () => {
   const callRefreshSession = useCallback(async () => {
@@ -25,7 +25,7 @@ export const Main: FC = () => {
         console.error(e);
       }
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     callRefreshSession();
@@ -48,7 +48,9 @@ export const Main: FC = () => {
         </Route>
       </Switch>
       <ToastContainer
-        bodyClassName={css`padding: 0.5em;`}
+        bodyClassName={css`
+          padding: 0.5em;
+        `}
         position={toast.POSITION.TOP_RIGHT}
         autoClose={5000}
         hideProgressBar={true}
@@ -65,7 +67,5 @@ export const Main: FC = () => {
 };
 
 function NotFound() {
-  return (
-    <h2>{Messages.pageNotFound}</h2>
-  );
+  return <h2>{Messages.pageNotFound}</h2>;
 }

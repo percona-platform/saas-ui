@@ -3,17 +3,15 @@ import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
 import { Link, useHistory } from 'react-router-dom';
 import { LoaderButton, PasswordInputField, TextInputField, validators } from '@percona/platform-core';
+import * as grpcWeb from 'grpc-web';
+import { toast } from 'react-toastify';
 import { PublicLayout } from 'components';
-import { PASSWORD_MIN_LENGTH } from 'core';
-import { store } from 'store';
+import { PASSWORD_MIN_LENGTH, Routes } from 'core';
+import { store, Credentials } from 'store';
+import { authLoginAction } from 'store/auth';
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
-import { authLoginAction } from 'store/auth';
-import { Credentials } from 'store';
-import { toast } from 'react-toastify';
-import { signIn } from './Login.service'
-import * as grpcWeb from 'grpc-web';
-import { Routes } from 'core/routes'
+import { signIn } from './Login.service';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
