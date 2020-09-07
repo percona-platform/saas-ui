@@ -7,6 +7,12 @@ const DEFAULT_STATE: AuthState = {
   pending: false,
 };
 
+export const authRefreshAction = createAsyncAction(
+  'LOGIN_REFRESH_REQUEST',
+  'LOGIN_REFRESH_SUCCESS',
+  'LOGIN_REFRESH_FAILURE',
+)<{ email: string; }, undefined, Error>();
+
 export const authLoginAction = createAsyncAction(
   'LOGIN_USER_REQUEST',
   'LOGIN_USER_SUCCESS',
@@ -25,10 +31,30 @@ export const authLogoutAction = createAsyncAction(
   'LOGOUT_USER_FAILURE',
 )<{ email: string }, undefined, Error>();
 
-export type AuthActions = ActionType<typeof authSignupAction> | ActionType<typeof authLoginAction> | ActionType<typeof authLogoutAction>;
+export type AuthActions = ActionType<typeof authRefreshAction> | ActionType<typeof authSignupAction> | ActionType<typeof authLoginAction> | ActionType<typeof authLogoutAction>;
 
 export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthActions): AuthState {
   switch (action.type) {
+    // Refresh
+    case getType(authRefreshAction.request):
+      return {
+        ...state,
+        email: action.payload.email,
+        pending: true,
+      };
+    case getType(authRefreshAction.success):
+      return {
+        ...state,
+        authenticated: true,
+        pending: false,
+      };
+    case getType(authRefreshAction.failure):
+      return {
+        ...state,
+        authenticated: false,
+        email: undefined,
+        pending: false,
+      };
     // Signup
     case getType(authSignupAction.request):
       return {
@@ -39,13 +65,11 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
     case getType(authSignupAction.success):
       return {
         ...state,
-        authenticated: true,
         pending: false,
       };
     case getType(authSignupAction.failure):
       return {
         ...state,
-        authenticated: false,
         email: undefined,
         pending: false,
       };
