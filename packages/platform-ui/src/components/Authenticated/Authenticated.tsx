@@ -2,10 +2,16 @@ import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useStyles } from '@grafana/ui';
-import { sleep, LoaderButton } from '@percona/platform-core';
+import { LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
 import { getAuth, store, authLogoutAction } from 'store';
 import { getStyles } from './Authenticated.styles';
+import { signOut } from './Authenticated.service';
+import { Routes } from 'core/routes';
+import { toast } from 'react-toastify';
+import { Messages } from './Authenticated.messages'
+
+const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
 
 export const Authenticated: FC = () => {
   const styles = useStyles(getStyles);
@@ -15,11 +21,13 @@ export const Authenticated: FC = () => {
   const logout = useCallback(async () => {
     try {
       store.dispatch(authLogoutAction.request({ email: email! }));
-      await sleep();
+      await signOut();
+      toast(Messages.signOutSucceeded, { type: TOAST_SUCCESS });
       store.dispatch(authLogoutAction.success());
-      history.replace('/login');
+      history.replace(Routes.login);
     } catch (e) {
-      store.dispatch(authLogoutAction.failure(new Error('Error logging out')));
+      store.dispatch(authLogoutAction.failure(new Error(Messages.errors.signOutFailed)));
+      toast(Messages.errors.signOutFailed, { type: TOAST_ERROR });
       console.error(e);
     }
   }, [email, history]);
@@ -27,10 +35,10 @@ export const Authenticated: FC = () => {
   return (
     <PrivateLayout>
       <section className={styles.container}>
-        <div>You have successfully</div>
-        <div>logged in</div>
+        <div>{Messages.authenticatedFirstLine}</div>
+        <div>{Messages.authenticatedSecondLine}</div>
         <div>
-          as{' '}
+          {Messages.authenticatedThirdLine}
           <em>
             <b>{email}</b>
           </em>
@@ -44,7 +52,7 @@ export const Authenticated: FC = () => {
             onClick={logout}
             className={styles.logoutButton}
           >
-            Logout
+            {Messages.signOut}
           </LoaderButton>
         </div>
       </section>
