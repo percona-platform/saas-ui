@@ -1,15 +1,15 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { css } from 'emotion'
 import { Switch, Route } from 'react-router-dom';
-import { PrivateRoute, PublicRoute, Authenticated, PublicLayout, PrivateLayout } from 'components';
+import { PrivateRoute, PublicRoute, Authenticated } from 'components';
 import { LoginPage, SignupPage } from 'pages';
-import { LinkButton } from '@grafana/ui';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import { Routes } from 'core/routes'
-import { refreshSession } from './Root.service';
+import { refreshSession } from './Main.service';
 import { store, authRefreshAction } from 'store';
 import * as grpcWeb from 'grpc-web';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { Messages } from './Main.messages'
 
 export const Main: FC = () => {
   const callRefreshSession = useCallback(async () => {
@@ -19,9 +19,9 @@ export const Main: FC = () => {
       store.dispatch(authRefreshAction.success());
     } catch (e) {
       if (e.code === grpcWeb.StatusCode.UNAUTHENTICATED) {
-        store.dispatch(authRefreshAction.failure(new Error('Unauthenticated user')));
+        store.dispatch(authRefreshAction.failure(new Error(Messages.unauthenticated)));
       } else {
-        store.dispatch(authRefreshAction.failure(new Error('Unable to refresh user session')));
+        store.dispatch(authRefreshAction.failure(new Error(Messages.errors.refreshSessionFailed)));
         console.error(e);
       }
     }
@@ -43,9 +43,6 @@ export const Main: FC = () => {
         <PublicRoute path={Routes.signup}>
           <SignupPage />
         </PublicRoute>
-        <Route path={Routes.logout}>
-          <Logout />
-        </Route>
         <Route path="*">
           <NotFound />
         </Route>
@@ -67,22 +64,8 @@ export const Main: FC = () => {
   );
 };
 
-function Logout() {
-  return (
-    <PrivateLayout>
-      <h2>You have successfully logged out</h2>
-      <br />
-      <LinkButton href={Routes.root} data-qa="gohome-action-button">
-        Home Page
-      </LinkButton>
-    </PrivateLayout>
-  );
-}
-
 function NotFound() {
   return (
-    <PublicLayout>
-      <h2>Page Not Found</h2>
-    </PublicLayout>
+    <h2>{Messages.pageNotFound}</h2>
   );
 }
