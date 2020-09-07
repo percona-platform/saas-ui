@@ -10,6 +10,7 @@ import { refreshSession } from './Root.service';
 import { useSelector } from 'react-redux';
 import { getAuth, store, authRefreshAction } from 'store';
 import * as grpcWeb from 'grpc-web';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 export const Main: FC = () => {
   const { email } = useSelector(getAuth);
@@ -17,7 +18,7 @@ export const Main: FC = () => {
   const callRefreshSession = useCallback(async () => {
     try {
       store.dispatch(authRefreshAction.request({ email: email! }));
-      refreshSession();
+      await refreshSession();
       store.dispatch(authRefreshAction.success());
     } catch (e) {
       if (e.code === grpcWeb.StatusCode.UNAUTHENTICATED) {
