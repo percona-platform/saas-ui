@@ -35,12 +35,12 @@ export const LoginPage: FC = () => {
         store.dispatch(authLoginAction.success());
         history.replace('/');
       } catch (e) {
-        store.dispatch(authLoginAction.failure(new Error('Could not authenticate')));
+        store.dispatch(authLoginAction.failure(new Error(Messages.errors.signInFailed)));
         console.error(e);
         if (e.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
           toast(`${e.message}`, { type: TOAST_ERROR });
         } else {
-          toast(`${Messages.errors.signInFailed}`, { type: TOAST_ERROR });
+          toast(Messages.errors.signInFailed, { type: TOAST_ERROR });
         }
       }
     },
