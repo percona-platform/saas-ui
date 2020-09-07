@@ -1,8 +1,7 @@
 import { css } from 'emotion';
 import { GrafanaTheme } from '@grafana/data';
-import { stylesFactory } from '@grafana/ui';
 
-export const getStyles = stylesFactory((theme: GrafanaTheme) => {
+export const getStyles = (theme: GrafanaTheme) => {
   const { breakpoints, palette, typography } = theme;
 
   return {
@@ -97,4 +96,4 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       padding: 0em 4em;
     `,
   };
-});
+};

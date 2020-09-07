@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { Messages } from 'core';
 import { getStyles } from './PublicLayout.styles';
 import logo from 'assets/percona-logo.svg';
 
 export const PublicLayout: FC = ({ children }) => {
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useStyles(getStyles);
 
   return (
     <main className={styles.main}>

@@ -1,12 +1,11 @@
 import React, { FC } from 'react';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { Messages } from 'core';
 import { getStyles } from './PrivateLayout.styles';
 import logo from 'assets/percona-logo.svg';
 
 export const PrivateLayout: FC = ({ children }) => {
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useStyles(getStyles);
 
   // TODO: this will have to be modified according to the future design
   return (

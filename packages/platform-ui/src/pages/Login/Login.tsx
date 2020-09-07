@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { Link, useHistory } from 'react-router-dom';
 import { LoaderButton, PasswordInputField, TextInputField, validators, sleep } from '@percona/platform-core';
 import { PublicLayout } from 'components';
@@ -18,8 +18,7 @@ const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
 export const LoginPage: FC = () => {
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useStyles(getStyles);
   const history = useHistory();
 
   const handleLoginSubmit = useCallback(

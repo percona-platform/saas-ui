@@ -1,15 +1,14 @@
 import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { sleep, LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
 import { getAuth, store, authLogoutAction } from 'store';
 import { getStyles } from './Authenticated.styles';
 
 export const Authenticated: FC = () => {
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useStyles(getStyles);
   const history = useHistory();
   const { email, pending } = useSelector(getAuth);
 

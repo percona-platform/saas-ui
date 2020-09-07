@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { Link } from 'react-router-dom';
 import {
   CheckboxField,
@@ -32,8 +32,7 @@ const handleSignInFormSubmit = async (credentials: Credentials) => {
 };
 
 export const SignupPage: FC = () => {
-  const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useStyles(getStyles);
 
   return (
     <PublicLayout>
