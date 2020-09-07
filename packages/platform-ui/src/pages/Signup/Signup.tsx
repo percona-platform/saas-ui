@@ -17,6 +17,8 @@ import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 import { toast } from 'react-toastify';
 import { signUp } from './Signup.service'
+import { store } from 'store';
+import { authSignupAction } from 'store/auth';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -32,10 +34,13 @@ export const SignupPage: FC = () => {
 
   const handleSignupSubmit = async (credentials: Credentials) => {
     try {
+      store.dispatch(authSignupAction.request(credentials));
       await signUp(credentials);
+      store.dispatch(authSignupAction.success());
       toast(`${Messages.signUpSucceeded} ${credentials.email}`, { type: TOAST_SUCCESS });
       history.replace('/');
     } catch (e) {
+      store.dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
       console.error(e);
       toast(`${Messages.errors.signUpFailed}`, { type: TOAST_ERROR });
     }

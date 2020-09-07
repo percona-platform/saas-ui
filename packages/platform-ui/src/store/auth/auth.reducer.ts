@@ -25,11 +25,30 @@ export const authLogoutAction = createAsyncAction(
   'LOGOUT_USER_FAILURE',
 )<{ email: string }, undefined, Error>();
 
-export type AuthActions = ActionType<typeof authLoginAction> | ActionType<typeof authLogoutAction>;
+export type AuthActions = ActionType<typeof authSignupAction> | ActionType<typeof authLoginAction> | ActionType<typeof authLogoutAction>;
 
 export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthActions): AuthState {
   switch (action.type) {
-    // TODO: signup actions
+    // Signup
+    case getType(authSignupAction.request):
+      return {
+        ...state,
+        email: action.payload.email,
+        pending: true,
+      };
+    case getType(authSignupAction.success):
+      return {
+        ...state,
+        authenticated: true,
+        pending: false,
+      };
+    case getType(authSignupAction.failure):
+      return {
+        ...state,
+        authenticated: false,
+        email: undefined,
+        pending: false,
+      };
     // Login
     case getType(authLoginAction.request):
       return {
