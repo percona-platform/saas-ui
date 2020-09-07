@@ -5,9 +5,7 @@ const { AuthPB, AuthGRPC } = apis;
 const { AuthAPIClient } = AuthGRPC;
 const { RefreshSessionRequest } = AuthPB;
 
-type RefreshSession = () => Promise<apis.AuthPB.RefreshSessionResponse>;
-
-export const refreshSession: RefreshSession = () => {
+export const refreshSession = () => {
   const apiClient = new AuthAPIClient(PLATFORM_AUTH_API_BASE_URL, null, null);
 
   const request = new RefreshSessionRequest();
