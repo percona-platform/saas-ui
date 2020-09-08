@@ -50,6 +50,7 @@ export const getStyles = (theme: GrafanaTheme) => {
           font-size: 3em;
         }
         letter-spacing: 0.2em;
+        text-transform: uppercase;
       }
     `,
     centerZone: css`
