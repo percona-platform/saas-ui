@@ -6,7 +6,10 @@ import { getTheme } from '@percona/platform-core';
 import { Provider } from 'react-redux';
 import { Main } from 'components';
 import { store } from './store';
+import { toast, ToastContainer, Slide } from 'react-toastify';
+import { css } from 'emotion'
 
+import 'react-toastify/dist/ReactToastify.min.css';
 import './styles/font-awesome.css';
 import './styles/global.css';
 import * as serviceWorker from './serviceWorker';
@@ -29,6 +32,19 @@ ReactDOM.render(
         <Router>
           <Main />
         </Router>
+        <ToastContainer
+          bodyClassName={css`padding: 0.5em;`}
+          position={toast.POSITION.TOP_RIGHT}
+          autoClose={5000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          transition={Slide}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Provider>
     </ThemeContext.Provider>
   </React.StrictMode>,
