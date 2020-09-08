@@ -8,6 +8,7 @@ import { Main } from 'components';
 import { store } from './store';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import { css } from 'emotion'
+import { saveState } from 'store/persistency';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import './styles/font-awesome.css';
@@ -24,6 +25,10 @@ import * as serviceWorker from './serviceWorker';
  * TODO: move the current theme value to the store
  */
 const light = getTheme('light');
+
+store.subscribe(() => {
+  saveState(store.getState());
+})
 
 ReactDOM.render(
   <React.StrictMode>
