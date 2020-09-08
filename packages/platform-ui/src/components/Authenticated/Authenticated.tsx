@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useStyles } from '@grafana/ui';
+import { LinkButton, useStyles } from '@grafana/ui';
 import { LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
 import { getAuth, store, authLogoutAction } from 'store';
@@ -10,6 +10,7 @@ import { signOut } from './Authenticated.service';
 import { Routes } from 'core/routes';
 import { toast } from 'react-toastify';
 import { Messages } from './Authenticated.messages'
+import { DOWNLOAD_PMM_LINK } from 'core/constants'
 
 const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
 
@@ -35,15 +36,16 @@ export const Authenticated: FC = () => {
   return (
     <PrivateLayout>
       <section className={styles.container}>
-        <div>{Messages.authenticatedFirstLine}</div>
-        <div>{Messages.authenticatedSecondLine}</div>
-        <div>
-          {Messages.authenticatedThirdLine}
+        <p>{Messages.authenticatedFirstLine}</p>
+        <p>{Messages.authenticatedSecondLine}</p>
+        <p>
           <em>
             <b>{email}</b>
           </em>
-        </div>
-        <div>
+        </p>
+          <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK}>
+            Download PMM
+          </LinkButton>
           <LoaderButton
             data-qa="logout-action-button"
             type="submit"
@@ -51,10 +53,10 @@ export const Authenticated: FC = () => {
             disabled={pending}
             onClick={logout}
             className={styles.logoutButton}
+            variant="secondary"
           >
             {Messages.signOut}
           </LoaderButton>
-        </div>
       </section>
     </PrivateLayout>
   );
