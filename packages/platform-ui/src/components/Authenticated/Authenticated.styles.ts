@@ -20,6 +20,7 @@ export const getStyles = (theme: GrafanaTheme) => ({
     }
   `,
   title: css`
+    text-align: center;
     color: ${theme.colors.text};
     font-size: ${theme.typography.heading.h3};
     font-weight: ${theme.typography.weight.regular};

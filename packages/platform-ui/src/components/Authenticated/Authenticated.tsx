@@ -9,8 +9,8 @@ import { getStyles } from './Authenticated.styles';
 import { signOut } from './Authenticated.service';
 import { Routes } from 'core/routes';
 import { toast } from 'react-toastify';
-import { Messages } from './Authenticated.messages'
-import { DOWNLOAD_PMM_LINK } from 'core/constants'
+import { Messages } from './Authenticated.messages';
+import { DOWNLOAD_PMM_LINK } from 'core/constants';
 
 const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
 
