@@ -4,11 +4,14 @@ import { PrivateRoute, PublicRoute, Authenticated } from 'components';
 import { LoginPage, SignupPage } from 'pages';
 import { Routes } from 'core/routes';
 import { refreshSession } from './Main.service';
-import { store, authRefreshAction } from 'store';
+import { store, authRefreshAction, getAuth } from 'store';
 import * as grpcWeb from 'grpc-web';
 import { Messages } from './Main.messages';
+import { useSelector } from 'react-redux';
 
 export const Main: FC = () => {
+  const auth = useSelector(getAuth);
+
   const callRefreshSession = useCallback(async () => {
     try {
       store.dispatch(authRefreshAction.request());
@@ -29,20 +32,24 @@ export const Main: FC = () => {
   }, [callRefreshSession]);
 
   return (
-    <Switch>
-      <PrivateRoute path={Routes.root} exact>
-        <Authenticated />
-      </PrivateRoute>
-      <PublicRoute path={Routes.login}>
-        <LoginPage />
-      </PublicRoute>
-      <PublicRoute path={Routes.signup}>
-        <SignupPage />
-      </PublicRoute>
-      <Route path="*">
-        <NotFound />
-      </Route>
-    </Switch>
+    <>
+      {auth.pending ? null : (
+        <Switch>
+          <PrivateRoute path={Routes.root} exact>
+            <Authenticated />
+          </PrivateRoute>
+          <PublicRoute path={Routes.login}>
+            <LoginPage />
+          </PublicRoute>
+          <PublicRoute path={Routes.signup}>
+            <SignupPage />
+          </PublicRoute>
+          <Route path="*">
+            <NotFound />
+          </Route>
+        </Switch>
+      )}
+    </>
   );
 };
 
