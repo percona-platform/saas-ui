@@ -44,7 +44,7 @@ export const Authenticated: FC = () => {
           </em>
         </p>
           <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK}>
-            Download PMM
+            {Messages.downloadPMM}
           </LinkButton>
           <LoaderButton
             data-qa="logout-action-button"
