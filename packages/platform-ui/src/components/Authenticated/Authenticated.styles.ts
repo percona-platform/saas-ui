@@ -17,11 +17,13 @@ export const getStyles = (theme: GrafanaTheme) => ({
 
     p {
       margin: 0.5em 0;
-
-      &:last-of-type {
-        margin-bottom: 0;
-      }
     }
+  `,
+  title: css`
+    color: ${theme.colors.text};
+    font-size: ${theme.typography.heading.h3};
+    font-weight: ${theme.typography.weight.regular};
+    margin: ${theme.spacing.formMargin};
   `,
   // TODO: make this work in platform-core
   logoutButton: css`

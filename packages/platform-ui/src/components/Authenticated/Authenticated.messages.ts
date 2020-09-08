@@ -1,4 +1,5 @@
 export const Messages = {
+  title: 'Percona Platform Account',
   authenticatedFirstLine: 'You have successfully',
   authenticatedSecondLine: 'logged in as',
   signOut: 'Logout',

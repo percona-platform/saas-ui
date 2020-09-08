@@ -36,6 +36,7 @@ export const Authenticated: FC = () => {
   return (
     <PrivateLayout>
       <section className={styles.container}>
+        <h4 className={styles.title}>{Messages.title}</h4>
         <p>{Messages.authenticatedFirstLine}</p>
         <p>{Messages.authenticatedSecondLine}</p>
         <p>
