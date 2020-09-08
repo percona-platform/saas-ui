@@ -19,7 +19,7 @@
   },
   "include": [
     "src",
-    "./node_modules/@testing-library/jest-dom/extend-expect.d.ts",
+    "../../node_modules/@testing-library/jest-dom/node_modules/@types/testing-library__jest-dom/index.d.ts",
     "../platform-core/dist/js/index.d.ts"
   ]
 }

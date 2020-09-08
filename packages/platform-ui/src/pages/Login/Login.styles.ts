@@ -1,6 +1,5 @@
 import { css } from 'emotion';
 import { GrafanaTheme } from '@grafana/data';
-import { stylesFactory } from '@grafana/ui';
 
 const centeredButton = css`
   width: 100%;
@@ -8,7 +7,7 @@ const centeredButton = css`
   justify-content: center;
 `;
 
-export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
+export const getStyles = (theme: GrafanaTheme) => ({
   legend: css`
     color: ${theme.colors.text};
     font-size: ${theme.typography.heading.h3};
@@ -24,7 +23,7 @@ export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
   `,
   form: css`
     max-width: 325px;
-    min-width: 150px;
+    min-width: 250px;
     width: 100%;
   `,
   divider: css`
@@ -44,4 +43,4 @@ export const getLoginStyles = stylesFactory((theme: GrafanaTheme) => ({
     color: ${theme.colors.linkExternal};
     text-decoration: none;
   `,
-}));
+});

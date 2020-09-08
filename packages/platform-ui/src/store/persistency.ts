@@ -1,0 +1,24 @@
+import { AppState } from 'store/types';
+import { STATE_LOCALSTORAGE_KEY } from 'core/constants';
+
+export const loadState = (): AppState | undefined => {
+  try {
+    const serializedState = localStorage.getItem(STATE_LOCALSTORAGE_KEY);
+    if (serializedState === null) {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (e) {
+    console.error(e);
+    return undefined;
+  }
+}
+
+export const saveState = (state: AppState) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem(STATE_LOCALSTORAGE_KEY, serializedState);
+  } catch (e) {
+    console.error(e);
+  }
+}
