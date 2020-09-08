@@ -1,7 +1,6 @@
 export const Messages = {
   title: 'Percona Platform Account',
-  authenticatedFirstLine: 'You have successfully',
-  authenticatedSecondLine: 'logged in as',
+  authenticatedFirstLine: 'You are logged in as',
   signOut: 'Logout',
   signOutSucceeded: 'You are now logged out',
   downloadPMM: 'Download PMM',
