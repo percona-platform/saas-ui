@@ -54,7 +54,7 @@ jobs:
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
 
-      - name: Generating report
+      - name: Generating the report
         working-directory: packages/platform-ui
         run: yarn after:tests
 
@@ -64,5 +64,3 @@ jobs:
         with:
           name: ui-tests-report
           path: cypress/reports
-
-
