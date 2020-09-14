@@ -1,0 +1,24 @@
+{
+  "watchForFileChanges": false,
+  "chromeWebSecurity": false,
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "waitForAnimations": true,
+  "animationDistanceThreshold": 20,
+  "defaultCommandTimeout": 8000,
+  "execTimeout": 60000,
+  "pageLoadTimeout": 60000,
+  "requestTimeout": 15000,
+  "responseTimeout": 30000,
+  "video": true,
+  "videoUploadOnPasses": false,
+  "failOnStatusCode": false,
+  "ignoreTestFiles": ["*utils.js", "locators.js"],
+  "baseUrl": "http://localhost:3000/",
+  "reporter": "../../../node_modules/cypress-multi-reporters/lib/MultiReporters.js",
+  "reporterOptions": {
+    "configFile": "reporter.json",
+    "html": false,
+    "json": true
+  }
+}
