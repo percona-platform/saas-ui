@@ -39,8 +39,10 @@ jobs:
       - name: Bootstrap projects
         run: make bootstrap
 
-      - name: Build artifacts
-        run: make build
+      - name: Verify Cypress
+        working-directory: packages/platform-ui
+        run: yarn cypress verify
 
       - name: Run tests
-        run: make e2e
+        working-directory: packages/platform-ui
+        run: yarn cy:run
