@@ -12,7 +12,7 @@ context('Login', () => {
 
   it('should be able to see the login form', () => {
     cy.get(auth.loginForm).should('be.visible');
-    cy.get(auth.emailFieldLabel).should('contain', 'Email *!');
+    cy.get(auth.emailFieldLabel).should('contain', 'Email *');
     cy.get(auth.emailField).should('be.visible');
     cy.get(auth.passwordFieldLabel).should('contain', 'Password *');
     cy.get(auth.passwordField).should('be.visible');
