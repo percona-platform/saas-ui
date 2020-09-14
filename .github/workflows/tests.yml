@@ -59,7 +59,7 @@ jobs:
         run: yarn after:tests
 
       - name: Uploading the report
-        uses: actions/upload-artifact@v2
+        uses: percona-platform/upload-artifact@v2
         with:
           name: ui-tests-report
           path: packages/platform-ui/cypress/reports
