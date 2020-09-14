@@ -48,9 +48,10 @@ jobs:
 
       - name: Start project
         uses: percona-platform/github-action@v2
-        working-directory: packages/platform-ui
-        start: yarn start
-        wait-on: 'http://localhost:3000'
+        with:
+          working-directory: packages/platform-ui
+          start: yarn start
+          wait-on: 'http://localhost:3000'
 
       - name: Verify Cypress
         working-directory: packages/platform-ui
