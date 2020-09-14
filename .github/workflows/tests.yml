@@ -20,19 +20,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Enable node_modules cache
-        uses: percona-platform/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+      - name: Install lerna
+        run: npm install -g lerna
 
-      - name: Install tools
-        run: make init
+      - name: Bootstrap
+        run: make bootstrap
 
       - name: Start dev environment
         run: make dev
