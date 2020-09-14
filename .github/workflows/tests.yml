@@ -1,5 +1,5 @@
 
-name: Manual tests execution
+name: UI tests execution
 
 on: [push]
 
@@ -19,6 +19,17 @@ jobs:
         uses: percona-platform/setup-node@v2.1.1
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Enable node_modules cache
+        uses: percona-platform/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
 
       - name: Install tools
         run: make init
