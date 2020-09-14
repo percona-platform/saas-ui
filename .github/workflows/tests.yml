@@ -55,10 +55,12 @@ jobs:
           wait-on-timeout: 120
 
       - name: Generating the report
+        if: success() || failure()
         working-directory: packages/platform-ui
         run: yarn generate:report
 
       - name: Uploading the report
+        if: success()
         uses: percona-platform/upload-artifact@v2
         with:
           name: ui-tests-report
