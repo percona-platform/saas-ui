@@ -46,17 +46,23 @@ jobs:
       - name: Link
         run: lerna link
 
-      - name: Start project
+      - name: Start project and execute tests
         uses: percona-platform/github-action@v2
         with:
           working-directory: packages/platform-ui
           start: yarn start
           wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
 
-      - name: Verify Cypress
+      - name: Generating report
         working-directory: packages/platform-ui
-        run: yarn cypress verify
+        run: yarn after:tests
 
-      - name: Run tests
+      - name: Uploading the report
         working-directory: packages/platform-ui
-        run: yarn cy:run
+        uses: actions/upload-artifact@v2
+        with:
+          name: ui-tests-report
+          path: cypress/reports
+
+
