@@ -59,8 +59,7 @@ jobs:
         run: yarn after:tests
 
       - name: Uploading the report
-        working-directory: packages/platform-ui
         uses: actions/upload-artifact@v2
         with:
           name: ui-tests-report
-          path: cypress/reports
+          path: packages/platform-ui/cypress/reports
