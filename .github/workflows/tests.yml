@@ -1,13 +1,7 @@
 
 name: Manual tests execution
 
-on:
-  workflow_dispatch:
-    inputs:
-      branch_name:
-        description: 'Branch Name'
-        default: 'main'
-        required: false
+on: [push]
 
 jobs:
   tests:
@@ -20,8 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: percona-platform/checkout@v2.3.1
-        with:
-          path: ${{ github.event.inputs.branch_name }}
 
       - name: Install Node.js ${{ matrix.node-version }}
         uses: percona-platform/setup-node@v2.1.1
