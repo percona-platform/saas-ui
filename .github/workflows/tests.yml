@@ -47,7 +47,7 @@ jobs:
         run: lerna link
 
       - name: Start project
-          uses: percona-platform/github-action@v2
+        uses: percona-platform/github-action@v2
         working-directory: packages/platform-ui
         start: yarn start
         wait-on: 'http://localhost:3000'
