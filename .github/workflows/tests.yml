@@ -56,7 +56,7 @@ jobs:
 
       - name: Generating the report
         working-directory: packages/platform-ui
-        run: yarn after:tests
+        run: yarn generate:report
 
       - name: Uploading the report
         uses: percona-platform/upload-artifact@v2
