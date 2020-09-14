@@ -36,8 +36,8 @@ jobs:
       - name: Install tools
         run: make init
 
-      - name: Bootstrap projects
-        run: make bootstrap
+      - name: Start project
+        run: make dev
 
       - name: Verify Cypress
         working-directory: packages/platform-ui
