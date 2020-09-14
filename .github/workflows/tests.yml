@@ -20,8 +20,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install lerna
-        run: npm install -g lerna
+      - name: Install tools
+        run: make init
 
       - name: Bootstrap
         run: make bootstrap
