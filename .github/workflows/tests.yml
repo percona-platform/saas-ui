@@ -1,15 +1,38 @@
-name: example-start-and-yarn-workspaces
-on: [push]
+
+name: Manual tests execution
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch_name:
+        description: 'Branch Name'
+        default: 'main'
+        required: false
+
 jobs:
-  cypress-run:
+  tests:
+
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version: [12.x]
+
     steps:
+      - name: Checkout code
         uses: percona-platform/checkout@v2.3.1
         with:
-          working-directory: packages/platform-ui
-          build: yarn run build
-          start: yarn start
-          wait-on: 'http://localhost:3000'
-      - name: Cypress tests
-        uses: ./
-        build: yarn cy:run
+          path: ${{ github.event.inputs.branch_name }}
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: percona-platform/setup-node@v2.1.1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install tools
+        run: make init
+
+      - name: Start dev environment
+        run: make dev
+
+      - name: Execute tests
+        run: make e2e
