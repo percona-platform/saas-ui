@@ -60,7 +60,7 @@ jobs:
         run: yarn generate:report
 
       - name: Uploading the report
-        if: success()
+        if: success() || failure()
         uses: percona-platform/upload-artifact@v2
         with:
           name: ui-tests-report
