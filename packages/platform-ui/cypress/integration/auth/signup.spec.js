@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import stubServices from '../../support/stub.services';
 import { authLocators as auth } from './locators'
+import { TERMS_OF_SERVICE_URL, PRIVACY_POLICY_URL } from './constants'
 
 context('Sign Up', () => {
 
@@ -18,8 +19,8 @@ context('Sign Up', () => {
     cy.get(auth.termsCheckbox).should('be.visible');
     cy.get(auth.termsText).should('be.visible')
         .should('have.text', 'Check here to indicate that you have read and agree to the  Terms of Service and Privacy Policy')
-        .find('a').should('have.attr', 'href', 'https://per.co.na/pmm/platform-terms')
-        .next().should('have.attr', 'href','https://per.co.na/pmm/platform-privacy');
+        .find('a').should('have.attr', 'href', TERMS_OF_SERVICE_URL)
+        .next().should('have.attr', 'href', PRIVACY_POLICY_URL);
     cy.get(auth.submitButton).should('be.visible').should('be.disabled');
     cy.get(auth.signUpLink).should('have.attr', 'href', '/login');
   });

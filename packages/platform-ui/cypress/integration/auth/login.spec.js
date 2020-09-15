@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import stubServices from '../../support/stub.services';
-import { authLocators as auth } from './locators'
+import { authLocators as auth } from './locators';
+import { DOWNLOAD_PMM_LINK } from './constants'
 
 context('Login', () => {
 
@@ -55,6 +56,6 @@ context('Login', () => {
     cy.contains(email);
     cy.get(auth.logoutButton).should('be.visible');
     cy.get('span').contains('Download PMM')
-        .parent().parent().should('have.attr', 'href', 'https://www.percona.com/downloads/pmm2');
+        .parent().parent().should('have.attr', 'href', DOWNLOAD_PMM_LINK);
   });
 });

@@ -51,6 +51,7 @@ jobs:
         uses: percona-platform/github-action@v2
         with:
           working-directory: packages/platform-ui
+          browser: chrome
           start: yarn start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120

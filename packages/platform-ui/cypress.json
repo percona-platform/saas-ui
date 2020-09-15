@@ -13,7 +13,8 @@
   "video": true,
   "videoUploadOnPasses": false,
   "failOnStatusCode": false,
-  "ignoreTestFiles": ["*utils.js", "locators.js"],
+  "ignoreTestFiles": ["*utils.js", "locators.js", "constants.js"],
+  "testFiles": "**/*spec.js",
   "baseUrl": "http://localhost:3000",
   "reporter": "../../../node_modules/cypress-multi-reporters/lib/MultiReporters.js",
   "reporterOptions": {
