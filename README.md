@@ -11,9 +11,9 @@ In order to setup the local development environment please run the following com
 ```bash
     npm i -g yarn lerna
     lerna bootstrap
-	lerna run build --scope='@percona/platform-core'
-	lerna link
-	cd packages/platform-ui
+    lerna run build --scope='@percona/platform-core'
+    lerna link
+    cd packages/platform-ui
     yarn start
 ```
 
