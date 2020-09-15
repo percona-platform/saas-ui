@@ -17,6 +17,7 @@
 import './commands'
 import addContext from 'mochawesome/addContext'
 import setup from 'cypress-cy-select';
+import {configure} from '@testing-library/cypress'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -27,6 +28,9 @@ const config = {
   separator: ':'
 };
 setup(config);
+
+// cypress-testing-library config data-qa attr
+configure({testIdAttribute: 'data-qa'});
 
 Cypress.on('test:after:run', (test, runnable) => {
 

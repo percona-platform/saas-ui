@@ -58,6 +58,7 @@
     "typescript": "~3.7.5"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^7.0.0",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "cypress": "^5.1.0",

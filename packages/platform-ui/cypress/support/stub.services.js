@@ -1,14 +1,13 @@
 export default function() {
   cy.server({
-    headers:{
-      'grpc-message': 'Incorrect username or password.',
-      'grpc-status': 3,
+    headers: {
+      'set-cookie': '__Host-PP-Session=102ZX6eUv6mQ4qgEQSaIGIupQ; Path=/; Expires=Tue, 22 Sep 2021 08:08:05 GMT; Max-Age=604799; HttpOnly; Secure; SameSite=Strict',
+      "content-type": "application/grpc-web-text",
       'status': 200,
       'vary': origin
     },
     method: 'POST'
   });
-  cy.route('**AuthAPI/SignIn', 'fx:login.json').as('singin_stub');
-  cy.route('OPTIONS', '**AuthAPI/SignIn', 'IwogIDEwMksxRWRpRVNYUURhV0hreE5UaUYtd2cgIDIwMjAtMDktMTdUMDY6NTg6MTRa').as('singin_stub');
-  cy.route('POST', '**AuthAPI/RefreshSession', '{"expireTime": "2020-09-17T06:58:14Z"}').as('singin_stub');
+  cy.route('**AuthAPI/SignIn', 'AAAAACMKGTEwMlpYNmVVdjZtUTRxZ0VRU2FJR0l1cFESBgjl4ab7BQ==gAAAABBncnBjLXN0YXR1czogMA0K').as('singin_stub');
+  cy.route('**AuthAPI/SignUp', 'AAAAACMKGTEwMlpYNmVVdjZtUTRxZ0VRU2FJR0l1cFESBgjl4ab7BQ==gAAAABBncnBjLXN0YXR1czogMA0K').as('singun_stub');
 }
