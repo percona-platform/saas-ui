@@ -42,7 +42,6 @@ jobs:
         run: lerna bootstrap
 
       - name: Build Core
-        if: steps.cache.outputs.cache-hit != 'true'
         run: lerna run build --scope='@percona/platform-core'
 
       - name: Link

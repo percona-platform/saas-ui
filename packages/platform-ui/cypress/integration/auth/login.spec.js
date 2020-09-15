@@ -7,7 +7,7 @@ context('Login', () => {
   beforeEach(() => {
     stubServices();
     cy.log(Cypress.config());
-    cy.visit('');
+    cy.visit('/');
   });
 
   it('should be able to see the login form', () => {
