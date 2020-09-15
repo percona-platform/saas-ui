@@ -2,7 +2,7 @@
 import stubServices from '../../support/stub.services';
 import { authLocators as auth } from './locators'
 
-context('Login', () => {
+context('Sign Up', () => {
 
   beforeEach(() => {
     stubServices();
