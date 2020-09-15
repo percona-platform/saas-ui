@@ -1,5 +1,5 @@
 
-name: UI tests execution
+name: E2E
 
 on: [push]
 
