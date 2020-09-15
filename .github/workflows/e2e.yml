@@ -47,6 +47,9 @@ jobs:
       - name: Link
         run: lerna link
 
+      - name: Increase watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
       - name: Start project and execute tests
         uses: percona-platform/github-action@v2
         with:
