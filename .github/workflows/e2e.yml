@@ -47,6 +47,8 @@ jobs:
       - name: Link
         run: lerna link
 
+      # The solution was taken from https://github.com/expo/expo-github-action/issues/20#issuecomment-541771861
+      # in order to avoid file watchers limit errors
       - name: Increase watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 
