@@ -1,5 +1,5 @@
 import * as apis from 'core/apis';
-import { PLATFORM_AUTH_API_BASE_URL } from 'core/constants';
+import { PLATFORM_BASE_URL } from 'core/constants';
 
 const { AuthPB, AuthGRPC } = apis;
 const { AuthAPIClient } = AuthGRPC;
@@ -13,7 +13,7 @@ interface SignUpArgs {
 type SignUp = ({ email, password }: SignUpArgs) => Promise<apis.AuthPB.SignUpResponse>;
 
 export const signUp: SignUp = ({ email, password }) => {
-  const apiClient = new AuthAPIClient(PLATFORM_AUTH_API_BASE_URL, null, null);
+  const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
 
   const request = new SignUpRequest();
 
