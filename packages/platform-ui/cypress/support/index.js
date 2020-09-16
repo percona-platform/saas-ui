@@ -14,10 +14,10 @@
 // ***********************************************************
 
 // Import commands.js using ES2015 syntax:
-import './commands'
-import addContext from 'mochawesome/addContext'
+import './commands';
+import addContext from 'mochawesome/addContext';
 import setup from 'cypress-cy-select';
-import {configure} from '@testing-library/cypress'
+import {configure} from '@testing-library/cypress';
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
@@ -40,26 +40,20 @@ Cypress.on('test:after:run', (test, runnable) => {
 
     while (item.parent) {
       nameParts.unshift(item.parent.title);
-      item = item.parent
+      item = item.parent;
     }
     if (runnable.hookName) {
-      nameParts.push(`${runnable.hookName} hook`)
+      nameParts.push(`${runnable.hookName} hook`);
     }
 
-    const fullTestName = nameParts
-        .filter(Boolean)
-        .join(' -- ');
+    const fullTestName = nameParts.filter(Boolean).join(' -- ');
 
-    const imageUrl = `screenshots/${
-        Cypress.spec.name
-    }/${fullTestName} (failed).png`;
+    const imageUrl = `screenshots/${Cypress.spec.name}/${fullTestName}_(failed).png`;
 
-    const videoUrl = `videos/${
-        Cypress.spec.name
-    }.mp4`;
+    const videoUrl = `videos/${Cypress.spec.name}.mp4`;
 
-    addContext({ test }, imageUrl);
-    addContext({ test }, videoUrl);
+    addContext({test}, imageUrl);
+    addContext({test}, videoUrl);
   }
 });
 

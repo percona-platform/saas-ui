@@ -8,7 +8,6 @@ export default function() {
       'set-cookie': '__Host-PP-Session=102ZX6eUv6mQ4qgEQSaIGIupQ; Path=/; Expires=Tue, 22 Sep 2021 08:08:05 GMT; Max-Age=604799; HttpOnly; Secure; SameSite=Strict',
       "content-type": "application/grpc-web-text",
       'status': 200,
-      'vary': origin
     },
     method: 'POST'
   });
