@@ -6,7 +6,7 @@ import {configure} from '@testing-library/cypress';
 // cypress-cy-select config
 const config = {
   name: 'qa',
-  separator: ':'
+  separator: ':',
 };
 setup(config);
 
@@ -41,4 +41,3 @@ Cypress.on('test:after:run', (test, runnable) => {
     addContext({test}, videoUrl);
   }
 });
-
