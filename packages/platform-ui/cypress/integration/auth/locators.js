@@ -14,5 +14,5 @@ export const authLocators = {
   logoutButton: 'qa:logout-action-button',
   termsCheckbox: 'qa:consent-checkbox-input',
   termsText: 'qa:consent-field-label',
-  termsValidation: 'qa:consent-field-error-message'
+  termsValidation: 'qa:consent-field-error-message',
 };
