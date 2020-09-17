@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import stubServices from '../../support/stub.services';
-import { authLocators as auth } from './locators'
-import { TERMS_OF_SERVICE_URL, PRIVACY_POLICY_URL } from './constants'
+import { authLocators as auth } from './locators';
+import { TERMS_OF_SERVICE_URL, PRIVACY_POLICY_URL } from './constants';
 
 context('Sign Up', () => {
 

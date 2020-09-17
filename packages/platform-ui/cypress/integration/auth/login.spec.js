@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import stubServices from '../../support/stub.services';
 import { authLocators as auth } from './locators';
-import { DOWNLOAD_PMM_LINK } from './constants'
+import { DOWNLOAD_PMM_LINK } from './constants';
 
 context('Login', () => {
 

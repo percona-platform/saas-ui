@@ -1,26 +1,7 @@
-// ***********************************************************
-// This example support/index.js is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
-
-// Import commands.js using ES2015 syntax:
 import './commands';
 import addContext from 'mochawesome/addContext';
 import setup from 'cypress-cy-select';
 import {configure} from '@testing-library/cypress';
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
 
 // cypress-cy-select config
 const config = {
@@ -32,6 +13,7 @@ setup(config);
 // cypress-testing-library config data-qa attr
 configure({testIdAttribute: 'data-qa'});
 
+// This code is execute after each test in order to add attachments to failed tests in mocha report
 Cypress.on('test:after:run', (test, runnable) => {
 
   if (test.state === 'failed') {
@@ -46,9 +28,12 @@ Cypress.on('test:after:run', (test, runnable) => {
       nameParts.push(`${runnable.hookName} hook`);
     }
 
+    // Generating screenshot name with pattern '$Feature -- $TestName (failed).png'
+    // in order to link in to the mocha report
+    // This is the pattern that Cypress uses for screenshot names
     const fullTestName = nameParts.filter(Boolean).join(' -- ');
 
-    const imageUrl = `screenshots/${Cypress.spec.name}/${fullTestName}_(failed).png`;
+    const imageUrl = `screenshots/${Cypress.spec.name}/${fullTestName} (failed).png`;
 
     const videoUrl = `videos/${Cypress.spec.name}.mp4`;
 
