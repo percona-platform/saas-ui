@@ -47,6 +47,8 @@ jobs:
       - name: Link
         run: lerna link
 
+      # Chokidar was throwing Error: ENOSPC: System limit for number of file watchers reached
+      # during project startup in the workflow execution.
       # The solution was taken from https://github.com/expo/expo-github-action/issues/20#issuecomment-541771861
       # in order to avoid file watchers limit errors
       - name: Increase watchers
