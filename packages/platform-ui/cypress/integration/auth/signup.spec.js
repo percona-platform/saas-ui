@@ -60,6 +60,6 @@ context('Sign Up', () => {
     cy.get(auth.termsCheckbox).click({ force: true });
     cy.get(auth.submitButton).should('be.visible').should('be.enabled').click();
     cy.popUpContains('You have successfully created your credentials');
-    cy.url().should('contain', '/login')
+    cy.url().should('contain', '/login');
   });
 });
