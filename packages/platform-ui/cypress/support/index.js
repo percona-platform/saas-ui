@@ -8,6 +8,7 @@ const config = {
   name: 'qa',
   separator: ':',
 };
+
 setup(config);
 
 // cypress-testing-library config data-qa attr
