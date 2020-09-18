@@ -181,10 +181,6 @@ github.com/reviewdog/errorformat v0.0.0-20200622091151-ac6101f62307/go.mod h1:gi
 github.com/reviewdog/reviewdog v0.10.2 h1:a7QTcF+QtxGiq0Ine7JEdrEkFXqy8mc9FfvKT2iPw5M=
 github.com/reviewdog/reviewdog v0.10.2/go.mod h1:FRpZ7vse7t5QXl7PfUuZJyTpC9mGoNNeT1fD3KpXAIY=
 github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFRclV5y23lUDJ4=
-github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5 h1:CA6Mjshr+g5YHENwllpQNR0UaYO7VGKo6TzJLM64WJQ=
-github.com/shurcooL/githubv4 v0.0.0-20200802174311-f27d2ca7f6d5/go.mod h1:hAF0iLZy4td2EX+/8Tw+4nodhlMrwN3HupfaXj3zkGo=
-github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f h1:tygelZueB1EtXkPI6mQ4o9DQ0+FKW41hTbunoXZCTqk=
-github.com/shurcooL/graphql v0.0.0-20181231061246-d48a9a75455f/go.mod h1:AuYgA5Kyo4c7HfUmvRGs/6rGlMMV/6B1bVnB9JxJEEg=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
