@@ -71,10 +71,7 @@
     "mochawesome-report-generator": "^5.1.0"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "plugin:cypress/recommended"
-    ]
+    "extends": "react-app"
   },
   "keywords": [
     "percona",
