@@ -56,7 +56,8 @@
     "jest-canvas-mock": "^2.2.0"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "ignorePatterns": "src/core/gen/**/*"
   },
   "keywords": [
     "percona",
