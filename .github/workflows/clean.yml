@@ -56,7 +56,7 @@ jobs:
     steps:
       - name: Collect stale package versions
         env:
-          ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
+          ROBOT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: percona-platform/get-stale-packages-action@v1.0.0
 
       - name: Clean stale packages
