@@ -12,7 +12,6 @@ var jspb = require('google-protobuf');
 var goog = jspb;
 var global = Function('return this')();
 
-goog.object.extend(proto, github_com_mwitkow_go$proto$validators_validator_pb);
 var google_protobuf_timestamp_pb = require('google-protobuf/google/protobuf/timestamp_pb.js');
 goog.object.extend(proto, google_protobuf_timestamp_pb);
 goog.exportSymbol('proto.percona.platform.auth.v1.RefreshSessionRequest', null, global);
