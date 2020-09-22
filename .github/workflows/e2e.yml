@@ -1,0 +1,76 @@
+
+name: E2E
+
+on: [push]
+
+jobs:
+  test:
+    name: Test
+    timeout-minutes: 10
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout code
+        uses: percona-platform/checkout@v2.3.2
+
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: percona-platform/setup-node@v2.1.1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable node_modules cache
+        uses: percona-platform/cache@v2
+        id: cache
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+
+      - name: Install tools
+        run: make init
+
+      - name: Bootstrap
+        run: lerna bootstrap
+
+      - name: Build Core
+        run: lerna run build --scope='@percona/platform-core'
+
+      - name: Link
+        run: lerna link
+
+      # Chokidar was throwing Error: ENOSPC: System limit for number of file watchers reached
+      # during project startup in the workflow execution.
+      # The solution was taken from https://github.com/expo/expo-github-action/issues/20#issuecomment-541771861
+      # in order to avoid file watchers limit errors
+      - name: Increase watchers
+        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+      - name: Start project and execute tests
+        uses: percona-platform/github-action@v2
+        with:
+          working-directory: packages/platform-ui
+          browser: chrome
+          start: yarn start
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 120
+
+      - name: Generating the report
+        if: success() || failure()
+        working-directory: packages/platform-ui
+        run: yarn generate:report
+
+      - name: Uploading the report
+        if: success() || failure()
+        uses: percona-platform/upload-artifact@v2
+        with:
+          name: ui-tests-report
+          path: packages/platform-ui/cypress/reports
