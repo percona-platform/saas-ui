@@ -10,4 +10,4 @@ export const signOut = () => {
   const request = new SignOutRequest();
 
   return apiClient.signOut(request, {});
-}
+};

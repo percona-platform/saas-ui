@@ -12,7 +12,7 @@ export const loadState = (): AppState | undefined => {
     console.error(e);
     return undefined;
   }
-}
+};
 
 export const saveState = (state: AppState) => {
   try {
@@ -21,4 +21,4 @@ export const saveState = (state: AppState) => {
   } catch (e) {
     console.error(e);
   }
-}
+};

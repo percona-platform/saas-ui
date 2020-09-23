@@ -72,7 +72,13 @@
   },
   "eslintConfig": {
     "extends": "react-app",
-    "ignorePatterns": "src/core/gen/**/*"
+    "ignorePatterns": "src/core/gen/**/*",
+    "rules": {
+      "semi": [
+        "error",
+        "always"
+      ]
+    }
   },
   "keywords": [
     "percona",

@@ -10,4 +10,4 @@ export const refreshSession = () => {
   const request = new RefreshSessionRequest();
 
   return apiClient.refreshSession(request, {});
-}
+};

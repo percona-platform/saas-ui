@@ -20,4 +20,4 @@ export const signUp: SignUp = ({ email, password }) => {
   request.setPassword(password);
 
   return apiClient.signUp(request, {});
-}
+};
