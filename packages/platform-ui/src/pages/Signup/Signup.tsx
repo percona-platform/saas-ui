@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   CheckboxField,
   LoaderButton,
@@ -15,9 +17,7 @@ import { Messages } from './Signup.messages';
 import { getStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
-import { toast } from 'react-toastify';
 import { signUp } from './Signup.service';
-import { store } from 'store';
 import { authSignupAction } from 'store/auth';
 import { Routes } from 'core/routes';
 
@@ -32,17 +32,18 @@ const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
 export const SignupPage: FC = () => {
   const styles = useStyles(getStyles);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSignupSubmit = async (credentials: Credentials) => {
     try {
-      store.dispatch(authSignupAction.request(credentials));
+      dispatch(authSignupAction.request(credentials));
       await signUp(credentials);
-      store.dispatch(authSignupAction.success());
+      dispatch(authSignupAction.success());
       toast(Messages.signUpSucceeded, { type: TOAST_SUCCESS });
       history.replace(Routes.root);
     } catch (e) {
       // TODO (nicolalamacchia): show a message in case of email address already in use?
-      store.dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
+      dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
       toast(Messages.errors.signUpFailed, { type: TOAST_ERROR });
       console.error(e);
     }
