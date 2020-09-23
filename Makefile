@@ -25,6 +25,9 @@ dev:                   ## Run the ui dev locally
 	lerna link
 	lerna run start --scope='@percona/platform-ui'
 
+e2e:
+	lerna run cy:run
+
 generate-types:         ## Generate typescript types
 	lerna run build:types --scope='@percona/platform-core'
 

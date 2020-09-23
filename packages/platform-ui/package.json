@@ -21,6 +21,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/report.json",
+    "cy:report": "marge cypress/reports/*.json -f report -o cypress/reports/",
+    "report:copyScreenshots": "cp -r cypress/screenshots cypress/reports",
+    "report:copyVideos": "cp -r cypress/videos cypress/reports",
+    "generate:report": "yarn cy:merge; yarn report:copyScreenshots; yarn report:copyVideos; yarn cy:report",
     "test:ci": "CI=true react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -51,9 +58,17 @@
     "typescript": "~3.7.5"
   },
   "devDependencies": {
+    "@testing-library/cypress": "^7.0.0",
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
-    "jest-canvas-mock": "^2.2.0"
+    "cypress": "^5.1.0",
+    "cypress-cy-select": "^0.2.2",
+    "cypress-multi-reporters": "^1.4.0",
+    "jest-canvas-mock": "^2.2.0",
+    "mocha": "^8.1.3",
+    "mochawesome": "^6.1.1",
+    "mochawesome-merge": "^4.1.0",
+    "mochawesome-report-generator": "^5.1.0"
   },
   "eslintConfig": {
     "extends": "react-app",
