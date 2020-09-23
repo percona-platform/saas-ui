@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { ThemeContext } from '@grafana/ui';
-import { getTheme } from '@percona/platform-core';
+import { toast, ToastContainer, Slide } from 'react-toastify';
 import { Provider } from 'react-redux';
+import { ThemeContext } from '@grafana/ui';
+import { css } from 'emotion';
+import { getTheme } from '@percona/platform-core';
 import { Main } from 'components';
 import { store } from './store';
-import { toast, ToastContainer, Slide } from 'react-toastify';
-import { css } from 'emotion'
 import { saveState } from 'store/persistency';
 
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -28,7 +28,7 @@ const light = getTheme('light');
 
 store.subscribe(() => {
   saveState(store.getState());
-})
+});
 
 ReactDOM.render(
   <React.StrictMode>
@@ -38,7 +38,9 @@ ReactDOM.render(
           <Main />
         </Router>
         <ToastContainer
-          bodyClassName={css`padding: 0.5em;`}
+          bodyClassName={css`
+            padding: 0.5em;
+          `}
           position={toast.POSITION.TOP_RIGHT}
           autoClose={5000}
           hideProgressBar={true}

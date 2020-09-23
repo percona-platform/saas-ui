@@ -27,8 +27,6 @@ const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
-
 export const SignupPage: FC = () => {
   const styles = useStyles(getStyles);
   const history = useHistory();
@@ -39,12 +37,12 @@ export const SignupPage: FC = () => {
       dispatch(authSignupAction.request(credentials));
       await signUp(credentials);
       dispatch(authSignupAction.success());
-      toast(Messages.signUpSucceeded, { type: TOAST_SUCCESS });
+      toast.success(Messages.signUpSucceeded);
       history.replace(Routes.root);
     } catch (e) {
       // TODO (nicolalamacchia): show a message in case of email address already in use?
       dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
-      toast(Messages.errors.signUpFailed, { type: TOAST_ERROR });
+      toast.error(Messages.errors.signUpFailed);
       console.error(e);
     }
   };

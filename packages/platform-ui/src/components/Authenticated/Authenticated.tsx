@@ -12,8 +12,6 @@ import { getStyles } from './Authenticated.styles';
 import { signOut } from './Authenticated.service';
 import { Messages } from './Authenticated.messages';
 
-const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
-
 export const Authenticated: FC = () => {
   const styles = useStyles(getStyles);
   const history = useHistory();
@@ -24,12 +22,12 @@ export const Authenticated: FC = () => {
     try {
       dispatch(authLogoutAction.request({ email: email! }));
       await signOut();
-      toast(Messages.signOutSucceeded, { type: TOAST_SUCCESS });
+      toast.success(Messages.signOutSucceeded);
       dispatch(authLogoutAction.success());
       history.replace(Routes.login);
     } catch (e) {
       dispatch(authLogoutAction.failure(new Error(Messages.errors.signOutFailed)));
-      toast(Messages.errors.signOutFailed, { type: TOAST_ERROR });
+      toast.error(Messages.errors.signOutFailed);
       console.error(e);
     }
   }, [email, history, dispatch]);
