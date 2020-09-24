@@ -12,7 +12,7 @@ import {
   validators,
 } from '@percona/platform-core';
 import { PublicLayout } from 'components';
-import { PASSWORD_MIN_LENGTH } from 'core';
+import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { Messages } from './Signup.messages';
 import { getStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';

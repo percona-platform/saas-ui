@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { LinkButton, useStyles } from '@grafana/ui';
 import { LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
-import { getAuth, authLogoutAction } from 'store';
+import { getAuth, authLogoutAction } from 'store/auth';
 import { Routes } from 'core/routes';
 import { DOWNLOAD_PMM_LINK } from 'core/constants';
 import { getStyles } from './Authenticated.styles';

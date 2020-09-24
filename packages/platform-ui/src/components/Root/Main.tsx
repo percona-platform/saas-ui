@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as grpcWeb from 'grpc-web';
 import { PrivateRoute, PublicRoute, Authenticated } from 'components';
 import { LoginPage, SignupPage } from 'pages';
-import { authRefreshAction, getAuth } from 'store';
+import { authRefreshAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
 import { refreshSession } from './Main.service';
 import { Messages } from './Main.messages';

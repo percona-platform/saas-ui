@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useStyles, LinkButton } from '@grafana/ui';
-import { PRIVACY_POLICY_URL, TERMS_OF_SERVICE_URL } from 'core';
+import { PRIVACY_POLICY_URL, TERMS_OF_SERVICE_URL } from 'core/constants';
 import { getStyles } from './Signup.styles';
 import { Messages } from './Signup.messages';
 
