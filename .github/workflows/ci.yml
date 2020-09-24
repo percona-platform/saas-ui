@@ -95,7 +95,7 @@ jobs:
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u $GITHUB_ACTOR docker.pkg.github.com --password-stdin
 
       - name: Extract Docker image tag
-        run: bin/extract-image-tag
+        uses: percona-platform/extract-docker-tag-action@SAAS-249-Package-Image-Tag-Extraction
 
       - name: Bootstrap projects
         run: make bootstrap
