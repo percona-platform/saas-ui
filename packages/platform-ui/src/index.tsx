@@ -43,10 +43,9 @@ ReactDOM.render(
           `}
           position={toast.POSITION.TOP_RIGHT}
           autoClose={5000}
-          hideProgressBar={true}
+          hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
-          rtl={false}
           transition={Slide}
           pauseOnFocusLoss
           draggable

@@ -40,7 +40,6 @@ export const SignupPage: FC = () => {
       toast.success(Messages.signUpSucceeded);
       history.replace(Routes.root);
     } catch (e) {
-      // TODO (nicolalamacchia): show a message in case of email address already in use?
       dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
       toast.error(Messages.errors.signUpFailed);
       console.error(e);
