@@ -1,5 +1,5 @@
-import { AppState } from 'store/types';
 import { STATE_LOCALSTORAGE_KEY } from 'core/constants';
+import { AppState } from './types';
 
 export const loadState = (): AppState | undefined => {
   try {
