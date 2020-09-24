@@ -4,6 +4,8 @@ on:
   schedule:
     # run every Saturday
     - cron: "0 12 * * 6"
+  # FIXME remove
+  pull_request:
 
 jobs:
   clean:
@@ -44,24 +46,3 @@ jobs:
           rm -fr node_modules/*
           git status
           git clean -xdn
-
-      - name: Setup environment variables
-        run: |
-          echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
-          echo ::set-env name=REPOSITORY_OWNER::${{ github.repository_owner }}
-
-      - name: Collect stale package versions
-        id: collect
-        env:
-          ROBOT_TOKEN: ${{ secrets.ROBOT_TOKEN }}
-        run: |
-          versions=$(bin/get-stale-packages)
-          length=$(echo $versions | wc -w)
-          echo ::set-output name=stale_versions::${versions}
-          echo ::set-output name=length::${length}
-
-      - name: Clean stale packages
-        if: steps.collect.outputs.length > 0
-        uses: percona-platform/delete-package-versions@v1.0.3
-        with:
-          package-version-ids: ${{ steps.collect.outputs.stale_versions }}
