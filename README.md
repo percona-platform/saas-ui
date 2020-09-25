@@ -1,6 +1,7 @@
 # saas-ui
 
 [![CI GitHub Action status](https://github.com/percona-platform/saas-ui/workflows/CI/badge.svg?branch=main)](https://github.com/percona-platform/saas-ui/actions?query=workflow%3ACI+branch%3Amain)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpercona-platform%2Fsaas-ui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpercona-platform%2Fsaas-ui?ref=badge_shield)
 
 SaaS UI.
 
@@ -25,3 +26,7 @@ In order to setup the local development environment please run the following com
 - Add a dependency to a particular package: `lerna add moment --scope=@platform/core`
 - Add a dev dependency to a particular package: `lerna add react-router-dom --scope=@platform/ui --dev`
 - Run a local dev environment in one command: `make dev`
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fpercona-platform%2Fsaas-ui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fpercona-platform%2Fsaas-ui?ref=badge_large)
