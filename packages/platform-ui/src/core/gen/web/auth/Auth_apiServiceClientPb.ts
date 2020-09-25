@@ -13,29 +13,18 @@
 
 import * as grpcWeb from 'grpc-web';
 
-import * as google_protobuf_timestamp_pb from 'google-protobuf/google/protobuf/timestamp_pb';
+import * as auth_auth_api_pb from '../auth/auth_api_pb';
 
-import {
-  RefreshSessionRequest,
-  RefreshSessionResponse,
-  ResetPasswordRequest,
-  ResetPasswordResponse,
-  SignInRequest,
-  SignInResponse,
-  SignOutRequest,
-  SignOutResponse,
-  SignUpRequest,
-  SignUpResponse} from './auth_api_pb';
 
 export class AuthAPIClient {
   client_: grpcWeb.AbstractClientBase;
   hostname_: string;
   credentials_: null | { [index: string]: string; };
-  options_: null | { [index: string]: string; };
+  options_: null | { [index: string]: any; };
 
   constructor (hostname: string,
                credentials?: null | { [index: string]: string; },
-               options?: null | { [index: string]: string; }) {
+               options?: null | { [index: string]: any; }) {
     if (!options) options = {};
     if (!credentials) credentials = {};
     options['format'] = 'text';
@@ -47,31 +36,32 @@ export class AuthAPIClient {
   }
 
   methodInfoSignUp = new grpcWeb.AbstractClientBase.MethodInfo(
-    SignUpResponse,
-    (request: SignUpRequest) => {
+    auth_auth_api_pb.SignUpResponse,
+    (request: auth_auth_api_pb.SignUpRequest) => {
       return request.serializeBinary();
     },
-    SignUpResponse.deserializeBinary
+    auth_auth_api_pb.SignUpResponse.deserializeBinary
   );
 
   signUp(
-    request: SignUpRequest,
-    metadata: grpcWeb.Metadata | null): Promise<SignUpResponse>;
+    request: auth_auth_api_pb.SignUpRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_auth_api_pb.SignUpResponse>;
 
   signUp(
-    request: SignUpRequest,
+    request: auth_auth_api_pb.SignUpRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: SignUpResponse) => void): grpcWeb.ClientReadableStream<SignUpResponse>;
+               response: auth_auth_api_pb.SignUpResponse) => void): grpcWeb.ClientReadableStream<auth_auth_api_pb.SignUpResponse>;
 
   signUp(
-    request: SignUpRequest,
+    request: auth_auth_api_pb.SignUpRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: SignUpResponse) => void) {
+               response: auth_auth_api_pb.SignUpResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/percona.platform.auth.v1.AuthAPI/SignUp', this.hostname_).toString(),
+        this.hostname_ +
+          '/percona.platform.auth.v1.AuthAPI/SignUp',
         request,
         metadata || {},
         this.methodInfoSignUp,
@@ -86,31 +76,32 @@ export class AuthAPIClient {
   }
 
   methodInfoSignIn = new grpcWeb.AbstractClientBase.MethodInfo(
-    SignInResponse,
-    (request: SignInRequest) => {
+    auth_auth_api_pb.SignInResponse,
+    (request: auth_auth_api_pb.SignInRequest) => {
       return request.serializeBinary();
     },
-    SignInResponse.deserializeBinary
+    auth_auth_api_pb.SignInResponse.deserializeBinary
   );
 
   signIn(
-    request: SignInRequest,
-    metadata: grpcWeb.Metadata | null): Promise<SignInResponse>;
+    request: auth_auth_api_pb.SignInRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_auth_api_pb.SignInResponse>;
 
   signIn(
-    request: SignInRequest,
+    request: auth_auth_api_pb.SignInRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: SignInResponse) => void): grpcWeb.ClientReadableStream<SignInResponse>;
+               response: auth_auth_api_pb.SignInResponse) => void): grpcWeb.ClientReadableStream<auth_auth_api_pb.SignInResponse>;
 
   signIn(
-    request: SignInRequest,
+    request: auth_auth_api_pb.SignInRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: SignInResponse) => void) {
+               response: auth_auth_api_pb.SignInResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/percona.platform.auth.v1.AuthAPI/SignIn', this.hostname_).toString(),
+        this.hostname_ +
+          '/percona.platform.auth.v1.AuthAPI/SignIn',
         request,
         metadata || {},
         this.methodInfoSignIn,
@@ -125,31 +116,32 @@ export class AuthAPIClient {
   }
 
   methodInfoSignOut = new grpcWeb.AbstractClientBase.MethodInfo(
-    SignOutResponse,
-    (request: SignOutRequest) => {
+    auth_auth_api_pb.SignOutResponse,
+    (request: auth_auth_api_pb.SignOutRequest) => {
       return request.serializeBinary();
     },
-    SignOutResponse.deserializeBinary
+    auth_auth_api_pb.SignOutResponse.deserializeBinary
   );
 
   signOut(
-    request: SignOutRequest,
-    metadata: grpcWeb.Metadata | null): Promise<SignOutResponse>;
+    request: auth_auth_api_pb.SignOutRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_auth_api_pb.SignOutResponse>;
 
   signOut(
-    request: SignOutRequest,
+    request: auth_auth_api_pb.SignOutRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: SignOutResponse) => void): grpcWeb.ClientReadableStream<SignOutResponse>;
+               response: auth_auth_api_pb.SignOutResponse) => void): grpcWeb.ClientReadableStream<auth_auth_api_pb.SignOutResponse>;
 
   signOut(
-    request: SignOutRequest,
+    request: auth_auth_api_pb.SignOutRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: SignOutResponse) => void) {
+               response: auth_auth_api_pb.SignOutResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/percona.platform.auth.v1.AuthAPI/SignOut', this.hostname_).toString(),
+        this.hostname_ +
+          '/percona.platform.auth.v1.AuthAPI/SignOut',
         request,
         metadata || {},
         this.methodInfoSignOut,
@@ -164,31 +156,32 @@ export class AuthAPIClient {
   }
 
   methodInfoRefreshSession = new grpcWeb.AbstractClientBase.MethodInfo(
-    RefreshSessionResponse,
-    (request: RefreshSessionRequest) => {
+    auth_auth_api_pb.RefreshSessionResponse,
+    (request: auth_auth_api_pb.RefreshSessionRequest) => {
       return request.serializeBinary();
     },
-    RefreshSessionResponse.deserializeBinary
+    auth_auth_api_pb.RefreshSessionResponse.deserializeBinary
   );
 
   refreshSession(
-    request: RefreshSessionRequest,
-    metadata: grpcWeb.Metadata | null): Promise<RefreshSessionResponse>;
+    request: auth_auth_api_pb.RefreshSessionRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_auth_api_pb.RefreshSessionResponse>;
 
   refreshSession(
-    request: RefreshSessionRequest,
+    request: auth_auth_api_pb.RefreshSessionRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: RefreshSessionResponse) => void): grpcWeb.ClientReadableStream<RefreshSessionResponse>;
+               response: auth_auth_api_pb.RefreshSessionResponse) => void): grpcWeb.ClientReadableStream<auth_auth_api_pb.RefreshSessionResponse>;
 
   refreshSession(
-    request: RefreshSessionRequest,
+    request: auth_auth_api_pb.RefreshSessionRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: RefreshSessionResponse) => void) {
+               response: auth_auth_api_pb.RefreshSessionResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/percona.platform.auth.v1.AuthAPI/RefreshSession', this.hostname_).toString(),
+        this.hostname_ +
+          '/percona.platform.auth.v1.AuthAPI/RefreshSession',
         request,
         metadata || {},
         this.methodInfoRefreshSession,
@@ -203,31 +196,32 @@ export class AuthAPIClient {
   }
 
   methodInfoResetPassword = new grpcWeb.AbstractClientBase.MethodInfo(
-    ResetPasswordResponse,
-    (request: ResetPasswordRequest) => {
+    auth_auth_api_pb.ResetPasswordResponse,
+    (request: auth_auth_api_pb.ResetPasswordRequest) => {
       return request.serializeBinary();
     },
-    ResetPasswordResponse.deserializeBinary
+    auth_auth_api_pb.ResetPasswordResponse.deserializeBinary
   );
 
   resetPassword(
-    request: ResetPasswordRequest,
-    metadata: grpcWeb.Metadata | null): Promise<ResetPasswordResponse>;
+    request: auth_auth_api_pb.ResetPasswordRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_auth_api_pb.ResetPasswordResponse>;
 
   resetPassword(
-    request: ResetPasswordRequest,
+    request: auth_auth_api_pb.ResetPasswordRequest,
     metadata: grpcWeb.Metadata | null,
     callback: (err: grpcWeb.Error,
-               response: ResetPasswordResponse) => void): grpcWeb.ClientReadableStream<ResetPasswordResponse>;
+               response: auth_auth_api_pb.ResetPasswordResponse) => void): grpcWeb.ClientReadableStream<auth_auth_api_pb.ResetPasswordResponse>;
 
   resetPassword(
-    request: ResetPasswordRequest,
+    request: auth_auth_api_pb.ResetPasswordRequest,
     metadata: grpcWeb.Metadata | null,
     callback?: (err: grpcWeb.Error,
-               response: ResetPasswordResponse) => void) {
+               response: auth_auth_api_pb.ResetPasswordResponse) => void) {
     if (callback !== undefined) {
       return this.client_.rpcCall(
-        new URL('/percona.platform.auth.v1.AuthAPI/ResetPassword', this.hostname_).toString(),
+        this.hostname_ +
+          '/percona.platform.auth.v1.AuthAPI/ResetPassword',
         request,
         metadata || {},
         this.methodInfoResetPassword,

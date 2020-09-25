@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useStyles } from '@grafana/ui';
-import { Messages } from 'core';
+import { Messages } from 'core/messages';
 import { getStyles } from './PrivateLayout.styles';
 import logo from 'assets/percona-logo.svg';
 

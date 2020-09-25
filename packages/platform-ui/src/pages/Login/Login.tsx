@@ -2,12 +2,14 @@ import React, { FC, useCallback } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
 import { Link, useHistory } from 'react-router-dom';
-import { LoaderButton, PasswordInputField, TextInputField, validators } from '@percona/platform-core';
+import { useDispatch } from 'react-redux';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
+import { LoaderButton, PasswordInputField, TextInputField, validators } from '@percona/platform-core';
 import { PublicLayout } from 'components';
-import { PASSWORD_MIN_LENGTH, Routes } from 'core';
-import { store, Credentials } from 'store';
+import { PASSWORD_MIN_LENGTH } from 'core/constants';
+import { Routes } from 'core/routes';
+import { Credentials } from 'store/types';
 import { authLoginAction } from 'store/auth';
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
@@ -19,31 +21,30 @@ const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
-
 export const LoginPage: FC = () => {
   const styles = useStyles(getStyles);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleLoginSubmit = useCallback(
     async (credentials: Credentials) => {
       try {
-        store.dispatch(authLoginAction.request(credentials));
+        dispatch(authLoginAction.request(credentials));
         await signIn(credentials);
-        toast(`${Messages.signInSucceeded} ${credentials.email}`, { type: TOAST_SUCCESS });
-        store.dispatch(authLoginAction.success());
+        toast.success(`${Messages.signInSucceeded} ${credentials.email}`);
+        dispatch(authLoginAction.success());
         history.replace(Routes.root);
       } catch (e) {
-        store.dispatch(authLoginAction.failure(new Error(Messages.errors.signInFailed)));
+        dispatch(authLoginAction.failure(new Error(Messages.errors.signInFailed)));
         if (e.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
-          toast(e.message, { type: TOAST_ERROR });
+          toast.error(e.message);
         } else {
-          toast(Messages.errors.signInFailed, { type: TOAST_ERROR });
+          toast.error(Messages.errors.signInFailed);
           console.error(e);
         }
       }
     },
-    [history],
+    [history, dispatch],
   );
 
   return (

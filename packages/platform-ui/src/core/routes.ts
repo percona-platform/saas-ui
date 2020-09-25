@@ -4,4 +4,4 @@ export const Routes = {
   logout: '/logout',
   signup: '/signup',
   welcome: '/welcome'
-}
+};
