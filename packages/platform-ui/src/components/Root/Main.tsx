@@ -8,6 +8,8 @@ import { authRefreshAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
 import { refreshSession } from './Main.service';
 import { Messages } from './Main.messages';
+import { store } from 'store';
+import { saveState } from 'store/persistency';
 
 export const Main: FC = () => {
   const auth = useSelector(getAuth);
@@ -25,6 +27,8 @@ export const Main: FC = () => {
         dispatch(authRefreshAction.failure(new Error(Messages.errors.refreshSessionFailed)));
         console.error(e);
       }
+    } finally {
+      saveState(store.getState());
     }
   }, [dispatch]);
 

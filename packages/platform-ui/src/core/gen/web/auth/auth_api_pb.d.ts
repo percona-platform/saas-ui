@@ -133,6 +133,9 @@ export class RefreshSessionResponse extends jspb.Message {
   hasExpireTime(): boolean;
   clearExpireTime(): RefreshSessionResponse;
 
+  getEmail(): string;
+  setEmail(value: string): RefreshSessionResponse;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RefreshSessionResponse.AsObject;
   static toObject(includeInstance: boolean, msg: RefreshSessionResponse): RefreshSessionResponse.AsObject;
@@ -144,6 +147,7 @@ export class RefreshSessionResponse extends jspb.Message {
 export namespace RefreshSessionResponse {
   export type AsObject = {
     expireTime?: google_protobuf_timestamp_pb.Timestamp.AsObject,
+    email: string,
   }
 }
 
