@@ -4,4 +4,4 @@ export const Messages = {
   errors: {
     refreshSessionFailed: 'Unable to refresh user session',
   },
-}
+};

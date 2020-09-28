@@ -18,7 +18,7 @@ export const getStyles = (theme: GrafanaTheme) => {
     `,
     leftZone: css`
       display: flex;
-      flex: 0 0 35%;
+      flex: 0 0 45%;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -55,7 +55,7 @@ export const getStyles = (theme: GrafanaTheme) => {
     `,
     centerZone: css`
       position: relative;
-      flex: 0 1 10%;
+      flex: 0 1 5%;
       @media (max-width: ${breakpoints.md}) {
         display: none;
       }
@@ -91,7 +91,7 @@ export const getStyles = (theme: GrafanaTheme) => {
     `,
     rightZone: css`
       display: flex;
-      flex: 0 1 55%;
+      flex: 0 1 50%;
       justify-content: center;
       align-items: center;
       padding: 0em 4em;
