@@ -22,7 +22,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:run": "cypress run --browser chrome --headless",
     "cy:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/report.json",
     "cy:report": "marge cypress/reports/*.json -f report -o cypress/reports/",
     "report:copyScreenshots": "cp -r cypress/screenshots cypress/reports",

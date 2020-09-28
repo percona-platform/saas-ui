@@ -12,6 +12,7 @@
   "responseTimeout": 30000,
   "video": true,
   "videoUploadOnPasses": false,
+  "videoCompression": 10,
   "failOnStatusCode": false,
   "ignoreTestFiles": ["*utils.js", "locators.js", "constants.js"],
   "testFiles": ["**/*spec.js", "**/*spec.ts"],
