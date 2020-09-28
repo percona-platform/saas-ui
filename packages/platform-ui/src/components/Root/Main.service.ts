@@ -1,7 +1,6 @@
-import * as apis from 'core/apis';
+import { AuthPB, AuthGRPC } from 'core';
 import { PLATFORM_BASE_URL } from 'core/constants';
 
-const { AuthPB, AuthGRPC } = apis;
 const { AuthAPIClient } = AuthGRPC;
 const { RefreshSessionRequest } = AuthPB;
 
@@ -11,4 +10,4 @@ export const refreshSession = () => {
   const request = new RefreshSessionRequest();
 
   return apiClient.refreshSession(request, {});
-}
+};

@@ -2,6 +2,8 @@ import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
 import { Link, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   CheckboxField,
   LoaderButton,
@@ -10,14 +12,12 @@ import {
   validators,
 } from '@percona/platform-core';
 import { PublicLayout } from 'components';
-import { PASSWORD_MIN_LENGTH } from 'core';
+import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { Messages } from './Signup.messages';
 import { getStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
-import { toast } from 'react-toastify';
 import { signUp } from './Signup.service';
-import { store } from 'store';
 import { authSignupAction } from 'store/auth';
 import { Routes } from 'core/routes';
 
@@ -27,23 +27,21 @@ const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 const emailValidators = [required, email];
 const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
-const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
-
 export const SignupPage: FC = () => {
   const styles = useStyles(getStyles);
   const history = useHistory();
+  const dispatch = useDispatch();
 
   const handleSignupSubmit = async (credentials: Credentials) => {
     try {
-      store.dispatch(authSignupAction.request(credentials));
+      dispatch(authSignupAction.request(credentials));
       await signUp(credentials);
-      store.dispatch(authSignupAction.success());
-      toast(Messages.signUpSucceeded, { type: TOAST_SUCCESS });
+      dispatch(authSignupAction.success());
+      toast.success(Messages.signUpSucceeded);
       history.replace(Routes.root);
     } catch (e) {
-      // TODO (nicolalamacchia): show a message in case of email address already in use?
-      store.dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
-      toast(Messages.errors.signUpFailed, { type: TOAST_ERROR });
+      dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
+      toast.error(Messages.errors.signUpFailed);
       console.error(e);
     }
   };
