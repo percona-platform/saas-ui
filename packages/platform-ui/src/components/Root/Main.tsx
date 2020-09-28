@@ -16,8 +16,8 @@ export const Main: FC = () => {
   const callRefreshSession = useCallback(async () => {
     try {
       dispatch(authRefreshAction.request());
-      await refreshSession();
-      dispatch(authRefreshAction.success());
+      const response = await refreshSession();
+      dispatch(authRefreshAction.success({ email: response.getEmail() }));
     } catch (e) {
       if (e.code === grpcWeb.StatusCode.UNAUTHENTICATED) {
         dispatch(authRefreshAction.failure(new Error(Messages.unauthenticated)));
