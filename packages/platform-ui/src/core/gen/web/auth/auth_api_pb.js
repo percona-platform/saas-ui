@@ -1,4 +1,4 @@
-// source: auth_api.proto
+// source: auth/auth_api.proto
 /**
  * @fileoverview
  * @enhanceable
@@ -7,9 +7,6 @@
  * @public
  */
 // GENERATED CODE -- DO NOT EDIT!
-
-/* eslint-disable */
-// @ts-nocheck
 
 var jspb = require('google-protobuf');
 var goog = jspb;

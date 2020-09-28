@@ -1,5 +1,5 @@
-import { AppState } from 'store/types';
 import { STATE_LOCALSTORAGE_KEY } from 'core/constants';
+import { AppState } from './types';
 
 export const loadState = (): AppState | undefined => {
   try {
@@ -12,7 +12,7 @@ export const loadState = (): AppState | undefined => {
     console.error(e);
     return undefined;
   }
-}
+};
 
 export const saveState = (state: AppState) => {
   try {
@@ -21,4 +21,4 @@ export const saveState = (state: AppState) => {
   } catch (e) {
     console.error(e);
   }
-}
+};
