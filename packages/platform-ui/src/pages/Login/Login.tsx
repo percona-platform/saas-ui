@@ -14,6 +14,8 @@ import { authLoginAction } from 'store/auth';
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 import { signIn } from './Login.service';
+import { store } from 'store';
+import { saveState } from 'store/persistency';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -42,6 +44,8 @@ export const LoginPage: FC = () => {
           toast.error(Messages.errors.signInFailed);
           console.error(e);
         }
+      } finally {
+        saveState(store.getState());
       }
     },
     [history, dispatch],

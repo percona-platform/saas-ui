@@ -1,5 +1,5 @@
 import { createAsyncAction, ActionType, getType } from 'typesafe-actions';
-import { AuthState } from '../types';
+import { AuthState } from 'store/types';
 
 const DEFAULT_STATE: AuthState = {
   authenticated: false,
@@ -11,7 +11,7 @@ export const authRefreshAction = createAsyncAction(
   'LOGIN_REFRESH_REQUEST',
   'LOGIN_REFRESH_SUCCESS',
   'LOGIN_REFRESH_FAILURE',
-)<undefined, undefined, Error>();
+)<undefined, Pick<AuthState, "email">, Error>();
 
 export const authLoginAction = createAsyncAction(
   'LOGIN_USER_REQUEST',
@@ -45,6 +45,7 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
       return {
         ...state,
         authenticated: true,
+        email: action.payload.email,
         pending: false,
       };
     case getType(authRefreshAction.failure):
