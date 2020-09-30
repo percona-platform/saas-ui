@@ -54,6 +54,7 @@
     "react-scripts": "3.4.3",
     "react-toastify": "^6.0.8",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
     "typesafe-actions": "^5.1.0",
     "typescript": "~3.7.5"
   },

@@ -8,6 +8,8 @@ import { authRefreshAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
 import { refreshSession } from './Main.service';
 import { Messages } from './Main.messages';
+import { store } from 'store';
+import { saveState } from 'store/persistency';
 
 export const Main: FC = () => {
   const auth = useSelector(getAuth);
@@ -16,8 +18,8 @@ export const Main: FC = () => {
   const callRefreshSession = useCallback(async () => {
     try {
       dispatch(authRefreshAction.request());
-      await refreshSession();
-      dispatch(authRefreshAction.success());
+      const response = await refreshSession();
+      dispatch(authRefreshAction.success({ email: response.getEmail() }));
     } catch (e) {
       if (e.code === grpcWeb.StatusCode.UNAUTHENTICATED) {
         dispatch(authRefreshAction.failure(new Error(Messages.unauthenticated)));
@@ -25,6 +27,8 @@ export const Main: FC = () => {
         dispatch(authRefreshAction.failure(new Error(Messages.errors.refreshSessionFailed)));
         console.error(e);
       }
+    } finally {
+      saveState(store.getState());
     }
   }, [dispatch]);
 

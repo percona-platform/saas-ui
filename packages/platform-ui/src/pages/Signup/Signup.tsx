@@ -20,6 +20,8 @@ import { CheckboxLabel } from './CheckboxLabel';
 import { signUp } from './Signup.service';
 import { authSignupAction } from 'store/auth';
 import { Routes } from 'core/routes';
+import { store } from 'store';
+import { saveState } from 'store/persistency';
 
 const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
@@ -43,6 +45,8 @@ export const SignupPage: FC = () => {
       dispatch(authSignupAction.failure(new Error(Messages.errors.signUpFailed)));
       toast.error(Messages.errors.signUpFailed);
       console.error(e);
+    } finally {
+      saveState(store.getState());
     }
   };
 
