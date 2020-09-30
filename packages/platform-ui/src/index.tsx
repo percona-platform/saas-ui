@@ -7,8 +7,7 @@ import { ThemeContext } from '@grafana/ui';
 import { css } from 'emotion';
 import { getTheme } from '@percona/platform-core';
 import { Main } from 'components';
-import { store } from './store';
-import { saveState } from 'store/persistency';
+import { store } from 'store';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import './styles/font-awesome.css';
@@ -25,10 +24,6 @@ import * as serviceWorker from './serviceWorker';
  * TODO: move the current theme value to the store
  */
 const light = getTheme('light');
-
-store.subscribe(() => {
-  saveState(store.getState());
-});
 
 ReactDOM.render(
   <React.StrictMode>
