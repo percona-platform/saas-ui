@@ -1,11 +1,11 @@
-import {TValidUser} from "../../common/interfaces/ICommon";
+import {ValidUser} from "../../common/interfaces/Auth";
 import faker from 'faker'
 
 export const getFakeEmail = () => {
   return `${faker.internet.email()}.test`
 };
 
-export const getNewUser = (): TValidUser => {
+export const getNewUser = (): ValidUser => {
   const email = getFakeEmail();
   return {
     user: {

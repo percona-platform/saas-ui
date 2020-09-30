@@ -1,10 +1,10 @@
-export type TUser = {
+export interface User {
   email: string
   password: string
 }
 
-export type TValidUser = {
-  user: TUser
+export type ValidUser = {
+  user: User
   signedInMessage: string
   signedUpMessage: string
 }

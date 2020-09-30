@@ -1,15 +1,15 @@
-import {TFieldValidation, TInputField} from "../../interfaces/IFields";
+import {FieldValidation, InputField} from "../../interfaces/Fields";
 import {popUp} from "../selectors";
 
-export const fillField = ({field, value}: TInputField) => {
+export const fillField = ({field, value}: InputField) => {
   field().clear().type(value)
 };
 
-export const appendField = ({field, value}: TInputField) => {
+export const appendField = ({field, value}: InputField) => {
   field().type(value)
 };
 
-export const checkValidation = ({element, text}: TFieldValidation) => {
+export const checkValidation = ({element, text}: FieldValidation) => {
   element().hasText(text);
 };
 

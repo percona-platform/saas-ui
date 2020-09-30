@@ -1,4 +1,4 @@
-import {TValidUser} from "../interfaces/ICommon";
+import {ValidUser} from "../interfaces/Auth";
 
 export enum Pages {
   Login = "Login",
@@ -14,7 +14,7 @@ export const pageDetailsMap = {
   },
 };
 
-export const VALID_USER: TValidUser = {
+export const VALID_USER: ValidUser = {
   user: {
     email: 'test@mail.com',
     password: 'Password123',

@@ -1,22 +1,22 @@
 /// <reference types="cypress" />
 import {pageDetailsMap, Pages} from "../../common/constants";
 import {submitButton, termsCheckbox} from "../view/selectors";
-import {TValidUser} from "../../common/interfaces/ICommon";
+import {ValidUser} from "../../common/interfaces/Auth";
 import {fillEmailPassword} from "../view/behavior/auth";
 import {downloadPMMLink, logoutButton} from "../../main/view/selectors";
 import {checkPopUpMessage} from "../../common/view/behavior/common";
 import {DOWNLOAD_PMM_LINK} from "../../main/constants/constants";
 
 
-export const runSignUpFlow = (user: TValidUser) => {
+export const runSignUpFlow = (user: ValidUser) => {
   runAuthFlow(user, Pages.SignUp);
 };
 
-export const runLoginFlow = (user: TValidUser) => {
+export const runLoginFlow = (user: ValidUser) => {
   runAuthFlow(user, Pages.Login);
 };
 
-export const runAuthFlow = (user: TValidUser, page: Pages) => {
+export const runAuthFlow = (user: ValidUser, page: Pages) => {
   const email = user.user.email;
 
   submitButton().isVisible().isDisabled();

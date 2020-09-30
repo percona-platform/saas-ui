@@ -12,7 +12,7 @@ import {appendField, checkValidation, fillField} from "../../common/view/behavio
 import {VALIDATION_MESSAGES} from "../constants/constants";
 import {Pages, VALID_USER} from "../../common/constants";
 
-export const runVerifyFieldsValidationFlow = (page: Pages) => {
+export const runFieldsValidationFlow = (page: Pages) => {
   emailFieldLabel().click();
   passwordField().click();
   checkValidation({element: emailValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD});

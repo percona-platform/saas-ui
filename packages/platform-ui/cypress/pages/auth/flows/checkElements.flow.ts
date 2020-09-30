@@ -9,7 +9,7 @@ import {
 import {Pages} from "../../common/constants";
 import {PRIVACY_POLICY_URL, TERMS_MESSAGE, TERMS_OF_SERVICE_URL} from "../constants/constants";
 
-export const runVerifyPageElementsFlow = (page: Pages) => {
+export const runPageElementsFlow = (page: Pages) => {
   const isLoginPage = page === Pages.Login;
   const form = isLoginPage ? loginForm : signupForm;
 
