@@ -5,6 +5,8 @@ export const Messages = {
   logoAlt: 'Percona Logo',
   api: {
     refreshSessionFailed: 'Unable to refresh user session',
+    signInFailed: 'There was a problem during the login process, please try again',
+    signInSucceeded: 'You are signed in as',
     unauthenticated: 'Unauthenticated user',
   },
 };
