@@ -11,6 +11,8 @@ import { DOWNLOAD_PMM_LINK } from 'core/constants';
 import { getStyles } from './Authenticated.styles';
 import { signOut } from './Authenticated.service';
 import { Messages } from './Authenticated.messages';
+import { store } from 'store';
+import { saveState } from 'store/persistency';
 
 export const Authenticated: FC = () => {
   const styles = useStyles(getStyles);
@@ -29,6 +31,8 @@ export const Authenticated: FC = () => {
       dispatch(authLogoutAction.failure(new Error(Messages.errors.signOutFailed)));
       toast.error(Messages.errors.signOutFailed);
       console.error(e);
+    } finally {
+      saveState(store.getState());
     }
   }, [email, history, dispatch]);
 

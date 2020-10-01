@@ -1171,7 +1171,8 @@ proto.percona.platform.auth.v1.RefreshSessionResponse.prototype.toObject = funct
  */
 proto.percona.platform.auth.v1.RefreshSessionResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    expireTime: (f = msg.getExpireTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f)
+    expireTime: (f = msg.getExpireTime()) && google_protobuf_timestamp_pb.Timestamp.toObject(includeInstance, f),
+    email: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -1213,6 +1214,10 @@ proto.percona.platform.auth.v1.RefreshSessionResponse.deserializeBinaryFromReade
       reader.readMessage(value,google_protobuf_timestamp_pb.Timestamp.deserializeBinaryFromReader);
       msg.setExpireTime(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setEmail(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -1248,6 +1253,13 @@ proto.percona.platform.auth.v1.RefreshSessionResponse.serializeBinaryToWriter = 
       1,
       f,
       google_protobuf_timestamp_pb.Timestamp.serializeBinaryToWriter
+    );
+  }
+  f = message.getEmail();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
     );
   }
 };
@@ -1287,6 +1299,24 @@ proto.percona.platform.auth.v1.RefreshSessionResponse.prototype.clearExpireTime 
  */
 proto.percona.platform.auth.v1.RefreshSessionResponse.prototype.hasExpireTime = function() {
   return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional string email = 2;
+ * @return {string}
+ */
+proto.percona.platform.auth.v1.RefreshSessionResponse.prototype.getEmail = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.auth.v1.RefreshSessionResponse} returns this
+ */
+proto.percona.platform.auth.v1.RefreshSessionResponse.prototype.setEmail = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
