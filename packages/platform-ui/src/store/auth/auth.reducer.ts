@@ -17,7 +17,7 @@ export const authLoginAction = createAsyncAction(
   'LOGIN_USER_REQUEST',
   'LOGIN_USER_SUCCESS',
   'LOGIN_USER_FAILURE',
-)<{ email: string; password: string }, undefined, Error>();
+)<{ email: string; password: string }, Pick<AuthState, "email">, Error>();
 
 export const authSignupAction = createAsyncAction(
   'SIGNUP_USER_REQUEST',
