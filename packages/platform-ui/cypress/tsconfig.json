@@ -1,0 +1,21 @@
+// ./cypress/tsconfig.json (extends main root config).
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "types": [
+      "node",
+      "cypress",
+      "../node_modules/cypress"
+    ]
+  },
+  "files": [
+    "./index.d.ts"
+  ],
+  "include": [
+    "**/*.*"
+  ],
+  "exclude": [
+    "dist"
+  ]
+}
