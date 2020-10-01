@@ -9,5 +9,5 @@ export const VALIDATION_MESSAGES = {
   INVALID_EMAIL: 'Invalid email address',
   SHORT_PASSWORD: 'Must contain at least 10 characters',
   NUMBER_IN_PASSWORD: 'Must include at least one number',
-  UPPER_CASE_IN_PASSWORD: 'Must include at least one uppercase letter'
+  UPPER_CASE_IN_PASSWORD: 'Must include at least one uppercase letter',
 };

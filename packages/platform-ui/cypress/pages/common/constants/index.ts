@@ -1,8 +1,8 @@
-import {ValidUser} from "../interfaces/Auth";
+import { ValidUser } from 'pages/common/interfaces/Auth';
 
 export enum Pages {
-  Login = "Login",
-  SignUp = "SignUp",
+  Login = 'Login',
+  SignUp = 'SignUp',
 }
 
 export const pageDetailsMap = {

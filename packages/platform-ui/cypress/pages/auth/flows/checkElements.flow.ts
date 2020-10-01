@@ -3,11 +3,14 @@ import {
   emailFieldLabel,
   loginForm,
   passwordField,
-  passwordFieldLabel, signupForm, signUpLink,
-  submitButton, termsText
-} from "../view/selectors";
-import {Pages} from "../../common/constants";
-import {PRIVACY_POLICY_URL, TERMS_MESSAGE, TERMS_OF_SERVICE_URL} from "../constants/constants";
+  passwordFieldLabel,
+  signupForm,
+  signUpLink,
+  submitButton,
+  termsText,
+} from 'pages/auth/view/selectors';
+import { Pages } from 'pages/common/constants';
+import { PRIVACY_POLICY_URL, TERMS_MESSAGE, TERMS_OF_SERVICE_URL } from 'pages/auth/constants/constants';
 
 export const runPageElementsFlow = (page: Pages) => {
   const isLoginPage = page === Pages.Login;

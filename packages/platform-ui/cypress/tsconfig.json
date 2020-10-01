@@ -2,10 +2,20 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "../node_modules",
-    "types": ["node", "cypress", "../node_modules/cypress"]
+    "baseUrl": "./",
+    "types": [
+      "node",
+      "cypress",
+      "../node_modules/cypress"
+    ]
   },
-  "files": ["./index.d.ts"],
-  "include": ["**/*.*"],
-  "exclude": ["dist"]
+  "files": [
+    "./index.d.ts"
+  ],
+  "include": [
+    "**/*.*"
+  ],
+  "exclude": [
+    "dist"
+  ]
 }

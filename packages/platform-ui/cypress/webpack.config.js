@@ -8,19 +8,19 @@ module.exports = {
         loader: 'ts-loader',
         options: {
           compilerOptions: {
-            target: 'ES2019'
-          }
+            target: 'ES2019',
+          },
         },
-        exclude: [/node_modules/]
-      }
-    ]
+        exclude: [/node_modules/],
+      },
+    ],
   },
   entry: './src/constants.ts',
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json']
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 };

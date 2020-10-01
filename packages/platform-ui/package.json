@@ -66,6 +66,8 @@
     "cypress": "^5.1.0",
     "cypress-cy-select": "^0.2.2",
     "cypress-multi-reporters": "^1.4.0",
+    "eslint-plugin-chai-friendly": "^0.6.0",
+    "eslint-plugin-cypress": "^2.11.2",
     "faker": "^5.1.0",
     "jest-canvas-mock": "^2.2.0",
     "mocha": "^8.1.3",

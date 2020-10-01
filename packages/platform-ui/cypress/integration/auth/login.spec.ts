@@ -1,12 +1,11 @@
 /// <reference types="cypress" />
-import {signUpLink} from "../../pages/auth/view/selectors";
-import {runFieldsValidationFlow} from "../../pages/auth/flows/validation.flow";
-import {runLoginFlow} from "../../pages/auth/flows/auth.flow";
-import {runPageElementsFlow} from "../../pages/auth/flows/checkElements.flow";
-import {pageDetailsMap, Pages, VALID_USER} from "../../pages/common/constants";
+import { signUpLink } from 'pages/auth/view/selectors';
+import { runFieldsValidationFlow } from 'pages/auth/flows/validation.flow';
+import { runLoginFlow } from 'pages/auth/flows/auth.flow';
+import { runPageElementsFlow } from 'pages/auth/flows/checkElements.flow';
+import { pageDetailsMap, Pages, VALID_USER } from 'pages/common/constants';
 
 context('Login', () => {
-
   beforeEach(() => {
     cy.visit(pageDetailsMap[Pages.Login].url);
   });
