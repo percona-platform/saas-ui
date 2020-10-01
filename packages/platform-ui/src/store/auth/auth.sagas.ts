@@ -15,12 +15,10 @@ function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.Refr
 
     yield put(authRefreshAction.success({ email: response.getEmail() }));
   } catch (e) {
-    if (e.code === grpcWeb.StatusCode.UNAUTHENTICATED) {
-      yield put(authRefreshAction.failure(new Error(Messages.api.unauthenticated)));
-    } else {
-      yield put(authRefreshAction.failure(new Error(Messages.api.refreshSessionFailed)));
+    if (e.code !== grpcWeb.StatusCode.UNAUTHENTICATED) {
       console.error(e);
     }
+    yield put(authRefreshAction.failure(e));
   } finally {
     saveState(store.getState());
   }
@@ -30,35 +28,26 @@ function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): 
   try {
     yield call(signIn, action.payload);
 
-    yield put(authRefreshAction.success({email: action.payload.email, }));
+    yield put(authRefreshAction.success({ email: action.payload.email }));
   } catch (e) {
-    yield put(authLoginAction.failure(new Error(Messages.api.signInFailed)));
-    if (e.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
-      // toast.error(e.message);
-    } else {
-      // toast.error(Messages.api.signInFailed);
-      console.error(e);
-    }
+    yield put(authLoginAction.failure(e));
   } finally {
     saveState(store.getState());
   }
 }
 
-function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
-  try {
-    yield call([toast, toast.success], `${Messages.api.signInSucceeded} ${action.payload.email}`);
-    yield call([history, history.replace], Routes.root);
-  } catch (e) {
-    yield put(authLoginAction.failure(new Error(Messages.api.signInFailed)));
-    if (e.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
-      toast.error(e.message);
-    } else {
-      toast.error(Messages.api.signInFailed);
-      console.error(e);
-    }
-  } finally {
-    saveState(store.getState());
+function* authLoginFailure(action: ReturnType<typeof authLoginAction.failure>): Generator<StrictEffect, void, never> {
+  if (action.payload.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
+    yield call([toast, toast.error], action.payload.message);
+  } else {
+    yield call([toast, toast.error], Messages.api.signInFailed);
+    console.error(action.payload);
   }
+}
+
+function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
+  yield call([toast, toast.success], `${Messages.api.signInSucceeded} ${action.payload.email}`);
+  yield call([history, history.replace], Routes.root);
 }
 
 export function* authSagas() {
@@ -66,5 +55,6 @@ export function* authSagas() {
       takeLatest(authRefreshAction.request, authRefreshSessionRequest),
       takeLatest(authLoginAction.request, authLoginRequest),
       takeLatest(authLoginAction.success, authLoginSuccess),
+      takeLatest(authLoginAction.failure, authLoginFailure),
   ]);
 }
