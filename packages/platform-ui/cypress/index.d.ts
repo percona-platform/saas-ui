@@ -3,14 +3,10 @@
 
 declare namespace Cypress {
   interface Chainable<Subject> {
-    isVisible(): Chainable<Subject>
-
-    isDisabled(): Chainable<Subject>
-
-    isEnabled(): Chainable<Subject>
-
-    hasText(s: string): Cypress.Chainable<Subject>
-
-    hasAttr(key: string, value: string): Cypress.Chainable<Subject>
+    isVisible(): Chainable<Subject>;
+    isDisabled(): Chainable<Subject>;
+    isEnabled(): Chainable<Subject>;
+    hasText(s: string): Cypress.Chainable<Subject>;
+    hasAttr(key: string, value: string): Cypress.Chainable<Subject>;
   }
 }
