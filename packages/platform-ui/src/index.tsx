@@ -28,7 +28,7 @@ const light = getTheme('light');
 ReactDOM.render(
   <React.StrictMode>
     <ThemeContext.Provider value={light}>
-      <Provider store={store}>
+      <Provider store={store} context={ReactReduxContext}>
         <ConnectedRouter history={history} context={ReactReduxContext}>
           <Main />
         </ConnectedRouter>
