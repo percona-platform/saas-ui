@@ -1,8 +1,8 @@
 import { AuthPB } from 'core';
 import { all, put, call, takeLatest, StrictEffect } from 'redux-saga/effects';
 import { replace } from 'connected-react-router';
-import { authRefreshAction, authLoginAction, authSignupAction } from './auth.reducer';
-import { refreshSession, signIn, signUp } from 'core/api/auth';
+import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from './auth.reducer';
+import { refreshSession, signIn, signUp, signOut } from 'core/api/auth';
 import { Messages } from 'core/api/messages';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
@@ -73,6 +73,28 @@ function* authSignupSuccess(): Generator<StrictEffect, void, never> {
   yield put(replace(Routes.root));
 }
 
+function* authLogoutRequest(): Generator<StrictEffect, void, AuthPB.SignOutResponse> {
+  try {
+    yield call(signOut);
+
+    yield put(authLogoutAction.success());
+  } catch (e) {
+      yield put(authRefreshAction.failure(e));
+  } finally {
+    saveState(store.getState());
+  }
+}
+
+function* authLogoutFailure(action: ReturnType<typeof authLogoutAction.failure>): Generator<StrictEffect, void, never>{
+  yield call([toast, toast.success], Messages.signOutFailed);
+  console.error(action.payload);
+}
+
+function* authLogoutSuccess(): Generator<StrictEffect, void, never> {
+  yield call([toast, toast.success], Messages.signOutSucceeded);
+  yield put(replace(Routes.root));
+}
+
 export function* authSagas() {
   yield all([
       takeLatest(authRefreshAction.request, authRefreshSessionRequest),
@@ -82,5 +104,8 @@ export function* authSagas() {
       takeLatest(authSignupAction.request, authSignupRequest),
       takeLatest(authSignupAction.success, authSignupSuccess),
       takeLatest(authSignupAction.failure, authSignupFailure),
+      takeLatest(authLogoutAction.request, authLogoutRequest),
+      takeLatest(authLogoutAction.success, authLogoutSuccess),
+      takeLatest(authLogoutAction.failure, authLogoutFailure),
   ]);
 }
