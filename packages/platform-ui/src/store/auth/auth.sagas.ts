@@ -1,11 +1,12 @@
 import { AuthPB } from 'core';
 import { all, put, call, takeLatest, StrictEffect } from 'redux-saga/effects';
+import { replace } from 'connected-react-router';
 import { authRefreshAction, authLoginAction } from './auth.reducer';
 import { refreshSession, signIn } from 'core/api/auth';
 import { Messages } from 'core/messages';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
-import { history, store } from 'store';
+import { store } from 'store';
 import { saveState } from 'store/persistency';
 import { Routes } from 'core/routes';
 
@@ -47,7 +48,7 @@ function* authLoginFailure(action: ReturnType<typeof authLoginAction.failure>): 
 
 function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], `${Messages.api.signInSucceeded} ${action.payload.email}`);
-  yield call([history, history.replace], Routes.root);
+  yield put(replace(Routes.root));
 }
 
 export function* authSagas() {
