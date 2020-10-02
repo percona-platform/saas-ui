@@ -3,7 +3,7 @@ import { all, put, call, takeLatest, StrictEffect } from 'redux-saga/effects';
 import { replace } from 'connected-react-router';
 import { authRefreshAction, authLoginAction } from './auth.reducer';
 import { refreshSession, signIn } from 'core/api/auth';
-import { Messages } from 'core/messages';
+import { Messages } from 'core/api/messages';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
 import { store } from 'store';
@@ -41,13 +41,13 @@ function* authLoginFailure(action: ReturnType<typeof authLoginAction.failure>): 
   if (action.payload.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
     yield call([toast, toast.error], action.payload.message);
   } else {
-    yield call([toast, toast.error], Messages.api.signInFailed);
+    yield call([toast, toast.error], Messages.signInFailed);
     console.error(action.payload);
   }
 }
 
 function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
-  yield call([toast, toast.success], `${Messages.api.signInSucceeded} ${action.payload.email}`);
+  yield call([toast, toast.success], `${Messages.signInSucceeded} ${action.payload.email}`);
   yield put(replace(Routes.root));
 }
 
