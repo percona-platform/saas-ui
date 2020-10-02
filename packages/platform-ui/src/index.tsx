@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { toast, ToastContainer, Slide } from 'react-toastify';
 import { Provider } from 'react-redux';
 import { ThemeContext } from '@grafana/ui';
@@ -31,9 +30,7 @@ ReactDOM.render(
     <ThemeContext.Provider value={light}>
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <Router>
-            <Main />
-          </Router>
+          <Main />
         </ConnectedRouter>
         <ToastContainer
           bodyClassName={css`
