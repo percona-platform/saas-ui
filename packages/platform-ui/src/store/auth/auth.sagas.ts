@@ -25,7 +25,7 @@ function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.Refr
   }
 }
 
-function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): Generator<StrictEffect, void, AuthPB.RefreshSessionResponse> {
+function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): Generator<StrictEffect, void, AuthPB.SignInResponse> {
   try {
     yield call(signIn, action.payload);
 
