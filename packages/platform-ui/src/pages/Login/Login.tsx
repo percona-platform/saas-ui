@@ -24,7 +24,7 @@ export const LoginPage: FC = () => {
 
   const handleLoginSubmit = useCallback(
     (credentials: Credentials) => {
-        dispatch(authLoginAction.request(credentials));
+      dispatch(authLoginAction.request(credentials));
     },
     [dispatch],
   );
