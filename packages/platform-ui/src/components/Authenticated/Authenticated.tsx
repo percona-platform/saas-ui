@@ -1,37 +1,40 @@
 import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import { LinkButton, useStyles } from '@grafana/ui';
 import { LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
-import { getAuth, store, authLogoutAction } from 'store';
+import { getAuth, authLogoutAction } from 'store/auth';
+import { Routes } from 'core/routes';
+import { DOWNLOAD_PMM_LINK } from 'core/constants';
 import { getStyles } from './Authenticated.styles';
 import { signOut } from './Authenticated.service';
-import { Routes } from 'core/routes';
-import { toast } from 'react-toastify';
 import { Messages } from './Authenticated.messages';
-import { DOWNLOAD_PMM_LINK } from 'core/constants';
-
-const { SUCCESS: TOAST_SUCCESS, ERROR: TOAST_ERROR } = toast.TYPE;
+import { store } from 'store';
+import { saveState } from 'store/persistency';
 
 export const Authenticated: FC = () => {
   const styles = useStyles(getStyles);
   const history = useHistory();
+  const dispatch = useDispatch();
   const { email, pending } = useSelector(getAuth);
 
   const logout = useCallback(async () => {
     try {
-      store.dispatch(authLogoutAction.request({ email: email! }));
+      dispatch(authLogoutAction.request({ email: email! }));
       await signOut();
-      toast(Messages.signOutSucceeded, { type: TOAST_SUCCESS });
-      store.dispatch(authLogoutAction.success());
+      toast.success(Messages.signOutSucceeded);
+      dispatch(authLogoutAction.success());
       history.replace(Routes.login);
     } catch (e) {
-      store.dispatch(authLogoutAction.failure(new Error(Messages.errors.signOutFailed)));
-      toast(Messages.errors.signOutFailed, { type: TOAST_ERROR });
+      dispatch(authLogoutAction.failure(new Error(Messages.errors.signOutFailed)));
+      toast.error(Messages.errors.signOutFailed);
       console.error(e);
+    } finally {
+      saveState(store.getState());
     }
-  }, [email, history]);
+  }, [email, history, dispatch]);
 
   return (
     <PrivateLayout>
@@ -43,20 +46,20 @@ export const Authenticated: FC = () => {
             <b>{email}</b>
           </em>
         </p>
-          <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK}>
-            {Messages.downloadPMM}
-          </LinkButton>
-          <LoaderButton
-            data-qa="logout-action-button"
-            type="submit"
-            loading={pending}
-            disabled={pending}
-            onClick={logout}
-            className={styles.logoutButton}
-            variant="secondary"
-          >
-            {Messages.signOut}
-          </LoaderButton>
+        <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK}>
+          {Messages.downloadPMM}
+        </LinkButton>
+        <LoaderButton
+          data-qa="logout-action-button"
+          type="submit"
+          loading={pending}
+          disabled={pending}
+          onClick={logout}
+          className={styles.logoutButton}
+          variant="secondary"
+        >
+          {Messages.signOut}
+        </LoaderButton>
       </section>
     </PrivateLayout>
   );

@@ -7,4 +7,4 @@ export const Messages = {
   errors: {
     signOutFailed: 'Logout failed, please try again',
   }
-}
+};

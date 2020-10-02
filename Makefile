@@ -9,10 +9,6 @@ help:                   ## Display this help message
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 init:                   ## Install development tools
-	cd tools && go build -o ../bin/reviewdog github.com/reviewdog/reviewdog/cmd/reviewdog
-	cd tools && go build -o ../bin/extract-image-tag ./extract-image-tag
-	cd tools && go build -o ../bin/get-stale-packages ./get-stale-packages
-
 	npm install -g lerna
 
 bootstrap:              ## Bootstrap projects

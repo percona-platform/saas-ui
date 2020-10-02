@@ -1,31 +1,36 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import * as grpcWeb from 'grpc-web';
 import { PrivateRoute, PublicRoute, Authenticated } from 'components';
 import { LoginPage, SignupPage } from 'pages';
+import { authRefreshAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
 import { refreshSession } from './Main.service';
-import { store, authRefreshAction, getAuth } from 'store';
-import * as grpcWeb from 'grpc-web';
 import { Messages } from './Main.messages';
-import { useSelector } from 'react-redux';
+import { store } from 'store';
+import { saveState } from 'store/persistency';
 
 export const Main: FC = () => {
   const auth = useSelector(getAuth);
+  const dispatch = useDispatch();
 
   const callRefreshSession = useCallback(async () => {
     try {
-      store.dispatch(authRefreshAction.request());
-      await refreshSession();
-      store.dispatch(authRefreshAction.success());
+      dispatch(authRefreshAction.request());
+      const response = await refreshSession();
+      dispatch(authRefreshAction.success({ email: response.getEmail() }));
     } catch (e) {
       if (e.code === grpcWeb.StatusCode.UNAUTHENTICATED) {
-        store.dispatch(authRefreshAction.failure(new Error(Messages.unauthenticated)));
+        dispatch(authRefreshAction.failure(new Error(Messages.unauthenticated)));
       } else {
-        store.dispatch(authRefreshAction.failure(new Error(Messages.errors.refreshSessionFailed)));
+        dispatch(authRefreshAction.failure(new Error(Messages.errors.refreshSessionFailed)));
         console.error(e);
       }
+    } finally {
+      saveState(store.getState());
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     callRefreshSession();
