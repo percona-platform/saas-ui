@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { toast, ToastContainer, Slide } from 'react-toastify';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { ThemeContext } from '@grafana/ui';
 import { css } from 'emotion';
 import { getTheme } from '@percona/platform-core';
@@ -29,7 +29,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeContext.Provider value={light}>
       <Provider store={store}>
-        <ConnectedRouter history={history}>
+        <ConnectedRouter history={history} context={ReactReduxContext}>
           <Main />
         </ConnectedRouter>
         <ToastContainer
