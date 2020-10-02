@@ -56,6 +56,8 @@ jobs:
 
       - name: Start project and execute tests
         uses: percona-platform/github-action@v2
+        env:
+          REACT_APP_PLATFORM_BASE_URL: https://platform-dev.percona.com
         with:
           working-directory: packages/platform-ui
           browser: chrome
@@ -68,7 +70,7 @@ jobs:
         working-directory: packages/platform-ui
         run: yarn generate:report
 
-      - name: Uploading the report
+      - name: Attaching the report
         if: success() || failure()
         uses: percona-platform/upload-artifact@v2
         with:
