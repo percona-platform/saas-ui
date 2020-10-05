@@ -31,3 +31,14 @@ Cypress.on('test:after:run', (test, runnable) => {
   const videoUrl = `videos/${Cypress.spec.name}.mp4`;
   addContext({test}, videoUrl);
 });
+
+// This code executes before the browser launch
+Cypress.on('before:browser:launch', (browser, launchOptions) => {
+
+  // Setting 1920x1080 resolution for chrome browser in order to increase artifacts quality
+  if (browser.name === 'chrome' && browser.isHeadless) {
+    launchOptions.args.push('--window-size=1920,1080');
+
+    return launchOptions;
+  }
+});
