@@ -1,14 +1,41 @@
 import { AuthPB } from 'core';
-import { all, put, call, takeLatest, StrictEffect } from 'redux-saga/effects';
+import { all, put, fork, take, select, call, takeLatest, StrictEffect } from 'redux-saga/effects';
+import { getType } from 'typesafe-actions';
 import { replace } from 'connected-react-router';
 import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from './auth.reducer';
 import { refreshSession, signIn, signUp, signOut } from 'core/api/auth';
 import { Messages } from 'core/api/messages';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
-import { store } from 'store';
-import { saveState } from 'store/persistency';
+import { saveState } from 'store/persistence';
 import { Routes } from 'core/routes';
+
+const PersistedActions = new Set([
+  getType(authRefreshAction.request),
+  getType(authLoginAction.request),
+  getType(authSignupAction.request),
+  getType(authLogoutAction.request),
+]);
+
+export default function* persistence() {
+  while (true) {
+    const action = yield take();
+
+    if (!PersistedActions.has(action.type)) {
+      continue;
+    }
+
+    const state = yield select();
+
+    console.log(state);
+
+    try {
+      yield call(saveState, state);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
 
 function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.RefreshSessionResponse> {
   try {
@@ -20,8 +47,6 @@ function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.Refr
       console.error(e);
     }
     yield put(authRefreshAction.failure(e));
-  } finally {
-    saveState(store.getState());
   }
 }
 
@@ -32,8 +57,6 @@ function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): 
     yield put(authLoginAction.success({ email: action.payload.email }));
   } catch (e) {
     yield put(authLoginAction.failure(e));
-  } finally {
-    saveState(store.getState());
   }
 }
 
@@ -58,8 +81,6 @@ function* authSignupRequest(action: ReturnType<typeof authSignupAction.request>)
       yield put(authSignupAction.success());
     } catch (e) {
       yield put(authSignupAction.failure(e));
-    } finally {
-      saveState(store.getState());
     }
 }
 
@@ -80,8 +101,6 @@ function* authLogoutRequest(): Generator<StrictEffect, void, AuthPB.SignOutRespo
     yield put(authLogoutAction.success());
   } catch (e) {
       yield put(authRefreshAction.failure(e));
-  } finally {
-    saveState(store.getState());
   }
 }
 
@@ -107,5 +126,6 @@ export function* authSagas() {
       takeLatest(authLogoutAction.request, authLogoutRequest),
       takeLatest(authLogoutAction.success, authLogoutSuccess),
       takeLatest(authLogoutAction.failure, authLogoutFailure),
+      fork(persistence),
   ]);
 }
