@@ -29,7 +29,7 @@ function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): 
   try {
     yield call(signIn, action.payload);
 
-    yield put(authRefreshAction.success({ email: action.payload.email }));
+    yield put(authLoginAction.success({ email: action.payload.email }));
   } catch (e) {
     yield put(authLoginAction.failure(e));
   } finally {
