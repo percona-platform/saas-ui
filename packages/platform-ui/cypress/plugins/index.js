@@ -13,7 +13,7 @@ module.exports = (on, config) => {
   on('before:browser:launch', (browser, launchOptions) => {
 
     // Setting 1920x1080 resolution for chrome browser in order to increase artifacts quality
-    if (browser.name === 'chrome' && browser.isHeadless) {
+    if (browser.name === 'chrome') {
       launchOptions.args.push('--window-size=1920,1080');
 
       return launchOptions;
