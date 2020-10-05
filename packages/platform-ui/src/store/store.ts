@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import { AppState } from './types';
-import { loadState } from './persistency';
+import { loadState } from './persistence';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import { authSagas } from './auth/auth.sagas';
 import { createRootReducer } from './reducers';
