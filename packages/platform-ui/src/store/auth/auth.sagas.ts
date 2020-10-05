@@ -17,7 +17,7 @@ const PersistedActions = new Set([
   getType(authLogoutAction.request),
 ]);
 
-export default function* persistence() {
+export function* persistence() {
   while (true) {
     const action = yield take();
 
