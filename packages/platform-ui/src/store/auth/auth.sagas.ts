@@ -27,8 +27,6 @@ export default function* persistence() {
 
     const state = yield select();
 
-    console.log(state);
-
     try {
       yield call(saveState, state);
     } catch (e) {
