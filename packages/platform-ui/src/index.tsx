@@ -6,8 +6,8 @@ import { ThemeContext } from '@grafana/ui';
 import { css } from 'emotion';
 import { getTheme } from '@percona/platform-core';
 import { Main } from 'components';
-import { store, history } from 'store';
-import { ConnectedRouter } from 'connected-react-router';
+import { store } from 'store';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import './styles/font-awesome.css';
@@ -29,9 +29,9 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeContext.Provider value={light}>
       <Provider store={store} context={ReactReduxContext}>
-        <ConnectedRouter history={history} context={ReactReduxContext}>
+        <Router>
           <Main />
-        </ConnectedRouter>
+        </Router>
         <ToastContainer
           bodyClassName={css`
             padding: 0.5em;

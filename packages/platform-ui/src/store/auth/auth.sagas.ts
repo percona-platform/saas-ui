@@ -1,7 +1,6 @@
 import { AuthPB } from 'core';
 import { all, put, fork, take, select, call, takeLatest, StrictEffect } from 'redux-saga/effects';
 import { getType } from 'typesafe-actions';
-import { replace } from 'connected-react-router';
 import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from './auth.reducer';
 import { refreshSession, signIn, signUp, signOut } from 'core/api/auth';
 import { Messages } from 'core/api/messages';
@@ -9,6 +8,7 @@ import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
 import { saveState } from 'store/persistence';
 import { Routes } from 'core/routes';
+import { history } from 'core/history';
 
 const PersistedActions = new Set([
   getType(authRefreshAction.request),
@@ -17,7 +17,7 @@ const PersistedActions = new Set([
   getType(authLogoutAction.request),
 ]);
 
-export function* persistence() {
+function* persistence() {
   while (true) {
     const action = yield take();
 
@@ -69,7 +69,7 @@ function* authLoginFailure(action: ReturnType<typeof authLoginAction.failure>): 
 
 function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], `${Messages.signInSucceeded} ${action.payload.email}`);
-  yield put(replace(Routes.root));
+  history.replace(Routes.root);
 }
 
 function* authSignupRequest(action: ReturnType<typeof authSignupAction.request>): Generator<StrictEffect, void, AuthPB.SignUpResponse> {
@@ -89,7 +89,7 @@ function* authSignupFailure(action: ReturnType<typeof authSignupAction.failure>)
 
 function* authSignupSuccess(): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], Messages.signUpSucceeded);
-  yield put(replace(Routes.root));
+  history.replace(Routes.root);
 }
 
 function* authLogoutRequest(): Generator<StrictEffect, void, AuthPB.SignOutResponse> {
@@ -109,7 +109,7 @@ function* authLogoutFailure(action: ReturnType<typeof authLogoutAction.failure>)
 
 function* authLogoutSuccess(): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], Messages.signOutSucceeded);
-  yield put(replace(Routes.root));
+  history.replace(Routes.root);
 }
 
 export function* authSagas() {
