@@ -6,6 +6,7 @@ const DEFAULT_STATE: AuthState = {
   authenticated: false,
   email: undefined,
   pending: false,
+  authCheckCompleted: false,
 };
 
 export const authRefreshAction = createAsyncAction(
@@ -41,6 +42,7 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
       return {
         ...state,
         pending: true,
+        authCheckCompleted: false,
       };
     case getType(authRefreshAction.success):
       return {
@@ -48,6 +50,7 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
         authenticated: true,
         email: action.payload.email,
         pending: false,
+        authCheckCompleted: true,
       };
     case getType(authRefreshAction.failure):
       return {
@@ -55,6 +58,7 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
         authenticated: false,
         email: undefined,
         pending: false,
+        authCheckCompleted: true,
       };
     // Signup
     case getType(authSignupAction.request):
