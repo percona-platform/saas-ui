@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { Routes } from 'core/routes';
 import { history } from 'core/history';
 
-function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.RefreshSessionResponse> {
+export function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.RefreshSessionResponse> {
   try {
     const response: AuthPB.RefreshSessionResponse = yield call(refreshSession);
 
@@ -21,7 +21,7 @@ function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.Refr
   }
 }
 
-function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): Generator<StrictEffect, void, AuthPB.SignInResponse> {
+export function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): Generator<StrictEffect, void, AuthPB.SignInResponse> {
   try {
     yield call(signIn, action.payload);
 
@@ -31,7 +31,7 @@ function* authLoginRequest(action: ReturnType<typeof authLoginAction.request>): 
   }
 }
 
-function* authLoginFailure(action: ReturnType<typeof authLoginAction.failure>): Generator<StrictEffect, void, never> {
+export function* authLoginFailure(action: ReturnType<typeof authLoginAction.failure>): Generator<StrictEffect, void, never> {
   if (action.payload.code === grpcWeb.StatusCode.INVALID_ARGUMENT) {
     yield call([toast, toast.error], action.payload.message);
   } else {
@@ -40,12 +40,12 @@ function* authLoginFailure(action: ReturnType<typeof authLoginAction.failure>): 
   }
 }
 
-function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
+export function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], `${Messages.signInSucceeded} ${action.payload.email}`);
   history.replace(Routes.root);
 }
 
-function* authSignupRequest(action: ReturnType<typeof authSignupAction.request>): Generator<StrictEffect, void, AuthPB.SignUpResponse> {
+export function* authSignupRequest(action: ReturnType<typeof authSignupAction.request>): Generator<StrictEffect, void, AuthPB.SignUpResponse> {
   try {
       yield call(signUp, action.payload);
 
@@ -55,32 +55,32 @@ function* authSignupRequest(action: ReturnType<typeof authSignupAction.request>)
     }
 }
 
-function* authSignupFailure(action: ReturnType<typeof authSignupAction.failure>): Generator<StrictEffect, void, never> {
+export function* authSignupFailure(action: ReturnType<typeof authSignupAction.failure>): Generator<StrictEffect, void, never> {
   yield call([toast, toast.error], Messages.signUpFailed);
   console.error(action.payload);
 }
 
-function* authSignupSuccess(): Generator<StrictEffect, void, never> {
+export function* authSignupSuccess(): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], Messages.signUpSucceeded);
   history.replace(Routes.root);
 }
 
-function* authLogoutRequest(): Generator<StrictEffect, void, AuthPB.SignOutResponse> {
+export function* authLogoutRequest(): Generator<StrictEffect, void, AuthPB.SignOutResponse> {
   try {
     yield call(signOut);
 
     yield put(authLogoutAction.success());
   } catch (e) {
-      yield put(authRefreshAction.failure(e));
+      yield put(authLogoutAction.failure(e));
   }
 }
 
-function* authLogoutFailure(action: ReturnType<typeof authLogoutAction.failure>): Generator<StrictEffect, void, never>{
-  yield call([toast, toast.success], Messages.signOutFailed);
+export function* authLogoutFailure(action: ReturnType<typeof authLogoutAction.failure>): Generator<StrictEffect, void, never>{
+  yield call([toast, toast.error], Messages.signOutFailed);
   console.error(action.payload);
 }
 
-function* authLogoutSuccess(): Generator<StrictEffect, void, never> {
+export function* authLogoutSuccess(): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], Messages.signOutSucceeded);
   history.replace(Routes.root);
 }
