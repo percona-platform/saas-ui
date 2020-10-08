@@ -1,5 +1,5 @@
 import { STATE_LOCALSTORAGE_KEY } from 'core/constants';
-import { AppState } from './types';
+import { AppState } from 'store/types';
 
 export const loadState = (): AppState | undefined => {
   try {
@@ -16,9 +16,7 @@ export const loadState = (): AppState | undefined => {
 
 export const saveState = (state: AppState) => {
   try {
-    const clonedState = {...state};
-    clonedState.auth.pending = false;
-    const serializedState = JSON.stringify(clonedState);
+    const serializedState = JSON.stringify(state);
     localStorage.setItem(STATE_LOCALSTORAGE_KEY, serializedState);
   } catch (e) {
     console.error(e);

@@ -1,39 +1,12 @@
 import { AuthPB } from 'core';
-import { all, put, fork, take, select, call, takeLatest, StrictEffect } from 'redux-saga/effects';
-import { getType } from 'typesafe-actions';
+import { all, put, call, takeLatest, StrictEffect } from 'redux-saga/effects';
 import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from './auth.reducer';
 import { refreshSession, signIn, signUp, signOut } from 'core/api/auth';
 import { Messages } from 'core/api/messages';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
-import { saveState } from 'store/persistence';
 import { Routes } from 'core/routes';
 import { history } from 'core/history';
-
-const PersistedActions = new Set([
-  getType(authRefreshAction.request),
-  getType(authLoginAction.request),
-  getType(authSignupAction.request),
-  getType(authLogoutAction.request),
-]);
-
-function* persistence() {
-  while (true) {
-    const action = yield take();
-
-    if (!PersistedActions.has(action.type)) {
-      continue;
-    }
-
-    const state = yield select();
-
-    try {
-      yield call(saveState, state);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-}
 
 function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.RefreshSessionResponse> {
   try {
@@ -124,6 +97,5 @@ export function* authSagas() {
       takeLatest(authLogoutAction.request, authLogoutRequest),
       takeLatest(authLogoutAction.success, authLogoutSuccess),
       takeLatest(authLogoutAction.failure, authLogoutFailure),
-      fork(persistence),
   ]);
 }
