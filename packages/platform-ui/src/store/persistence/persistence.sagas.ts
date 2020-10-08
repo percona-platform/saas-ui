@@ -1,35 +1,22 @@
-import { fork, all, take, select, call } from 'redux-saga/effects';
-import { getType } from 'typesafe-actions';
+import { takeEvery, all, select, call } from 'redux-saga/effects';
 import { saveState } from 'store/persistence/engine';
 import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from 'store/auth/auth.reducer';
 
-const PersistedActions = new Set([
-  getType(authRefreshAction.request),
-  getType(authLoginAction.request),
-  getType(authSignupAction.request),
-  getType(authLogoutAction.request),
-]);
+export function* save() {
+  const state = yield select();
 
-function* save() {
-  while (true) {
-    const action = yield take();
-
-    if (!PersistedActions.has(action.type)) {
-      continue;
-    }
-
-    const state = yield select();
-
-    try {
-      yield call(saveState, state);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  yield call(saveState, state);
 }
 
-export function* persistenceSaga() {
+export function* persistenceSagas() {
   yield all([
-      fork(save),
+    takeEvery(authRefreshAction.success, save),
+    takeEvery(authRefreshAction.failure, save),
+    takeEvery(authLoginAction.success, save),
+    takeEvery(authLoginAction.failure, save),
+    takeEvery(authSignupAction.success, save),
+    takeEvery(authSignupAction.failure, save),
+    takeEvery(authLogoutAction.success, save),
+    takeEvery(authLogoutAction.failure, save),
   ]);
 }
