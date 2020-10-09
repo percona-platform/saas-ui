@@ -32,7 +32,7 @@ const runSagaPromise = (saga: Saga, payload?: any) => runSaga({
 
 describe('Auth Sagas', () => {
   beforeEach(() => {
-    consoleError = jest.spyOn(console, 'error');
+    consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
     toastError = jest.spyOn(toast, 'error');
     toastSuccess = jest.spyOn(toast, 'success');
     historyReplace = jest.spyOn(history, 'replace');
