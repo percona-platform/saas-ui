@@ -62,7 +62,7 @@ export function* authSignupFailure(action: ReturnType<typeof authSignupAction.fa
 
 export function* authSignupSuccess(): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], Messages.signUpSucceeded);
-  history.replace(Routes.root);
+  history.replace(Routes.login);
 }
 
 export function* authLogoutRequest(): Generator<StrictEffect, void, AuthPB.SignOutResponse> {
