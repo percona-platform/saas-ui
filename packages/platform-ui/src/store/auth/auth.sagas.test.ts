@@ -205,7 +205,7 @@ describe('Auth Sagas', () => {
     expect(toastSuccess).toBeCalledTimes(1);
     expect(toastSuccess).toBeCalledWith(Messages.signUpSucceeded);
     expect(historyReplace).toBeCalledTimes(1);
-    expect(historyReplace).toBeCalledWith(Routes.root);
+    expect(historyReplace).toBeCalledWith(Routes.login);
   });
 
   test('authLogoutRequest succeeds', async () => {
