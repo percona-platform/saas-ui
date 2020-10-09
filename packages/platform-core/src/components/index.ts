@@ -3,3 +3,4 @@ export * from './LoaderButton';
 export * from './PasswordInput';
 export * from './TextInput';
 export * from './TextareaInput';
+export * from './NumberInput';
