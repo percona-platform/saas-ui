@@ -2,13 +2,13 @@ import React, { FC, useCallback } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoaderButton, PasswordInputField, TextInputField, validators } from '@percona/platform-core';
 import { PublicLayout } from 'components';
 import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { Routes } from 'core/routes';
 import { Credentials } from 'store/types';
-import { authLoginAction } from 'store/auth';
+import { authLoginAction, getAuth } from 'store/auth';
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 
@@ -21,6 +21,7 @@ const passwordValidators = [required, minLength, containsNumber, containsLowerca
 export const LoginPage: FC = () => {
   const styles = useStyles(getStyles);
   const dispatch = useDispatch();
+  const { pending } = useSelector(getAuth);
 
   const handleLoginSubmit = useCallback(
     (credentials: Credentials) => {
@@ -32,7 +33,7 @@ export const LoginPage: FC = () => {
   return (
     <PublicLayout>
       <Form onSubmit={handleLoginSubmit}>
-        {({ handleSubmit, pristine, submitting, valid }: FormRenderProps) => (
+        {({ handleSubmit, pristine, valid }: FormRenderProps) => (
           <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
             <legend className={styles.legend}>{Messages.signIn}</legend>
             <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
@@ -46,8 +47,8 @@ export const LoginPage: FC = () => {
               data-qa="login-submit-button"
               className={styles.loginButton}
               type="submit"
-              loading={submitting}
-              disabled={!valid || submitting || pristine}
+              loading={pending}
+              disabled={!valid || pending || pristine}
             >
               {Messages.signIn}
             </LoaderButton>
