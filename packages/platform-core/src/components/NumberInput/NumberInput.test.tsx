@@ -118,14 +118,6 @@ describe('NumberInputField::', () => {
     wrapper.unmount();
   });
 
-  it('should set the label width as multiple of 8px when a labelWidth prop is passed', () => {
-    const width = 20;
-
-    const wrapper = shallow(<NumberInputField name="test" label="test" labelWidth={width} />);
-
-    wrapper.unmount();
-  });
-
   it('should change the value when clicking on the arrow buttons', () => {
     const wrapper = mount(<Wrapper><NumberInputField name="test" className="testClass" /></Wrapper>);
 

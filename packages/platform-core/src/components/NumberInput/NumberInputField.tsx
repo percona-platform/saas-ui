@@ -7,7 +7,6 @@ import { Validator, compose } from '../../shared/validators';
 
 export interface NumberInputFieldProps extends UseFieldConfig<number> {
   label?: string;
-  labelWidth?: number;
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
