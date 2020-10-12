@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { mount, shallow } from 'enzyme';
-import { NumberInputField } from './NumberInput';
+import { NumberInputField } from './NumberInputField';
 import { Form, Field } from 'react-final-form';
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
