@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { NumberInputField } from './NumberInputField';
 import { Form, Field } from 'react-final-form';
 
