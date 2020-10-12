@@ -2,11 +2,11 @@ import { AuthPB } from 'core';
 import { all, put, call, takeLatest, StrictEffect } from 'redux-saga/effects';
 import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from './auth.reducer';
 import { refreshSession, signIn, signUp, signOut } from 'core/api/auth';
-import { replace } from 'connected-react-router';
 import { Messages } from 'core/api/messages';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
 import { Routes } from 'core/routes';
+import { history } from 'core/history';
 
 export function* authRefreshSessionRequest(): Generator<StrictEffect, void, AuthPB.RefreshSessionResponse> {
   try {
@@ -42,7 +42,7 @@ export function* authLoginFailure(action: ReturnType<typeof authLoginAction.fail
 
 export function* authLoginSuccess(action: ReturnType<typeof authLoginAction.success>): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], `${Messages.signInSucceeded} ${action.payload.email}`);
-  yield put(replace(Routes.root));
+  history.replace(Routes.root);
 }
 
 export function* authSignupRequest(action: ReturnType<typeof authSignupAction.request>): Generator<StrictEffect, void, AuthPB.SignUpResponse> {
@@ -62,7 +62,7 @@ export function* authSignupFailure(action: ReturnType<typeof authSignupAction.fa
 
 export function* authSignupSuccess(): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], Messages.signUpSucceeded);
-  yield put(replace(Routes.login));
+  history.replace(Routes.login);
 }
 
 export function* authLogoutRequest(): Generator<StrictEffect, void, AuthPB.SignOutResponse> {
@@ -82,7 +82,7 @@ export function* authLogoutFailure(action: ReturnType<typeof authLogoutAction.fa
 
 export function* authLogoutSuccess(): Generator<StrictEffect, void, never> {
   yield call([toast, toast.success], Messages.signOutSucceeded);
-  yield put(replace(Routes.root));
+  history.replace(Routes.root);
 }
 
 export function* authSagas() {

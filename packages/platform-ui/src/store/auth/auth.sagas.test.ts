@@ -1,7 +1,6 @@
 import { runSaga, Saga } from 'redux-saga';
 import { all, takeLatest } from 'redux-saga/effects';
 import { PayloadAction } from 'typesafe-actions';
-import { replace } from 'connected-react-router';
 import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from './auth.reducer';
 import { authSagas, authRefreshSessionRequest, authLoginFailure, authLoginRequest, authLoginSuccess, authLogoutFailure, authLogoutRequest, authLogoutSuccess, authSignupFailure, authSignupRequest, authSignupSuccess } from './auth.sagas';
 import { Messages } from 'core/api/messages';
@@ -11,6 +10,7 @@ import { AuthPB } from 'core';
 import * as grpcWeb from 'grpc-web';
 import * as authApi from 'core/api/auth';
 import { toast } from 'react-toastify';
+import { history } from 'core/history';
 
 const TEST_EMAIL = 'test@test.test';
 const TEST_MESSAGE = 'test';
@@ -21,6 +21,7 @@ type Action = PayloadAction<string, any>;
 let consoleError: jest.SpyInstance;
 let toastError: jest.SpyInstance;
 let toastSuccess: jest.SpyInstance;
+let historyReplace: jest.SpyInstance;
 let dispatchedActions: Action[];
 
 const runSagaPromise = (saga: Saga, payload?: any) => runSaga({
@@ -34,6 +35,7 @@ describe('Auth Sagas', () => {
     consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
     toastError = jest.spyOn(toast, 'error');
     toastSuccess = jest.spyOn(toast, 'success');
+    historyReplace = jest.spyOn(history, 'replace');
     dispatchedActions = [];
   });
 
@@ -156,9 +158,11 @@ describe('Auth Sagas', () => {
   test('authLoginSuccess', async () => {
     await runSagaPromise(authLoginSuccess as Saga, { email: TEST_EMAIL });
 
+    expect(dispatchedActions).toEqual([]);
     expect(toastSuccess).toHaveBeenCalledWith(`${Messages.signInSucceeded} ${TEST_EMAIL}`);
     expect(toastSuccess).toHaveBeenCalledTimes(1);
-    expect(dispatchedActions).toEqual([replace(Routes.root)]);
+    expect(historyReplace).toHaveBeenCalledTimes(1);
+    expect(historyReplace).toHaveBeenCalledWith(Routes.root);
   });
 
   test('authSignupRequest succeeds', async () => {
@@ -200,7 +204,8 @@ describe('Auth Sagas', () => {
 
     expect(toastSuccess).toBeCalledTimes(1);
     expect(toastSuccess).toBeCalledWith(Messages.signUpSucceeded);
-    expect(dispatchedActions).toEqual([replace(Routes.login)]);
+    expect(historyReplace).toBeCalledTimes(1);
+    expect(historyReplace).toBeCalledWith(Routes.login);
   });
 
   test('authLogoutRequest succeeds', async () => {
@@ -242,6 +247,7 @@ describe('Auth Sagas', () => {
 
     expect(toastSuccess).toBeCalledTimes(1);
     expect(toastSuccess).toBeCalledWith(Messages.signOutSucceeded);
-    expect(dispatchedActions).toEqual([replace(Routes.root)]);
+    expect(historyReplace).toBeCalledTimes(1);
+    expect(historyReplace).toBeCalledWith(Routes.root);
   });
 });
