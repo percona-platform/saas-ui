@@ -46,7 +46,7 @@ export const Authenticated: FC = () => {
             <b>{email}</b>
           </em>
         </p>
-        <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK}>
+        <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK} target="_blank">
           {Messages.downloadPMM}
         </LinkButton>
         <LoaderButton
