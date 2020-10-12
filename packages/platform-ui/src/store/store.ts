@@ -1,13 +1,22 @@
-import { createStore, combineReducers, Store } from 'redux';
-import { authReducer } from './auth/auth.reducer';
+import { createStore, Store, applyMiddleware } from 'redux';
 import { AppState } from './types';
-import { loadState } from './persistency';
+import { loadState } from 'store/persistence/engine';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { sagaMiddleware, rootSaga } from 'store/sagas';
+import { createRootReducer } from './reducers';
 
 const persistedState = loadState();
 
-const reducers = combineReducers({
-  auth: authReducer,
-});
+const middlewares = [sagaMiddleware];
+const enhancers = composeWithDevTools(
+  applyMiddleware(...middlewares),
+);
+const rootReducer = createRootReducer();
 
-export const store: Store<AppState> = createStore(reducers, persistedState, composeWithDevTools());
+export const store: Store<AppState> = createStore(
+  rootReducer,
+  persistedState,
+  enhancers
+);
+
+sagaMiddleware.run(rootSaga);

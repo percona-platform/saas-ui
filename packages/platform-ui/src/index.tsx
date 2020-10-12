@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { toast, ToastContainer, Slide } from 'react-toastify';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { ThemeContext } from '@grafana/ui';
 import { css } from 'emotion';
 import { getTheme } from '@percona/platform-core';
 import { Main } from 'components';
 import { store } from 'store';
+import { ConnectedRouter } from 'connected-react-router';
+import { history } from 'core/history';
 
 import 'react-toastify/dist/ReactToastify.min.css';
 import './styles/font-awesome.css';
@@ -28,10 +29,10 @@ const light = getTheme('light');
 ReactDOM.render(
   <React.StrictMode>
     <ThemeContext.Provider value={light}>
-      <Provider store={store}>
-        <Router>
+      <Provider store={store} context={ReactReduxContext}>
+        <ConnectedRouter context={ReactReduxContext} history={history}>
           <Main />
-        </Router>
+        </ConnectedRouter>
         <ToastContainer
           bodyClassName={css`
             padding: 0.5em;
