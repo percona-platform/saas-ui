@@ -14,13 +14,14 @@ const Wrapper: FC = ({ children }) => (
 );
 
 describe('NumberInputField::', () => {
-  it('should render an input element and two buttons', () => {
+  it('should render an input element of type number and two buttons', () => {
     const wrapper = mount(<Wrapper><NumberInputField name="test" /></Wrapper>);
 
     const field = wrapper.find(Field);
 
     expect(field).toHaveLength(1);
     expect(wrapper.find('input')).toHaveLength(1);
+    expect(wrapper.find('input')).toHaveProp('type', 'number');
     expect(wrapper.find('button')).toHaveLength(2);
 
     wrapper.unmount();
