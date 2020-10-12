@@ -20,8 +20,9 @@ jobs:
       - name: Checkout code
         uses: percona-platform/checkout@v2
 
+      # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2
+        uses: percona-platform/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node-version }}
 
