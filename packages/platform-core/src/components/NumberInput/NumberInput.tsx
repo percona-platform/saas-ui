@@ -69,7 +69,7 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
         return (
           <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
             {label && (
-              <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}> {`${label}${required ? ' *' : ''}`}
+              <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>{`${label}${required ? ' *' : ''}`}
               </label>
             )}
             <span className={styles.inputWrapper}>
