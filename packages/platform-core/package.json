@@ -27,6 +27,7 @@
     "dev": "yarn build:types && yarn build:babel:esm --skip-initial-build --watch --verbose",
     "test": "react-scripts test --verbose",
     "test:ci": "CI=true react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "build": "yarn clean && yarn build:babel && yarn build:types",
     "build:babel": "yarn build:babel:cjs && yarn build:babel:esm && yarn build:babel:umd",
