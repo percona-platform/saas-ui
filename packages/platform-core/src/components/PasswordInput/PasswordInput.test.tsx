@@ -14,13 +14,14 @@ const Wrapper: FC = ({ children }) => (
 );
 
 describe('PasswordInputField::', () => {
-  it('should render an input element', () => {
+  it('should render an input element of type password', () => {
     const wrapper = mount(<Wrapper><PasswordInputField name="test" /></Wrapper>);
 
     const field = wrapper.find(Field);
 
     expect(field).toHaveLength(1);
     expect(wrapper.find('input')).toHaveLength(1);
+    expect(wrapper.find('input')).toHaveProp('type', 'password');
 
     wrapper.unmount();
   });
