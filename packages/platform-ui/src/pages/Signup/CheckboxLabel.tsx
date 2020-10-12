@@ -9,11 +9,11 @@ export const CheckboxLabel: FC = () => {
   return (
     <>
       {`${Messages.agreementFirstPart} `}
-      <LinkButton className={styles.link} variant="link" href={TERMS_OF_SERVICE_URL}>
+      <LinkButton className={styles.link} variant="link" href={TERMS_OF_SERVICE_URL} target="_blank">
         {Messages.termsOfService}
       </LinkButton>
       {` ${Messages.agreementSecondPart} `}
-      <LinkButton className={styles.link} variant="link" href={PRIVACY_POLICY_URL}>
+      <LinkButton className={styles.link} variant="link" href={PRIVACY_POLICY_URL} target="_blank">
         {Messages.privacyPolicy}
       </LinkButton>
     </>
