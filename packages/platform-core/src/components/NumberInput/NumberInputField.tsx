@@ -79,7 +79,7 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
                 ref={inputRef}
                 disabled={disabled}
                 placeholder={placeholder}
-                data-qa={`${name}-text-input`}
+                data-qa={`${name}-number-input`}
                 className={cx(styles.input, { invalid: !!validationError }, className)}
               />
               {!disabled && (
