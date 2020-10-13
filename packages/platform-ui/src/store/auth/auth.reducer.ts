@@ -1,35 +1,37 @@
 import { createAsyncAction, ActionType, getType } from 'typesafe-actions';
 import { AuthState } from 'store/types';
+import * as grpcWeb from 'grpc-web';
 
 const DEFAULT_STATE: AuthState = {
   authenticated: false,
   email: undefined,
   pending: false,
+  authCheckCompleted: false,
 };
 
 export const authRefreshAction = createAsyncAction(
   'LOGIN_REFRESH_REQUEST',
   'LOGIN_REFRESH_SUCCESS',
   'LOGIN_REFRESH_FAILURE',
-)<undefined, Pick<AuthState, "email">, Error>();
+)<undefined, Pick<AuthState, "email">, grpcWeb.Error>();
 
 export const authLoginAction = createAsyncAction(
   'LOGIN_USER_REQUEST',
   'LOGIN_USER_SUCCESS',
   'LOGIN_USER_FAILURE',
-)<{ email: string; password: string }, undefined, Error>();
+)<{ email: string; password: string }, Pick<AuthState, "email">, grpcWeb.Error>();
 
 export const authSignupAction = createAsyncAction(
   'SIGNUP_USER_REQUEST',
   'SIGNUP_USER_SUCCESS',
   'SIGNUP_USER_FAILURE',
-)<{ email: string; password: string }, undefined, Error>();
+)<{ email: string; password: string }, undefined, grpcWeb.Error>();
 
 export const authLogoutAction = createAsyncAction(
   'LOGOUT_USER_REQUEST',
   'LOGOUT_USER_SUCCESS',
   'LOGOUT_USER_FAILURE',
-)<{ email: string }, undefined, Error>();
+)<{ email: string }, undefined, grpcWeb.Error>();
 
 export type AuthActions = ActionType<typeof authRefreshAction> | ActionType<typeof authSignupAction> | ActionType<typeof authLoginAction> | ActionType<typeof authLogoutAction>;
 
@@ -40,6 +42,7 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
       return {
         ...state,
         pending: true,
+        authCheckCompleted: false,
       };
     case getType(authRefreshAction.success):
       return {
@@ -47,6 +50,7 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
         authenticated: true,
         email: action.payload.email,
         pending: false,
+        authCheckCompleted: true,
       };
     case getType(authRefreshAction.failure):
       return {
@@ -54,6 +58,7 @@ export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthAction
         authenticated: false,
         email: undefined,
         pending: false,
+        authCheckCompleted: true,
       };
     // Signup
     case getType(authSignupAction.request):

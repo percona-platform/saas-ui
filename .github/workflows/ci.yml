@@ -24,10 +24,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: percona-platform/checkout@v2.3.2
+        uses: percona-platform/checkout@v2
 
+      # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.1
+        uses: percona-platform/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -67,10 +68,11 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: percona-platform/checkout@v2.3.2
+        uses: percona-platform/checkout@v2
 
+      # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.1
+        uses: percona-platform/setup-node@v2.1.2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -95,7 +97,7 @@ jobs:
         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u $GITHUB_ACTOR docker.pkg.github.com --password-stdin
 
       - name: Extract Docker image tag
-        uses: percona-platform/extract-docker-tag-action@v1.0.0
+        uses: percona-platform/extract-docker-tag-action@v1
 
       - name: Bootstrap projects
         run: make bootstrap
