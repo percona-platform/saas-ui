@@ -16,13 +16,13 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const button = css`
     position: absolute;
     border: none;
-    right: 2px;
+    right: ${spacing.xxs};
     width: 1.2em;
     text-align: center;
     cursor: default;
     background: transparent;
     z-index: 1;
-    color: ${theme.colors.formInputText};
+    color: ${colors.formInputText};
 
     &:focus {
       outline: none;
@@ -32,13 +32,13 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   return {
     arrowUp: css`
       ${arrow};
-      bottom: 2px;
+      bottom: ${spacing.xxs};
       border-width: 0 0.3em 0.3em 0.3em;
       border-color: transparent transparent currentColor;
     `,
     arrowDown: css`
       ${arrow};
-      top: 2px;
+      top: ${spacing.xxs};
       border-width: 0.3em 0.3em 0 0.3em;
       border-color: currentColor transparent transparent;
     `,
@@ -50,7 +50,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
     buttonUp: css`
       ${button};
       bottom: 50%;
-      top: 2px;
+      top: ${spacing.xxs};
     `,
     inputWrapper: css`
       position: relative;
