@@ -33,13 +33,13 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
     arrowUp: css`
       ${arrow};
       bottom: ${spacing.xxs};
-      border-width: 0 0.3em 0.3em 0.3em;
+      border-width: 0 0.3em 0.3em;
       border-color: transparent transparent currentColor;
     `,
     arrowDown: css`
       ${arrow};
       top: ${spacing.xxs};
-      border-width: 0.3em 0.3em 0 0.3em;
+      border-width: 0.3em 0.3em 0;
       border-color: currentColor transparent transparent;
     `,
     buttonDown: css`

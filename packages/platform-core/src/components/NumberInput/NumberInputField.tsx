@@ -1,15 +1,15 @@
 import React, { FC, useCallback, useRef, useMemo } from 'react';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
-import { getStyles } from './NumberInput.styles';
 import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
+import { getStyles } from './NumberInput.styles';
 import { Validator, compose } from '../../shared/validators';
 
 export interface NumberInputFieldProps extends UseFieldConfig<number> {
-  label?: string;
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  label?: string;
   name: string;
   onChange?: (value: string) => undefined;
   placeholder?: string;
@@ -47,16 +47,16 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
   const dispatchChangeEvent = useCallback(() => {
     const event = new Event('change', { bubbles: true });
 
-    inputRef.current!.dispatchEvent(event);
+    inputRef.current?.dispatchEvent(event);
   }, [inputRef]);
 
   const stepUp = () => {
-    inputRef.current!.stepUp();
+    inputRef.current?.stepUp();
     dispatchChangeEvent();
   };
 
   const stepDown = () => {
-    inputRef.current!.stepDown();
+    inputRef.current?.stepDown();
     dispatchChangeEvent();
   };
 
