@@ -1,6 +1,6 @@
 {
   "name": "saas-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Percona Platform SaaS UI",
   "private": true,
   "scripts": {
