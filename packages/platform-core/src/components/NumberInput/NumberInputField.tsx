@@ -88,7 +88,6 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
                     type="button"
                     className={styles.buttonUp}
                     onClick={stepUp}
-                    disabled={disabled}
                   >
                     <span className={styles.arrowUp} />
                   </button>
@@ -96,7 +95,6 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
                     type="button"
                     className={styles.buttonDown}
                     onClick={stepDown}
-                    disabled={disabled}
                   >
                     <span className={styles.arrowDown} />
                   </button>

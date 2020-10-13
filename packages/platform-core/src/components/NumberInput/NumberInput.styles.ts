@@ -24,11 +24,6 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
     z-index: 1;
     color: ${theme.colors.formInputText};
 
-    &:disabled {
-      color: ${theme.colors.formInputDisabledText};
-      cursor: not-allowed;
-    }
-
     &:focus {
       outline: none;
     }
