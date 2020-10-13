@@ -21,6 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint --ext js,ts,tsx src",
     "cy:open": "cypress open",
     "cy:run": "cypress run --browser chrome --headless",
     "cy:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/report.json",
@@ -71,24 +72,18 @@
     "cypress": "^5.1.0",
     "cypress-cy-select": "^0.2.2",
     "cypress-multi-reporters": "^1.4.0",
+    "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-chai-friendly": "^0.6.0",
     "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-jest": "^24.1.0",
+    "eslint-plugin-no-inline-styles": "^1.0.5",
+    "eslint-plugin-react-hooks": "^4.1.2",
     "faker": "^5.1.0",
     "jest-canvas-mock": "^2.2.0",
     "mocha": "^8.1.3",
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.1.0",
     "mochawesome-report-generator": "^5.1.0"
-  },
-  "eslintConfig": {
-    "extends": "react-app",
-    "ignorePatterns": "src/core/gen/**/*",
-    "rules": {
-      "semi": [
-        "error",
-        "always"
-      ]
-    }
   },
   "keywords": [
     "percona",
