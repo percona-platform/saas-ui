@@ -118,7 +118,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       }
       border-image: initial;
       padding: 7px 8px;
-      border-radius: 2px;
+      border-radius: ${border.radius.sm};
       outline: transparent dotted 2px;
       &:focus {
         outline-offset: 2px;
