@@ -21,6 +21,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --coverage --watchAll=false --collectCoverageFrom=!src/core/gen/**/*",
     "cy:open": "cypress open",
     "cy:run": "cypress run --browser chrome --headless",
     "cy:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/report.json",
