@@ -2,10 +2,6 @@ import { GrafanaTheme } from '@grafana/data';
 import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
 
-export const getLabelStyles = stylesFactory((theme: GrafanaTheme) => ({
-  label: css``,
-}));
-
 export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const { colors, spacing } = theme;
   const checkboxSize = '16px';
