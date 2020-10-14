@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useCallback, useState } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { FormApi } from 'final-form';
 import { Step, StepStatus } from './Step/Step';
@@ -45,6 +45,10 @@ export const StepProgress: FC<StepProgressProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [stepsVisited, setStepsVisited] = useState([currentStep]);
+  const onClick = useCallback((index: number) => () => {
+    setCurrentStep(index);
+    setStepsVisited([...stepsVisited, index]);
+  }, [stepsVisited]);
 
   return (
     <Form
@@ -61,10 +65,7 @@ export const StepProgress: FC<StepProgressProps> = ({
                 key={index}
                 title={title}
                 number={index + 1}
-                onClick={() => {
-                  setCurrentStep(index);
-                  setStepsVisited([...stepsVisited, index]);
-                }}
+                onClick={onClick(index)}
                 status={getStepStatus(form, fields, currentStep, index, stepsVisited)}
                 isLast={index === steps.length - 1}
                 dataQa={dataQa}
