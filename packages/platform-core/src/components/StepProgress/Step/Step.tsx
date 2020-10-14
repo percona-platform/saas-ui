@@ -1,6 +1,5 @@
 import React, {
   FC,
-  ReactNode,
   useEffect,
   useMemo,
   useRef,
@@ -11,7 +10,6 @@ import { useTheme, Icon } from '@grafana/ui';
 import { getStyles } from './Step.styles';
 
 export interface StepProps {
-  children: ReactNode;
   title?: string;
   number?: number;
   status?: StepStatus;
