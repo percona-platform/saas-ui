@@ -26,7 +26,7 @@ describe('Platform Sign up', () => {
       render(<TestContainer><SignupPage /></TestContainer>, container);
     });
 
-    expect(container.querySelector('[data-qa="signup-submit-button"]')?.hasAttribute('disabled')).toBe(true);
+    expect(container.querySelector('[data-qa="login-submit-button"]')?.hasAttribute('disabled')).toBe(true);
   });
 
   test('submit button is enabled after valid input in form fields', () => {
@@ -42,7 +42,7 @@ describe('Platform Sign up', () => {
     fireEvent.change(passwordInput!, { target: { value: 'FooBar123!!!' } });
     fireEvent.click(checkbox!);
 
-    expect(container.querySelector('[data-qa="signup-submit-button"]')?.hasAttribute('disabled')).toBe(false);
+    expect(container.querySelector('[data-qa="login-submit-button"]')?.hasAttribute('disabled')).toBe(false);
   });
 
   test('calls the sign up api on sign up button click', async () => {
@@ -53,7 +53,7 @@ describe('Platform Sign up', () => {
     const emailInput = container.querySelector('[data-qa="email-text-input"]');
     const passwordInput = container.querySelector('[data-qa="password-password-input"]');
     const checkbox = container.querySelector('[data-qa="consent-checkbox-input"]');
-    const logoutButton = container.querySelector('[data-qa="signup-submit-button"]');
+    const logoutButton = container.querySelector('[data-qa="login-submit-button"]');
 
     fireEvent.change(emailInput!, { target: { value: 'test@test.test' } });
     fireEvent.change(passwordInput!, { target: { value: 'FooBar123!!!' } });

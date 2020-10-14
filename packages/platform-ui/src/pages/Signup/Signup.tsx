@@ -49,7 +49,7 @@ export const SignupPage: FC = () => {
             />
             <CheckboxField name="consent" label={<CheckboxLabel />} validators={[requiredTrue]} />
             <LoaderButton
-              data-qa="signup-submit-button"
+              data-qa="login-submit-button"
               className={styles.signupButton}
               type="submit"
               loading={pending}
