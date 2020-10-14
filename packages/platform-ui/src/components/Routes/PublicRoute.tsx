@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAuth } from 'store/auth';
+import { Routes } from 'core/routes';
 
 // A wrapper for <Route> that redirects an authenticated user to the root page if they
 // try to go to the /login route.
@@ -17,7 +18,7 @@ export const PublicRoute: FC<RouteProps> = ({ children, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/',
+              pathname: Routes.root,
               state: { from: location },
             }}
           />
