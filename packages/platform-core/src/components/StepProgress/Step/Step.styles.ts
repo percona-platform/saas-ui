@@ -8,6 +8,10 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
     { light: palette.gray95, dark: colors.dropdownOptionHoverBg },
     theme.type,
   );
+  const verticalLineColor = selectThemeVariant(
+    { light: palette.gray4, dark: palette.gray33 },
+    theme.type,
+  );
 
   return {
     step: css`
@@ -32,7 +36,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       align-items: center;
       background-color: ${palette.gray2};
       border-radius: 50%;
-      color: #fff;
+      color: ${palette.white};
       display: flex;
       height: ${spacing.lg};
       justify-content: center;
@@ -69,7 +73,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
     stepVerticalLine: css`
       &::before {
         bottom: -${spacing.md};
-        border-left-color: ${palette.gray4};
+        border-left-color: ${verticalLineColor};
         border-left-width: ${border.width.sm};
         border-left-style: solid;
         content: "";
