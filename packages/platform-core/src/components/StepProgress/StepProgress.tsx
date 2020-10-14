@@ -17,15 +17,21 @@ export interface Step {
   dataQa?: string;
 }
 
-const getStepStatus = (form: FormApi, fields: string[], currentStep: number, index: number): StepStatus => {
+const getStepStatus = (
+  form: FormApi,
+  fields: string[],
+  currentStep: number,
+  index: number,
+  stepsVisited: number[],
+): StepStatus => {
   if (currentStep === index) {
     return StepStatus.current;
   }
 
-  const touched = fields.find((field) => form.getFieldState(field)?.touched) !== undefined;
   const valid = fields.find((field) => form.getFieldState(field)?.invalid) === undefined;
+  const visited = stepsVisited.includes(index);
 
-  if (touched) {
+  if (visited) {
     return valid ? StepStatus.done : StepStatus.invalid;
   }
 
@@ -38,6 +44,7 @@ export const StepProgress: FC<StepProgressProps> = ({
   onSubmit,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [stepsVisited, setStepsVisited] = useState([currentStep]);
 
   return (
     <Form
@@ -54,8 +61,11 @@ export const StepProgress: FC<StepProgressProps> = ({
                 key={index}
                 title={title}
                 number={index + 1}
-                onClick={() => setCurrentStep(index)}
-                status={getStepStatus(form, fields, currentStep, index)}
+                onClick={() => {
+                  setCurrentStep(index);
+                  setStepsVisited([...stepsVisited, index]);
+                }}
+                status={getStepStatus(form, fields, currentStep, index, stepsVisited)}
                 isLast={index === steps.length - 1}
                 dataQa={dataQa}
               >
