@@ -16,18 +16,13 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const button = css`
     position: absolute;
     border: none;
-    right: 2px;
+    right: ${spacing.xxs};
     width: 1.2em;
     text-align: center;
     cursor: default;
     background: transparent;
     z-index: 1;
-    color: ${theme.colors.formInputText};
-
-    &:disabled {
-      color: ${theme.colors.formInputDisabledText};
-      cursor: not-allowed;
-    }
+    color: ${colors.formInputText};
 
     &:focus {
       outline: none;
@@ -37,14 +32,14 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   return {
     arrowUp: css`
       ${arrow};
-      bottom: 2px;
-      border-width: 0 0.3em 0.3em 0.3em;
+      bottom: ${spacing.xxs};
+      border-width: 0 0.3em 0.3em;
       border-color: transparent transparent currentColor;
     `,
     arrowDown: css`
       ${arrow};
-      top: 2px;
-      border-width: 0.3em 0.3em 0 0.3em;
+      top: ${spacing.xxs};
+      border-width: 0.3em 0.3em 0;
       border-color: currentColor transparent transparent;
     `,
     buttonDown: css`
@@ -55,7 +50,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
     buttonUp: css`
       ${button};
       bottom: 50%;
-      top: 2px;
+      top: ${spacing.xxs};
     `,
     inputWrapper: css`
       position: relative;
@@ -123,7 +118,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       }
       border-image: initial;
       padding: 7px 8px;
-      border-radius: 2px;
+      border-radius: ${border.radius.sm};
       outline: transparent dotted 2px;
       &:focus {
         outline-offset: 2px;
