@@ -3,7 +3,9 @@ import { PLATFORM_BASE_URL } from 'core/constants';
 import { SignIn, SignUp } from './types';
 
 const { AuthAPIClient } = AuthGRPC;
-const { RefreshSessionRequest, SignInRequest, SignUpRequest, SignOutRequest } = AuthPB;
+const {
+  RefreshSessionRequest, SignInRequest, SignUpRequest, SignOutRequest
+} = AuthPB;
 
 export const refreshSession = () => {
   const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);

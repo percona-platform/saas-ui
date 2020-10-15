@@ -1,8 +1,6 @@
 import { runSaga, Saga } from 'redux-saga';
 import { all, takeLatest } from 'redux-saga/effects';
 import { PayloadAction } from 'typesafe-actions';
-import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from './auth.reducer';
-import { authSagas, authRefreshSessionRequest, authLoginFailure, authLoginRequest, authLoginSuccess, authLogoutFailure, authLogoutRequest, authLogoutSuccess, authSignupFailure, authSignupRequest, authSignupSuccess } from './auth.sagas';
 import { Messages } from 'core/api/messages';
 import { Routes } from 'core/routes';
 
@@ -11,6 +9,22 @@ import * as grpcWeb from 'grpc-web';
 import * as authApi from 'core/api/auth';
 import { toast } from 'react-toastify';
 import { history } from 'core/history';
+import {
+  authSagas,
+  authRefreshSessionRequest,
+  authLoginFailure,
+  authLoginRequest,
+  authLoginSuccess,
+  authLogoutFailure,
+  authLogoutRequest,
+  authLogoutSuccess,
+  authSignupFailure,
+  authSignupRequest,
+  authSignupSuccess
+} from './auth.sagas';
+import {
+  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction
+} from './auth.reducer';
 
 const TEST_EMAIL = 'test@test.test';
 const TEST_MESSAGE = 'test';
@@ -46,16 +60,16 @@ describe('Auth Sagas', () => {
   test('authSagas calls the right function on auth actions', () => {
     const genObj = authSagas();
     const expected = all([
-        takeLatest(authRefreshAction.request, authRefreshSessionRequest),
-        takeLatest(authLoginAction.request, authLoginRequest),
-        takeLatest(authLoginAction.success, authLoginSuccess),
-        takeLatest(authLoginAction.failure, authLoginFailure),
-        takeLatest(authSignupAction.request, authSignupRequest),
-        takeLatest(authSignupAction.success, authSignupSuccess),
-        takeLatest(authSignupAction.failure, authSignupFailure),
-        takeLatest(authLogoutAction.request, authLogoutRequest),
-        takeLatest(authLogoutAction.success, authLogoutSuccess),
-        takeLatest(authLogoutAction.failure, authLogoutFailure),
+      takeLatest(authRefreshAction.request, authRefreshSessionRequest),
+      takeLatest(authLoginAction.request, authLoginRequest),
+      takeLatest(authLoginAction.success, authLoginSuccess),
+      takeLatest(authLoginAction.failure, authLoginFailure),
+      takeLatest(authSignupAction.request, authSignupRequest),
+      takeLatest(authSignupAction.success, authSignupSuccess),
+      takeLatest(authSignupAction.failure, authSignupFailure),
+      takeLatest(authLogoutAction.request, authLogoutRequest),
+      takeLatest(authLogoutAction.success, authLogoutSuccess),
+      takeLatest(authLogoutAction.failure, authLogoutFailure),
     ]);
 
     expect(genObj.next().value).toEqual(expected);
@@ -63,6 +77,7 @@ describe('Auth Sagas', () => {
 
   test('authSagas should be done on next iteration', () => {
     const genObj = authSagas();
+
     genObj.next();
     expect(genObj.next().done).toBe(true);
   });
@@ -136,7 +151,10 @@ describe('Auth Sagas', () => {
   });
 
   test('authLoginFailure (invalid argument)', async () => {
-    await runSagaPromise(authLoginFailure as Saga, { code: grpcWeb.StatusCode.INVALID_ARGUMENT, message: TEST_MESSAGE });
+    await runSagaPromise(
+      authLoginFailure as Saga,
+      { code: grpcWeb.StatusCode.INVALID_ARGUMENT, message: TEST_MESSAGE }
+    );
 
     expect(dispatchedActions).toEqual([]);
     expect(toastError).toHaveBeenCalledWith(TEST_MESSAGE);

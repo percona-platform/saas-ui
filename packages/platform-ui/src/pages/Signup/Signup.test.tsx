@@ -3,8 +3,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { fireEvent } from '@testing-library/react';
 import { TestContainer } from 'components/TestContainer';
-import { SignupPage } from './Signup';
 import * as authApi from 'core/api/auth';
+import { SignupPage } from './Signup';
 
 jest.spyOn(authApi, 'signUp');
 

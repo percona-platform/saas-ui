@@ -1,6 +1,10 @@
-import { takeEvery, all, select, call } from 'redux-saga/effects';
+import {
+  takeEvery, all, select, call
+} from 'redux-saga/effects';
 import { saveState } from 'store/persistence/engine';
-import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from 'store/auth/auth.reducer';
+import {
+  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction
+} from 'store/auth/auth.reducer';
 
 export function* save() {
   const state = yield select();

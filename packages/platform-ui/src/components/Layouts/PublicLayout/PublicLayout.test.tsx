@@ -13,6 +13,7 @@ describe('PublicLayout::', () => {
       </TestContainer>,
     );
     const legend = container.querySelector('legend');
+
     expect(legend).toHaveTextContent('Login');
   });
 });

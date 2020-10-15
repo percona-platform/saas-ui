@@ -1,5 +1,9 @@
-import { authRefreshAction, authLoginAction, authSignupAction, authLogoutAction } from 'store/auth/auth.reducer';
-import { all, call, takeEvery, select } from 'redux-saga/effects';
+import {
+  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction
+} from 'store/auth/auth.reducer';
+import {
+  all, call, takeEvery, select
+} from 'redux-saga/effects';
 import { save, persistenceSagas } from 'store/persistence/persistence.sagas';
 import * as persistenceEngine from 'store/persistence/engine';
 

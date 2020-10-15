@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { Switch } from 'react-router';
+import { Switch } from 'react-router-dom';
 import { TestContainer } from 'components/TestContainer';
-import { PrivateRoute } from './PrivateRoute';
 import * as authSelectors from 'store/auth/auth.selectors';
 import { Routes } from 'core/routes';
+import { PrivateRoute } from './PrivateRoute';
 
 const getAuth = jest.spyOn(authSelectors, 'getAuth');
 
@@ -17,7 +17,7 @@ describe('PrivateRoute', () => {
     document.body.appendChild(container);
 
     getAuth.mockImplementation(() => ({
-      email:'test@test.test',
+      email: 'test@test.test',
       authenticated: true,
       pending: false,
       authCheckCompleted: true,
