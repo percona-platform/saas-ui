@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { Route, Redirect, RouteProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAuth } from 'store/auth';
+import { Routes } from 'core/routes';
 
 // A wrapper for <Route> that redirects to the login if the user is not authenticated.
 export const PrivateRoute: FC<RouteProps> = ({ children, ...rest }) => {
@@ -16,7 +17,7 @@ export const PrivateRoute: FC<RouteProps> = ({ children, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: Routes.login,
               state: { from: location },
             }}
           />
