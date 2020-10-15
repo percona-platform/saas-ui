@@ -3,7 +3,10 @@ import { GrafanaTheme } from '@grafana/data';
 import { stylesFactory } from '@grafana/ui';
 
 export const getStyles = stylesFactory((theme: GrafanaTheme) => {
-  const { border, colors, palette, spacing, typography } = theme;
+  const {
+    border, colors, palette, spacing, typography
+  } = theme;
+
   return {
     field: css`
       &:not(:last-child) {

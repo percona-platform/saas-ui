@@ -31,8 +31,8 @@ const theme: GrafanaThemeCommons = {
   name: 'Grafana Default',
   typography: {
     fontFamily: {
-      sansSerif: "'Roboto', 'Helvetica Neue', Arial, sans-serif",
-      monospace: "Menlo, Monaco, Consolas, 'Courier New', monospace",
+      sansSerif: '\'Roboto\', \'Helvetica Neue\', Arial, sans-serif',
+      monospace: 'Menlo, Monaco, Consolas, \'Courier New\', monospace',
     },
     size: {
       base: '14px',
@@ -100,7 +100,7 @@ const theme: GrafanaThemeCommons = {
 
     formInputMargin: `${SPACING_BASE * 2}px`,
     formLabelPadding: '0 0 0 2px',
-    formLabelMargin: `0 0 ${SPACING_BASE / 2 + 'px'} 0`,
+    formLabelMargin: `0 0 ${`${SPACING_BASE / 2}px`} 0`,
     formValidationMessagePadding: '4px 8px',
     formValidationMessageMargin: '6px 0 0 0',
     inlineFormMargin: '4px',

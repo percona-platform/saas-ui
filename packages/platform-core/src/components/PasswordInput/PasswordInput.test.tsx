@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { mount } from 'enzyme';
-import { PasswordInputField } from './PasswordInputField';
 import { Form, Field } from 'react-final-form';
+import { PasswordInputField } from './PasswordInputField';
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 

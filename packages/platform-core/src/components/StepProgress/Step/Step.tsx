@@ -55,7 +55,7 @@ export const Step: FC<StepProps> = ({
   return (
     <div className={styles.step} data-qa={dataQa}>
       <div
-        className={cx(styles.stepHeader, {[styles.stepDisabled]: disabled})}
+        className={cx(styles.stepHeader, { [styles.stepDisabled]: disabled })}
         onClick={onClick}
         data-qa="step-header"
       >
@@ -71,8 +71,8 @@ export const Step: FC<StepProps> = ({
         data-qa="step-content"
       >
         <div className={cx(styles.stepContentTransitionWrapper, {
-            [styles.stepContentTransitionCurrent(contentHeight)]: status === StepStatus.current
-          })}
+          [styles.stepContentTransitionCurrent(contentHeight)]: status === StepStatus.current
+        })}
         >
           <div ref={contentRef} className={cx(styles.stepContent)}>
             {children}

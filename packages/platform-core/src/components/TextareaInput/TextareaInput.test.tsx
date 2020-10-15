@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { mount } from 'enzyme';
-import { TextareaInputField } from './TextareaInputField';
 import { Form, Field } from 'react-final-form';
+import { TextareaInputField } from './TextareaInputField';
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 

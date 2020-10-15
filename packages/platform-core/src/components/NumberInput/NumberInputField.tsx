@@ -1,7 +1,11 @@
-import React, { FC, useCallback, useRef, useMemo } from 'react';
+import React, {
+  FC, useCallback, useRef, useMemo
+} from 'react';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
-import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
+import {
+  Field, FieldMetaState, FieldInputProps, UseFieldConfig
+} from 'react-final-form';
 import { getStyles } from './NumberInput.styles';
 import { Validator, compose } from '../../shared/validators';
 
@@ -68,7 +72,8 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
         return (
           <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
             {label && (
-              <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>{`${label}${required ? ' *' : ''}`}
+              <label className={styles.label} htmlFor={inputId} data-qa={`${name}-field-label`}>
+                {`${label}${required ? ' *' : ''}`}
               </label>
             )}
             <span className={styles.inputWrapper}>

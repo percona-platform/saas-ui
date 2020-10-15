@@ -53,7 +53,7 @@ describe('Step::', () => {
       </Step>
     );
     const contentWrapper = wrapper.find('div').at(6);
-    
+
     expect(contentWrapper.text()).toContain('Test content');
   });
   it('calls step action', () => {
@@ -64,7 +64,7 @@ describe('Step::', () => {
       </Step>
     );
     const header = wrapper.find('[data-qa="step-header"]');
-    
+
     header.simulate('click');
 
     expect(action).toHaveBeenCalled();

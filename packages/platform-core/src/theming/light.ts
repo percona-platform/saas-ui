@@ -2,7 +2,7 @@ import { GrafanaThemeType, GrafanaTheme } from '@grafana/data';
 import defaultTheme, { commonColorsPalette } from './default';
 
 const basicColors = {
-  //#464c54
+  // #464c54
   ...commonColorsPalette,
   black: '#000000',
   white: '#ffffff',

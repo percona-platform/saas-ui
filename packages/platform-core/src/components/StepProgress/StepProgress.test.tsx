@@ -35,13 +35,12 @@ describe('StepProgress::', () => {
     }
   ];
 
-  const isCurrentStep = (wrapper: ReactWrapper, dataQa: string) => {
-    return wrapper
-      .find(`[data-qa="${dataQa}"]`)
-      .find('[data-qa="step-content"]')
-      .find('div').at(1).prop('className')
+  const isCurrentStep = (wrapper: ReactWrapper, dataQa: string) => wrapper
+    .find(`[data-qa="${dataQa}"]`)
+    .find('[data-qa="step-content"]')
+    .find('div').at(1)
+    .prop('className')
       ?.includes('current');
-  };
 
   it('renders steps correctly', () => {
     const wrapper = mount(
@@ -79,7 +78,7 @@ describe('StepProgress::', () => {
         onSubmit={() => {}}
       />
     );
-    
+
     expect(isCurrentStep(wrapper, 'step-1')).toBeTruthy();
 
     wrapper.find('[data-qa="step-2"]')
@@ -101,7 +100,7 @@ describe('StepProgress::', () => {
         }}
       />
     );
-    
+
     wrapper.find('input').at(1).simulate('change', { target: { value: 'test@test.com' } });
     wrapper.find('form').simulate('submit');
 
