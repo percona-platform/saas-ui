@@ -25,7 +25,7 @@
     "clean": "rimraf dist",
     "start": "yarn dev",
     "lint": "eslint --ext js,ts,tsx src",
-    "lint:fix": "eslint --ext js,ts,tsx src --fix",
+    "lint:fix": "yarn lint --fix",
     "dev": "yarn build:types && yarn build:babel:esm --skip-initial-build --watch --verbose",
     "test": "react-scripts test --verbose",
     "test:ci": "CI=true react-scripts test",
