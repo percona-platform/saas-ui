@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { LinkButton, useStyles } from '@grafana/ui';
 import { LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
-import { getAuth, authLogoutAction } from 'store/auth';
+import { getAuth } from 'store/auth/auth.selectors';
+import { authLogoutAction } from 'store/auth/auth.reducer';
 import { DOWNLOAD_PMM_LINK } from 'core/constants';
 import { getStyles } from './Authenticated.styles';
 import { Messages } from './Authenticated.messages';
@@ -24,7 +25,7 @@ export const Authenticated: FC = () => {
         <p>{Messages.authenticatedFirstLine}</p>
         <p>
           <em>
-            <b>{email}</b>
+            <b data-qa="user-email">{email}</b>
           </em>
         </p>
         <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK} target="_blank">
