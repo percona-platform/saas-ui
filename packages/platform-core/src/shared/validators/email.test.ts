@@ -1,7 +1,7 @@
 import { email } from './email';
 
 describe('validators :: email', () => {
-  // NOTE (nicolalamacchia): some of these tests were taken from Chromium's source code
+  // NOTE: some of these tests were taken from Chromium's source code
   test('email validator should return undefined if the passed email is valid', () => {
     expect(email('test@example.org')).toBeUndefined();
     expect(email('someone@127.0.0.1')).toBeUndefined();
@@ -18,8 +18,8 @@ describe('validators :: email', () => {
     expect(email('ddjk-s-jk@asl-.com')).toEqual('Invalid email address');
     expect(email('a @p.com')).toEqual('Invalid email address');
     expect(email('')).toEqual('Invalid email address');
-    // NOTE (nicolalamacchia): the following is an exception, we don't consider valid
-    //                         email addresses with no TLD
+    // NOTE: the following is an exception, we don't consider valid
+    //       email addresses with no TLD
     expect(email('test@example')).toEqual('Invalid email address');
   });
 });
