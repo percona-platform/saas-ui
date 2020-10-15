@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "yarn lint && react-scripts build",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll=false --collectCoverageFrom=src/**/*.{ts,tsx,js} --collectCoverageFrom=!src/core/gen/**/*",
     "lint": "eslint --ext js,ts,tsx src",
