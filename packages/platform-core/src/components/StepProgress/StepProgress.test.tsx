@@ -32,7 +32,7 @@ describe('StepProgress::', () => {
       ),
       fields: ['description'],
       dataQa: 'step-2',
-    }
+    },
   ];
 
   const isCurrentStep = (wrapper: ReactWrapper, dataQa: string) => wrapper
@@ -47,7 +47,7 @@ describe('StepProgress::', () => {
       <StepProgress
         steps={steps}
         onSubmit={() => {}}
-      />
+      />,
     );
 
     expect(wrapper.find('input').length).toBe(2);
@@ -63,9 +63,9 @@ describe('StepProgress::', () => {
         onSubmit={() => {}}
         initialValues={{
           name: 'Test name',
-          description: 'Test description'
+          description: 'Test description',
         }}
-      />
+      />,
     );
 
     expect(wrapper.find('input').at(0).prop('value')).toEqual('Test name');
@@ -76,7 +76,7 @@ describe('StepProgress::', () => {
       <StepProgress
         steps={steps}
         onSubmit={() => {}}
-      />
+      />,
     );
 
     expect(isCurrentStep(wrapper, 'step-1')).toBeTruthy();
@@ -96,9 +96,9 @@ describe('StepProgress::', () => {
         onSubmit={onSubmit}
         initialValues={{
           name: 'Test name',
-          description: 'Test description'
+          description: 'Test description',
         }}
-      />
+      />,
     );
 
     wrapper.find('input').at(1).simulate('change', { target: { value: 'test@test.com' } });

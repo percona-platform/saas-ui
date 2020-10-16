@@ -4,7 +4,7 @@ import { stylesFactory, selectThemeVariant } from '@grafana/ui';
 
 export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const {
-    border, colors, palette, spacing
+    border, colors, palette, spacing,
   } = theme;
   const stepHeaderHoverBg = selectThemeVariant(
     { light: palette.gray95, dark: colors.dropdownOptionHoverBg },

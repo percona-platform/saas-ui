@@ -1,10 +1,10 @@
 import React, {
-  FC, useCallback, useRef, useMemo
+  FC, useCallback, useRef, useMemo,
 } from 'react';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
 import {
-  Field, FieldMetaState, FieldInputProps, UseFieldConfig
+  Field, FieldMetaState, FieldInputProps, UseFieldConfig,
 } from 'react-final-form';
 import { getStyles } from './NumberInput.styles';
 import { Validator, compose } from '../../shared/validators';

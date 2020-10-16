@@ -1,5 +1,5 @@
 import React, {
-  FC, ReactNode, useCallback, useState
+  FC, ReactNode, useCallback, useState,
 } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { FormApi } from 'final-form';
@@ -63,7 +63,7 @@ export const StepProgress: FC<StepProgressProps> = ({
           data-qa="step-progress"
         >
           {steps.map(({
-            render, title, fields, dataQa
+            render, title, fields, dataQa,
           }, index) => (
             <Step
               key={index}

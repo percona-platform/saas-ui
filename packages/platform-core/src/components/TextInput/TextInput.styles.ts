@@ -4,7 +4,7 @@ import { stylesFactory } from '@grafana/ui';
 
 export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const {
-    border, colors, palette, spacing, typography
+    border, colors, palette, spacing, typography,
   } = theme;
 
   return {

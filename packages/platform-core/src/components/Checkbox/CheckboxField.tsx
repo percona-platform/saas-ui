@@ -1,6 +1,6 @@
 import React, { FC, useMemo, ReactNode } from 'react';
 import {
-  Field, FieldInputProps, FieldMetaState, UseFieldConfig
+  Field, FieldInputProps, FieldMetaState, UseFieldConfig,
 } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
 import { cx } from 'emotion';

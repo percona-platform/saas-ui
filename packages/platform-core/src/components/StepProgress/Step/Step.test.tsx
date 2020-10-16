@@ -11,7 +11,7 @@ describe('Step::', () => {
         onClick={() => {}}
       >
         Test content
-      </Step>
+      </Step>,
     );
     const header = wrapper.find('[data-qa="step-header"]');
     const number = header.find('div').at(1);
@@ -24,7 +24,7 @@ describe('Step::', () => {
     const wrapper = shallow(
       <Step onClick={() => {}}>
         Test content
-      </Step>
+      </Step>,
     );
     const header = wrapper.find('[data-qa="step-header"]');
     const number = header.find('div').at(1);
@@ -40,7 +40,7 @@ describe('Step::', () => {
         onClick={() => {}}
       >
         Test content
-      </Step>
+      </Step>,
     );
     const header = wrapper.find('[data-qa="step-header"]');
 
@@ -50,7 +50,7 @@ describe('Step::', () => {
     const wrapper = shallow(
       <Step onClick={() => {}}>
         Test content
-      </Step>
+      </Step>,
     );
     const contentWrapper = wrapper.find('div').at(6);
 
@@ -61,7 +61,7 @@ describe('Step::', () => {
     const wrapper = shallow(
       <Step onClick={action}>
         Test content
-      </Step>
+      </Step>,
     );
     const header = wrapper.find('[data-qa="step-header"]');
 
