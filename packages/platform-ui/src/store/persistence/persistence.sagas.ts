@@ -1,9 +1,9 @@
 import {
-  takeEvery, all, select, call
+  takeEvery, all, select, call,
 } from 'redux-saga/effects';
 import { saveState } from 'store/persistence/engine';
 import {
-  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction
+  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction,
 } from 'store/auth/auth.reducer';
 
 export function* save() {

@@ -16,7 +16,7 @@ const rootReducer = createRootReducer();
 export const store: Store<AppState> = createStore(
   rootReducer,
   persistedState,
-  enhancers
+  enhancers,
 );
 
 sagaMiddleware.run(rootSaga);

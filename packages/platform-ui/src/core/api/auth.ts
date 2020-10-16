@@ -4,7 +4,7 @@ import { SignIn, SignUp } from './types';
 
 const { AuthAPIClient } = AuthGRPC;
 const {
-  RefreshSessionRequest, SignInRequest, SignUpRequest, SignOutRequest
+  RefreshSessionRequest, SignInRequest, SignUpRequest, SignOutRequest,
 } = AuthPB;
 
 export const refreshSession = () => {

@@ -1,9 +1,9 @@
 import { AuthPB } from 'core';
 import {
-  all, put, call, takeLatest, StrictEffect
+  all, put, call, takeLatest, StrictEffect,
 } from 'redux-saga/effects';
 import {
-  refreshSession, signIn, signUp, signOut
+  refreshSession, signIn, signUp, signOut,
 } from 'core/api/auth';
 import { Messages } from 'core/api/messages';
 import * as grpcWeb from 'grpc-web';
@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { Routes } from 'core/routes';
 import { history } from 'core/history';
 import {
-  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction
+  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction,
 } from './auth.reducer';
 
 type AuthRefreshSessionRequestGenerator = Generator<StrictEffect, void, AuthPB.RefreshSessionResponse>;

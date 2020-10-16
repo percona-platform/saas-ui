@@ -4,7 +4,7 @@ import { useStyles } from '@grafana/ui';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  LoaderButton, PasswordInputField, TextInputField, validators
+  LoaderButton, PasswordInputField, TextInputField, validators,
 } from '@percona/platform-core';
 import { PublicLayout } from 'components';
 import { PASSWORD_MIN_LENGTH } from 'core/constants';
@@ -15,7 +15,7 @@ import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 
 const {
-  containsLowercase, containsNumber, containsUppercase, email, required
+  containsLowercase, containsNumber, containsUppercase, email, required,
 } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 

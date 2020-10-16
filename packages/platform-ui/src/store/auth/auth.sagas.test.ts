@@ -20,10 +20,10 @@ import {
   authLogoutSuccess,
   authSignupFailure,
   authSignupRequest,
-  authSignupSuccess
+  authSignupSuccess,
 } from './auth.sagas';
 import {
-  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction
+  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction,
 } from './auth.reducer';
 
 const TEST_EMAIL = 'test@test.test';
@@ -41,7 +41,7 @@ let dispatchedActions: Action[];
 const runSagaPromise = (saga: Saga, payload?: any) => runSaga({
   dispatch: (action: Action) => {
     dispatchedActions.push(action);
-  }
+  },
 }, saga, { payload }).toPromise();
 
 describe('Auth Sagas', () => {
@@ -153,7 +153,7 @@ describe('Auth Sagas', () => {
   test('authLoginFailure (invalid argument)', async () => {
     await runSagaPromise(
       authLoginFailure as Saga,
-      { code: grpcWeb.StatusCode.INVALID_ARGUMENT, message: TEST_MESSAGE }
+      { code: grpcWeb.StatusCode.INVALID_ARGUMENT, message: TEST_MESSAGE },
     );
 
     expect(dispatchedActions).toEqual([]);

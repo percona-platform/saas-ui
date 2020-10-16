@@ -20,7 +20,7 @@ import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 
 const {
-  containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue
+  containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue,
 } = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
