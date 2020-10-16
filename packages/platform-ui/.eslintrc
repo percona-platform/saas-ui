@@ -1,5 +1,5 @@
 {
-  "extends": ["@grafana/eslint-config", "react-app", "plugin:react/recommended", "airbnb"],
+  "extends": ["react-app", "plugin:react/recommended", "airbnb"],
   "env": {
     "jest/globals": true,
     "browser": true
@@ -18,6 +18,7 @@
   },
   "plugins": ["react-hooks", "jest", "eslint-plugin-no-inline-styles"],
   "rules": {
+    "no-console": ["warn", {"allow": ["warn", "error"]}],
     "semi": [
       "error",
       "always"
