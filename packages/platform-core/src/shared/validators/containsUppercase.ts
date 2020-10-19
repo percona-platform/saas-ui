@@ -1,11 +1,16 @@
 import { Validator } from './validator.types';
 
-export const containsUppercase: Validator = (value: string) => {
-  const casesRegexp = /^(?=.*[A-Z])/gm;
+const errorMessage = 'Must include at least one uppercase letter';
+const casesRegexp = /^(?=.*[A-Z])/gm;
+
+export const containsUppercase: Validator<string> = (value: string) => {
+  if (typeof value !== 'string') {
+    return errorMessage;
+  }
 
   if (casesRegexp.test(value)) {
     return undefined;
   }
 
-  return 'Must include at least one uppercase letter';
+  return errorMessage;
 };
