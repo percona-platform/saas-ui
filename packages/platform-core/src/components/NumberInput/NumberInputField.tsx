@@ -51,15 +51,21 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
   const dispatchChangeEvent = useCallback(() => {
     const event = new Event('change', { bubbles: true });
 
+    // TODO: find a way to fix this
+    // eslint-disable-next-line no-unused-expressions
     inputRef.current?.dispatchEvent(event);
   }, [inputRef]);
 
   const stepUp = () => {
+    // TODO: find a way to fix this
+    // eslint-disable-next-line no-unused-expressions
     inputRef.current?.stepUp();
     dispatchChangeEvent();
   };
 
   const stepDown = () => {
+    // TODO: find a way to fix this
+    // eslint-disable-next-line no-unused-expressions
     inputRef.current?.stepDown();
     dispatchChangeEvent();
   };

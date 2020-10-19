@@ -35,10 +35,12 @@ export const CheckboxField: FC<CheckboxProps> = ({
     validators,
   ]);
 
+  // TODO: fix the eslint issue here
   return (
     <Field {...fieldConfig} type="checkbox" name={name} validate={validate}>
       {({ input, meta }: CheckboxFieldRenderProps) => (
         <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
           <label className={styles.wrapper}>
             <input
               {...input}
