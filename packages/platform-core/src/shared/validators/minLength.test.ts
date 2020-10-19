@@ -12,6 +12,7 @@ describe('Validator minLength::', () => {
     const length = 8;
     const validator = minLength(length);
     const errorMessage = `Must contain at least ${length} characters`;
+
     expect(validator('1234567')).toEqual(errorMessage);
     expect(validator('0')).toEqual(errorMessage);
     expect(validator(null)).toEqual(errorMessage);

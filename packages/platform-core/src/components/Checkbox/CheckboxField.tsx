@@ -1,13 +1,13 @@
-import React, { FC, useMemo, ReactNode } from 'react';
-import {
-  Field, FieldInputProps, FieldMetaState, UseFieldConfig,
-} from 'react-final-form';
+import React, { FC, useMemo, ReactNode, InputHTMLAttributes } from 'react';
+import { Field, FieldInputProps, FieldMetaState, UseFieldConfig } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
 import { cx } from 'emotion';
 import { getStyles } from './Checkbox.styles';
 import { Validator, compose } from '../../shared/validators';
 
-export interface CheckboxProps extends UseFieldConfig<boolean> {
+type InputHTMLAttrs<T> = Omit<InputHTMLAttributes<T>, 'defaultValue' | 'value' | 'onChange'>;
+
+export interface CheckboxProps extends UseFieldConfig<boolean>, InputHTMLAttrs<boolean> {
   disabled?: boolean;
   fieldClassName?: string;
   label?: string | ReactNode;
@@ -66,3 +66,10 @@ export const CheckboxField: FC<CheckboxProps> = ({
 };
 
 CheckboxField.displayName = 'CheckboxField';
+
+export const Dumpit: FC = ({ children, ...rest }) => {
+  console.log('children', JSON.stringify(children));
+  console.log('rest...', JSON.stringify(rest));
+
+  return null;
+};

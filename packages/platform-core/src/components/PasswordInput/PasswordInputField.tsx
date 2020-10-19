@@ -1,17 +1,17 @@
-import React, { FC, useMemo, ReactNode } from 'react';
-import {
-  Field, FieldMetaState, FieldInputProps, UseFieldConfig,
-} from 'react-final-form';
+import React, { FC, useMemo, ReactNode, InputHTMLAttributes } from 'react';
+import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './PasswordInput.styles';
 
+type InputHTMLAttrs<T> = Omit<InputHTMLAttributes<T>, 'defaultValue' | 'value' | 'onChange'>;
+
 /**
  * Note: the validation error message will be displayed once the the input has been modified.
  * To show the error message on blur you have to pass `showErrorOnBlur`.
  */
-export interface PasswordInputFieldProps extends UseFieldConfig<string> {
+export interface PasswordInputFieldProps extends UseFieldConfig<string>, InputHTMLAttrs<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
