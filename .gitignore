@@ -4,5 +4,13 @@ bin
 build
 dist
 
+# IDE
+.vscode
+.idea
+
 # misc
 .DS_Store
+
+# IDEs
+.vscode
+.idea

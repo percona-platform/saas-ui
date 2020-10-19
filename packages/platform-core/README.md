@@ -28,3 +28,7 @@ In order to setup the local development environment please run the following com
 ## Important
 
 - This project does not leverage imports through statics paths because `tsc` does not properly support them when generating types.
+
+### Challenges
+
+- Currently we are unable to use direct imports, because the build system does not properly handle them in the bundle. This is possible however, but would require a better build setup.
