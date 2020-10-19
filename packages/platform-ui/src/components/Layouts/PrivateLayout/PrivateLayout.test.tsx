@@ -13,6 +13,7 @@ describe('PrivateLayout::', () => {
       </TestContainer>,
     );
     const legend = container.querySelector('legend');
+
     expect(legend).toHaveTextContent('Logout');
   });
 });

@@ -3,5 +3,5 @@ export const Routes = {
   login: '/login',
   logout: '/logout',
   signup: '/signup',
-  welcome: '/welcome'
+  welcome: '/welcome',
 };

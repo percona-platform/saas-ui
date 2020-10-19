@@ -2,10 +2,10 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { TestContainer } from 'components/TestContainer';
-import { Main } from './Main';
 import * as authApi from 'core/api/auth';
 import * as authSelectors from 'store/auth/auth.selectors';
 import { history } from 'core/history';
+import { Main } from './Main';
 import { Messages } from './Main.messages';
 
 const getAuth = jest.spyOn(authSelectors, 'getAuth');
@@ -21,7 +21,7 @@ describe('Main Page', () => {
     document.body.appendChild(container);
 
     getAuth.mockImplementation(() => ({
-      email:'test@test.test',
+      email: 'test@test.test',
       authenticated: true,
       pending: false,
       authCheckCompleted: true,

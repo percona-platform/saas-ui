@@ -1,12 +1,12 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { Switch } from 'react-router';
+import { Switch } from 'react-router-dom';
 import { TestContainer } from 'components/TestContainer';
-import { PublicRoute } from './PublicRoute';
 import * as authSelectors from 'store/auth/auth.selectors';
 import { Routes } from 'core/routes';
 import { history } from 'core/history';
+import { PublicRoute } from './PublicRoute';
 
 const getAuth = jest.spyOn(authSelectors, 'getAuth');
 
@@ -41,7 +41,7 @@ describe('PublicRoute', () => {
 
   test('redirect to login if unauthenticated', async () => {
     getAuth.mockImplementation(() => ({
-      email:'test@test.test',
+      email: 'test@test.test',
       authenticated: true,
       pending: false,
       authCheckCompleted: true,

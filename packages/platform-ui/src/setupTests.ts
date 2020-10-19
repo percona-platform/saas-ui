@@ -6,6 +6,7 @@ import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
 import 'jest-canvas-mock';
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace jest {
   interface Matchers<R> {
     toHaveTextContent: (htmlElement: string) => object;

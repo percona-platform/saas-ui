@@ -1,4 +1,6 @@
-import React, { FC, ReactNode, useCallback, useState } from 'react';
+import React, {
+  FC, ReactNode, useCallback, useState,
+} from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { FormApi } from 'final-form';
 import { Step, StepStatus } from './Step/Step';
@@ -54,27 +56,31 @@ export const StepProgress: FC<StepProgressProps> = ({
     <Form
       initialValues={initialValues}
       onSubmit={onSubmit}
-      render={({form, handleSubmit, ...props}) => (
-          <form
-            onSubmit={handleSubmit}
-            className={styles.stepProgressWrapper}
-            data-qa="step-progress"
-          >
-            {steps.map(({ render, title, fields, dataQa }, index) => (
-              <Step
-                key={index}
-                title={title}
-                number={index + 1}
-                onClick={onClick(index)}
-                status={getStepStatus(form, fields, currentStep, index, stepsVisited)}
-                isLast={index === steps.length - 1}
-                dataQa={dataQa}
-              >
-                {render({form, handleSubmit, ...props})}
-              </Step>
-            ))}
-          </form>
-        )}
+      render={({ form, handleSubmit, ...props }) => (
+        <form
+          onSubmit={handleSubmit}
+          className={styles.stepProgressWrapper}
+          data-qa="step-progress"
+        >
+          {steps.map(({
+            render, title, fields, dataQa,
+          }, index) => (
+            <Step
+              // TODO: fix this line
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              title={title}
+              number={index + 1}
+              onClick={onClick(index)}
+              status={getStepStatus(form, fields, currentStep, index, stepsVisited)}
+              isLast={index === steps.length - 1}
+              dataQa={dataQa}
+            >
+              {render({ form, handleSubmit, ...props })}
+            </Step>
+          ))}
+        </form>
+      )}
     />
   );
 };

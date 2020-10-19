@@ -2,9 +2,9 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { TestContainer } from 'components/TestContainer';
-import { Authenticated } from './Authenticated';
 import { fireEvent } from '@testing-library/react';
 import * as authApi from 'core/api/auth';
+import { Authenticated } from './Authenticated';
 
 jest.spyOn(authApi, 'signOut');
 

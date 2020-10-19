@@ -12,18 +12,16 @@ export const PublicRoute: FC<RouteProps> = ({ children, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-        !auth.authenticated ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: Routes.root,
-              state: { from: location },
-            }}
-          />
-        )
-      }
+      render={({ location }) => (!auth.authenticated ? (
+        children
+      ) : (
+        <Redirect
+          to={{
+            pathname: Routes.root,
+            state: { from: location },
+          }}
+        />
+      ))}
     />
   );
 };

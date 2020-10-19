@@ -32,23 +32,22 @@ describe('StepProgress::', () => {
       ),
       fields: ['description'],
       dataQa: 'step-2',
-    }
+    },
   ];
 
-  const isCurrentStep = (wrapper: ReactWrapper, dataQa: string) => {
-    return wrapper
-      .find(`[data-qa="${dataQa}"]`)
-      .find('[data-qa="step-content"]')
-      .find('div').at(1).prop('className')
+  const isCurrentStep = (wrapper: ReactWrapper, dataQa: string) => wrapper
+    .find(`[data-qa="${dataQa}"]`)
+    .find('[data-qa="step-content"]')
+    .find('div').at(1)
+    .prop('className')
       ?.includes('current');
-  };
 
   it('renders steps correctly', () => {
     const wrapper = mount(
       <StepProgress
         steps={steps}
         onSubmit={() => {}}
-      />
+      />,
     );
 
     expect(wrapper.find('input').length).toBe(2);
@@ -64,9 +63,9 @@ describe('StepProgress::', () => {
         onSubmit={() => {}}
         initialValues={{
           name: 'Test name',
-          description: 'Test description'
+          description: 'Test description',
         }}
-      />
+      />,
     );
 
     expect(wrapper.find('input').at(0).prop('value')).toEqual('Test name');
@@ -77,9 +76,9 @@ describe('StepProgress::', () => {
       <StepProgress
         steps={steps}
         onSubmit={() => {}}
-      />
+      />,
     );
-    
+
     expect(isCurrentStep(wrapper, 'step-1')).toBeTruthy();
 
     wrapper.find('[data-qa="step-2"]')
@@ -97,11 +96,11 @@ describe('StepProgress::', () => {
         onSubmit={onSubmit}
         initialValues={{
           name: 'Test name',
-          description: 'Test description'
+          description: 'Test description',
         }}
-      />
+      />,
     );
-    
+
     wrapper.find('input').at(1).simulate('change', { target: { value: 'test@test.com' } });
     wrapper.find('form').simulate('submit');
 

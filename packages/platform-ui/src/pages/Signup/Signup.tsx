@@ -12,14 +12,16 @@ import {
 } from '@percona/platform-core';
 import { PublicLayout } from 'components';
 import { PASSWORD_MIN_LENGTH } from 'core/constants';
+import { authSignupAction, getAuth } from 'store/auth';
+import { Routes } from 'core/routes';
 import { Messages } from './Signup.messages';
 import { getStyles } from './Signup.styles';
 import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
-import { authSignupAction, getAuth } from 'store/auth';
-import { Routes } from 'core/routes';
 
-const { containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue } = validators;
+const {
+  containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue,
+} = validators;
 const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
 const emailValidators = [required, email];

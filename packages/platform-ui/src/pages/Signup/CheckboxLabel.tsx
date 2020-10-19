@@ -6,6 +6,7 @@ import { Messages } from './Signup.messages';
 
 export const CheckboxLabel: FC = () => {
   const styles = useStyles(getStyles);
+
   return (
     <>
       {`${Messages.agreementFirstPart} `}

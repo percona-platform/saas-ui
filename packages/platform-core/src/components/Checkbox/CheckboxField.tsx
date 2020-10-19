@@ -1,5 +1,7 @@
 import React, { FC, useMemo, ReactNode } from 'react';
-import { Field, FieldInputProps, FieldMetaState, UseFieldConfig } from 'react-final-form';
+import {
+  Field, FieldInputProps, FieldMetaState, UseFieldConfig,
+} from 'react-final-form';
 import { useTheme } from '@grafana/ui';
 import { cx } from 'emotion';
 import { getStyles } from './Checkbox.styles';
@@ -33,32 +35,32 @@ export const CheckboxField: FC<CheckboxProps> = ({
     validators,
   ]);
 
+  // TODO: fix the eslint issue here
   return (
     <Field {...fieldConfig} type="checkbox" name={name} validate={validate}>
-      {({ input, meta }: CheckboxFieldRenderProps) => {
-        return (
-          <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
-            <label className={styles.wrapper}>
-              <input
-                {...input}
-                type="checkbox"
-                disabled={disabled}
-                data-qa={`${name}-checkbox-input`}
-                className={styles.input}
-              />
-              <span className={styles.checkmark} />
-              {label && (
-                <span className={styles.label} data-qa={`${name}-field-label`}>
-                  {label}
-                </span>
-              )}
-            </label>
-            <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
-              {meta.touched && meta.error}
-            </div>
+      {({ input, meta }: CheckboxFieldRenderProps) => (
+        <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
+          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+          <label className={styles.wrapper}>
+            <input
+              {...input}
+              type="checkbox"
+              disabled={disabled}
+              data-qa={`${name}-checkbox-input`}
+              className={styles.input}
+            />
+            <span className={styles.checkmark} />
+            {label && (
+            <span className={styles.label} data-qa={`${name}-field-label`}>
+              {label}
+            </span>
+            )}
+          </label>
+          <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
+            {meta.touched && meta.error}
           </div>
-        );
-      }}
+        </div>
+      )}
     </Field>
   );
 };

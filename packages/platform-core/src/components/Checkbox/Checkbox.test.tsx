@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { mount } from 'enzyme';
-import { CheckboxField } from './CheckboxField';
 import { Form, Field } from 'react-final-form';
+import { CheckboxField } from './CheckboxField';
 
 jest.spyOn(console, 'error').mockImplementation(() => {});
 
