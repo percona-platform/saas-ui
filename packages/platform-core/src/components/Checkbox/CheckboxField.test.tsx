@@ -1,83 +1,83 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { mount } from 'enzyme';
-import { Form, FormRenderProps } from 'react-final-form';
+import { Form, FormRenderProps, Field } from 'react-final-form';
+import { dataQa } from 'shared';
 import { requiredTrue } from 'shared/validators';
 import { CheckboxField } from './CheckboxField';
 
 const checkboxLabel = 'Checkbox label';
 
+const Wrapper: FC = ({ children }) => (
+  <Form onSubmit={() => {}}>
+    {() => (
+      <form>{children}</form>
+    )}
+  </Form>
+);
+
 describe('CheckboxField::', () => {
-  it('should accept a default value', () => {
-    const wrapper = mount(
-      <Form onSubmit={jest.fn()}>
-        {({ handleSubmit }: FormRenderProps) => (
-          <form onSubmit={handleSubmit}>
-            <CheckboxField
-              name="test"
-              label={checkboxLabel}
-              validators={[requiredTrue]}
-              defaultValue
-            />
-          </form>
-        )}
-      </Form>,
-    );
+  it('should render an input element of type checkbox', () => {
+    const wrapper = mount(<Wrapper><CheckboxField name="test" /></Wrapper>);
 
-    expect(wrapper.find('[data-qa="test-checkbox-input"]').at(0).prop('checked')).toEqual(true);
-    expect(wrapper.find('[data-qa="test-field-label"]').at(0).text()).toEqual(checkboxLabel);
-    expect(wrapper.find('[data-qa="test-field-error-message"]').at(0).text()).toHaveLength(0);
+    const field = wrapper.find(Field);
+
+    expect(field).toHaveLength(1);
+    expect(wrapper.find('input')).toHaveLength(1);
+    expect(wrapper.find('input')).toHaveProp('type', 'checkbox');
 
     wrapper.unmount();
   });
 
-  it('should display an error message when validation fails', () => {
-    const eventChangeTrue = { target: { value: true } };
-    const eventChangeFalse = { target: { value: false } };
-    const wrapper = mount(
-      <Form onSubmit={jest.fn()}>
-        {({ handleSubmit }: FormRenderProps) => (
-          <form onSubmit={handleSubmit}>
-            <CheckboxField name="test" label={checkboxLabel} validators={[requiredTrue]} />
-          </form>
-        )}
-      </Form>,
-    );
+  it('should call passed validators', () => {
+    const validatorOne = jest.fn();
+    const validatorTwo = jest.fn();
+    const wrapper = mount(<Wrapper><CheckboxField name="test" validators={[validatorOne, validatorTwo]} /></Wrapper>);
 
-    const checkbox = wrapper.find('input');
+    expect(validatorOne).toBeCalledTimes(1);
+    expect(validatorTwo).toBeCalledTimes(1);
 
-    expect(checkbox.at(0).prop('checked')).toEqual(false);
-    expect(wrapper.find('[data-qa="test-field-error-message"]').at(0).text()).toHaveLength(0);
-
-    // We need to click twice to trigger an error message, so that checked iterates like: false(initial) -> true -> false
-    checkbox.simulate('change', eventChangeTrue);
-    wrapper.update();
-    expect(wrapper.find('[data-qa="test-checkbox-input"]').at(0).prop('checked')).toEqual(true);
-
-    checkbox.simulate('change', eventChangeFalse);
-    checkbox.simulate('blur');
-    wrapper.update();
-    // NOTE: the handle `checkbox` doesn't work here, which is weird! Probably because it's one cycle behind
-    expect(wrapper.find('[data-qa="test-checkbox-input"]').at(0).prop('checked')).toEqual(false);
-    expect(wrapper.find('[data-qa="test-field-error-message"]').at(0).text()).toEqual('Required field');
     wrapper.unmount();
   });
 
-  it('should not display the label markup if the label is not passed', () => {
-    const wrapper = mount(
-      <Form onSubmit={jest.fn()}>
-        {({ handleSubmit }: FormRenderProps) => (
-          <form onSubmit={handleSubmit}>
-            <CheckboxField name="test" validators={[requiredTrue]} />
-          </form>
-        )}
-      </Form>,
-    );
+  it('should show an error on invalid status', () => {
+    const validatorOne = jest.fn().mockReturnValue('some error');
+    const validatorTwo = jest.fn();
+    const wrapper = mount(<Wrapper><CheckboxField name="test" validators={[validatorOne, validatorTwo]} /></Wrapper>);
 
-    expect(wrapper.find('[data-qa="test-field-label"]')).toHaveLength(0);
+    expect(wrapper.find(dataQa('test-field-error-message')).text()).toBe('');
+
+    expect(validatorOne).toBeCalledTimes(1);
+
+    wrapper.find('input').at(0).simulate('change', { target: { value: true } });
+    wrapper.find('input').at(0).simulate('blur');
+
+    expect(validatorOne).toBeCalledTimes(2);
+    expect(validatorTwo).toBeCalledTimes(0);
+
+    expect(wrapper.find(dataQa('test-field-error-message')).text()).toBe('some error');
+
     wrapper.unmount();
   });
 
-  it('should accept any valid input html attributes and pass them to the input tag', () => {
+  it('should show no labels if one is not specified', () => {
+    const wrapper = mount(<Wrapper><CheckboxField name="test" /></Wrapper>);
+
+    expect(wrapper.find(dataQa('test-field-label')).length).toBe(0);
+
+    wrapper.unmount();
+  });
+
+  it('should show a label if one is specified', () => {
+    const wrapper = mount(<Wrapper><CheckboxField label="test label" name="test" /></Wrapper>);
+
+    expect(wrapper.find(dataQa('test-field-label')).length).toBe(1);
+    expect(wrapper.find(dataQa('test-field-label')).text()).toBe('test label');
+
+    wrapper.unmount();
+  });
+
+  it('should accept any valid input html attributes and pass them over to the input tag', () => {
+    const title = 'Titolo di cappuccino';
     const wrapper = mount(
       <Form onSubmit={jest.fn()}>
         {({ handleSubmit }: FormRenderProps) => (
@@ -87,15 +87,23 @@ describe('CheckboxField::', () => {
               label={checkboxLabel}
               validators={[requiredTrue]}
               disabled
-              autoComplete="off"
+              inputProps={{
+                autoComplete: 'off',
+                autoCorrect: 'off',
+                title,
+              }}
             />
           </form>
         )}
       </Form>,
     );
 
-    console.log(wrapper.debug());
-    expect(wrapper.find('[data-qa="test-field-label"]')).toHaveLength(0);
+    const input = wrapper.find(dataQa('test-checkbox-input'));
+
+    expect(input.prop('autoComplete')).toEqual('off');
+    expect(input.prop('autoCorrect')).toEqual('off');
+    expect(input.prop('title')).toEqual(title);
+
     wrapper.unmount();
   });
 });

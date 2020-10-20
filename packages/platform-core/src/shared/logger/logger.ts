@@ -2,11 +2,17 @@
 import { LOG_LEVELS, LOG_LEVEL } from './config';
 import { truncate } from '../truncate';
 
+let CONFIG_LOG_LEVEL: LOG_LEVELS = LOG_LEVEL;
+
+export const setLogLevel = (level: LOG_LEVELS) => {
+  CONFIG_LOG_LEVEL = level;
+};
+
 const createLogMethod = (
   loggerFunc: (...attrs: Array<any>) => void,
-  level: keyof typeof LOG_LEVELS,
+  level: LOG_LEVELS,
 ) => (...attrs: Array<any>) => {
-  if (LOG_LEVEL <= level) {
+  if (level >= CONFIG_LOG_LEVEL) {
     console.group(level, truncate(25)(attrs[0]));
     loggerFunc(`[${level}]`, ...attrs);
     console.groupEnd();

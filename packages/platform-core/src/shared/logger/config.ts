@@ -1,10 +1,10 @@
 
 export enum LOG_LEVELS {
-  DEBUG = 'DEBUG',
-  LOG = 'LOG',
-  INFO = 'INFO',
-  WARN = 'WARN',
-  ERROR = 'ERROR',
+  DEBUG,
+  LOG,
+  INFO,
+  WARN,
+  ERROR,
 };
 
-export const LOG_LEVEL = process.env.LOG_LEVEL || LOG_LEVELS.LOG;
+export const LOG_LEVEL = parseInt(process.env.REACT_APP_LOG_LEVEL!, 10) || LOG_LEVELS.DEBUG;
