@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { mount } from 'enzyme';
-import { Form, FormRenderProps, Field } from 'react-final-form';
+import { Form, Field } from 'react-final-form';
 import { dataQa } from 'shared';
 import { requiredTrue } from 'shared/validators';
 import { CheckboxField } from './CheckboxField';
@@ -77,25 +77,20 @@ describe('CheckboxField::', () => {
   });
 
   it('should accept any valid input html attributes and pass them over to the input tag', () => {
-    const title = 'Titolo di cappuccino';
+    const title = 'Titolo di soggiorno';
     const wrapper = mount(
-      <Form onSubmit={jest.fn()}>
-        {({ handleSubmit }: FormRenderProps) => (
-          <form onSubmit={handleSubmit}>
-            <CheckboxField
-              name="test"
-              label={checkboxLabel}
-              validators={[requiredTrue]}
-              disabled
-              inputProps={{
-                autoComplete: 'off',
-                autoCorrect: 'off',
-                title,
-              }}
-            />
-          </form>
-        )}
-      </Form>,
+      <Wrapper>
+        <CheckboxField
+          name="test"
+          label={checkboxLabel}
+          validators={[requiredTrue]}
+          inputProps={{
+            autoComplete: 'off',
+            autoCorrect: 'off',
+            title,
+          }}
+        />
+      </Wrapper>,
     );
 
     const input = wrapper.find(dataQa('test-checkbox-input'));
