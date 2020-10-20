@@ -14,7 +14,7 @@ export interface NumberInputFieldProps extends UseFieldConfig<number> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
-  inputProps?: FieldInputAttrs<HTMLInputElement>;
+  inputProps?: FieldInputAttrs;
   label?: string;
   name: string;
   placeholder?: string;

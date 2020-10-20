@@ -15,7 +15,7 @@ export interface PasswordInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
-  inputProps?: FieldInputAttrs<HTMLInputElement>;
+  inputProps?: FieldInputAttrs;
   label?: string | ReactNode;
   name: string;
   placeholder?: string;

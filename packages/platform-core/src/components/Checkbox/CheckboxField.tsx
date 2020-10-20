@@ -9,7 +9,7 @@ import { FieldInputAttrs } from '../../shared/types';
 export interface CheckboxProps extends UseFieldConfig<boolean> {
   disabled?: boolean;
   fieldClassName?: string;
-  inputProps?: FieldInputAttrs<HTMLInputElement>;
+  inputProps?: FieldInputAttrs;
   label?: string | ReactNode;
   name: string;
   validators?: Validator[];
