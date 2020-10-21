@@ -1,9 +1,9 @@
-import React, { FC, useState, useEffect, useMemo, useRef } from 'react';
+import React, { FC, useState, useMemo, useEffect, useRef } from 'react';
 import { usePopper } from 'react-popper';
 import { Options as PopperOptions } from '@popperjs/core';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
-import { getStyles } from './NumberInput.styles';
+import { getStyles } from './Dropdown.styles';
 
 const popperConfig: Partial<PopperOptions> = {
   placement: 'bottom',
@@ -12,32 +12,32 @@ const popperConfig: Partial<PopperOptions> = {
       name: 'offset',
       enabled: true,
       options: {
-        offset: [0, 0],
+        offset: [0, 10],
       },
     },
   ],
 };
 
-const DropdownItem: FC = ({ children }) => {
-  const styles = useMemo(() => getStyles(), []);
-
-  return <div className={styles.dropdownItem}>{children}</div>;
-};
-
 interface DropdownProps {
-  toggle:
-    | React.ComponentType<any>
-    | React.LazyExoticComponent<React.ComponentType<any>>;
-  children: Array<typeof DropdownItem>;
+  toggle: React.ForwardRefExoticComponent<any>;
+  children: Array<React.ReactElement>;
+  className?: string;
 }
 
-const Dropdown: FC<DropdownProps> = ({ children, toggle: Toggle }) => {
+export const Dropdown: FC<DropdownProps> = React.memo(({
+  className,
+  children,
+  toggle: Toggle,
+}) => {
+  const theme = useTheme();
+  const styles = useMemo(() => getStyles(theme), [theme]);
+
   const [visible, setVisible] = useState(false);
 
-  const toggleRef = useRef<HTMLSpanElement>(null);
-  const popperRef = useRef(null);
+  const toggleRef = useRef<HTMLElement>(null);
+  const popperRef = useRef<HTMLDivElement>(null);
 
-  const { styles, attributes } = usePopper(
+  const { styles: popperStyles, attributes: popperAttributes } = usePopper(
     toggleRef.current,
     popperRef.current,
     popperConfig,
@@ -46,7 +46,8 @@ const Dropdown: FC<DropdownProps> = ({ children, toggle: Toggle }) => {
   const handleDocumentClick = (event: MouseEvent) => {
     if (
       event.target instanceof Node &&
-      toggleRef.current?.contains(event.target)
+      (toggleRef.current?.contains(event.target) ||
+      popperRef.current?.contains(event.target))
     ) {
       return;
     }
@@ -68,34 +69,24 @@ const Dropdown: FC<DropdownProps> = ({ children, toggle: Toggle }) => {
 
   return (
     <>
-      <div ref={popperRef} style={styles.popper} {...attributes.popper}>
-        <Toggle ref={toggleRef} onClick={handleDropdownClick} />
+      <Toggle ref={toggleRef} onClick={handleDropdownClick} data-qa="dropdown-toggle" />
 
-        {visible ?
-          <div style={styles.offset}>
+      <div
+        ref={popperRef}
+        style={popperStyles.popper}
+        {...popperAttributes.popper}
+        data-qa="dropdown-container"
+      >
+        {visible ? (
+          <div
+            className={cx(styles.dropdownMenu, className)}
+            style={popperStyles.offset}
+            data-qa="dropdown-menu"
+          >
             {children}
           </div>
-        : null}
+        ) : null}
       </div>
     </>
   );
-};
-
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
-
-const MyToggle = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => (
-    <button type="button" ref={ref} {...props}>
-      Toggle
-    </button>
-  ),
-);
-
-export default () => (
-  <>
-    <Dropdown toggle={MyToggle}>
-      <DropdownItem>test</DropdownItem>
-      <DropdownItem>test</DropdownItem>
-    </Dropdown>
-  </>
-);
+});

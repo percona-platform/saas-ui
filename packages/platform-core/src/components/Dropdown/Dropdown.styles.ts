@@ -1,30 +1,35 @@
+import { GrafanaTheme } from '@grafana/data';
+import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
 
-export const getStyles = () => {
-  return {
-    dropdownContainer: css`
-      display: flex;
-      width: 2px;
-      flex-direction: column;
-      background-color: #fff;
-      border-radius: 4px;
-      box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.14);
-      padding: 5px;
-    `,
-    dropdownItem: css`
-      justify-content: flex-start;
-      height: 40px;
-      padding-right: 10px;
-      padding-left: 10px;
-      align-items: center;
+export const getStyles = stylesFactory((theme: GrafanaTheme) => {
+  const { spacing, height, colors, border } = theme;
 
-      &:hover {
-        background-color: #00ffff;
-      }
-      &:active {
-        font-weight: 700;
-        color: #00ffff;
+  return {
+    dropdownMenu: css`
+      display: flex;
+      flex-direction: column;
+      border-radius: ${border.radius.md};
+      box-shadow: 0 0 ${spacing.sm} 0 ${colors.dropdownShadow};
+
+      & > * {
+        justify-content: flex-start;
+        height: ${height.md};
+        padding: ${spacing.sm} ${spacing.md};
+        align-items: center;
+        background-color: ${colors.dropdownBg};
+        cursor: pointer;
+        text-align: center;
+
+        &:hover,
+        &:active {
+          background-color: ${colors.dropdownOptionHoverBg};
+        }
+
+        &:not(:last-child) {
+          border-bottom: ${border.width.sm} solid ${colors.border1};
+        }
       }
     `,
   };
-};
+});
