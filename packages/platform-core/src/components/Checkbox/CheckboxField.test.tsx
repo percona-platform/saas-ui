@@ -1,23 +1,15 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { mount } from 'enzyme';
-import { Form, Field } from 'react-final-form';
-import { dataQa } from 'shared';
+import { Field } from 'react-final-form';
+import { dataQa, FormWrapper } from 'shared';
 import { requiredTrue } from 'shared/validators';
 import { CheckboxField } from './CheckboxField';
 
 const checkboxLabel = 'Checkbox label';
 
-const Wrapper: FC = ({ children }) => (
-  <Form onSubmit={() => {}}>
-    {() => (
-      <form>{children}</form>
-    )}
-  </Form>
-);
-
 describe('CheckboxField::', () => {
   it('should render an input element of type checkbox', () => {
-    const wrapper = mount(<Wrapper><CheckboxField name="test" /></Wrapper>);
+    const wrapper = mount(<FormWrapper><CheckboxField name="test" /></FormWrapper>);
 
     const field = wrapper.find(Field);
 
@@ -31,7 +23,9 @@ describe('CheckboxField::', () => {
   it('should call passed validators', () => {
     const validatorOne = jest.fn();
     const validatorTwo = jest.fn();
-    const wrapper = mount(<Wrapper><CheckboxField name="test" validators={[validatorOne, validatorTwo]} /></Wrapper>);
+    const wrapper = mount(
+      <FormWrapper><CheckboxField name="test" validators={[validatorOne, validatorTwo]} /></FormWrapper>,
+    );
 
     expect(validatorOne).toBeCalledTimes(1);
     expect(validatorTwo).toBeCalledTimes(1);
@@ -42,7 +36,9 @@ describe('CheckboxField::', () => {
   it('should show an error on invalid status', () => {
     const validatorOne = jest.fn().mockReturnValue('some error');
     const validatorTwo = jest.fn();
-    const wrapper = mount(<Wrapper><CheckboxField name="test" validators={[validatorOne, validatorTwo]} /></Wrapper>);
+    const wrapper = mount(
+      <FormWrapper><CheckboxField name="test" validators={[validatorOne, validatorTwo]} /></FormWrapper>,
+    );
 
     expect(wrapper.find(dataQa('test-field-error-message')).text()).toBe('');
 
@@ -60,7 +56,7 @@ describe('CheckboxField::', () => {
   });
 
   it('should show no labels if one is not specified', () => {
-    const wrapper = mount(<Wrapper><CheckboxField name="test" /></Wrapper>);
+    const wrapper = mount(<FormWrapper><CheckboxField name="test" /></FormWrapper>);
 
     expect(wrapper.find(dataQa('test-field-label')).length).toBe(0);
 
@@ -68,7 +64,7 @@ describe('CheckboxField::', () => {
   });
 
   it('should show a label if one is specified', () => {
-    const wrapper = mount(<Wrapper><CheckboxField label="test label" name="test" /></Wrapper>);
+    const wrapper = mount(<FormWrapper><CheckboxField label="test label" name="test" /></FormWrapper>);
 
     expect(wrapper.find(dataQa('test-field-label')).length).toBe(1);
     expect(wrapper.find(dataQa('test-field-label')).text()).toBe('test label');
@@ -79,7 +75,7 @@ describe('CheckboxField::', () => {
   it('should accept any valid input html attributes and pass them over to the input tag', () => {
     const title = 'Titolo di soggiorno';
     const wrapper = mount(
-      <Wrapper>
+      <FormWrapper>
         <CheckboxField
           name="test"
           label={checkboxLabel}
@@ -90,7 +86,7 @@ describe('CheckboxField::', () => {
             title,
           }}
         />
-      </Wrapper>,
+      </FormWrapper>,
     );
 
     const input = wrapper.find(dataQa('test-checkbox-input'));
