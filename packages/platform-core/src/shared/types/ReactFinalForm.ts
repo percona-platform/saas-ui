@@ -13,7 +13,4 @@ export interface FieldInputAttrs extends HtmlInputAttrs<HTMLInputElement> {
   multiple?: boolean;
 }
 
-export interface FieldTextareaAttrs extends HtmlTextareaAttrs<HTMLTextAreaElement> {
-  checked?: boolean;
-  multiple?: boolean;
-}
+export interface FieldTextareaAttrs extends HtmlTextareaAttrs<HTMLTextAreaElement> {}
