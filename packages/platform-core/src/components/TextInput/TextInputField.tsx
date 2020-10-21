@@ -1,23 +1,22 @@
-import React, { FC, useMemo, ReactNode, InputHTMLAttributes } from 'react';
+import React, { FC, useMemo, ReactNode } from 'react';
 import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './TextInput.styles';
-
-type InputHTMLAttrs<T> = Omit<InputHTMLAttributes<T>, 'defaultValue' | 'value' | 'onChange'>;
+import { FieldInputAttrs } from '../../shared/types';
 
 /**
  * Note: the validation error message will be displayed once the the input has been modified.
  * To show the error message on blur you have to pass `showErrorOnBlur`.
  */
-export interface TextInputFieldProps extends UseFieldConfig<string>, InputHTMLAttrs<string> {
+export interface TextInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  inputProps?: FieldInputAttrs;
   label?: string | ReactNode;
   name: string;
-  onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
   showErrorOnBlur?: boolean;
@@ -31,14 +30,15 @@ interface TextFieldRenderProps {
 
 export const TextInputField: FC<TextInputFieldProps> = React.memo(
   ({
-    showErrorOnBlur = false,
     className,
     disabled = false,
     fieldClassName,
+    inputProps,
     label,
     name,
     placeholder,
     required = false,
+    showErrorOnBlur = false,
     validators,
     ...fieldConfig
   }) => {
@@ -50,7 +50,7 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
     ]);
 
     return (
-      <Field {...fieldConfig} name={name} validate={validate}>
+      <Field {...fieldConfig} type="text" name={name} validate={validate}>
         {({ input, meta }: TextFieldRenderProps) => {
           const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
@@ -63,7 +63,7 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
               )}
               <input
                 id={inputId}
-                type="text"
+                {...inputProps}
                 {...input}
                 disabled={disabled}
                 placeholder={placeholder}

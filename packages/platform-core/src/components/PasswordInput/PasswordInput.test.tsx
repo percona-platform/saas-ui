@@ -112,15 +112,6 @@ describe('PasswordInputField::', () => {
     wrapper.unmount();
   });
 
-  it('should hide arrow buttons when disabled', () => {
-    const wrapper = mount(<FormWrapper><PasswordInputField name="test" disabled /></FormWrapper>);
-
-    expect(wrapper.find('input')).toHaveLength(1);
-    expect(wrapper.find('button')).toHaveLength(0);
-
-    wrapper.unmount();
-  });
-
   it('should apply the passed class name to the inner input element', () => {
     const wrapper = mount(
       <FormWrapper><PasswordInputField name="test" className="testClass" /></FormWrapper>,

@@ -6,7 +6,6 @@ import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './PasswordInput.styles';
 import { FieldInputAttrs } from '../../shared/types';
 
-
 /**
  * Note: the validation error message will be displayed once the the input has been modified.
  * To show the error message on blur you have to pass `showErrorOnBlur`.
