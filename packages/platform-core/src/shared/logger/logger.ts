@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { LOG_LEVELS, LOG_LEVEL } from './config';
-import { truncate } from '../truncate';
+import { truncate } from '../utils';
 
 let CONFIG_LOG_LEVEL: LOG_LEVELS = LOG_LEVEL;
 

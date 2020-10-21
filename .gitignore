@@ -10,7 +10,3 @@ dist
 
 # misc
 .DS_Store
-
-# IDEs
-.vscode
-.idea
