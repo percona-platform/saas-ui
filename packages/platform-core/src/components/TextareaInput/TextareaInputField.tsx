@@ -1,23 +1,22 @@
-import React, { FC, useMemo, ReactNode, InputHTMLAttributes } from 'react';
+import React, { FC, useMemo, ReactNode } from 'react';
 import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './TextInput.styles';
-
-type InputHTMLAttrs<T> = Omit<InputHTMLAttributes<T>, 'defaultValue' | 'value' | 'onChange'>;
+import { FieldTextareaAttrs } from '../../shared/types';
 
 /**
  * Note: the validation error message will be displayed once the the input has been modified.
  * To show the error message on blur you have to pass `showErrorOnBlur`.
  */
-export interface TextareaInputFieldProps extends UseFieldConfig<string>, InputHTMLAttrs<string> {
+export interface TextareaInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  inputProps?: FieldTextareaAttrs;
   label?: string | ReactNode;
   name: string;
-  onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
   rows?: number;
@@ -36,6 +35,7 @@ export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
     className,
     disabled = false,
     fieldClassName,
+    inputProps,
     label,
     name,
     placeholder,
@@ -67,6 +67,7 @@ export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
               )}
               <textarea
                 id={inputId}
+                {...inputProps}
                 {...input}
                 rows={rows}
                 disabled={disabled}
