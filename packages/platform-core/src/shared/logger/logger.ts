@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { LOG_LEVELS, LOG_LEVEL } from './config';
-import { truncate } from '../utils';
+import { truncate } from '../utils/truncate';
 
 let CONFIG_LOG_LEVEL: LOG_LEVELS = LOG_LEVEL;
 
@@ -8,13 +8,20 @@ export const setLogLevel = (level: LOG_LEVELS) => {
   CONFIG_LOG_LEVEL = level;
 };
 
+const LOG_LEVEL_KEYS = Object.keys(LOG_LEVELS).slice(5);
+
 const createLogMethod = (
   loggerFunc: (...attrs: Array<any>) => void,
   level: LOG_LEVELS,
-) => (...attrs: Array<any>) => {
+) => (first: any, ...rest: Array<any>) => {
   if (level >= CONFIG_LOG_LEVEL) {
-    console.group(level, truncate(25)(attrs[0]));
-    loggerFunc(`[${level}]`, ...attrs);
+    const key = LOG_LEVEL_KEYS[level];
+
+    console.group(`[${key}]`, truncate(50)(first));
+    loggerFunc(first);
+    rest.forEach(para => {
+      loggerFunc(para);
+    });
     console.groupEnd();
   }
 };
