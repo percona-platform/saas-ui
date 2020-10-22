@@ -1,8 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Field } from 'react-final-form';
-import { FormWrapper } from 'shared';
+import { dataQa, FormWrapper } from 'shared';
+import { requiredTrue } from 'shared/validators';
 import { CheckboxField } from './CheckboxField';
+
+const checkboxLabel = 'Checkbox label';
 
 describe('CheckboxField::', () => {
   it('should render an input element of type checkbox', () => {
@@ -69,11 +72,28 @@ describe('CheckboxField::', () => {
     wrapper.unmount();
   });
 
-  it('should hide arrow buttons when disabled', () => {
-    const wrapper = mount(<FormWrapper><CheckboxField name="test" disabled /></FormWrapper>);
+  it('should accept any valid input html attributes and pass them over to the input tag', () => {
+    const title = 'Titolo di soggiorno';
+    const wrapper = mount(
+      <FormWrapper>
+        <CheckboxField
+          name="test"
+          label={checkboxLabel}
+          validators={[requiredTrue]}
+          inputProps={{
+            autoComplete: 'off',
+            autoCorrect: 'off',
+            title,
+          }}
+        />
+      </FormWrapper>,
+    );
 
-    expect(wrapper.find('input')).toHaveLength(1);
-    expect(wrapper.find('button')).toHaveLength(0);
+    const input = wrapper.find(dataQa('test-checkbox-input'));
+
+    expect(input.prop('autoComplete')).toEqual('off');
+    expect(input.prop('autoCorrect')).toEqual('off');
+    expect(input.prop('title')).toEqual(title);
 
     wrapper.unmount();
   });
