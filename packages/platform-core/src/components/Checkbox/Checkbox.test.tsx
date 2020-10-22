@@ -40,7 +40,7 @@ describe('CheckboxField::', () => {
       <FormWrapper><CheckboxField name="test" validators={[validatorOne, validatorTwo]} /></FormWrapper>,
     );
 
-    expect(wrapper.find('[data-qa="test-field-error-message"]').text()).toBe('');
+    expect(wrapper.find(dataQa('test-field-error-message')).text()).toBe('');
 
     expect(validatorOne).toBeCalledTimes(1);
 
@@ -50,7 +50,7 @@ describe('CheckboxField::', () => {
     expect(validatorOne).toBeCalledTimes(2);
     expect(validatorTwo).toBeCalledTimes(0);
 
-    expect(wrapper.find('[data-qa="test-field-error-message"]').text()).toBe('some error');
+    expect(wrapper.find(dataQa('test-field-error-message')).text()).toBe('some error');
 
     wrapper.unmount();
   });
@@ -58,7 +58,7 @@ describe('CheckboxField::', () => {
   it('should show no labels if one is not specified', () => {
     const wrapper = mount(<FormWrapper><CheckboxField name="test" /></FormWrapper>);
 
-    expect(wrapper.find('[data-qa="test-field-label"]').length).toBe(0);
+    expect(wrapper.find(dataQa('test-field-label')).length).toBe(0);
 
     wrapper.unmount();
   });
@@ -66,8 +66,8 @@ describe('CheckboxField::', () => {
   it('should show a label if one is specified', () => {
     const wrapper = mount(<FormWrapper><CheckboxField label="test label" name="test" /></FormWrapper>);
 
-    expect(wrapper.find('[data-qa="test-field-label"]').length).toBe(1);
-    expect(wrapper.find('[data-qa="test-field-label"]').text()).toBe('test label');
+    expect(wrapper.find(dataQa('test-field-label')).length).toBe(1);
+    expect(wrapper.find(dataQa('test-field-label')).text()).toBe('test label');
 
     wrapper.unmount();
   });
