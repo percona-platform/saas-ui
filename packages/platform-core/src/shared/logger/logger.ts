@@ -19,8 +19,8 @@ const createLogMethod = (
 
     console.group(`[${key}]`, truncate(50)(first));
     loggerFunc(first);
-    rest.forEach(para => {
-      loggerFunc(para);
+    rest.forEach(paragraph => {
+      loggerFunc(paragraph);
     });
     console.groupEnd();
   }
