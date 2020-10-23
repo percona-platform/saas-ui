@@ -1,7 +1,7 @@
 import { Validator } from './validator.types';
 
 export const minLength = (length: number): Validator => (value: string) => {
-  if (value.length >= length) {
+  if (value != null && value.length >= length) {
     return undefined;
   }
 

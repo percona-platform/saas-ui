@@ -27,7 +27,7 @@ export const commonColorsPalette = {
 
 const SPACING_BASE = 8;
 
-const theme: GrafanaThemeCommons = {
+export const defaultTheme: GrafanaThemeCommons = {
   name: 'Grafana Default',
   typography: {
     fontFamily: {
@@ -132,5 +132,3 @@ const theme: GrafanaThemeCommons = {
     modal: 1060,
   },
 };
-
-export default theme;

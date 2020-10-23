@@ -87,7 +87,7 @@
   },
   "np": {
     "yolo": true,
-    "anyBranch": true,
+    "anyBranch": false,
     "releaseDraft": false
   },
   "browserslist": {
