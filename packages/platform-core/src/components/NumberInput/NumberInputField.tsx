@@ -8,14 +8,15 @@ import {
 } from 'react-final-form';
 import { getStyles } from './NumberInput.styles';
 import { Validator, compose } from '../../shared/validators';
+import { FieldInputAttrs } from '../../shared/types';
 
 export interface NumberInputFieldProps extends UseFieldConfig<number> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  inputProps?: FieldInputAttrs;
   label?: string;
   name: string;
-  onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
   showErrorOnBlur?: boolean;
@@ -28,14 +29,15 @@ interface NumberFieldRenderProps {
 }
 
 export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
-  showErrorOnBlur = false,
   className,
   disabled = false,
   fieldClassName,
+  inputProps,
   label,
   name,
   placeholder,
   required = false,
+  showErrorOnBlur = false,
   validators,
   ...fieldConfig
 }) => {
@@ -51,27 +53,29 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
   const dispatchChangeEvent = useCallback(() => {
     const event = new Event('change', { bubbles: true });
 
-    // TODO: find a way to fix this
-    // eslint-disable-next-line no-unused-expressions
-    inputRef.current?.dispatchEvent(event);
+    if (inputRef.current) {
+      inputRef.current.dispatchEvent(event);
+    }
   }, [inputRef]);
 
-  const stepUp = () => {
-    // TODO: find a way to fix this
-    // eslint-disable-next-line no-unused-expressions
-    inputRef.current?.stepUp();
-    dispatchChangeEvent();
-  };
+  const stepUp = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.stepUp();
+    }
 
-  const stepDown = () => {
-    // TODO: find a way to fix this
-    // eslint-disable-next-line no-unused-expressions
-    inputRef.current?.stepDown();
     dispatchChangeEvent();
-  };
+  }, [inputRef, dispatchChangeEvent]);
+
+  const stepDown = useCallback(() => {
+    if (inputRef.current) {
+      inputRef.current.stepDown();
+    }
+
+    dispatchChangeEvent();
+  }, [inputRef, dispatchChangeEvent]);
 
   return (
-    <Field {...fieldConfig} name={name} validate={validate}>
+    <Field {...fieldConfig} type="number" name={name} validate={validate}>
       {({ input, meta }: NumberFieldRenderProps) => {
         const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
@@ -85,8 +89,8 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
             <span className={styles.inputWrapper}>
               <input
                 id={inputId}
-                type="number"
                 {...input}
+                {...inputProps}
                 ref={inputRef}
                 disabled={disabled}
                 placeholder={placeholder}

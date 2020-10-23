@@ -11,16 +11,18 @@ export const PrivateRoute: FC<RouteProps> = ({ children, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={({ location }) => (auth.authenticated ? (
-        children
-      ) : (
-        <Redirect
-          to={{
-            pathname: Routes.login,
-            state: { from: location },
-          }}
-        />
-      ))}
+      render={({ location }) =>
+        auth.authenticated ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: Routes.login,
+              state: { from: location },
+            }}
+          />
+        )
+      }
     />
   );
 };

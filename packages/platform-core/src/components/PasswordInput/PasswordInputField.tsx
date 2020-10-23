@@ -1,11 +1,10 @@
 import React, { FC, useMemo, ReactNode } from 'react';
-import {
-  Field, FieldMetaState, FieldInputProps, UseFieldConfig,
-} from 'react-final-form';
+import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './PasswordInput.styles';
+import { FieldInputAttrs } from '../../shared/types';
 
 /**
  * Note: the validation error message will be displayed once the the input has been modified.
@@ -15,9 +14,9 @@ export interface PasswordInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  inputProps?: FieldInputAttrs;
   label?: string | ReactNode;
   name: string;
-  onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
   showErrorOnBlur?: boolean;
@@ -31,14 +30,15 @@ interface PasswordFieldRenderProps {
 
 export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
   ({
-    showErrorOnBlur = false,
-    fieldClassName,
     className,
     disabled = false,
+    fieldClassName,
+    inputProps,
     label,
     name,
     placeholder,
     required = false,
+    showErrorOnBlur = false,
     validators,
     ...fieldConfig
   }) => {
@@ -50,7 +50,7 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
     ]);
 
     return (
-      <Field {...fieldConfig} name={name} validate={validate}>
+      <Field {...fieldConfig} type="password" name={name} validate={validate}>
         {({ input, meta }: PasswordFieldRenderProps) => {
           const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
@@ -63,8 +63,8 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
               )}
               <input
                 id={inputId}
-                type="password"
                 {...input}
+                {...inputProps}
                 disabled={disabled}
                 placeholder={placeholder}
                 data-qa={`${name}-password-input`}

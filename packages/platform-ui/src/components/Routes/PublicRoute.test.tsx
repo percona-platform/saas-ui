@@ -41,10 +41,10 @@ describe('PublicRoute', () => {
 
   test('redirect to login if unauthenticated', async () => {
     getAuth.mockImplementation(() => ({
-      email: 'test@test.test',
       authenticated: true,
-      pending: false,
       authCheckCompleted: true,
+      email:'test@test.test',
+      pending: false,
     }));
 
     await act(async () => {

@@ -1,50 +1,50 @@
 import React, { FC, useMemo, ReactNode } from 'react';
-import {
-  Field, FieldInputProps, FieldMetaState, UseFieldConfig,
-} from 'react-final-form';
+import { Field, UseFieldConfig, FieldMetaState, FieldInputProps } from 'react-final-form';
 import { useTheme } from '@grafana/ui';
 import { cx } from 'emotion';
 import { getStyles } from './Checkbox.styles';
 import { Validator, compose } from '../../shared/validators';
+import { FieldInputAttrs } from '../../shared/types';
 
 export interface CheckboxProps extends UseFieldConfig<boolean> {
   disabled?: boolean;
   fieldClassName?: string;
+  inputProps?: FieldInputAttrs;
   label?: string | ReactNode;
   name: string;
-  onChange?: (value: boolean) => undefined;
   validators?: Validator[];
 }
 
 interface CheckboxFieldRenderProps {
-  input: FieldInputProps<string>;
+  input: FieldInputProps<string, HTMLInputElement>;
   meta: FieldMetaState<string>;
 }
 
-export const CheckboxField: FC<CheckboxProps> = ({
+export const CheckboxField: FC<CheckboxProps> = React.memo(({
   disabled,
   fieldClassName,
+  inputProps,
   label,
   name,
   validators,
   ...fieldConfig
 }) => {
   const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = useMemo(() => getStyles(theme), [theme]);
+  const inputId = `input-${name}-id`;
   const validate = useMemo(() => (Array.isArray(validators) ? compose(...validators) : undefined), [
     validators,
   ]);
 
-  // TODO: fix the eslint issue here
   return (
-    <Field {...fieldConfig} type="checkbox" name={name} validate={validate}>
+    <Field<boolean> {...fieldConfig} type="checkbox" name={name} validate={validate}>
       {({ input, meta }: CheckboxFieldRenderProps) => (
         <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label className={styles.wrapper}>
+          <label className={styles.wrapper} htmlFor={inputId}>
             <input
+              id={inputId}
               {...input}
-              type="checkbox"
+              {...inputProps}
               disabled={disabled}
               data-qa={`${name}-checkbox-input`}
               className={styles.input}
@@ -63,6 +63,6 @@ export const CheckboxField: FC<CheckboxProps> = ({
       )}
     </Field>
   );
-};
+});
 
 CheckboxField.displayName = 'CheckboxField';
