@@ -37,14 +37,14 @@ export const CheckboxField: FC<CheckboxProps> = React.memo(({
   ]);
 
   return (
-    <Field {...fieldConfig} type="checkbox" name={name} validate={validate}>
+    <Field<boolean> {...fieldConfig} type="checkbox" name={name} validate={validate}>
       {({ input, meta }: CheckboxFieldRenderProps) => (
         <div className={cx(styles.field, fieldClassName)} data-qa={`${name}-field-container`}>
           <label className={styles.wrapper} htmlFor={inputId}>
             <input
               id={inputId}
-              {...inputProps}
               {...input}
+              {...inputProps}
               disabled={disabled}
               data-qa={`${name}-checkbox-input`}
               className={styles.input}

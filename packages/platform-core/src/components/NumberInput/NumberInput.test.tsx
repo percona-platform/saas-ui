@@ -181,13 +181,14 @@ describe('NumberInputField::', () => {
 
   it('should accept any valid input html attributes and pass them over to the input tag', () => {
     const title = 'Titolo di viaggio';
+    const onChange = jest.fn();
     const wrapper = mount(
       <FormWrapper>
         <NumberInputField
           name="test"
           inputProps={{
             autoComplete: 'off',
-            autoCorrect: 'off',
+            onChange,
             title,
           }}
         />
@@ -197,7 +198,7 @@ describe('NumberInputField::', () => {
     const input = wrapper.find(dataQa('test-number-input'));
 
     expect(input.prop('autoComplete')).toEqual('off');
-    expect(input.prop('autoCorrect')).toEqual('off');
+    expect(input.prop('onChange')).toEqual(onChange);
     expect(input.prop('title')).toEqual(title);
 
     wrapper.unmount();

@@ -74,6 +74,7 @@ describe('CheckboxField::', () => {
 
   it('should accept any valid input html attributes and pass them over to the input tag', () => {
     const title = 'Titolo di soggiorno';
+    const onChange = jest.fn();
     const wrapper = mount(
       <FormWrapper>
         <CheckboxField
@@ -82,7 +83,7 @@ describe('CheckboxField::', () => {
           validators={[requiredTrue]}
           inputProps={{
             autoComplete: 'off',
-            autoCorrect: 'off',
+            onChange,
             title,
           }}
         />
@@ -92,7 +93,7 @@ describe('CheckboxField::', () => {
     const input = wrapper.find(dataQa('test-checkbox-input'));
 
     expect(input.prop('autoComplete')).toEqual('off');
-    expect(input.prop('autoCorrect')).toEqual('off');
+    expect(input.prop('onChange')).toEqual(onChange);
     expect(input.prop('title')).toEqual(title);
 
     wrapper.unmount();

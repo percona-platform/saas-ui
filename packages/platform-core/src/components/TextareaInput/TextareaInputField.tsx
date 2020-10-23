@@ -67,8 +67,8 @@ export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
               )}
               <textarea
                 id={inputId}
-                {...inputProps}
                 {...input}
+                {...inputProps}
                 rows={rows}
                 disabled={disabled}
                 placeholder={placeholder}

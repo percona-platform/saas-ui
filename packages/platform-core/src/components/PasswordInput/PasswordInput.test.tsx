@@ -124,13 +124,14 @@ describe('PasswordInputField::', () => {
 
   it('should accept any valid input html attributes and pass them over to the input tag', () => {
     const title = 'Titolo di stato';
+    const onChange = jest.fn();
     const wrapper = mount(
       <FormWrapper>
         <PasswordInputField
           name="test"
           inputProps={{
             autoComplete: 'off',
-            autoCorrect: 'off',
+            onChange,
             title,
           }}
         />
@@ -140,7 +141,7 @@ describe('PasswordInputField::', () => {
     const input = wrapper.find(dataQa('test-password-input'));
 
     expect(input.prop('autoComplete')).toEqual('off');
-    expect(input.prop('autoCorrect')).toEqual('off');
+    expect(input.prop('onChange')).toEqual(onChange);
     expect(input.prop('title')).toEqual(title);
 
     wrapper.unmount();

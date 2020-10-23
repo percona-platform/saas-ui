@@ -8,9 +8,9 @@ type HtmlTextareaAttrs<T, TA = TextareaHTMLAttributes<T>> = {
   [P in keyof TA]?: TA[P];
 };
 
-export interface FieldInputAttrs extends HtmlInputAttrs<HTMLInputElement> {
+export interface FieldInputAttrs extends Omit<HtmlInputAttrs<HTMLInputElement>, 'name'> {
   checked?: boolean;
   multiple?: boolean;
 }
 
-export interface FieldTextareaAttrs extends HtmlTextareaAttrs<HTMLTextAreaElement> {}
+export interface FieldTextareaAttrs extends Omit<HtmlTextareaAttrs<HTMLTextAreaElement>, 'name'> {}

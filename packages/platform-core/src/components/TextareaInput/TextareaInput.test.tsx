@@ -122,13 +122,14 @@ describe('TextareaInputField::', () => {
 
     it('should accept any valid input html attributes and pass them over to the textarea tag', () => {
     const title = 'Titolo di studio';
+    const onChange = jest.fn();
     const wrapper = mount(
       <FormWrapper>
         <TextareaInputField
           name="test"
           inputProps={{
             autoComplete: 'off',
-            autoCorrect: 'off',
+            onChange,
             title,
           }}
         />
@@ -138,7 +139,7 @@ describe('TextareaInputField::', () => {
     const input = wrapper.find(dataQa('test-textarea-input'));
 
     expect(input.prop('autoComplete')).toEqual('off');
-    expect(input.prop('autoCorrect')).toEqual('off');
+    expect(input.prop('onChange')).toEqual(onChange);
     expect(input.prop('title')).toEqual(title);
 
     wrapper.unmount();

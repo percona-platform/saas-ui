@@ -63,8 +63,8 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
               )}
               <input
                 id={inputId}
-                {...inputProps}
                 {...input}
+                {...inputProps}
                 disabled={disabled}
                 placeholder={placeholder}
                 data-qa={`${name}-text-input`}

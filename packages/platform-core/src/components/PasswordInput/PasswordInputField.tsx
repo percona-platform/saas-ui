@@ -63,8 +63,8 @@ export const PasswordInputField: FC<PasswordInputFieldProps> = React.memo(
               )}
               <input
                 id={inputId}
-                {...inputProps}
                 {...input}
+                {...inputProps}
                 disabled={disabled}
                 placeholder={placeholder}
                 data-qa={`${name}-password-input`}

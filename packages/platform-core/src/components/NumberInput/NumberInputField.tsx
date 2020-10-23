@@ -89,8 +89,8 @@ export const NumberInputField: FC<NumberInputFieldProps> = React.memo(({
             <span className={styles.inputWrapper}>
               <input
                 id={inputId}
-                {...inputProps}
                 {...input}
+                {...inputProps}
                 ref={inputRef}
                 disabled={disabled}
                 placeholder={placeholder}
