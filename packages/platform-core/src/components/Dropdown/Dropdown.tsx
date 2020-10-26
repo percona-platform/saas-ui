@@ -69,19 +69,19 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
 
   return (
     <>
-      <Toggle ref={toggleRef} onClick={handleDropdownClick} data-qa="dropdown-toggle" />
+      <Toggle ref={toggleRef} onClick={handleDropdownClick} data-qa="dropdown-menu-toggle" />
 
       <div
         ref={popperRef}
         style={popperStyles.popper}
         {...popperAttributes.popper}
-        data-qa="dropdown-container"
+        data-qa="dropdown-menu-container"
       >
         {visible ? (
           <div
             className={cx(styles.dropdownMenu, className)}
             style={popperStyles.offset}
-            data-qa="dropdown-menu"
+            data-qa="dropdown-menu-menu"
           >
             {children}
           </div>
