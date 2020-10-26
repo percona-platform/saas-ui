@@ -1,4 +1,4 @@
-import React, { FC, useState, useMemo, useEffect, useRef } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { Options as PopperOptions } from '@popperjs/core';
 import { cx } from 'emotion';
@@ -45,9 +45,8 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
 
   const handleDocumentClick = (event: MouseEvent) => {
     if (
-      event.target instanceof Node &&
-      (toggleRef.current?.contains(event.target) ||
-      popperRef.current?.contains(event.target))
+      (toggleRef.current?.contains(event.target as Node) ||
+      popperRef.current?.contains(event.target as Node))
     ) {
       return;
     }
