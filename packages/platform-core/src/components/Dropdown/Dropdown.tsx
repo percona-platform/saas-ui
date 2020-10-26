@@ -20,7 +20,7 @@ const popperConfig: Partial<PopperOptions> = {
 
 interface DropdownProps {
   toggle: React.ForwardRefExoticComponent<
-    React.HTMLAttributes<any> & React.RefAttributes<any>
+    React.RefAttributes<any> & React.HTMLAttributes<any>
   >;
   children: Array<React.ReactElement>;
   className?: string;
