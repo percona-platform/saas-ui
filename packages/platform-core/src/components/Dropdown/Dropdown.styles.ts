@@ -3,7 +3,7 @@ import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
 
 export const getStyles = stylesFactory((theme: GrafanaTheme) => {
-  const { spacing, height, colors, border } = theme;
+  const { spacing, colors, border } = theme;
 
   return {
     dropdownMenu: css`
@@ -11,23 +11,31 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       flex-direction: column;
       border-radius: ${border.radius.md};
       box-shadow: 0 0 ${spacing.sm} 0 ${colors.dropdownShadow};
+      padding: ${spacing.xs} 0;
 
       & > * {
         justify-content: flex-start;
-        height: ${height.md};
         padding: ${spacing.sm} ${spacing.md};
         align-items: center;
         background-color: ${colors.dropdownBg};
         cursor: pointer;
-        text-align: center;
+        min-width: 120px;
 
         &:hover,
-        &:active {
+        &:active, &.active {
           background-color: ${colors.dropdownOptionHoverBg};
         }
 
         &:not(:last-child) {
           border-bottom: ${border.width.sm} solid ${colors.border1};
+        }
+        &:first-child {
+          border-top-left-radius: ${border.radius.md};
+          border-top-right-radius: ${border.radius.md};
+        }
+        &:last-child {
+          border-bottom-left-radius: ${border.radius.md};
+          border-bottom-right-radius: ${border.radius.md};
         }
       }
     `,

@@ -12,7 +12,7 @@ const popperConfig: Partial<PopperOptions> = {
       name: 'offset',
       enabled: true,
       options: {
-        offset: [0, 10],
+        offset: [0, 2],
       },
     },
   ],
@@ -36,9 +36,19 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
   const styles = useMemo(() => getStyles(theme), [theme]);
 
   const [visible, setVisible] = useState(false);
+  const size = React.Children.count(children);
 
   const toggleRef = useRef<HTMLElement>(null);
   const popperRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const menuItems = React.Children.map(children, (child, index) => {
+    return React.cloneElement(child, {
+      onClick: () => {
+        setActiveIndex(index + 1);
+      },
+      className: cx({ active: index === activeIndex }),
+    });
+  });
 
   const { styles: popperStyles, attributes: popperAttributes } = usePopper(
     toggleRef.current,
@@ -51,6 +61,7 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
       (toggleRef.current?.contains(event.target as Node) ||
       popperRef.current?.contains(event.target as Node))
     ) {
+
       return;
     }
 
@@ -62,12 +73,38 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
   };
 
   useEffect(() => {
+    const up = ['ArrowUp', 'ArrowLeft'];
+    const down = ['ArrowDown', 'ArrowRight'];
+    const handleKeyupClick = (event: KeyboardEvent) => {
+      if (visible) {
+        if (up.includes(event.code)) {
+          setActiveIndex((currentIndex) => currentIndex === 0 ? size - 1 : currentIndex - 1);
+          event.preventDefault();
+        }
+
+        if (down.includes(event.code)) {
+          setActiveIndex((currentIndex) => currentIndex === size - 1 ? 0 : currentIndex + 1);
+          event.preventDefault();
+        }
+      }
+    };
+    const handleKeydownClick = (event: KeyboardEvent) => {
+      if (visible) {
+        event.preventDefault();
+      }
+    };
+
     document.addEventListener('mousedown', handleDocumentClick);
+    document.addEventListener('keyup', handleKeyupClick);
+    document.addEventListener('keydown', handleKeydownClick);
 
     return () => {
       document.removeEventListener('mousedown', handleDocumentClick);
+      document.removeEventListener('keyup', handleKeyupClick);
+      document.removeEventListener('keydown', handleKeydownClick);
+      // UX: we do not reset the index when we tear down the children
     };
-  }, []);
+  }, [size, visible]);
 
   return (
     <>
@@ -86,7 +123,7 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
             data-qa="dropdown-menu-menu"
             onClick={handleDropdownClick}
           >
-            {children}
+            {menuItems}
           </div>
         ) : null}
       </div>
