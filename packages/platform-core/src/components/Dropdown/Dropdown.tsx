@@ -43,10 +43,12 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
   const [activeIndex, setActiveIndex] = useState(-1);
   const menuItems = React.Children.map(children, (child, index) => {
     return React.cloneElement(child, {
+      ...child.props,
       onClick: () => {
         setActiveIndex(index + 1);
+        child.props.onClick();
       },
-      className: cx({ active: index === activeIndex }),
+      className: cx(child.props.className, { active: index === activeIndex }),
     });
   });
 
@@ -102,7 +104,8 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
       document.removeEventListener('mousedown', handleDocumentClick);
       document.removeEventListener('keyup', handleKeyupClick);
       document.removeEventListener('keydown', handleKeydownClick);
-      // UX: we do not reset the index when we tear down the children
+      // UX: reset the index when we tear down the children
+      setActiveIndex(-1);
     };
   }, [size, visible]);
 
