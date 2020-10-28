@@ -72,7 +72,13 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
   };
 
   const handleDropdownClick = () => {
-    setVisible((oldValue) => !oldValue);
+    setVisible(!visible);
+  };
+
+  const handleToggleClick = (event: React.MouseEvent) => {
+    if (event.detail) {
+      setVisible(!visible);
+    }
   };
 
   useEffect(() => {
@@ -80,6 +86,7 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
     const down = ['ArrowDown', 'ArrowRight'];
     const handleKeyupClick = (event: KeyboardEvent) => {
       if (!visible) {
+
         return;
       }
 
@@ -88,15 +95,21 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
       if (up.includes(code)) {
         setActiveIndex((currentIndex) => currentIndex === 0 ? size - 1 : currentIndex - 1);
         event.preventDefault();
+
+        return;
       }
 
       if (down.includes(code)) {
         setActiveIndex((currentIndex) => currentIndex === size - 1 ? 0 : currentIndex + 1);
         event.preventDefault();
+
+        return;
       }
 
       if (code === 'Escape') {
         setVisible(false);
+
+        return;
       }
 
       if (code === 'Enter' && activeIndex !== -1) {
@@ -132,7 +145,7 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
 
   return (
     <>
-      <Toggle ref={toggleRef} onClick={handleDropdownClick} data-qa="dropdown-menu-toggle" />
+      <Toggle ref={toggleRef} onClick={handleToggleClick} data-qa="dropdown-menu-toggle" />
 
       <div
         ref={popperRef}
