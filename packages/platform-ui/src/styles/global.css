@@ -3,6 +3,7 @@ body {
   font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
 }
 
 body * {
@@ -28,4 +29,5 @@ button,
 select,
 textarea {
   font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
 }

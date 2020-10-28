@@ -1,4 +1,5 @@
 export * from './Checkbox';
+export * from './Dropdown';
 export * from './LoaderButton';
 export * from './PasswordInput';
 export * from './StepProgress';
