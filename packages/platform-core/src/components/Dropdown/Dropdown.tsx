@@ -79,14 +79,21 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
     const down = ['ArrowDown', 'ArrowRight'];
     const handleKeyupClick = (event: KeyboardEvent) => {
       if (visible) {
-        if (up.includes(event.code)) {
+        const { code } = event;
+
+        if (up.includes(code)) {
           setActiveIndex((currentIndex) => currentIndex === 0 ? size - 1 : currentIndex - 1);
           event.preventDefault();
         }
 
-        if (down.includes(event.code)) {
+        if (down.includes(code)) {
           setActiveIndex((currentIndex) => currentIndex === size - 1 ? 0 : currentIndex + 1);
           event.preventDefault();
+        }
+
+        if (code === 'Escape') {
+          setActiveIndex(-1);
+          setVisible(false);
         }
       }
     };
