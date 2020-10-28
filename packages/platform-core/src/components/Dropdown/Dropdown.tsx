@@ -1,4 +1,4 @@
-import React, { FC, ReactComponentElement, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { Options as PopperOptions } from '@popperjs/core';
 import { cx } from 'emotion';
