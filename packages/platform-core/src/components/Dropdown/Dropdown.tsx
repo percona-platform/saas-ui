@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, ReactComponentElement, useEffect, useMemo, useRef, useState } from 'react';
 import { usePopper } from 'react-popper';
 import { Options as PopperOptions } from '@popperjs/core';
 import { cx } from 'emotion';
@@ -40,12 +40,13 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
 
   const toggleRef = useRef<HTMLElement>(null);
   const popperRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(-1);
+  // NOTE: -1 is used to indicate that there are no active menu items
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
   const menuItems = React.Children.map(children, (child, index) => {
     return React.cloneElement(child, {
       ...child.props,
       onClick: () => {
-        setActiveIndex(index + 1);
+        setActiveIndex(index);
         child.props.onClick();
       },
       className: cx(child.props.className, { active: index === activeIndex }),
@@ -78,21 +79,33 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
     const up = ['ArrowUp', 'ArrowLeft'];
     const down = ['ArrowDown', 'ArrowRight'];
     const handleKeyupClick = (event: KeyboardEvent) => {
-      if (visible) {
-        const { code } = event;
+      if (!visible) {
+        return;
+      }
 
-        if (up.includes(code)) {
-          setActiveIndex((currentIndex) => currentIndex === 0 ? size - 1 : currentIndex - 1);
-          event.preventDefault();
-        }
+      const { code } = event;
 
-        if (down.includes(code)) {
-          setActiveIndex((currentIndex) => currentIndex === size - 1 ? 0 : currentIndex + 1);
-          event.preventDefault();
-        }
+      if (up.includes(code)) {
+        setActiveIndex((currentIndex) => currentIndex === 0 ? size - 1 : currentIndex - 1);
+        event.preventDefault();
+      }
 
-        if (code === 'Escape') {
-          setActiveIndex(-1);
+      if (down.includes(code)) {
+        setActiveIndex((currentIndex) => currentIndex === size - 1 ? 0 : currentIndex + 1);
+        event.preventDefault();
+      }
+
+      if (code === 'Escape') {
+        setVisible(false);
+      }
+
+      if (code === 'Enter' && activeIndex !== -1) {
+        const menuItem: any = React.Children
+          .toArray(children)
+          .find((_, index) => index === activeIndex);
+
+        if (menuItem) {
+          menuItem.props.onClick();
           setVisible(false);
         }
       }
@@ -111,10 +124,11 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
       document.removeEventListener('mousedown', handleDocumentClick);
       document.removeEventListener('keyup', handleKeyupClick);
       document.removeEventListener('keydown', handleKeydownClick);
-      // UX: reset the index when we tear down the children
-      setActiveIndex(-1);
+      // UX: don't reset the index when tearing down the children
+      // TODO: evaluate pros and cons
+      // setActiveIndex(-1);
     };
-  }, [size, visible]);
+  }, [activeIndex, children, size, visible]);
 
   return (
     <>
