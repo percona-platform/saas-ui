@@ -1,21 +1,82 @@
 
 name: E2E
 
-on: [push]
+on:
+  repository_dispatch:
+    types: [e2e]
 
 jobs:
   test:
     name: Test
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [12.x]
+        minikube_driver:
+          - docker
+        kubernetes_version:
+          - 1.16.13
+    env:
+      KUBERNETES_VERSION: ${{ matrix.kubernetes_version }}
+      DOCKER_REGISTRY_USERNAME: percona-robot
+      DOCKER_REGISTRY_PASSWORD: ${{ secrets.ROBOT_TOKEN }}
+      OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
+      SAAS_UI_TAG: ${{ github.event.client_payload.tag }}
+
+      MINIKUBE_DRIVER: ${{ matrix.minikube_driver }}
+      CHANGE_MINIKUBE_NONE_USER: true
+      MINIKUBE_IN_STYLE: 1
 
     steps:
-      - name: Checkout code
+      - name: Checkout infra
+        uses: percona-platform/checkout@v2
+        with:
+          repository: percona-platform/infra
+          token: ${{ secrets.ROBOT_TOKEN }}
+          path: main
+
+      - name: Install packages
+        run: |
+          sudo add-apt-repository ppa:dysfunctionalprogramming/minisign
+          sudo apt update
+          sudo apt install -y conntrack libnss3-tools minisign
+          curl -sSL https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-linux-amd64 > mkcert
+          chmod +x mkcert
+          sudo mv mkcert /usr/local/bin/
+      # https://help.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources
+      # https://minikube.sigs.k8s.io/docs/drivers/docker/
+      - name: Configure minikube
+        run: |
+          minikube config set cpus 2
+          minikube config set memory 4096
+      - name: Start environment
+        run: make -C k8s/platform-saas/local env-up-start
+
+      - name: Gen keys
+        run: env MINISIGN=minisign make -C k8s/platform-saas/local keys
+
+      - name: Create secrets
+        run: make -C k8s/platform-saas/local env-secrets
+
+      - name: Pre-pull images
+        run: make -C k8s/platform-saas/local pre-pull
+
+      - name: Prepare environment
+        run: make -C k8s/platform-saas/local env-prepare
+
+      - name: Apply
+        run: make -C k8s/platform-saas/local apply
+
+      - name: Wait
+        run: make -C k8s/platform-saas/local env-up-wait
+
+      - name: Start tunnel in the background
+        run: make -C k8s/platform-saas/local tunnel-background
+
+      - name: Checkout E2E code
         uses: percona-platform/checkout@v2
 
       # use full version while v2 is in beta
@@ -24,56 +85,38 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Enable node_modules cache
-        uses: percona-platform/cache@v2
-        id: cache
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
-
-      - name: Install tools
-        run: make init
-
-      - name: Bootstrap
-        run: lerna bootstrap
-
-      - name: Build Core
-        run: lerna run build --scope='@percona/platform-core'
-
-      - name: Link
-        run: lerna link
-
-      # Chokidar was throwing Error: ENOSPC: System limit for number of file watchers reached
-      # during project startup in the workflow execution.
-      # The solution was taken from https://github.com/expo/expo-github-action/issues/20#issuecomment-541771861
-      # in order to avoid file watchers limit errors
-      - name: Increase watchers
-        run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-
-      - name: Start project and execute tests
+      - name: Execute tests
         uses: percona-platform/github-action@v2
-        env:
-          REACT_APP_PLATFORM_BASE_URL: https://platform-dev.percona.com
         with:
           working-directory: packages/platform-ui
           browser: chrome
-          start: yarn start
-          wait-on: 'http://localhost:3000'
+          command: yarn cy:run
+          wait-on: 'https://platform.localhost'
           wait-on-timeout: 120
 
+      - name: Setup tmate session on failure
+        if: ${{ failure() }}
+        uses: percona-platform/action-tmate@v2
+
       - name: Generating the report
-        if: success() || failure()
+        if: ${{ always() }}
         working-directory: packages/platform-ui
         run: yarn generate:report
 
       - name: Attaching the report
-        if: success() || failure()
+        if: ${{ always() }}
         uses: percona-platform/upload-artifact@v2
         with:
           name: ui-tests-report
           path: packages/platform-ui/cypress/reports
+
+      - name: Collect debugdata
+        if: ${{ always() }}
+        run: make -C k8s/platform-saas/local collect-debugdata
+
+      - name: Upload debugdata
+        if: ${{ always() }}
+        uses: percona-platform/upload-artifact@v2
+        with:
+          name: debugdata
+          path: ./k8s/platform-saas/local/debugdata
