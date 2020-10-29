@@ -2,7 +2,12 @@
 name: E2E
 
 on:
-  push:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag for saas-ui'
+        required: false
+        default: 'latest'
 
   repository_dispatch:
     types: [e2e]
@@ -28,7 +33,7 @@ jobs:
       OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
       AUTHED_TAG: latest
       CHECKED_TAG: latest
-      SAAS_UI_TAG: latest
+      SAAS_UI_TAG: ${{ github.event.inputs.tag }}
       TELEMETRYD_TAG: latest
 
       MINIKUBE_DRIVER: ${{ matrix.minikube_driver }}
