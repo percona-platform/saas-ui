@@ -62,28 +62,28 @@ jobs:
           minikube config set cpus 2
           minikube config set memory 4096
       - name: Start environment
-        run: make -C k8s/platform-saas/local env-up-start
+        run: make -C infra/k8s/platform-saas/local env-up-start
 
       - name: Gen keys
-        run: env MINISIGN=minisign make -C k8s/platform-saas/local keys
+        run: env MINISIGN=minisign make -C infra/k8s/platform-saas/local keys
 
       - name: Create secrets
-        run: make -C k8s/platform-saas/local env-secrets
+        run: make -C infra/k8s/platform-saas/local env-secrets
 
       - name: Pre-pull images
-        run: make -C k8s/platform-saas/local pre-pull
+        run: make -C infra/k8s/platform-saas/local pre-pull
 
       - name: Prepare environment
-        run: make -C k8s/platform-saas/local env-prepare
+        run: make -C infra/k8s/platform-saas/local env-prepare
 
       - name: Apply
-        run: make -C k8s/platform-saas/local apply
+        run: make -C infra/k8s/platform-saas/local apply
 
       - name: Wait
-        run: make -C k8s/platform-saas/local env-up-wait
+        run: make -C infra/k8s/platform-saas/local env-up-wait
 
       - name: Start tunnel in the background
-        run: make -C k8s/platform-saas/local tunnel-background
+        run: make -C infra/k8s/platform-saas/local tunnel-background
 
       # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
@@ -94,7 +94,7 @@ jobs:
       - name: Execute tests
         uses: percona-platform/github-action@v2
         with:
-          working-directory: packages/platform-ui
+          working-directory: saas-ui/packages/platform-ui
           browser: chrome
           command: yarn cy:run
           wait-on: 'https://platform.localhost'
@@ -106,7 +106,7 @@ jobs:
 
       - name: Generating the report
         if: ${{ always() }}
-        working-directory: packages/platform-ui
+        working-directory: saas-ui/packages/platform-ui
         run: yarn generate:report
 
       - name: Attaching the report
@@ -114,15 +114,15 @@ jobs:
         uses: percona-platform/upload-artifact@v2
         with:
           name: ui-tests-report
-          path: packages/platform-ui/cypress/reports
+          path: saas-ui/packages/platform-ui/cypress/reports
 
       - name: Collect debugdata
         if: ${{ always() }}
-        run: make -C k8s/platform-saas/local collect-debugdata
+        run: make -C infra/k8s/platform-saas/local collect-debugdata
 
       - name: Upload debugdata
         if: ${{ always() }}
         uses: percona-platform/upload-artifact@v2
         with:
           name: debugdata
-          path: ./k8s/platform-saas/local/debugdata
+          path: ./infra/k8s/platform-saas/local/debugdata
