@@ -37,8 +37,8 @@ jobs:
       - name: Checkout infra
         uses: percona-platform/checkout@v2
         with:
-          repository: percona-platform/infra
           token: ${{ secrets.ROBOT_TOKEN }}
+          repository: percona-platform/infra
           path: main
 
       - name: Install packages
