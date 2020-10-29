@@ -97,9 +97,9 @@ jobs:
           wait-on: 'https://platform.localhost'
           wait-on-timeout: 120
 
-      - name: Setup tmate session on failure
-        if: ${{ failure() }}
-        uses: percona-platform/action-tmate@v2
+#      - name: Setup tmate session on failure
+#        if: ${{ failure() }}
+#        uses: percona-platform/action-tmate@v2
 
       - name: Generating the report
         if: ${{ always() }}
