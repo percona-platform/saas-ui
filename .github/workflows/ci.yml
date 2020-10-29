@@ -110,10 +110,3 @@ jobs:
 
       - name: Push Docker image
         run: make docker-push
-
-      - name: Trigger E2E execution with tag "${{ env.DOCKER_TAG }}"
-        uses: percona-platform/repository-dispatch@v1
-        with:
-          token: ${{ secrets.ROBOT_TOKEN }}
-          event-type: e2e
-          client-payload: '{"tag": "${{ env.DOCKER_TAG }}"}'

@@ -2,6 +2,10 @@
 name: E2E
 
 on:
+  push:
+
+  pull-request:
+
   repository_dispatch:
     types: [e2e]
 
@@ -24,7 +28,6 @@ jobs:
       DOCKER_REGISTRY_USERNAME: percona-robot
       DOCKER_REGISTRY_PASSWORD: ${{ secrets.ROBOT_TOKEN }}
       OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
-      SAAS_UI_TAG: ${{ github.event.client_payload.tag }}
 
       MINIKUBE_DRIVER: ${{ matrix.minikube_driver }}
       CHANGE_MINIKUBE_NONE_USER: true
