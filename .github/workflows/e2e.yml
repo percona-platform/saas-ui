@@ -26,6 +26,10 @@ jobs:
       DOCKER_REGISTRY_USERNAME: percona-robot
       DOCKER_REGISTRY_PASSWORD: ${{ secrets.ROBOT_TOKEN }}
       OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
+      AUTHED_TAG: latest
+      CHECKED_TAG: latest
+      SAAS_UI_TAG: latest
+      TELEMETRYD_TAG: latest
 
       MINIKUBE_DRIVER: ${{ matrix.minikube_driver }}
       CHANGE_MINIKUBE_NONE_USER: true
@@ -38,9 +42,6 @@ jobs:
           token: ${{ secrets.ROBOT_TOKEN }}
           repository: percona-platform/infra
           path: ./infra
-
-      - name: debugging
-        run: pwd
 
       - name: Checkout E2E code
         uses: percona-platform/checkout@v2
@@ -63,6 +64,12 @@ jobs:
           minikube config set memory 4096
       - name: Start environment
         run: make -C infra/k8s/platform-saas/local env-up-start
+
+      - name: debugging
+        run: pwd
+
+      - name: debugging
+        run: ls
 
       - name: Gen keys
         run: env MINISIGN=minisign make -C infra/k8s/platform-saas/local keys
