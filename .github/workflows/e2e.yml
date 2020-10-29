@@ -93,10 +93,7 @@ jobs:
         uses: percona-platform/github-action@v2
         with:
           working-directory: saas-ui/packages/platform-ui
-          browser: chrome
           command: yarn cy:run
-          wait-on: 'https://platform.localhost'
-          wait-on-timeout: 120
 
       - name: Setup tmate session on failure
         if: ${{ failure() }}
