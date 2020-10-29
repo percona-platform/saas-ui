@@ -9,9 +9,6 @@ on:
         required: false
         default: 'latest'
 
-  repository_dispatch:
-    types: [e2e]
-
 jobs:
   test:
     name: Test

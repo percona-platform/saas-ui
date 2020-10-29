@@ -26,49 +26,64 @@ jobs:
       - name: Checkout code
         uses: percona-platform/checkout@v2
 
-      # use full version while v2 is in beta
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Enable node_modules cache
-        uses: percona-platform/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
-
-      - name: Install tools
-        run: make init
-
-      - name: Bootstrap projects
-        run: make bootstrap
-
-      - name: Build artifacts
-        run: make build
-
-      - name: Run tests
-        run: make test
-
-  docker:
-    name: Build Docker image
-    timeout-minutes: 10
-    needs: test
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [12.x]
-
-    steps:
-      - name: Checkout code
-        uses: percona-platform/checkout@v2
+      - name: Trigger E2E execution with tag "${{ env.DOCKER_TAG }}"
+        env:
+          DOCKER_TAG: SAAS-393-update-e2e-workflow
+        run: |
+          curl \
+          -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -u ${{ secrets.ROBOT_TOKEN }} \
+          https://api.github.com/repos/percona-platform/saas-ui/actions/workflows/e2e/dispatches \
+          -d '{
+                "ref":"${{ env.DOCKER_TAG }}",
+                "inputs": {
+                  "tag": "${{ env.DOCKER_TAG }}"
+                }
+              }'
+#      # use full version while v2 is in beta
+#      - name: Install Node.js ${{ matrix.node-version }}
+#        uses: percona-platform/setup-node@v2.1.2
+#        with:
+#          node-version: ${{ matrix.node-version }}
+#
+#      - name: Enable node_modules cache
+#        uses: percona-platform/cache@v2
+#        with:
+#          path: |
+#            node_modules
+#            */*/node_modules
+#            ~/.npm
+#          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+#
+#      - name: Install tools
+#        run: make init
+#
+#      - name: Bootstrap projects
+#        run: make bootstrap
+#
+#      - name: Build artifacts
+#        run: make build
+#
+#      - name: Run tests
+#        run: make test
+#
+#  docker:
+#    name: Build Docker image
+#    timeout-minutes: 10
+#    needs: test
+#
+#    runs-on: ubuntu-latest
+#
+#    strategy:
+#      matrix:
+#        node-version: [12.x]
+#
+#    steps:
+#      - name: Checkout code
+#        uses: percona-platform/checkout@v2
 #
 #      # use full version while v2 is in beta
 #      - name: Install Node.js ${{ matrix.node-version }}
@@ -110,19 +125,19 @@ jobs:
 #
 #      - name: Push Docker image
 #        run: make docker-push
-
-      - name: Trigger E2E execution with tag "${{ env.DOCKER_TAG }}"
-        env:
-          DOCKER_TAG: SAAS-393-update-e2e-workflow
-        run: |
-          curl \
-          -X POST \
-          -H "Accept: application/vnd.github.v3+json" \
-          -u ${{ secrets.ROBOT_TOKEN }} \
-          https://api.github.com/repos/percona-platform/saas-ui/actions/workflows/e2e/dispatches \
-          -d '{
-                "ref":"${{ env.DOCKER_TAG }}",
-                "inputs": {
-                  "tag": "${{ env.DOCKER_TAG }}"
-                }
-              }'
+#
+#      - name: Trigger E2E execution with tag "${{ env.DOCKER_TAG }}"
+#        env:
+#          DOCKER_TAG: SAAS-393-update-e2e-workflow
+#        run: |
+#          curl \
+#          -X POST \
+#          -H "Accept: application/vnd.github.v3+json" \
+#          -u ${{ secrets.ROBOT_TOKEN }} \
+#          https://api.github.com/repos/percona-platform/saas-ui/actions/workflows/e2e/dispatches \
+#          -d '{
+#                "ref":"${{ env.DOCKER_TAG }}",
+#                "inputs": {
+#                  "tag": "${{ env.DOCKER_TAG }}"
+#                }
+#              }'
