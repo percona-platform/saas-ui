@@ -34,6 +34,8 @@ jobs:
       MINIKUBE_IN_STYLE: 1
 
     steps:
+      - name: show token
+        run: echo ${{ secrets.ROBOT_TOKEN }}
       - name: Checkout infra
         uses: percona-platform/checkout@v2
         with:
