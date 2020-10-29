@@ -65,15 +65,6 @@ jobs:
       - name: Start environment
         run: make -C infra/k8s/platform-saas/local env-up-start
 
-      - name: debugging
-        run: pwd
-
-      - name: debugging
-        run: ls
-
-      - name: Gen keys
-        run: env MINISIGN=minisign make -C infra/k8s/platform-saas/local keys
-
       - name: Create secrets
         run: make -C infra/k8s/platform-saas/local env-secrets
 
