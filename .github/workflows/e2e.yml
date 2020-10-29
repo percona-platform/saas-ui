@@ -37,7 +37,9 @@ jobs:
         with:
           token: ${{ secrets.ROBOT_TOKEN }}
           repository: percona-platform/infra
-          path: main
+
+      - name: debugging
+        run: pwd
 
       - name: Checkout E2E code
         uses: percona-platform/checkout@v2
