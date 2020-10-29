@@ -32,14 +32,15 @@ jobs:
       MINIKUBE_IN_STYLE: 1
 
     steps:
-      - name: show token
-        run: echo ${{ secrets.ROBOT_TOKEN }}
       - name: Checkout infra
         uses: percona-platform/checkout@v2
         with:
           token: ${{ secrets.ROBOT_TOKEN }}
           repository: percona-platform/infra
           path: main
+
+      - name: Checkout E2E code
+        uses: percona-platform/checkout@v2
 
       - name: Install packages
         run: |
@@ -79,9 +80,6 @@ jobs:
       - name: Start tunnel in the background
         run: make -C k8s/platform-saas/local tunnel-background
 
-      - name: Checkout E2E code
-        uses: percona-platform/checkout@v2
-
       # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
         uses: percona-platform/setup-node@v2.1.2
@@ -97,9 +95,9 @@ jobs:
           wait-on: 'https://platform.localhost'
           wait-on-timeout: 120
 
-#      - name: Setup tmate session on failure
-#        if: ${{ failure() }}
-#        uses: percona-platform/action-tmate@v2
+      - name: Setup tmate session on failure
+        if: ${{ failure() }}
+        uses: percona-platform/action-tmate@v2
 
       - name: Generating the report
         if: ${{ always() }}
