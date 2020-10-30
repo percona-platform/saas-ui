@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Route, Redirect, RouteProps } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getAuth } from 'store/auth';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { Routes } from 'core/routes';
+import { getAuth } from 'store/auth';
+import { useSelector } from 'react-redux';
 
 // A wrapper for <Route> that redirects an authenticated user to the root page if they
 // try to go to the /login route.
