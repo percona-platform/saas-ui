@@ -129,7 +129,7 @@ jobs:
               }'
 
   e2e:
-    name: Executing E2E tests
+    name: E2E tests
     timeout-minutes: 20
     needs: docker
 
@@ -149,7 +149,6 @@ jobs:
       OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
       AUTHED_TAG: latest
       CHECKED_TAG: latest
-#      SAAS_UI_TAG: ${{ github.event.inputs.tag }}
       SAAS_UI_TAG: ${{ needs.docker.outputs.tag }}
       TELEMETRYD_TAG: latest
 
