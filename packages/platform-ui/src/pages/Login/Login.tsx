@@ -1,16 +1,18 @@
-import React, { FC, useCallback } from 'react';
-import { Form, FormRenderProps } from 'react-final-form';
-import { useStyles } from '@grafana/ui';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   LoaderButton, PasswordInputField, TextInputField, validators,
 } from '@percona/platform-core';
-import { PublicLayout } from 'components';
-import { PASSWORD_MIN_LENGTH } from 'core/constants';
-import { Routes } from 'core/routes';
-import { Credentials } from 'store/types';
+import { Form, FormRenderProps } from 'react-final-form';
+import React, { FC, useCallback } from 'react';
 import { authLoginAction, getAuth } from 'store/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { Credentials } from 'store/types';
+import { Link } from 'react-router-dom';
+import { PASSWORD_MIN_LENGTH } from 'core/constants';
+import { PublicLayout } from 'components';
+import { Routes } from 'core/routes';
+import { useStyles } from '@grafana/ui';
+
+// eslint-disable-next-line
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 
