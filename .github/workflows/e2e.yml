@@ -1,17 +1,9 @@
-
+---
 name: E2E
-
 on:
   schedule:
     # run nightly with latest tag
     - cron: "0 0 * * *"
-
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Tag for saas-ui'
-        required: false
-        default: 'latest'
 
 jobs:
   test:
@@ -34,7 +26,7 @@ jobs:
       OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
       AUTHED_TAG: latest
       CHECKED_TAG: latest
-      SAAS_UI_TAG: ${{ github.event.inputs.tag }}
+      SAAS_UI_TAG: latest
       TELEMETRYD_TAG: latest
 
       MINIKUBE_DRIVER: ${{ matrix.minikube_driver }}
