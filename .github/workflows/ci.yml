@@ -26,9 +26,95 @@ jobs:
       - name: Checkout code
         uses: percona-platform/checkout@v2
 
+      # use full version while v2 is in beta
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: percona-platform/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable node_modules cache
+        uses: percona-platform/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+
+      - name: Install tools
+        run: make init
+
+      - name: Bootstrap projects
+        run: make bootstrap
+
+      - name: Build artifacts
+        run: make build
+
+      - name: Run tests
+        run: make test
+
+  docker:
+    name: Build Docker image
+    timeout-minutes: 10
+    needs: test
+
+    outputs:
+      tag: ${{ env.DOCKER_TAG }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout code
+        uses: percona-platform/checkout@v2
+
+      # use full version while v2 is in beta
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: percona-platform/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable node_modules cache
+        uses: percona-platform/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+
+      - name: Install tools
+        run: make init
+
+      - name: Enable experimental Docker features for --squash flag
+        run: sudo .github/workflows/enable-docker-experimental.sh
+
+      - name: Login in Docker registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u $GITHUB_ACTOR docker.pkg.github.com --password-stdin
+
+      - name: Extract Docker image tag
+        uses: percona-platform/extract-docker-tag-action@v1
+
+      - name: Bootstrap projects
+        run: make bootstrap
+
+      - name: Build artifacts
+        run: make build
+
+      - name: Build Docker image with tag "${{ env.DOCKER_TAG }}"
+        run: make docker-build
+
+      - name: Push Docker image
+        run: make docker-push
+
       - name: Trigger E2E execution with tag "${{ env.DOCKER_TAG }}"
-        env:
-          DOCKER_TAG: SAAS-393-update-e2e-workflow
         run: |
           curl \
           -X POST \
@@ -41,103 +127,131 @@ jobs:
                   "tag": "${{ env.DOCKER_TAG }}"
                 }
               }'
-#      # use full version while v2 is in beta
-#      - name: Install Node.js ${{ matrix.node-version }}
-#        uses: percona-platform/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#
-#      - name: Enable node_modules cache
-#        uses: percona-platform/cache@v2
-#        with:
-#          path: |
-#            node_modules
-#            */*/node_modules
-#            ~/.npm
-#          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
-#          restore-keys: |
-#            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
-#
-#      - name: Install tools
-#        run: make init
-#
-#      - name: Bootstrap projects
-#        run: make bootstrap
-#
-#      - name: Build artifacts
-#        run: make build
-#
-#      - name: Run tests
-#        run: make test
-#
-#  docker:
-#    name: Build Docker image
-#    timeout-minutes: 10
-#    needs: test
-#
-#    runs-on: ubuntu-latest
-#
-#    strategy:
-#      matrix:
-#        node-version: [12.x]
-#
-#    steps:
-#      - name: Checkout code
-#        uses: percona-platform/checkout@v2
-#
-#      # use full version while v2 is in beta
-#      - name: Install Node.js ${{ matrix.node-version }}
-#        uses: percona-platform/setup-node@v2.1.2
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#
-#      - name: Enable node_modules cache
-#        uses: percona-platform/cache@v2
-#        with:
-#          path: |
-#            node_modules
-#            */*/node_modules
-#            ~/.npm
-#          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
-#          restore-keys: |
-#            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
-#
-#      - name: Install tools
-#        run: make init
-#
-#      - name: Enable experimental Docker features for --squash flag
-#        run: sudo .github/workflows/enable-docker-experimental.sh
-#
-#      - name: Login in Docker registry
-#        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u $GITHUB_ACTOR docker.pkg.github.com --password-stdin
-#
-#      - name: Extract Docker image tag
-#        uses: percona-platform/extract-docker-tag-action@v1
-#
-#      - name: Bootstrap projects
-#        run: make bootstrap
-#
-#      - name: Build artifacts
-#        run: make build
-#
-#      - name: Build Docker image with tag "${{ env.DOCKER_TAG }}"
-#        run: make docker-build
-#
-#      - name: Push Docker image
-#        run: make docker-push
-#
-#      - name: Trigger E2E execution with tag "${{ env.DOCKER_TAG }}"
-#        env:
-#          DOCKER_TAG: SAAS-393-update-e2e-workflow
-#        run: |
-#          curl \
-#          -X POST \
-#          -H "Accept: application/vnd.github.v3+json" \
-#          -u ${{ secrets.ROBOT_TOKEN }} \
-#          https://api.github.com/repos/percona-platform/saas-ui/actions/workflows/e2e/dispatches \
-#          -d '{
-#                "ref":"${{ env.DOCKER_TAG }}",
-#                "inputs": {
-#                  "tag": "${{ env.DOCKER_TAG }}"
-#                }
-#              }'
+
+  e2e:
+    name: Executing E2E tests
+    timeout-minutes: 20
+    needs: docker
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+        minikube_driver:
+          - docker
+        kubernetes_version:
+          - 1.16.13
+    env:
+      KUBERNETES_VERSION: ${{ matrix.kubernetes_version }}
+      DOCKER_REGISTRY_USERNAME: percona-robot
+      DOCKER_REGISTRY_PASSWORD: ${{ secrets.ROBOT_TOKEN }}
+      OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
+      AUTHED_TAG: latest
+      CHECKED_TAG: latest
+#      SAAS_UI_TAG: ${{ github.event.inputs.tag }}
+      SAAS_UI_TAG: ${{ needs.docker.outputs.tag }}
+      TELEMETRYD_TAG: latest
+
+      MINIKUBE_DRIVER: ${{ matrix.minikube_driver }}
+      CHANGE_MINIKUBE_NONE_USER: true
+      MINIKUBE_IN_STYLE: 1
+
+    steps:
+      - name: Checkout infra
+        uses: percona-platform/checkout@v2
+        with:
+          token: ${{ secrets.ROBOT_TOKEN }}
+          repository: percona-platform/infra
+          path: ./infra
+
+      - name: Checkout E2E code
+        uses: percona-platform/checkout@v2
+        with:
+          path: ./saas-ui
+
+      - name: Install packages
+        run: |
+          sudo add-apt-repository ppa:dysfunctionalprogramming/minisign
+          sudo apt update
+          sudo apt install -y conntrack libnss3-tools minisign
+          curl -sSL https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-linux-amd64 > mkcert
+          chmod +x mkcert
+          sudo mv mkcert /usr/local/bin/
+      # https://help.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources
+      # https://minikube.sigs.k8s.io/docs/drivers/docker/
+      - name: Configure minikube
+        run: |
+          minikube config set cpus 2
+          minikube config set memory 4096
+      - name: Start environment
+        run: make -C infra/k8s/platform-saas/local env-up-start
+
+      - name: Create secrets
+        run: make -C infra/k8s/platform-saas/local env-secrets
+
+      - name: Pre-pull images
+        run: make -C infra/k8s/platform-saas/local pre-pull
+
+      - name: Prepare environment
+        run: make -C infra/k8s/platform-saas/local env-prepare
+
+      - name: Apply
+        run: make -C infra/k8s/platform-saas/local apply
+
+      - name: Wait
+        run: make -C infra/k8s/platform-saas/local env-up-wait
+
+      - name: Start tunnel in the background
+        run: make -C infra/k8s/platform-saas/local tunnel-background
+
+      # use full version while v2 is in beta
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: percona-platform/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Enable node_modules cache
+        uses: percona-platform/cache@v2
+        id: cache
+        with:
+          path: |
+            saas-ui/node_modules
+            */*/*/node_modules
+            ~/.npm
+          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+
+      - name: Execute tests
+        uses: percona-platform/github-action@v2
+        with:
+          working-directory: saas-ui/packages/platform-ui
+          command: yarn cy:run
+
+      - name: Setup tmate session on failure
+        if: ${{ failure() }}
+        uses: percona-platform/action-tmate@v2
+
+      - name: Generating the report
+        if: ${{ always() }}
+        working-directory: saas-ui/packages/platform-ui
+        run: yarn generate:report
+
+      - name: Attaching the report
+        if: ${{ always() }}
+        uses: percona-platform/upload-artifact@v2
+        with:
+          name: ui-tests-report
+          path: saas-ui/packages/platform-ui/cypress/reports
+
+      - name: Collect debugdata
+        if: ${{ always() }}
+        run: make -C infra/k8s/platform-saas/local collect-debugdata
+
+      - name: Upload debugdata
+        if: ${{ always() }}
+        uses: percona-platform/upload-artifact@v2
+        with:
+          name: debugdata
+          path: ./infra/k8s/platform-saas/local/debugdata
