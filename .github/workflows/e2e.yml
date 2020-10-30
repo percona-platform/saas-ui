@@ -105,10 +105,6 @@ jobs:
           working-directory: saas-ui/packages/platform-ui
           command: yarn cy:run
 
-      - name: Setup tmate session on failure
-        if: ${{ failure() }}
-        uses: percona-platform/action-tmate@v2
-
       - name: Generating the report
         if: ${{ always() }}
         working-directory: saas-ui/packages/platform-ui
@@ -131,3 +127,7 @@ jobs:
         with:
           name: debugdata
           path: ./infra/k8s/platform-saas/local/debugdata
+
+#      - name: Setup tmate session on failure
+#        if: ${{ failure() }}
+#        uses: percona-platform/action-tmate@v2
