@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useStyles } from '@grafana/ui';
 import logo from 'assets/percona-logo.svg';
 import profile from 'assets/profile.svg';
-import sun from 'assets/sun.svg';
 import { Dropdown } from '@percona/platform-core';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuth } from 'store/auth/auth.selectors';
@@ -29,28 +28,23 @@ export const MenuBar: FC = () => {
   ));
 
   return (
-    <section className={styles.menuBar}>
-      <div className={styles.leftSide}>
+    <section className={styles.menuBar} data-qa="menu-bar">
+      <div className={styles.leftSide} data-qa="menu-bar-left-side">
         <nav>
           <ul>
             <li>
-              <Link to={Routes.signup} data-qa="menu-bar-percona-logo">
-                <img className={styles.perconaLogo} src={logo} alt={Messages.logoAlt} />
+              <Link to={Routes.root} data-qa="menu-bar-home-link">
+                <img className={styles.perconaLogo} src={logo} alt={Messages.logoAlt} data-qa="menu-bar-percona-logo" />
               </Link>
             </li>
           </ul>
         </nav>
       </div>
-      <div className={styles.rightSide}>
+      <div className={styles.rightSide} data-qa="menu-bar-right-side">
         <nav>
           <ul>
             <li>
-              <Link to={Routes.signup} data-qa="menu-bar-percona-logo">
-                <img className={styles.profileIcon} src={sun} alt={Messages.logoAlt} />
-              </Link>
-            </li>
-            <li>
-              <Dropdown toggle={DropdownToggle}>
+              <Dropdown data-qa="menu-bar-profile-menu-dropdown" toggle={DropdownToggle}>
                 <span onClick={logout}>
                   {Messages.logout}
                 </span>
