@@ -9,6 +9,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
     dropdownMenu: css`
       display: flex;
       flex-direction: column;
+      background-color: ${colors.dropdownBg};
       border-radius: ${border.radius.md};
       box-shadow: 0 0 ${spacing.sm} 0 ${colors.dropdownShadow};
       padding: ${spacing.xs} 0;
@@ -17,7 +18,6 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
         justify-content: flex-start;
         padding: ${spacing.sm} ${spacing.md};
         align-items: center;
-        background-color: ${colors.dropdownBg};
         cursor: pointer;
         min-width: 120px;
 
