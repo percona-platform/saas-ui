@@ -8,15 +8,9 @@ import { dataQa } from '@percona/platform-core';
 import { AuthPB } from 'core';
 import { MenuBar } from './MenuBar';
 
-const { SignOutResponse } = AuthPB;
-
 jest.spyOn(authApi, 'signOut').mockImplementation(() => Promise.resolve({} as AuthPB.SignOutResponse));
 
 let container: HTMLElement;
-
-// const clickOnDataQa = (dataQaAttr: string) => {
-//   fireEvent.click(container.querySelector(dataQa(dataQaAttr))!);
-// };
 
 describe('MenuBar', () => {
   beforeEach(() => {
