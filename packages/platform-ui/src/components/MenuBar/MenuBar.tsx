@@ -22,7 +22,7 @@ export const MenuBar: FC = () => {
   }, [email, dispatch]);
 
   const DropdownToggle = forwardRef<HTMLDivElement, DropdownToggleProps>((props, ref) => (
-    <div ref={ref} data-qa="menu-bar-percona-logo" {...props} className={styles.profileDropdownToggle}>
+    <div ref={ref} {...props} data-qa="menu-bar-profile-dropdown-toggle" className={styles.profileDropdownToggle}>
       <img className={styles.profileIcon} src={profile} alt={Messages.profileMenuAlt} />
     </div>
   ));
@@ -44,8 +44,8 @@ export const MenuBar: FC = () => {
         <nav>
           <ul>
             <li>
-              <Dropdown data-qa="menu-bar-profile-menu-dropdown" toggle={DropdownToggle}>
-                <span onClick={logout}>
+              <Dropdown toggle={DropdownToggle}>
+                <span data-qa="menu-bar-profile-dropdown-logout" onClick={logout}>
                   {Messages.logout}
                 </span>
               </Dropdown>
