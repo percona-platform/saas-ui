@@ -11,8 +11,6 @@ import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { PublicLayout } from 'components';
 import { Routes } from 'core/routes';
 import { useStyles } from '@grafana/ui';
-
-// eslint-disable-next-line
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 
