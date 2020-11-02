@@ -23,7 +23,7 @@ interface DropdownProps {
   toggle: React.ForwardRefExoticComponent<
     React.RefAttributes<any> & React.HTMLAttributes<any>
   >;
-  children: Array<React.ReactElement>;
+  children: Array<React.ReactElement> | React.ReactElement;
   className?: string;
 }
 
@@ -42,7 +42,11 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
   const popperRef = useRef<HTMLDivElement>(null);
   // NOTE: -1 is used to indicate that there are no active menu items
   const [activeIndex, setActiveIndex] = useState<number>(-1);
-  const menuItems = React.Children.map(children, (child, index) => {
+
+  // TODO: find a way to improve this
+  const childrenArray = size > 1 ? children : React.Children.toArray(children) as Array<React.ReactElement>;
+
+  const menuItems = React.Children.map(childrenArray, (child, index) => {
     return React.cloneElement(child, {
       ...child.props,
       onClick: () => {
