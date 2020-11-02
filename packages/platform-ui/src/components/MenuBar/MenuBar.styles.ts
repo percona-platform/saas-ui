@@ -4,6 +4,13 @@ import { GrafanaTheme } from '@grafana/data';
 export const getStyles = (theme: GrafanaTheme) => {
   const { border, colors } = theme;
 
+  const link = css`
+    &:hover,
+    &:active {
+      background-color: ${colors.bg3};
+    }
+  `;
+
   return {
     menuBar: css`
       background-color: ${colors.pageHeaderBg};
@@ -66,7 +73,11 @@ export const getStyles = (theme: GrafanaTheme) => {
       height: 23px;
     `,
     profileDropdownToggle: css`
+      ${link}
       cursor: pointer;
+    `,
+    link: css`
+      ${link}
     `,
   };
 };
