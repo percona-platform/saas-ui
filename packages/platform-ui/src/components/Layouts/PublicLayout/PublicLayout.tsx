@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import { useStyles } from '@grafana/ui';
 import { Messages } from 'core/messages';
-import { getStyles } from './PublicLayout.styles';
 import logo from 'assets/percona-logo.svg';
+import { getStyles } from './PublicLayout.styles';
 
 export const PublicLayout: FC = ({ children }) => {
   const styles = useStyles(getStyles);

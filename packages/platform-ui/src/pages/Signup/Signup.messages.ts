@@ -6,10 +6,6 @@ export const Messages = {
   or: 'or',
   agreementFirstPart: 'Check here to indicate that you have read and agree to the ',
   agreementSecondPart: 'and',
-  signUpSucceeded: 'You have successfully created your credentials',
   passwordLabel: 'Password',
   emailLabel: 'Email',
-  errors: {
-    signUpFailed: 'There was a problem during the sign up process, please try again',
-  },
 };

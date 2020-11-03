@@ -1,8 +1,8 @@
 import { GrafanaThemeType, GrafanaTheme } from '@grafana/data';
-import defaultTheme, { commonColorsPalette } from './default';
+import { defaultTheme, commonColorsPalette } from './default';
 
 const basicColors = {
-  //#464c54
+  // #464c54
   ...commonColorsPalette,
   black: '#000000',
   white: '#ffffff',
@@ -87,7 +87,7 @@ const form = {
   formCheckboxCheckmark: basicColors.white,
 };
 
-const lightTheme: GrafanaTheme = {
+export const lightTheme: GrafanaTheme = {
   ...defaultTheme,
   type: GrafanaThemeType.Light,
   isDark: false,
@@ -134,5 +134,3 @@ const lightTheme: GrafanaTheme = {
     listItem: 'none',
   },
 };
-
-export default lightTheme;

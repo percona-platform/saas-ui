@@ -1,40 +1,22 @@
 import React, { FC, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import { LinkButton, useStyles } from '@grafana/ui';
 import { LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
-import { getAuth, authLogoutAction } from 'store/auth';
-import { Routes } from 'core/routes';
+import { getAuth } from 'store/auth/auth.selectors';
+import { authLogoutAction } from 'store/auth/auth.reducer';
 import { DOWNLOAD_PMM_LINK } from 'core/constants';
 import { getStyles } from './Authenticated.styles';
-import { signOut } from './Authenticated.service';
 import { Messages } from './Authenticated.messages';
-import { store } from 'store';
-import { saveState } from 'store/persistency';
 
 export const Authenticated: FC = () => {
   const styles = useStyles(getStyles);
-  const history = useHistory();
   const dispatch = useDispatch();
   const { email, pending } = useSelector(getAuth);
 
   const logout = useCallback(async () => {
-    try {
-      dispatch(authLogoutAction.request({ email: email! }));
-      await signOut();
-      toast.success(Messages.signOutSucceeded);
-      dispatch(authLogoutAction.success());
-      history.replace(Routes.login);
-    } catch (e) {
-      dispatch(authLogoutAction.failure(new Error(Messages.errors.signOutFailed)));
-      toast.error(Messages.errors.signOutFailed);
-      console.error(e);
-    } finally {
-      saveState(store.getState());
-    }
-  }, [email, history, dispatch]);
+    dispatch(authLogoutAction.request({ email: email! }));
+  }, [email, dispatch]);
 
   return (
     <PrivateLayout>
@@ -43,10 +25,10 @@ export const Authenticated: FC = () => {
         <p>{Messages.authenticatedFirstLine}</p>
         <p>
           <em>
-            <b>{email}</b>
+            <b data-qa="user-email">{email}</b>
           </em>
         </p>
-        <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK}>
+        <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK} target="_blank">
           {Messages.downloadPMM}
         </LinkButton>
         <LoaderButton

@@ -6,14 +6,15 @@ import { Messages } from './Signup.messages';
 
 export const CheckboxLabel: FC = () => {
   const styles = useStyles(getStyles);
+
   return (
     <>
       {`${Messages.agreementFirstPart} `}
-      <LinkButton className={styles.link} variant="link" href={TERMS_OF_SERVICE_URL}>
+      <LinkButton className={styles.link} variant="link" href={TERMS_OF_SERVICE_URL} target="_blank">
         {Messages.termsOfService}
       </LinkButton>
       {` ${Messages.agreementSecondPart} `}
-      <LinkButton className={styles.link} variant="link" href={PRIVACY_POLICY_URL}>
+      <LinkButton className={styles.link} variant="link" href={PRIVACY_POLICY_URL} target="_blank">
         {Messages.privacyPolicy}
       </LinkButton>
     </>

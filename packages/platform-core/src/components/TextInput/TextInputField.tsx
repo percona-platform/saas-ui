@@ -4,6 +4,7 @@ import { cx } from 'emotion';
 import { useTheme } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './TextInput.styles';
+import { FieldInputAttrs } from '../../shared/types';
 
 /**
  * Note: the validation error message will be displayed once the the input has been modified.
@@ -13,9 +14,9 @@ export interface TextInputFieldProps extends UseFieldConfig<string> {
   className?: string;
   disabled?: boolean;
   fieldClassName?: string;
+  inputProps?: FieldInputAttrs;
   label?: string | ReactNode;
   name: string;
-  onChange?: (value: string) => undefined;
   placeholder?: string;
   required?: boolean;
   showErrorOnBlur?: boolean;
@@ -29,14 +30,15 @@ interface TextFieldRenderProps {
 
 export const TextInputField: FC<TextInputFieldProps> = React.memo(
   ({
-    showErrorOnBlur = false,
     className,
     disabled = false,
     fieldClassName,
+    inputProps,
     label,
     name,
     placeholder,
     required = false,
+    showErrorOnBlur = false,
     validators,
     ...fieldConfig
   }) => {
@@ -48,7 +50,7 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
     ]);
 
     return (
-      <Field {...fieldConfig} name={name} validate={validate}>
+      <Field {...fieldConfig} type="text" name={name} validate={validate}>
         {({ input, meta }: TextFieldRenderProps) => {
           const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
@@ -61,8 +63,8 @@ export const TextInputField: FC<TextInputFieldProps> = React.memo(
               )}
               <input
                 id={inputId}
-                type="text"
                 {...input}
+                {...inputProps}
                 disabled={disabled}
                 placeholder={placeholder}
                 data-qa={`${name}-text-input`}

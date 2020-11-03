@@ -1,4 +1,5 @@
 import * as validators from './validators';
+import * as logger from './logger';
 
-export { validators };
-export * from './sleep';
+export { validators, logger };
+export * from './utils';

@@ -9,4 +9,6 @@ import { configure } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 
 const adapter = Adapter as any;
+
+// eslint-disable-next-line new-cap
 configure({ adapter: new adapter.default() });
