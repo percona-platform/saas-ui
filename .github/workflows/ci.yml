@@ -114,7 +114,7 @@ jobs:
       - name: Push Docker image
         run: make docker-push
 
-
+# TODO: https://jira.percona.com/browse/SAAS-379
   e2e:
     name: E2E tests
     timeout-minutes: 20

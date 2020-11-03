@@ -1,5 +1,6 @@
 ---
 name: E2E
+# TODO: https://jira.percona.com/browse/SAAS-379
 on:
   schedule:
     # run nightly with latest tag
