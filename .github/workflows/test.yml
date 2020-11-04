@@ -22,10 +22,10 @@ jobs:
 
     steps:
       - name: showing inputs
-          run: |
-            echo Repo is ${{ github.event.inputs.repo }}
-            echo run_id is ${{ github.event.inputs.run_id }}
-            echo branch is ${{ github.event.inputs.branch }}
+        run: |
+          echo Repo is ${{ github.event.inputs.repo }}
+          echo run_id is ${{ github.event.inputs.run_id }}
+          echo branch is ${{ github.event.inputs.branch }}
 
       - name: sending checks result to ${{ github.event.inputs.branch }} at ${{ github.event.inputs.repo }} repo
         run: |
