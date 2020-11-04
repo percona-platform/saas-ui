@@ -1,4 +1,4 @@
-name: CI
+name: Run tests with dispatch
 
 on:
   workflow_dispatch:
@@ -32,6 +32,6 @@ jobs:
           curl \
             -X PATCH \
             -H "Accept: application/vnd.github.v3+json" \
-            -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}"
+            -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
             https://api.github.com/repos/percona-platform/${{ github.event.inputs.repo }}/check-runs/${{ github.event.inputs.run_id }} \
             -d '{"conclusion":"success"}'

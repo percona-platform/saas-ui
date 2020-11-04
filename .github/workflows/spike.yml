@@ -1,5 +1,5 @@
 ---
-name: CI
+name: triggering tests and waiting for result
 on:
   push:
 
