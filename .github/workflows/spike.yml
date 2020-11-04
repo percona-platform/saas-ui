@@ -32,7 +32,7 @@ jobs:
                 "inputs": {
                   "branch": "${{ github.ref }}",
                   "repo": "${{ github.repository }}",
-                  "run_id": "$CHECK_RUN_ID"
+                  "run_id": "'"$CHECK_RUN_ID"'"
                 }
               }'
 
