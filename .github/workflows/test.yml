@@ -46,8 +46,37 @@ jobs:
               "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           }'
 
+      - name: pending for ${{ github.event.inputs.branch }} at ${{ github.event.inputs.repo }} repo
+        run: |
+          curl \
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
+            https://api.github.com/repos/${{ github.event.inputs.repo }}/statuses/${{ github.event.inputs.sha }} \
+            -d '{
+              "state": "pending",
+              "context": "API tests",
+              "description":"API Test execution has been started",
+              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'
+
       - name: Sleep
         run: sleep 1m
+
+      - name: Success for API tests
+        run: |
+          curl \
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
+            https://api.github.com/repos/${{ github.event.inputs.repo }}/statuses/${{ github.event.inputs.sha }} \
+            -d '{
+              "state": "success",
+              "context": "API tests",
+              "description": "API Test execution was succeded",
+              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'
+
 
       - name: Success for tests
         run: |
