@@ -40,6 +40,7 @@ jobs:
           description: 'Test execution has been started'
           state: 'pending'
           repository: ${{ github.event.inputs.repo }}
+          target_url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
           sha: ${{ github.event.inputs.sha }}
 
       - name: pending for ${{ github.event.inputs.branch }} at ${{ github.event.inputs.repo }} repo
