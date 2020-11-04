@@ -41,8 +41,10 @@ jobs:
             https://api.github.com/repos/${{ github.event.inputs.repo }}/statuses/${{ github.event.inputs.sha }} \
             -d '{
               "state": "pending",
+              "context": "UI tests",
               "description":"Test execution has been started",
-              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
+              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'
 
       - name: Sleep
         run: sleep 1m
@@ -54,4 +56,9 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
             https://api.github.com/repos/${{ github.event.inputs.repo }}/statuses/${{ github.event.inputs.sha }} \
-            -d '{"state":"success", "description":"Test execution was succeded", "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"}'
+            -d '{
+              "state": "success",
+              "context": "UI tests",
+              "description": "Test execution was succeded",
+              "target_url": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }'
