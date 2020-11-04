@@ -32,12 +32,28 @@ jobs:
           echo run_id is ${{ github.event.inputs.run_id }}
           echo branch is ${{ github.event.inputs.branch }}
 
-      - name: sending checks result to ${{ github.event.inputs.branch }} at ${{ github.event.inputs.repo }} repo
+      - name: pending for ${{ github.event.inputs.branch }} at ${{ github.event.inputs.repo }} repo
         run: |
           curl \
             -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
             https://api.github.com/repos/${{ github.event.inputs.repo }}/statuses/${{ github.event.inputs.sha }} \
-            -d '{"state":"failure", "description":"Some description"}'
+            -d '{
+              "state": "pending",
+              "description":"Test execution has been started",
+              "target_url": "https://github.com/${{ github.repository }}/${{ github.run_id }}"}'
 
+      - name: Sleep
+        run: sleep 1m
+
+      - name: Success for tests
+        run: |
+
+
+          curl \
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
+            https://api.github.com/repos/${{ github.event.inputs.repo }}/statuses/${{ github.event.inputs.sha }} \
+            -d '{"state":"success", "description":"Test execution was succeded", "target_url": "https://github.com/${{ github.repository }}/${{ github.run_id }}"}'
