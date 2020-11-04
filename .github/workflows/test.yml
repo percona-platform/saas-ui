@@ -38,7 +38,7 @@ jobs:
             -d '{"conclusion":"success"}'
 
       - name: sending checks with checks-action
-      - uses: percona-platform/checks-action@v1.1.0
+        uses: percona-platform/checks-action@v1.1.0
         if: always()
         with:
           repo: ${{ github.event.inputs.repo }}
