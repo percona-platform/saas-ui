@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: show github obj
-        run: echo ${{ github }}
+        run: echo ${{ toJSON(github) }}
 
       - name: dispatching a workflow
         run: |
