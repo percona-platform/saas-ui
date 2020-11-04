@@ -18,8 +18,12 @@ jobs:
 
       - name: get the check run id and dispatch a workflow
         run: |
-          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq '.')
+          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
           echo suite url is $CHECK_SUITE_URL
+          $HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq -r '.head_branch')
+          echo branch is $HEAD_BRANCH
+          $HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq -r '.head_branch')
+          echo sha is $HEAD_SHA
           CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | .id ')
           echo check_run_id is $CHECK_RUN_ID
           curl \
@@ -30,9 +34,10 @@ jobs:
           -d '{
                 "ref":"${{ github.ref }}",
                 "inputs": {
-                  "branch": "${{ github.ref }}",
+                  "branch": "'"$HEAD_BRANCH"'",
                   "repo": "${{ github.repository }}",
-                  "run_id": "'"$CHECK_RUN_ID"'"
+                  "run_id": "'"$CHECK_RUN_ID"'",
+                  "sha": "'"$HEAD_SHA"'"
                 }
               }'
 
