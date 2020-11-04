@@ -24,7 +24,10 @@ jobs:
           echo check_run_id is $CHECK_RUN_ID
 
       - name: dispatching a workflow
+        env:
+          RUN_ID: $CHECK_RUN_ID
         run: |
+          echo check_run_id is $CHECK_RUN_ID
           curl \
           -X POST \
           -H "Accept: application/vnd.github.v3+json" \
@@ -35,7 +38,7 @@ jobs:
                 "inputs": {
                   "branch": "${{ github.ref }}",
                   "repo": "${{ github.repository }}",
-                  "run_id": "'"$CHECK_RUN_ID"'"
+                  "run_id": "${{ env.RUN_ID }}"
                 }
               }'
 
