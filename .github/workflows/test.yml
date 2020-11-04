@@ -43,7 +43,6 @@ jobs:
         with:
           repo: ${{ github.event.inputs.repo }}
           token: ${{ secrets.ROBOT_TOKEN }}
-          name: Test XYZ
           check_id: ${{ github.event.inputs.run_id }}
           conclusion: failure
           output: |
