@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Repository which triggered workflow'
+        required: true
+        default: 'unknownRepository'
+      run_id:
+        description: 'check run id'
+        required: true
+        default: 'unknownId'
+      branch:
+        description: 'Branch in repository'
+        required: true
+        default: 'unknownBranch'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: showing inputs
+          run: |
+            echo Repo is ${{ github.event.inputs.repo }}
+            echo run_id is ${{ github.event.inputs.run_id }}
+            echo branch is ${{ github.event.inputs.branch }}
+
+      - name: sending checks result to ${{ github.event.inputs.branch }} at ${{ github.event.inputs.repo }} repo
+        run: |
+          curl \
+            -X PATCH \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}"
+            https://api.github.com/repos/percona-platform/${{ github.event.inputs.repo }}/check-runs/${{ github.event.inputs.run_id }} \
+            -d '{"conclusion":"success"}'
