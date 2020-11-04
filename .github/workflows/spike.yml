@@ -18,7 +18,7 @@ jobs:
 
       - name: get the check run id and dispatch a workflow
         run: |
-          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq -r)
+          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq)
           echo suite url is $CHECK_SUITE_URL
           CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | .id ')
           echo check_run_id is $CHECK_RUN_ID
