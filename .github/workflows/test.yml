@@ -22,6 +22,7 @@ jobs:
 
     steps:
       - name: showing inputs
+        id: test
         run: |
           echo Repo is ${{ github.event.inputs.repo }}
           echo run_id is ${{ github.event.inputs.run_id }}
@@ -35,3 +36,15 @@ jobs:
             -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
             https://api.github.com/repos/${{ github.event.inputs.repo }}/check-runs/${{ github.event.inputs.run_id }} \
             -d '{"conclusion":"success"}'
+
+      - name: sending checks with checks-action
+      - uses: percona-platform/checks-action@v1.1.0
+        if: always()
+        with:
+          repo: ${{ github.event.inputs.repo }}
+          token: ${{ secrets.ROBOT_TOKEN }}
+          name: Test XYZ
+          check_id: ${{ github.event.inputs.run_id }}
+          conclusion: failure
+          output: |
+            {"summary":"Just a summary"}
