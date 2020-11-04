@@ -18,7 +18,7 @@ jobs:
 
       - name: get the check run id for each job
         run: |
-          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq '.check_suite_url')
+          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/percona-platform/saas-ui/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
           echo suite url is $CHECK_SUITE_URL
           CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | select(.name=="test") | .id ')
           echo check_run_id is $CHECK_RUN_ID
