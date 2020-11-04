@@ -35,7 +35,7 @@ jobs:
                 "inputs": {
                   "branch": "${{ github.ref }}",
                   "repo": "${{ github.repository }}",
-                  "run_id": "${{ github.run_id }}"
+                  "run_id": "$CHECK_RUN_ID"
                 }
               }'
 
