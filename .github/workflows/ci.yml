@@ -125,14 +125,10 @@ jobs:
       - name: get inputs for dispatch
         run: |
           CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
-          echo suite url is $CHECK_SUITE_URL
           echo "HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_branch')" >> $GITHUB_ENV
-          echo branch is ${{ env.HEAD_BRANCH}}
           echo "HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_sha')" >> $GITHUB_ENV
-          echo sha is ${{ env.HEAD_SHA }}
           echo "CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | .id ')" >> $GITHUB_ENV
           echo "CHECK_SUITE_URL=$CHECK_SUITE_URL" >> $GITHUB_ENV
-          echo check_run_id is ${{ env.CHECK_RUN_ID }}
 
       - name: dispatching tests workflow
         uses: percona-platform/workflow-dispatch@v1
