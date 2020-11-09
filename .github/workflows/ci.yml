@@ -114,117 +114,40 @@ jobs:
       - name: Push Docker image
         run: make docker-push
 
-# TODO: https://jira.percona.com/browse/SAAS-379
   e2e:
-    name: E2E tests
-    timeout-minutes: 20
-    needs: docker
+    name: Triggering Tests execution
+    timeout-minutes: 10
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-        minikube_driver:
-          - docker
-        kubernetes_version:
-          - 1.16.13
-    env:
-      KUBERNETES_VERSION: ${{ matrix.kubernetes_version }}
-      DOCKER_REGISTRY_USERNAME: percona-robot
-      DOCKER_REGISTRY_PASSWORD: ${{ secrets.ROBOT_TOKEN }}
-      OKTA_TOKEN: ${{ secrets.OKTA_TOKEN }}
-      AUTHED_TAG: latest
-      CHECKED_TAG: latest
-      SAAS_UI_TAG: ${{ needs.docker.outputs.tag }}
-      TELEMETRYD_TAG: latest
-
-      MINIKUBE_DRIVER: ${{ matrix.minikube_driver }}
-      CHANGE_MINIKUBE_NONE_USER: true
-      MINIKUBE_IN_STYLE: 1
-
     steps:
-      - name: Checkout infra
-        uses: percona-platform/checkout@v2
+      - name: get inputs for dispatch
+        run: |
+          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
+          echo suite url is $CHECK_SUITE_URL
+          echo "HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_branch')" >> $GITHUB_ENV
+          echo branch is ${{ env.HEAD_BRANCH}}
+          echo "HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_sha')" >> $GITHUB_ENV
+          echo sha is ${{ env.HEAD_SHA }}
+          echo "CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | .id ')" >> $GITHUB_ENV
+          echo "CHECK_SUITE_URL=$CHECK_SUITE_URL" >> $GITHUB_ENV
+          echo check_run_id is ${{ env.CHECK_RUN_ID }}
+
+      - name: dispatching tests workflow
+        uses: percona-platform/workflow-dispatch@v1
         with:
+          workflow: Tests
+          repo: percona-platform/cicd
           token: ${{ secrets.ROBOT_TOKEN }}
-          repository: percona-platform/infra
-          path: ./infra
+          inputs: '{
+              "branch": "${{ env.HEAD_BRANCH }}",
+              "repo": "${{ github.repository }}",
+              "run_id": "${{ env.CHECK_RUN_ID }}",
+              "saas-ui": "${{ needs.docker.outputs.tag }}",
+              "ui_tests_branch": "${{ env.HEAD_BRANCH }}",
+              "sha": "${{ env.HEAD_SHA }}"
+              }'
 
-      - name: Checkout E2E code
-        uses: percona-platform/checkout@v2
-        with:
-          path: ./saas-ui
-
-      - name: Install packages
-        run: |
-          sudo add-apt-repository ppa:dysfunctionalprogramming/minisign
-          sudo apt update
-          sudo apt install -y conntrack libnss3-tools minisign
-          curl -sSL https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-linux-amd64 > mkcert
-          chmod +x mkcert
-          sudo mv mkcert /usr/local/bin/
-      # https://help.github.com/en/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources
-      # https://minikube.sigs.k8s.io/docs/drivers/docker/
-      - name: Configure minikube
-        run: |
-          minikube config set cpus 2
-          minikube config set memory 4096
-      - name: Start environment
-        run: make -C infra/k8s/platform-saas/local env-up-start
-
-      - name: Create secrets
-        run: make -C infra/k8s/platform-saas/local env-secrets
-
-      - name: Pre-pull images
-        run: make -C infra/k8s/platform-saas/local pre-pull
-
-      - name: Prepare environment
-        run: make -C infra/k8s/platform-saas/local env-prepare
-
-      - name: Apply
-        run: make -C infra/k8s/platform-saas/local apply
-
-      - name: Wait
-        run: make -C infra/k8s/platform-saas/local env-up-wait
-
-      - name: Start tunnel in the background
-        run: make -C infra/k8s/platform-saas/local tunnel-background
-
-      # use full version while v2 is in beta
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Execute tests
-        uses: percona-platform/github-action@v2
-        with:
-          working-directory: saas-ui/packages/platform-ui
-          command: yarn cy:run
-
-      - name: Generating the report
-        if: ${{ always() }}
-        working-directory: saas-ui/packages/platform-ui
-        run: yarn generate:report
-
-      - name: Attaching the report
-        if: ${{ always() }}
-        uses: percona-platform/upload-artifact@v2
-        with:
-          name: ui-tests-report
-          path: saas-ui/packages/platform-ui/cypress/reports
-
-      - name: Collect debugdata
-        if: ${{ always() }}
-        run: make -C infra/k8s/platform-saas/local collect-debugdata
-
-      - name: Upload debugdata
-        if: ${{ always() }}
-        uses: percona-platform/upload-artifact@v2
-        with:
-          name: debugdata
-          path: ./infra/k8s/platform-saas/local/debugdata
 
 #      - name: Setup tmate session on failure
 #        if: ${{ failure() }}
