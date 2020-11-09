@@ -117,6 +117,7 @@ jobs:
   e2e:
     name: Triggering Tests execution
     timeout-minutes: 10
+    needs: docker
 
     runs-on: ubuntu-latest
 
