@@ -140,6 +140,7 @@ jobs:
           workflow: Tests
           repo: percona-platform/cicd
           token: ${{ secrets.ROBOT_TOKEN }}
+          ref: main
           inputs: '{
                 "branch": "${{ env.HEAD_BRANCH }}",
                 "repo": "${{ github.repository }}",
