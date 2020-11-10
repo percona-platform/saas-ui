@@ -48,7 +48,7 @@ jobs:
           with:
             workflow: Tests
             repo: percona-platform/cicd
-            ref: ${{ ${{ github.event.pull_request.head.ref || github.ref }} }}
+            ref: ${{ github.event.pull_request.head.ref || github.ref }}
             token: ${{ secrets.ROBOT_TOKEN }}
             inputs: '{
                     "branch": "${{ env.HEAD_BRANCH }}",
