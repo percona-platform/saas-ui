@@ -125,9 +125,16 @@ jobs:
       - name: get inputs for dispatch
         run: |
           CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
-          echo "HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_branch')" >> $GITHUB_ENV
-          echo "HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_sha')" >> $GITHUB_ENV
-          echo "CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq -r '.check_runs[] | .id ')" >> $GITHUB_ENV
+          echo "CHECK_SUITE_URL is $CHECK_SUITE_URL "
+          HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_branch')
+          echo "HEAD_BRANCH is $HEAD_BRANCH"
+          echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
+          HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_sha')
+          echo "HEAD_SHA is $HEAD_SHA"
+          echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_ENV
+          CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq -r '.check_runs[] | .id ')
+          echo "CHECK_RUN_ID is $CHECK_RUN_ID"
+          echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
           echo "CHECK_SUITE_URL=$CHECK_SUITE_URL" >> $GITHUB_ENV
 
       - name: dispatching tests workflow
