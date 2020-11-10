@@ -29,8 +29,8 @@ jobs:
               -X POST \
               -H "Accept: application/vnd.github.v3+json" \
               -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
-              https://api.github.com/repos/percona-platform/cicd/actions/workflows/tests1.yml/dispatches \
-              -d '{"ref": "${{ env.HEAD_BRANCH }}", "inputs" : {"branch":"${ env.HEAD_BRANCH }","repo": "${ github.repository }", "saas-ui": "${ env.HEAD_BRANCH }","ui_tests_branch": "${ env.HEAD_BRANCH }", "sha": "${ env.HEAD_SHA }"}}'
+              https://api.github.com/repos/percona-platform/cicd/actions/workflows/tests.yml/dispatches \
+              -d '{"ref": "${{ env.HEAD_SHA }}", "inputs" : {"branch":"${ env.HEAD_BRANCH }","repo": "${ github.repository }", "saas-ui": "${ env.HEAD_BRANCH }","ui_tests_branch": "${ env.HEAD_BRANCH }", "sha": "${ env.HEAD_SHA }"}}'
 
         - name: dispatching tests workflow
           uses: percona-platform/workflow-dispatch@v1
