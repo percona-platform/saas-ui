@@ -4,8 +4,8 @@ on:
   push:
 
 jobs:
-  test:
-    name: Triggering Tests execution
+    test:
+      name: Triggering Tests execution
       timeout-minutes: 10
 
       runs-on: ubuntu-latest
