@@ -15,6 +15,13 @@ const popperConfig: Partial<PopperOptions> = {
         offset: [0, 2],
       },
     },
+    {
+      name: 'preventOverflow',
+      options: {
+				altAxis: true,
+        padding: 12,
+      },
+    },
   ],
 };
 
