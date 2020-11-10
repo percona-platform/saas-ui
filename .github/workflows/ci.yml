@@ -135,7 +135,6 @@ jobs:
           echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
           echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_ENV
           echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
-          echo "CHECK_SUITE_URL=$CHECK_SUITE_URL" >> $GITHUB_ENV
 
       - name: dispatching tests workflow
         uses: percona-platform/workflow-dispatch@v1
