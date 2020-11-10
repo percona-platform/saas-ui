@@ -27,7 +27,7 @@ jobs:
             HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_branch')
             echo "HEAD_BRANCH is $HEAD_BRANCH"
             HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_sha')
-            echo "HEAD_SHA is $HEAD_SHA"
+            echo "HEAD_SHA  $HEAD_SHA"
             echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
             echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_ENV
 
