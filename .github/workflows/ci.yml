@@ -133,7 +133,7 @@ jobs:
           echo "HEAD_SHA is $HEAD_SHA"
           OUTPUT=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[]')
           echo "OUTPUT is $OUTPUT"
-          CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[1] | .id ')
+          CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[-1] | .id ')
           echo "CHECK_RUN_ID is $CHECK_RUN_ID"
           echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
           echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
