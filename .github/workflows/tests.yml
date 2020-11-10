@@ -1,3 +1,4 @@
+---
 name: Tests
 on:
   workflow_dispatch:
@@ -39,7 +40,7 @@ on:
                 "branch": "${{ env.HEAD_BRANCH }}",
                 "repo": "${{ github.repository }}",
                 "run_id": "${{ env.CHECK_RUN_ID }}",
-                "saas-ui": "${{ needs.docker.outputs.tag }}",
+                "saas-ui": "${{ github.event.inputs.tag }}",
                 "ui_tests_branch": "${{ env.HEAD_BRANCH }}",
                 "sha": "${{ env.HEAD_SHA }}"
                 }'
