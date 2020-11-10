@@ -122,33 +122,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: get inputs for dispatch
-        run: |
-          CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
-          echo "CHECK_SUITE_URL is $CHECK_SUITE_URL "
-          HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_branch')
-          echo "HEAD_BRANCH is $HEAD_BRANCH"
-          HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_sha')
-          echo "HEAD_SHA is $HEAD_SHA"
-          CHECK_RUN_ID=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" $CHECK_SUITE_URL/check-runs | jq '.check_runs[] | .id ')
-          echo "CHECK_RUN_ID is $CHECK_RUN_ID"
-          echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
-          echo "CHECK_RUN_ID=$CHECK_RUN_ID" >> $GITHUB_ENV
-          echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_ENV
 
-      - name: dispatching tests workflow
+      - name: dispatching Tests workflow
         uses: percona-platform/workflow-dispatch@v1
         with:
           workflow: Tests
-          repo: percona-platform/cicd
+          repo: percona-platform/saas-ui
           token: ${{ secrets.ROBOT_TOKEN }}
           inputs: '{
-              "branch": "${{ env.HEAD_BRANCH }}",
-              "repo": "${{ github.repository }}",
-              "run_id": "${{ env.CHECK_RUN_ID }}",
-              "saas-ui": "${{ needs.docker.outputs.tag }}",
-              "ui_tests_branch": "${{ env.HEAD_BRANCH }}",
-              "sha": "${{ env.HEAD_SHA }}"
+              "tag": "${{ needs.docker.outputs.tag }}"
               }'
 
 #
