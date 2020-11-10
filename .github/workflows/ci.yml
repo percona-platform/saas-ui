@@ -127,7 +127,6 @@ jobs:
         uses: percona-platform/workflow-dispatch@v1
         with:
           workflow: Tests
-          repo: percona-platform/saas-ui
           token: ${{ secrets.ROBOT_TOKEN }}
           inputs: '{
               "tag": "${{ needs.docker.outputs.tag }}"
