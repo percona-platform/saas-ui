@@ -1,0 +1,53 @@
+---
+name: Trigger
+on:
+  push:
+
+jobs:
+  test:
+    name: Triggering Tests execution
+      timeout-minutes: 10
+
+      runs-on: ubuntu-latest
+
+      steps:
+
+        - name: get inputs for dispatch
+          run: |
+            CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
+            echo "CHECK_SUITE_URL is $CHECK_SUITE_URL "
+            HEAD_BRANCH=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_branch')
+            echo "HEAD_BRANCH is $HEAD_BRANCH"
+            HEAD_SHA=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.head_sha')
+            echo "HEAD_SHA is $HEAD_SHA"
+            echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
+            echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_ENV
+
+        - name: curl
+          run: |
+            curl \
+              -X POST \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: token ${{ secrets.ROBOT_TOKEN }}" \
+              https://api.github.com/repos/percona-platform/cicd/actions/workflows/tests.yml/dispatches \
+              -d '{
+                "branch":"${{ env.HEAD_BRANCH }}",
+                "repo": "${{ github.repository }}",
+                "saas-ui": "${{ env.HEAD_BRANCH }}",
+                "ui_tests_branch": "${{ env.HEAD_BRANCH }}",
+                "sha": "${{ env.HEAD_SHA }}"
+            }'
+
+        - name: dispatching tests workflow
+          uses: percona-platform/workflow-dispatch@v1
+          with:
+            workflow: Tests
+            repo: percona-platform/cicd
+            token: ${{ secrets.ROBOT_TOKEN }}
+            inputs: '{
+                    "branch": "${{ env.HEAD_BRANCH }}",
+                    "repo": "${{ github.repository }}",
+                    "saas-ui": "${{ env.HEAD_BRANCH }}",
+                    "ui_tests_branch": "${{ env.HEAD_BRANCH }}",
+                    "sha": "${{ env.HEAD_SHA }}"
+                    }'
