@@ -17,6 +17,10 @@
   "ignoreTestFiles": ["*utils.js", "locators.js", "constants.js"],
   "testFiles": ["**/*spec.ts"],
   "baseUrl": "https://platform.localhost",
+  "retries": {
+    "runMode": 1,
+    "openMode": 0
+  },
   "reporter": "../../../node_modules/cypress-multi-reporters/lib/MultiReporters.js",
   "reporterOptions": {
     "configFile": "reporter.json",
