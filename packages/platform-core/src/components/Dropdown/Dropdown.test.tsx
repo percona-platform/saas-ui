@@ -146,23 +146,6 @@ describe('Dropdown ::', () => {
     expect(menuAction).toBeCalledTimes(1);
   });
 
-  test('keeps menu item active on close', async () => {
-    act(() => {
-      render(<Dropdown toggle={Toggle} keepActiveOnClose>
-        <div data-qa="menu-item" onClick={jest.fn()}>root</div>
-        <a href="/test">test</a>
-      </Dropdown>, container);
-    });
-
-    await openMenu();
-    await clickMenuItem('menu-item');
-    await openMenu();
-
-    const menuItem = container.querySelector(dataQa('menu-item'));
-
-    expect(menuItem?.className.includes('active')).toBeTruthy();
-  });
-
   test('doesnt keep menu item active on close', async () => {
     act(() => {
       render(<Dropdown toggle={Toggle}>

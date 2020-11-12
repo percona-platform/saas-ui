@@ -25,14 +25,12 @@ interface DropdownProps {
   >;
   children: Array<React.ReactElement> | React.ReactElement;
   className?: string;
-  keepActiveOnClose?: boolean;
 }
 
 export const Dropdown: FC<DropdownProps> = React.memo(({
   className,
   children,
   toggle: Toggle,
-  keepActiveOnClose = false,
 }) => {
   const theme = useTheme();
   const styles = useMemo(() => getStyles(theme), [theme]);
@@ -135,7 +133,7 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
       // setActiveIndex(-1);
 
       // on close reset index
-      if (!keepActiveOnClose && !visible) {
+      if (!visible) {
         setActiveIndex(-1);
       }
     };
