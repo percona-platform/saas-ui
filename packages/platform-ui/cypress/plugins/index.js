@@ -12,12 +12,12 @@ module.exports = (on, config) => {
   // This code executes before the browser launch
   on('before:browser:launch', (browser, launchOptions) => {
 
-    // Setting 1920x1080 resolution for chrome browser in order to increase artifacts quality
+    // Setting 1600x900 resolution for chrome browser in order to increase artifacts quality
     if (browser.name === 'chrome') {
-      launchOptions.args.push('--window-size=1920,1080');
-
-      return launchOptions;
+      launchOptions.args.push('--window-size=1600,900');
     }
+
+    return launchOptions;
   });
 };
 
