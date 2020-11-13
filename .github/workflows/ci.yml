@@ -140,7 +140,7 @@ jobs:
           workflow: Tests
           repo: percona-platform/cicd
           token: ${{ secrets.ROBOT_TOKEN }}
-          ref: main
+          ref: SAAS-389-video-freezing
           inputs: '{
                 "branch": "${{ env.HEAD_BRANCH }}",
                 "repo": "${{ github.repository }}",
