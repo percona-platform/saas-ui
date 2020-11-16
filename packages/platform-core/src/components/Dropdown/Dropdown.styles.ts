@@ -6,6 +6,9 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
   const { spacing, colors, border } = theme;
 
   return {
+    dropdown: css`
+      z-index: 1;
+    `,
     dropdownMenu: css`
       display: flex;
       flex-direction: column;
