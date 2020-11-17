@@ -131,6 +131,11 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
       // UX: don't reset the index when tearing down the children
       // TODO: evaluate pros and cons
       // setActiveIndex(-1);
+
+      // on close reset index
+      if (!visible) {
+        setActiveIndex(-1);
+      }
     };
   }, [activeIndex, children, size, visible]);
 
@@ -141,6 +146,7 @@ export const Dropdown: FC<DropdownProps> = React.memo(({
       <div
         ref={popperRef}
         style={popperStyles.popper}
+        className={styles.dropdown}
         {...popperAttributes.popper}
         data-qa="dropdown-menu-container"
       >
