@@ -11,8 +11,6 @@ module.exports = (on, config) => {
 
   // This code executes before the browser launch
   on('before:browser:launch', (browser, launchOptions) => {
-
-    // Setting 1366×768 resolution for chrome browser in order to increase artifacts quality
     if (browser.name === 'chrome') {
       launchOptions.args.push('--window-size=1366,768');
     }
