@@ -26,7 +26,6 @@ export const runAuthFlow = (user: ValidUser, page: Pages) => {
     submitButton().isVisible().isEnabled().click();
     checkPopUpMessage(user.signedInMessage);
     cy.contains(email);
-    logoutButton().isVisible();
     downloadPMMLink().hasAttr('href', DOWNLOAD_PMM_LINK);
   }
 
