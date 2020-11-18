@@ -1,22 +1,15 @@
-import React, { FC, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { LinkButton, useStyles } from '@grafana/ui';
-import { LoaderButton } from '@percona/platform-core';
 import { PrivateLayout } from 'components';
 import { getAuth } from 'store/auth/auth.selectors';
-import { authLogoutAction } from 'store/auth/auth.reducer';
 import { DOWNLOAD_PMM_LINK } from 'core/constants';
 import { getStyles } from './Authenticated.styles';
 import { Messages } from './Authenticated.messages';
 
 export const Authenticated: FC = () => {
   const styles = useStyles(getStyles);
-  const dispatch = useDispatch();
-  const { email, pending } = useSelector(getAuth);
-
-  const logout = useCallback(async () => {
-    dispatch(authLogoutAction.request({ email: email! }));
-  }, [email, dispatch]);
+  const { email } = useSelector(getAuth);
 
   return (
     <PrivateLayout>
@@ -31,17 +24,6 @@ export const Authenticated: FC = () => {
         <LinkButton className={styles.downloadPMMButton} href={DOWNLOAD_PMM_LINK} target="_blank">
           {Messages.downloadPMM}
         </LinkButton>
-        <LoaderButton
-          data-qa="logout-action-button"
-          type="submit"
-          loading={pending}
-          disabled={pending}
-          onClick={logout}
-          className={styles.logoutButton}
-          variant="secondary"
-        >
-          {Messages.signOut}
-        </LoaderButton>
       </section>
     </PrivateLayout>
   );
