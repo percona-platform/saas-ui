@@ -1,6 +1,7 @@
 export * from './Checkbox';
 export * from './Dropdown';
 export * from './LoaderButton';
+export * from './Modal';
 export * from './PasswordInput';
 export * from './StepProgress';
 export * from './TextInput';

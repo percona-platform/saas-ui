@@ -1,16 +1,16 @@
-import {
-  LoaderButton, PasswordInputField, TextInputField, validators,
-} from '@percona/platform-core';
+import React, { FC, useCallback, useState } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
-import React, { FC, useCallback } from 'react';
-import { authLoginAction, getAuth } from 'store/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { Credentials } from 'store/types';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, useStyles } from '@grafana/ui';
+import {
+  LoaderButton, PasswordInputField, TextInputField, validators, Modal,
+} from '@percona/platform-core';
+import { authLoginAction, getAuth } from 'store/auth';
+import { Credentials } from 'store/types';
 import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { PublicLayout } from 'components';
 import { Routes } from 'core/routes';
-import { useStyles } from '@grafana/ui';
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 
@@ -26,6 +26,7 @@ export const LoginPage: FC = () => {
   const styles = useStyles(getStyles);
   const dispatch = useDispatch();
   const { pending } = useSelector(getAuth);
+  const [isVisible, setVisible] = useState(false);
 
   const handleLoginSubmit = useCallback(
     (credentials: Credentials) => {
@@ -36,6 +37,24 @@ export const LoginPage: FC = () => {
 
   return (
     <PublicLayout>
+      <Button onClick={() => setVisible(true)}>
+        Open Modal
+      </Button>
+      <Modal
+        title="Test modal"
+        isVisible={isVisible}
+        onClose={() => setVisible(false)}
+      >
+        <div className={styles.stepProgressWrapper}>
+          <textarea rows={10} defaultValue={`
+            this is row 1
+            this is row 2
+            this is row 3
+            this is row 4
+            this is row 5
+          `}/>
+        </div>
+      </Modal>
       <Form onSubmit={handleLoginSubmit}>
         {({ handleSubmit, pristine, valid }: FormRenderProps) => (
           <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
