@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-const TableToolbarAdd: FC = (props) => (
+export const TableToolbarAdd: FC = (props) => (
   <svg
     width={14}
     height={14}
@@ -17,5 +17,3 @@ const TableToolbarAdd: FC = (props) => (
     />
   </svg>
 );
-
-export default TableToolbarAdd;

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-const TableToolbarDelete: FC = (props) => (
+export const TableToolbarDelete: FC = (props) => (
   <svg
     width={14}
     height={14}
@@ -17,5 +17,3 @@ const TableToolbarDelete: FC = (props) => (
     />
   </svg>
 );
-
-export default TableToolbarDelete;

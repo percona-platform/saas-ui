@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-const TableToolbarDisable: FC = (props) => (
+export const TableToolbarDisable: FC = (props) => (
   <svg
     width={14}
     height={14}
@@ -22,5 +22,3 @@ const TableToolbarDisable: FC = (props) => (
     />
   </svg>
 );
-
-export default TableToolbarDisable;
