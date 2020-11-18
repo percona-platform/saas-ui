@@ -1,22 +1,17 @@
 import React, { FC } from 'react';
+import { AvailableIcons, Icons } from './types';
 
-import AddIcon from '../../shared/icons/TableToolbarAdd';
-import DeleteIcon from '../../shared/icons/TableToolbarDelete';
-import EnableIcon from '../../shared/icons/TableToolbarEnable';
-import DisableIcon from '../../shared/icons/TableToolbarDisable';
-
-export type AvailableIcons = 'toolbarAdd' | 'toolbarDelete' | 'toolbarEnable' | 'toolbarDisable';
-
-type Icons = {
-  [I in AvailableIcons]: React.ElementType;
-}
+import { TableToolbarAdd } from '../../shared/icons/TableToolbarAdd';
+import { TableToolbarDelete } from '../../shared/icons/TableToolbarDelete';
+import { TableToolbarEnable } from '../../shared/icons/TableToolbarEnable';
+import { TableToolbarDisable } from '../../shared/icons/TableToolbarDisable';
 
 // TODO: improve this mapping
 const icons: Icons  = {
-  toolbarAdd: AddIcon,
-  toolbarDelete: DeleteIcon,
-  toolbarEnable: EnableIcon,
-  toolbarDisable: DisableIcon,
+  toolbarAdd: TableToolbarAdd,
+  toolbarDelete: TableToolbarDelete,
+  toolbarEnable: TableToolbarEnable,
+  toolbarDisable: TableToolbarDisable,
 };
 
 interface IconProps {
