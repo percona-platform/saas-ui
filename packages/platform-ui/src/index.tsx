@@ -57,3 +57,12 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+// expose store during tests
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+if (window.Cypress) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+  // @ts-ignore
+  window.store = store;
+}
