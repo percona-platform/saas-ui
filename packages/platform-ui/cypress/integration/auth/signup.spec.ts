@@ -1,14 +1,21 @@
 /// <reference types="cypress" />
-import { pageDetailsMap, Pages } from 'pages/common/constants';
+import { INVALID_USER, pageDetailsMap, Pages, VALID_USER } from 'pages/common/constants';
 import { runFieldsValidationFlow } from 'pages/auth/flows/validation.flow';
 import { runPageElementsFlow } from 'pages/auth/flows/checkElements.flow';
-import { runLoginFlow, runSignUpFlow } from 'pages/auth/flows/auth.flow';
+import { runSignUpFlow } from 'pages/auth/flows/auth.flow';
 import { getNewUser } from 'pages/auth/utils/getNewUser';
+import { runLoginAction } from 'pages/auth/actions/login.action';
+import { profileIcon, userEmail } from 'pages/main/view/selectors';
+import { setAliases } from 'pages/auth/requests/requests';
+import { popUp } from 'pages/common/view/selectors';
+import { signupForm } from 'pages/auth/view/selectors';
+import { runSignupAction } from 'pages/auth/actions/signup.action';
 
 const newUser = getNewUser();
 
 context('Sign Up', () => {
   beforeEach(() => {
+    setAliases();
     cy.visit(pageDetailsMap[Pages.SignUp].url);
   });
 
@@ -22,6 +29,14 @@ context('Sign Up', () => {
 
   it('should be able to signup and login with new account', () => {
     runSignUpFlow(newUser);
-    runLoginFlow(newUser);
+    runLoginAction(newUser.user);
+    userEmail().isVisible().hasText(newUser.user.email);
+    profileIcon().isVisible();
+  });
+
+  it('should see failed signup message', () => {
+    runSignupAction(VALID_USER.user);
+    popUp().isVisible().hasText(INVALID_USER.invalidSignUpMessage);
+    signupForm().isVisible();
   });
 });
