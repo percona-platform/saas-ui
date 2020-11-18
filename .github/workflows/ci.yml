@@ -135,7 +135,7 @@ jobs:
           echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_ENV
 
       - name: dispatching tests workflow
-        uses: percona-platform/workflow-dispatch@v1
+        uses: percona-platform/workflow-dispatch@v1.1
         with:
           workflow: Tests
           repo: percona-platform/cicd
