@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Icon } from './Icon';
-import { TableToolbarAdd } from '../../shared/icons/TableToolbarAdd';
+import { TableToolbarAdd } from '../../shared/icons';
 
 describe('Icon::', () => {
   it('should display the correct icon', () => {

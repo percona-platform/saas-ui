@@ -1,10 +1,12 @@
 import React, { FC } from 'react';
 import { AvailableIcons, Icons } from './types';
 
-import { TableToolbarAdd } from '../../shared/icons/TableToolbarAdd';
-import { TableToolbarDelete } from '../../shared/icons/TableToolbarDelete';
-import { TableToolbarEnable } from '../../shared/icons/TableToolbarEnable';
-import { TableToolbarDisable } from '../../shared/icons/TableToolbarDisable';
+import {
+  TableToolbarAdd,
+  TableToolbarDelete,
+  TableToolbarEnable,
+  TableToolbarDisable,
+} from '../../shared/icons';
 
 // TODO: improve this mapping
 const icons: Icons  = {
