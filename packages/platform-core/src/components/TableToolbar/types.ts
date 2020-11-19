@@ -1,7 +1,7 @@
 import { AvailableIcons } from 'components/Icon';
 
 export interface Action {
-  callback: () => {};
+  callback: () => void;
   icon: AvailableIcons;
   label: string;
   minItems?: number;
