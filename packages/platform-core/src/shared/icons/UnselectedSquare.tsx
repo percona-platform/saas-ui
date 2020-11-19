@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-export const TableToolbarDisable: FC = (props) => (
+export const UnselectedSquare: FC = (props) => (
   <svg
     width={14}
     height={14}

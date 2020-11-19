@@ -2,18 +2,18 @@ import React, { FC } from 'react';
 import { AvailableIcons, Icons } from './types';
 
 import {
-  TableToolbarAdd,
-  TableToolbarDelete,
-  TableToolbarEnable,
-  TableToolbarDisable,
+  MinusSquare,
+  PlusSquare,
+  SelectedSquare,
+  UnselectedSquare,
 } from '../../shared/icons';
 
 // TODO: improve this mapping
 const icons: Icons  = {
-  toolbarAdd: TableToolbarAdd,
-  toolbarDelete: TableToolbarDelete,
-  toolbarEnable: TableToolbarEnable,
-  toolbarDisable: TableToolbarDisable,
+  plusSquare: PlusSquare,
+  minusSquare: MinusSquare,
+  selectedSquare: SelectedSquare,
+  unselectedSquare: UnselectedSquare,
 };
 
 interface IconProps {

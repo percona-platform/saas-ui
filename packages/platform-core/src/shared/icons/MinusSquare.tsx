@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-export const TableToolbarAdd: FC = (props) => (
+export const MinusSquare: FC = (props) => (
   <svg
     width={14}
     height={14}
@@ -8,7 +8,7 @@ export const TableToolbarAdd: FC = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <path d="M7 3.727v6.546M10.273 7H3.727" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M10.273 7H3.727" strokeLinecap="round" strokeLinejoin="round" />
     <path
       clipRule="evenodd"
       d="M13 13H1V1h12v12z"

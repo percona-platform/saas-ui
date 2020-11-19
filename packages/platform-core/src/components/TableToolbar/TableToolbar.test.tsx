@@ -9,10 +9,10 @@ describe('TableToolbar::', () => {
   it('should render an input element of type number and two buttons', () => {
     let wrapper = mount(
       <TableToolbar actions={[
-        { callback: jest.fn(), label: 'test1', icon: 'toolbarAdd' },
-        { callback: jest.fn(), label: 'test2', icon: 'toolbarAdd', minItems: 1 },
-        { callback: jest.fn(), label: 'test3', icon: 'toolbarAdd', maxItems: 2 },
-        { callback: jest.fn(), label: 'test4', icon: 'toolbarAdd', minItems: 1, maxItems: 1 },
+        { callback: jest.fn(), label: 'test1', icon: 'plusSquare' },
+        { callback: jest.fn(), label: 'test2', icon: 'plusSquare', minItems: 1 },
+        { callback: jest.fn(), label: 'test3', icon: 'plusSquare', maxItems: 2 },
+        { callback: jest.fn(), label: 'test4', icon: 'plusSquare', minItems: 1, maxItems: 1 },
       ]} selectedItems={[]} />,
     );
 
@@ -24,10 +24,10 @@ describe('TableToolbar::', () => {
 
     wrapper = mount(
       <TableToolbar actions={[
-        { callback: jest.fn(), label: 'test1', icon: 'toolbarAdd' },
-        { callback: jest.fn(), label: 'test2', icon: 'toolbarAdd', minItems: 1 },
-        { callback: jest.fn(), label: 'test3', icon: 'toolbarAdd', maxItems: 2 },
-        { callback: jest.fn(), label: 'test4', icon: 'toolbarAdd', minItems: 1, maxItems: 1 },
+        { callback: jest.fn(), label: 'test1', icon: 'plusSquare' },
+        { callback: jest.fn(), label: 'test2', icon: 'plusSquare', minItems: 1 },
+        { callback: jest.fn(), label: 'test3', icon: 'plusSquare', maxItems: 2 },
+        { callback: jest.fn(), label: 'test4', icon: 'plusSquare', minItems: 1, maxItems: 1 },
       ]} selectedItems={['a']} />,
     );
 
@@ -39,10 +39,10 @@ describe('TableToolbar::', () => {
 
     wrapper = mount(
       <TableToolbar actions={[
-        { callback: jest.fn(), label: 'test1', icon: 'toolbarAdd' },
-        { callback: jest.fn(), label: 'test2', icon: 'toolbarAdd', minItems: 1 },
-        { callback: jest.fn(), label: 'test3', icon: 'toolbarAdd', maxItems: 2 },
-        { callback: jest.fn(), label: 'test4', icon: 'toolbarAdd', minItems: 1, maxItems: 1 },
+        { callback: jest.fn(), label: 'test1', icon: 'plusSquare' },
+        { callback: jest.fn(), label: 'test2', icon: 'plusSquare', minItems: 1 },
+        { callback: jest.fn(), label: 'test3', icon: 'plusSquare', maxItems: 2 },
+        { callback: jest.fn(), label: 'test4', icon: 'plusSquare', minItems: 1, maxItems: 1 },
       ]} selectedItems={['a', 'b']} />,
     );
 
@@ -54,10 +54,10 @@ describe('TableToolbar::', () => {
 
     wrapper = mount(
       <TableToolbar actions={[
-        { callback: jest.fn(), label: 'test1', icon: 'toolbarAdd' },
-        { callback: jest.fn(), label: 'test2', icon: 'toolbarAdd', minItems: 1 },
-        { callback: jest.fn(), label: 'test3', icon: 'toolbarAdd', maxItems: 2 },
-        { callback: jest.fn(), label: 'test4', icon: 'toolbarAdd', minItems: 1, maxItems: 1 },
+        { callback: jest.fn(), label: 'test1', icon: 'plusSquare' },
+        { callback: jest.fn(), label: 'test2', icon: 'plusSquare', minItems: 1 },
+        { callback: jest.fn(), label: 'test3', icon: 'plusSquare', maxItems: 2 },
+        { callback: jest.fn(), label: 'test4', icon: 'plusSquare', minItems: 1, maxItems: 1 },
       ]} selectedItems={[9, 9, 9]} />,
     );
 
@@ -75,10 +75,10 @@ describe('TableToolbar::', () => {
 
     const wrapper = mount(
       <TableToolbar actions={[
-        { callback: jest.fn(), label: 'test1', icon: 'toolbarAdd', minItems: 2, maxItems: 1 },
-        { callback: jest.fn(), label: 'test2', icon: 'toolbarAdd', minItems: -1, maxItems: 1 },
-        { callback: jest.fn(), label: 'test3', icon: 'toolbarAdd', minItems: -1, maxItems: -10 },
-        { callback: jest.fn(), label: 'test4', icon: 'toolbarAdd', minItems: 1, maxItems: -10 },
+        { callback: jest.fn(), label: 'test1', icon: 'plusSquare', minItems: 2, maxItems: 1 },
+        { callback: jest.fn(), label: 'test2', icon: 'plusSquare', minItems: -1, maxItems: 1 },
+        { callback: jest.fn(), label: 'test3', icon: 'plusSquare', minItems: -1, maxItems: -10 },
+        { callback: jest.fn(), label: 'test4', icon: 'plusSquare', minItems: 1, maxItems: -10 },
       ]} selectedItems={[]} />,
     );
 
