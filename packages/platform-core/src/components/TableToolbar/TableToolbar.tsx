@@ -10,14 +10,13 @@ export const TableToolbar: FC<TableToolbarProps> = ({ actions, selectedItems }) 
 
   return (
     <div className={styles.wrapper}>
-      {actions.map(action => {
-        const {
+      {actions.map(({
           callback,
           icon,
           minItems = 0,
           maxItems = Infinity,
           label,
-        } = action;
+        }) => {
 
         if (minItems < 0 || maxItems < 0) {
           error(Messages.negativeNumberError);
