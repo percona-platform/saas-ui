@@ -4,8 +4,7 @@ export interface Action {
   callback: () => void;
   icon: AvailableIcons;
   label: string;
-  minItems?: number;
-  maxItems?: number;
+  isBulkAction?: boolean;
 }
 
 export interface TableToolbarProps {
