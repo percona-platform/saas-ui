@@ -1,16 +1,16 @@
+import React, { FC, useCallback } from 'react';
+import { Form, FormRenderProps } from 'react-final-form';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useStyles } from '@grafana/ui';
 import {
   LoaderButton, PasswordInputField, TextInputField, validators,
 } from '@percona/platform-core';
-import { Form, FormRenderProps } from 'react-final-form';
-import React, { FC, useCallback } from 'react';
 import { authLoginAction, getAuth } from 'store/auth';
-import { useDispatch, useSelector } from 'react-redux';
 import { Credentials } from 'store/types';
-import { Link } from 'react-router-dom';
 import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { PublicLayout } from 'components';
 import { Routes } from 'core/routes';
-import { useStyles } from '@grafana/ui';
 import { Messages } from './Login.messages';
 import { getStyles } from './Login.styles';
 
@@ -45,6 +45,7 @@ export const LoginPage: FC = () => {
               name="password"
               label={Messages.passwordLabel}
               validators={passwordValidators}
+              inputProps={{ autoComplete: 'off' }}
               required
             />
             <LoaderButton

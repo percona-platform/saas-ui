@@ -4,11 +4,12 @@
   "description": "Platform UI core components",
   "private": false,
   "keywords": [
+    "percona",
     "ui",
     "components"
   ],
   "author": "Percona <info@percona.com>",
-  "homepage": "https://github.com/percona-platform/saas-ui/tree/master/packages/core#readme",
+  "homepage": "https://github.com/percona-platform/saas-ui/tree/main/packages/platform-core#readme",
   "license": "Apache-2.0",
   "main": "dist/js/index.js",
   "module": "dist/esm/index.js",
@@ -88,8 +89,9 @@
   },
   "np": {
     "yolo": true,
+    "branch": "main",
     "anyBranch": false,
-    "releaseDraft": false
+    "releaseDraft": true
   },
   "browserslist": {
     "production": [
