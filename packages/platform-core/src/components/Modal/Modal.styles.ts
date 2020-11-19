@@ -2,7 +2,8 @@ import { GrafanaTheme } from '@grafana/data';
 import { css } from 'emotion';
 
 export const getStyles = (theme: GrafanaTheme) => {
-  const { colors, spacing, zIndex, breakpoints } = theme;
+  const { colors, spacing, zIndex, breakpoints, typography } = theme;
+  console.log('t', theme.typography);
   return {
     wrapper: css`
       position: relative;
@@ -20,40 +21,39 @@ export const getStyles = (theme: GrafanaTheme) => {
     body: css`
       position: fixed;
       top: 50%;
-      transform: translate(0px, -50%);
+      left: 50%;
+      transform: translate(-50%, -50%);
       z-index: ${zIndex.modal};
       background: ${colors.bodyBg};
       box-shadow: 0 0 20px ${colors.dropdownShadow};
       background-clip: padding-box;
       outline: none;
-      width: 100%;
+      width: 600px;
       max-width: 90%;
       @media (min-width: ${breakpoints.sm}) {
-        width: 80%;
+        max-width: 80%;
       }
       @media (min-width: ${breakpoints.md}) {
-        width: 70%;
+        max-width: 70%;
       }
       @media (min-width: ${breakpoints.lg}) {
-        width: 60%;
+        width: 50%;
+        max-width: 60%;
       }
       @media (min-width: ${breakpoints.xl}) {
         width: 50%;
+        max-width: 50%;
       }
-      left: 0;
-      right: 0;
-      margin-left: auto;
-      margin-right: auto;
     `,
     modalHeader: css`
-      label: modalHeader;
-      background: ${colors.bg2};
-      border-bottom: 1px solid ${colors.pageHeaderBorder};
       display: flex;
       height: 3em;
       align-items: center;
       justify-content: space-between;
       padding-left: ${spacing.d};
+      font-weight: ${typography.weight.semibold};
+      background: ${colors.bg2};
+      border-bottom: 1px solid ${colors.pageHeaderBorder};
     `,
     content: css`
       padding: ${spacing.d};

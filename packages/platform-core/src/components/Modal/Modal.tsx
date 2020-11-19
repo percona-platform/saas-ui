@@ -42,7 +42,7 @@ export const Modal: FC<ModalWindow> = (props) => {
         data-qa="modal-background"
       />
       <div className={styles.body} data-qa="modal-body">
-        <div className={styles.modalHeader}>
+        <div className={styles.modalHeader} data-qa="modal-header">
           {title}
           <div className={styles.modalHeaderClose}>
             <IconButton
