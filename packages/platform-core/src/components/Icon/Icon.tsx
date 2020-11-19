@@ -4,16 +4,16 @@ import { AvailableIcons, Icons } from './types';
 import {
   MinusSquare,
   PlusSquare,
-  SelectedSquare,
-  UnselectedSquare,
+  EnabledSquare,
+  DisabledSquare,
 } from '../../shared/icons';
 
 // TODO: improve this mapping
 const icons: Icons  = {
   plusSquare: PlusSquare,
   minusSquare: MinusSquare,
-  selectedSquare: SelectedSquare,
-  unselectedSquare: UnselectedSquare,
+  selectedSquare: EnabledSquare,
+  unselectedSquare: DisabledSquare,
 };
 
 interface IconProps {
