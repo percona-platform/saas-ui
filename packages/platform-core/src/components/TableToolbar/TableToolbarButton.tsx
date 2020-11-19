@@ -1,6 +1,6 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { cx } from 'emotion';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { Icon } from '../Icon';
 import { getStyles } from './TableToolbarButton.styles';
 import { TableToolbarButtonProps } from './types';
@@ -11,8 +11,7 @@ export const TableToolbarButton: FC<TableToolbarButtonProps> = ({
   label,
   ...props
 }) => {
-  const theme = useTheme();
-  const styles = useMemo(() => getStyles(theme), [theme]);
+  const styles = useStyles(getStyles);
 
   return (
     <button {...props} type="button" className={cx(styles.button, className)}>

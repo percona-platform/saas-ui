@@ -1,4 +1,5 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
+import { useStyles } from '@grafana/ui';
 import { error } from '../../shared/logger';
 import { TableToolbarButton } from './TableToolbarButton';
 import { getStyles } from './TableToolbar.styles';
@@ -6,7 +7,7 @@ import { Messages } from './TableToolbar.messages';
 import { TableToolbarProps } from './types';
 
 export const TableToolbar: FC<TableToolbarProps> = ({ actions, selectedItems }) => {
-  const styles = useMemo(() => getStyles(), []);
+  const styles = useStyles(getStyles);
 
   return (
     <div className={styles.wrapper}>
