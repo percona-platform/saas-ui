@@ -14,7 +14,7 @@ context('Logout', () => {
     runLoginAction(VALID_USER.user);
   });
 
-  it('should be able to logout', () => {
+  it('SAAS-T80 - should be able to logout', () => {
     profileIcon().isVisible().click();
     dropdownMenu().isVisible();
     logoutButton().click();
