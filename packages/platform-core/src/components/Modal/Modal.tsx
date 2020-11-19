@@ -32,7 +32,7 @@ export const Modal: FC<ModalWindow> = (props) => {
     }
 
     return undefined;
-  });
+  }, [closeOnEscape]);
 
   return isVisible ? (
     <div data-qa="modal-wrapper">
