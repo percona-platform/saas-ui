@@ -3,7 +3,7 @@ import { css } from 'emotion';
 
 export const getStyles = (theme: GrafanaTheme) => {
   const { colors, spacing, zIndex, breakpoints, typography } = theme;
-  console.log('t', theme.typography);
+
   return {
     background: css`
       position: fixed;
@@ -65,5 +65,5 @@ export const getStyles = (theme: GrafanaTheme) => {
       align-items: center;
       justify-content: center;
     `,
-  }
+  };
 };
