@@ -5,9 +5,6 @@ export const getStyles = (theme: GrafanaTheme) => {
   const { colors, spacing, zIndex, breakpoints, typography } = theme;
   console.log('t', theme.typography);
   return {
-    wrapper: css`
-      position: relative;
-    `,
     background: css`
       position: fixed;
       top: 0;

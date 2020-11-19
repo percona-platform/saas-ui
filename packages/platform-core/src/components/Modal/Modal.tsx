@@ -35,7 +35,7 @@ export const Modal: FC<ModalWindow> = (props) => {
   });
 
   return isVisible ? (
-    <div className={styles.wrapper}>
+    <div data-qa="modal-wrapper">
       <div
         className={styles.background}
         onClick={closeOnClickaway ? onClose : undefined}
