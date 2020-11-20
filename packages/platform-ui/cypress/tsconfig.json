@@ -3,6 +3,9 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@src/*": ["../src/*"]
+    },
     "types": [
       "node",
       "cypress",

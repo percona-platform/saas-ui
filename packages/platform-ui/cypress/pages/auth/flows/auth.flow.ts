@@ -3,7 +3,7 @@ import { pageDetailsMap, Pages } from 'pages/common/constants';
 import { submitButton, termsCheckbox } from 'pages/auth/view/selectors';
 import { ValidUser } from 'pages/common/interfaces/Auth';
 import { fillEmailPassword } from 'pages/auth/view/behavior/auth';
-import { downloadPMMLink, logoutButton } from 'pages/main/view/selectors';
+import { downloadPMMLink, homeIcon, profileIcon } from 'pages/main/view/selectors';
 import { checkPopUpMessage } from 'pages/common/view/behavior/common';
 import { DOWNLOAD_PMM_LINK } from 'pages/main/constants/constants';
 
@@ -16,8 +16,8 @@ export const runLoginFlow = (user: ValidUser) => {
   runAuthFlow(user, Pages.Login);
 };
 
-export const runAuthFlow = (user: ValidUser, page: Pages) => {
-  const email = user.user.email;
+const runAuthFlow = (user: ValidUser, page: Pages) => {
+  const { email } = user.user;
 
   submitButton().isVisible().isDisabled();
   fillEmailPassword(user.user);
@@ -27,6 +27,8 @@ export const runAuthFlow = (user: ValidUser, page: Pages) => {
     checkPopUpMessage(user.signedInMessage);
     cy.contains(email);
     downloadPMMLink().hasAttr('href', DOWNLOAD_PMM_LINK);
+    profileIcon().isVisible();
+    homeIcon().isVisible();
   }
 
   if (page === Pages.SignUp) {
