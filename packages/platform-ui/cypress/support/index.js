@@ -29,5 +29,6 @@ Cypress.on('test:after:run', (test, runnable) => {
 
 // Generating video name in order to link in to the mocha report
   const videoUrl = `videos/${Cypress.spec.name}.mp4`;
+
   addContext({test}, videoUrl);
 });
