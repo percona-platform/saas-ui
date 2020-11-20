@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { User } from 'pages/common/interfaces/Auth';
 import { INVALID_USER } from 'pages/common/constants';
-import { authLoginAction } from '../../../../src/store/auth';
+import { authLoginAction } from '@src/store/auth';
 
 export const runLoginAction = (user: User) => {
   cy.window().its('store')

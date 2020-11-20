@@ -59,6 +59,7 @@ ReactDOM.render(
 serviceWorker.unregister();
 
 // expose store during tests
+// TODO: add Cypress and store to the window type.
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 if (window.Cypress) {
