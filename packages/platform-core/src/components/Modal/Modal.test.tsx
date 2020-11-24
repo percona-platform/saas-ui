@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Modal } from './Modal';
 import { dataQa } from 'shared';
+import { Modal } from './Modal';
 
 describe('Modal window::', () => {
   it('should render modal successfully', () => {
