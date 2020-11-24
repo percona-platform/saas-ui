@@ -13,7 +13,6 @@ import { history } from 'core/history';
 import 'react-toastify/dist/ReactToastify.min.css';
 import './styles/font-awesome.css';
 import './styles/global.css';
-import * as serviceWorker from './serviceWorker';
 
 /**
  * NOTE: @grafana/ui does not seem to import font-awesome icons, so no easy
@@ -52,11 +51,6 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root'),
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
 
 // expose store during tests
 // TODO: add Cypress and store to the window type.
