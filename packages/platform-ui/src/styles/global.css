@@ -31,3 +31,8 @@ textarea {
   font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   font-size: 14px;
 }
+
+.Toastify__toast-container--top-right {
+  /* place the container right below the top menu */
+  top: 4em;
+}
