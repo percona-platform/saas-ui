@@ -34,7 +34,7 @@ ReactDOM.render(
         </ConnectedRouter>
         <ToastContainer
           bodyClassName={css`
-            padding: 1em;
+            padding: 0.5em;
           `}
           position={toast.POSITION.TOP_RIGHT}
           autoClose={5000}

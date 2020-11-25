@@ -25,20 +25,18 @@ export const Main: FC = () => {
           <PrivateRoute path={Routes.root} exact>
             <Authenticated />
           </PrivateRoute>
-          <PublicRoute path={Routes.login}>
+          <PublicRoute exact path={Routes.login}>
             <LoginPage />
           </PublicRoute>
-          <PublicRoute path={Routes.signup}>
+          <PublicRoute exact path={Routes.signup}>
             <SignupPage />
           </PublicRoute>
           <PublicRoute path={Routes.ui}>
             <UIDemo />
           </PublicRoute>
-          <Redirect to={Routes.login}>
-            {/* <NotFound /> */}
-          </Redirect>
+          <Redirect to={Routes.login} />
         </Switch>
-      ) : null}
+       ) : null}
     </>
   );
 };
