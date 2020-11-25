@@ -32,6 +32,11 @@ textarea {
   font-size: 14px;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
 .Toastify__toast-container--top-right {
   /* place the container right below the top menu */
   top: 4em;

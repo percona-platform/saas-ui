@@ -1,33 +1,47 @@
-import React, { FC, useCallback, useState } from 'react';
-import { Tab, TabsBar, TabContent } from '@grafana/ui';
-// import { logger } from '@percona/platform-core';
-// import { Messages } from './UI.messages';
+import React, { FC, useState } from 'react';
+import { Tab, TabsBar, TabContent, useStyles } from '@grafana/ui';
+import { TabKeys } from './UIDemo.types';
+import { getStyles } from './UIDemo.styles';
 
-const initialTabs = [
-  { label: 'Inputs', key: 'inputs', active: true },
-  { label: 'Modals', key: 'modals', active: false },
-  { label: 'Icons', key: 'icons', active: false },
+const tabs = [
+  {
+    label: 'Inputs',
+    key: TabKeys.inputs,
+    component: TabKeys.inputs,
+  },
+  {
+    label: 'Modals',
+    key: TabKeys.modals,
+    component: TabKeys.modals,
+  },
+  {
+    label: 'Icons',
+    key: 'icons',
+    component: TabKeys.icons,
+  },
 ];
 
 export const UIDemo: FC = () => {
-  const [tabs, setTabs] = useState(initialTabs);
-  const onChangeTab = useCallback((idx) => () => {
-    const stateTabs = tabs.map((tab, index) => ({ ...tab, active: index === idx }));
-
-    setTabs(stateTabs);
-  }, [tabs]);
+  const [activeTab, setActiveTab] = useState<string>(TabKeys.inputs);
+  const styles = useStyles(getStyles);
 
   return (
-    <section>
+    <section className={styles.page}>
+      <h2>UI Component Demo</h2>
       <TabsBar>
-        {tabs.map((tab, index) => (
-          <Tab key={tab.key} label={tab.label} active={tab.active} onChangeTab={onChangeTab(index)} css="" />
+        {/* That css property is there to silence the type mistake of the Tab component */}
+        {tabs.map((tab) => (
+          <Tab
+            key={tab.key}
+            label={tab.label}
+            active={tab.key === activeTab}
+            onChangeTab={() => setActiveTab(tab.key)}
+            css=""
+          />
         ))}
       </TabsBar>
       <TabContent>
-        {tabs[0].active && (<div>{tabs[0].label}</div>)}
-        {tabs[1].active && (<div>{tabs[1].label}</div>)}
-        {tabs[2].active && (<div>{tabs[2].label}</div>)}
+        <div>{tabs.find((tab) => tab.key === activeTab)!.component}</div>
       </TabContent>
     </section>
   );
