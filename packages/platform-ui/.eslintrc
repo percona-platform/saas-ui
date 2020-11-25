@@ -44,18 +44,13 @@
     "react/display-name": ["off"],
     "react/no-array-index-key": ["error"],
     "max-len": ["error", { "code": 110, "ignoreStrings": true, "ignoreRegExpLiterals": true }],
-    "prettier/prettier": ["error", {
-      "singleQuote": true
-    }],
     "quotes": ["error", "single"],
     "import/extensions": [
       "error",
-      "always",
+      "never",
       {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
+        "svg": "always",
+        "css": "always"
       }
     ],
     "import/no-extraneous-dependencies": [
