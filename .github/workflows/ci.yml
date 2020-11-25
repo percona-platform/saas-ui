@@ -115,15 +115,14 @@ jobs:
         run: make docker-push
 
   e2e:
-    name: Triggering Tests execution
+    name: Dispatch E2E tests
     timeout-minutes: 10
     needs: docker
 
     runs-on: ubuntu-latest
 
     steps:
-
-      - name: get inputs for dispatch
+      - name: Get inputs for dispatch
         run: |
           CHECK_SUITE_URL=$(curl -H "authorization: token ${{ secrets.ROBOT_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/actions/runs/${{github.run_id}} | jq -r '.check_suite_url')
           echo "CHECK_SUITE_URL is $CHECK_SUITE_URL "
@@ -134,17 +133,17 @@ jobs:
           echo "HEAD_BRANCH=$HEAD_BRANCH" >> $GITHUB_ENV
           echo "HEAD_SHA=$HEAD_SHA" >> $GITHUB_ENV
 
-      - name: dispatching tests workflow
+      - name: Trigger dispatch
         uses: percona-platform/workflow-dispatch@v1
         with:
-          workflow: Tests
+          workflow: E2E
           repo: percona-platform/cicd
           token: ${{ secrets.ROBOT_TOKEN }}
           ref: main
           inputs: '{
                 "branch": "${{ env.HEAD_BRANCH }}",
                 "repo": "${{ github.repository }}",
-                "saas-ui": "${{ needs.docker.outputs.tag }}",
+                "${{ github.event.repository.name }}": "${{ needs.docker.outputs.tag }}",
                 "ui_tests_branch": "${{ env.HEAD_BRANCH }}",
                 "sha": "${{ env.HEAD_SHA }}"
                 }'
