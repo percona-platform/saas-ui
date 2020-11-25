@@ -17,7 +17,6 @@ export const getStyles = (theme: GrafanaTheme) => {
       border-bottom: ${border.width.sm} solid ${colors.border1};
       display: flex;
       height: 60px;
-      width: 100vw;
 
       nav {
         height: 100%;
@@ -32,7 +31,7 @@ export const getStyles = (theme: GrafanaTheme) => {
 
           li {
             height: 100%;
-            width: 70px;
+            width: 60px;
             position: relative;
 
             & > * {
