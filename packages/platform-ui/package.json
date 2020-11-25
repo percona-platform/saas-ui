@@ -20,6 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "eject": "react-scripts eject",
     "test": "react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll=false --collectCoverageFrom=src/**/*.{ts,tsx,js} --collectCoverageFrom=!src/core/gen/**/*",
     "lint": "eslint --ext js,ts,tsx src",
@@ -31,8 +32,7 @@
     "report:copyScreenshots": "cp -r cypress/screenshots cypress/reports",
     "report:copyVideos": "cp -r cypress/videos cypress/reports",
     "generate:report": "yarn cy:merge; yarn report:copyScreenshots; yarn report:copyVideos; yarn cy:report",
-    "test:ci": "CI=true react-scripts test",
-    "eject": "react-scripts eject"
+    "test:ci": "CI=true react-scripts test"
   },
   "dependencies": {
     "@grafana/data": "7.1.3",
