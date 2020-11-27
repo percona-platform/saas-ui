@@ -1,28 +1,22 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { PrivateRoute, PublicRoute, Authenticated } from 'components';
 import { LoginPage, SignupPage, UIDemo } from 'pages';
-import { authRefreshAction, getAuth } from 'store/auth';
+import { authRefreshAction } from 'store/auth';
 import { Routes } from 'core/routes';
 
 export const Main: FC = () => {
-  const auth = useSelector(getAuth);
   const dispatch = useDispatch();
 
-  const callRefreshSession = useCallback(() => {
+  useEffect(() => {
     dispatch(authRefreshAction.request());
   }, [dispatch]);
 
-  useEffect(() => {
-    callRefreshSession();
-  }, [callRefreshSession]);
-
   return (
     <>
-      {auth.authCheckCompleted ? (
         <Switch>
-          <PrivateRoute path={Routes.root} exact>
+          <PrivateRoute exact path={Routes.root}>
             <Authenticated />
           </PrivateRoute>
           <PublicRoute exact path={Routes.login}>
@@ -36,7 +30,6 @@ export const Main: FC = () => {
           </PublicRoute>
           <Redirect to={Routes.login} />
         </Switch>
-       ) : null}
     </>
   );
 };

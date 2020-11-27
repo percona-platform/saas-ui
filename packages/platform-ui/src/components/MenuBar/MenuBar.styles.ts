@@ -71,7 +71,7 @@ export const getStyles = (theme: GrafanaTheme) => {
     profileIcon: css`
       height: 23px;
     `,
-    profileDropdownToggle: css`
+    menuIcon: css`
       ${link}
       cursor: pointer;
     `,
