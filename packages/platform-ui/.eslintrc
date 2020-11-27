@@ -84,5 +84,20 @@
     "max-classes-per-file": ["error"],
     "no-shadow": ["error"],
     "no-unused-expressions": ["error"]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx"
+      ],
+      "env": {
+        "jest": true
+      },
+      "plugins": ["jest"],
+      "rules": {
+        "no-magic-numbers": ["off"]
+      }
+    }
+  ]
 }

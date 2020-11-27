@@ -6,7 +6,6 @@ import * as authApi from 'core/api/auth';
 import * as authSelectors from 'store/auth/auth.selectors';
 import { history } from 'core/history';
 import { Main } from './Main';
-import { Messages } from '../../pages/NotFound/NotFound.messages';
 
 const getAuth = jest.spyOn(authSelectors, 'getAuth');
 

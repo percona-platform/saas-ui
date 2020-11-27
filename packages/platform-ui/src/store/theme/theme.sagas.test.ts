@@ -16,7 +16,7 @@ const runSagaPromise = <T>(saga: Saga, payload?: T) => runSaga(
     },
   },
   saga,
-  { payload }
+  { payload },
 ).toPromise();
 
 describe('Theme Sagas', () => {
@@ -47,6 +47,7 @@ describe('Theme Sagas', () => {
 
     await runSagaPromise(themeChangeSuccess as Saga, theme);
 
-    expect(!dispatchedActions[0].payload.isDark).toEqual(themeChangeRequestAction(theme as GrafanaTheme ).payload.isDark);
+    expect(!dispatchedActions[0].payload.isDark)
+      .toEqual(themeChangeRequestAction(theme as GrafanaTheme).payload.isDark);
   });
 });
