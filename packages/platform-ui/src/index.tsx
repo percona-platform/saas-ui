@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { toast, ToastContainer, Slide } from 'react-toastify';
-import { Provider, ReactReduxContext } from 'react-redux';
-import { ThemeContext } from '@grafana/ui';
+import { Provider, ReactReduxContext, useSelector } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { css } from 'emotion';
-import { getTheme } from '@percona/platform-core';
+import { ThemeContext } from '@grafana/ui';
 import { Main } from 'components';
 import { store } from 'store';
-import { ConnectedRouter } from 'connected-react-router';
+import { getCurrentTheme } from 'store/theme';
 import { history } from 'core/history';
 
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -19,16 +19,11 @@ import './styles/global.css';
  * way to get faSpinner icon rendered other than to import fontawesome :|
  */
 
-/**
- * NOTE: light theme is the default
- * TODO: move the current theme value to the store
- */
-const light = getTheme('light');
+const App = () => {
+  const theme = useSelector(getCurrentTheme);
 
-ReactDOM.render(
-  <React.StrictMode>
-    <ThemeContext.Provider value={light}>
-      <Provider store={store} context={ReactReduxContext}>
+  return (
+      <ThemeContext.Provider value={theme}>
         <ConnectedRouter context={ReactReduxContext} history={history}>
           <Main />
         </ConnectedRouter>
@@ -46,8 +41,15 @@ ReactDOM.render(
           draggable
           pauseOnHover
         />
-      </Provider>
-    </ThemeContext.Provider>
+      </ThemeContext.Provider>
+  );
+};
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store} context={ReactReduxContext}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

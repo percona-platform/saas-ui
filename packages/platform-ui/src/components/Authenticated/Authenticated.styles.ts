@@ -29,9 +29,13 @@ export const getStyles = (theme: GrafanaTheme) => {
       font-weight: ${typography.weight.regular};
       margin: ${spacing.formMargin};
     `,
+    message: css`
+      color: ${colors.text};
+    `,
     email: css`
       font-style: italic;
       font-weight: ${typography.weight.bold};
+      color: ${colors.textStrong};
     `,
     // TODO: make this work in platform-core
     logoutButton: css`

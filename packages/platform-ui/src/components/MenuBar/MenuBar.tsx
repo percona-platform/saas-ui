@@ -1,16 +1,16 @@
 import React, { FC, forwardRef, useCallback } from 'react';
-import { Routes } from 'core/routes';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ThemeContext, useStyles } from '@grafana/ui';
-import logo from 'assets/percona-logo.svg';
-import { ReactComponent as Profile } from 'assets/profile.svg';
 import { Dropdown, Icons } from '@percona/platform-core';
-import { useDispatch, useSelector } from 'react-redux';
-import { getAuth } from 'store/auth/auth.selectors';
-import { authLogoutAction } from 'store/auth/auth.reducer';
+import { Routes } from 'core/routes';
+import { authLogoutAction, getAuth } from 'store/auth';
+import { getCurrentTheme, themeChangeRequestAction } from 'store/theme';
+import { ReactComponent as Profile } from 'assets/profile.svg';
+import logo from 'assets/percona-logo.svg';
 import { getStyles } from './MenuBar.styles';
-import { DropdownToggleProps } from './types';
 import { Messages } from './MenuBar.messages';
+import { DropdownToggleProps } from './MenuBar.types';
 
 const { ThemeDark, ThemeLight } = Icons;
 
@@ -18,14 +18,18 @@ export const MenuBar: FC = () => {
   const styles = useStyles(getStyles);
   const dispatch = useDispatch();
   const { email } = useSelector(getAuth);
+  const currentTheme = useSelector(getCurrentTheme);
 
   const logout = useCallback(async () => {
     dispatch(authLogoutAction.request({ email: email! }));
   }, [email, dispatch]);
 
+  const changeTheme = useCallback(() => {
+    dispatch(themeChangeRequestAction(currentTheme));
+  }, [currentTheme, dispatch]);
+
   const DropdownToggle = forwardRef<HTMLDivElement, DropdownToggleProps>((props, ref) => (
     <div ref={ref} {...props} data-qa="menu-bar-profile-dropdown-toggle" className={styles.menuIcon}>
-      {/* <img className={styles.profileIcon} src={profile} alt={Messages.profileMenuAlt} /> */}
       <Profile width={22} height={22}/>
     </div>
   ));
@@ -49,7 +53,7 @@ export const MenuBar: FC = () => {
             <nav>
               <ul>
                 <li>
-                  <div className={styles.menuIcon}>
+                  <div className={styles.menuIcon} onMouseUp={changeTheme}>
                     {theme.isLight && <ThemeDark width={22} height={22} />}
                     {theme.isDark && <ThemeLight width={22} height={22} />}
                   </div>

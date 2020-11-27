@@ -13,7 +13,7 @@ export const Authenticated: FC = () => {
   return (
     <section className={styles.container}>
       <h4 className={styles.title}>{Messages.title}</h4>
-      <p>{Messages.authenticatedAs}</p>
+      <p className={styles.message}>{Messages.authenticatedAs}</p>
       <p className={styles.email}>
         <span data-qa="user-email">{email}</span>
       </p>
