@@ -109,5 +109,5 @@
   "bugs": {
     "url": "https://github.com/percona-platform/saas-ui/issues"
   },
-  "proxus": "https://platform-dev.percona.com"
+  "prox": "https://platform-dev.percona.com"
 }
