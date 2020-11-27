@@ -56,6 +56,7 @@
     "enzyme-to-json": "^3.4.4",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.0",
     "eslint-plugin-no-inline-styles": "^1.0.5",
     "eslint-plugin-react-hooks": "^4.1.2",
