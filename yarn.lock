@@ -2582,16 +2582,6 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@percona/platform-core@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@percona/platform-core/-/platform-core-0.5.1.tgz#6592d78687fa961afef9cc31839387dd5a84beaa"
-  integrity sha512-QIcQObXnrsrCY63IyPE+X0nKoCoK+l68MTbNQP+y1lAv1su6iw2tOK64u2hJxw8HkWbEewGwy+d5/XJszPPYUw==
-  dependencies:
-    "@popperjs/core" "^2.5.3"
-    react-popper "^2.2.3"
-    react-scripts "3.4.3"
-    typescript "~3.7.5"
-
 "@popperjs/core@^2.5.3":
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.4.tgz#de25b5da9f727985a3757fd59b5d028aba75841a"
