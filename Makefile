@@ -31,9 +31,8 @@ build-core:             ## Build platform-core
 	lerna run build --scope='@percona/platform-core'
 
 build-ui:               ## Build platform-ui
-	pushd ./packages/platform-ui
+	cd ./packages/platform-ui
 	yarn build
-	popd
 
 docker-build:           ## Build Docker image
 	docker build --squash --tag $(DOCKER_IMAGE) .
