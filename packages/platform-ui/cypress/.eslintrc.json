@@ -2,5 +2,6 @@
   "extends": [
     "plugin:cypress/recommended",
     "plugin:chai-friendly/recommended"
-  ]
+  ],
+  "ignorePatterns": "*.config.js"
 }
