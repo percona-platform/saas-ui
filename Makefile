@@ -24,7 +24,7 @@ dev:                   ## Run the ui dev locally
 e2e:
 	lerna run cy:run
 
-test:                   ## Run tests
+test:                   ## Run unit tests
 	lerna run test:ci
 
 build-core:             ## Build platform-core
