@@ -19,7 +19,7 @@ export const LinkTo: FC<LinkToProps> = ({ src }) => {
       target="_blank"
       variant="link"
     >
-      Source
+      [source]
     </LinkButton>
   );
 };

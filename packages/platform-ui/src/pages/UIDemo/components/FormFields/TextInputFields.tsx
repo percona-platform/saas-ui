@@ -2,8 +2,10 @@ import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
 import { TextInputField, validators } from '@percona/platform-core';
-import { LinkTo } from '../LinkTo';
+import { Legend } from '../Legend';
 import { getStyles } from '../styles';
+
+const { required } = validators;
 
 export const TextInputFieldState1: FC = () => {
   const handleFormSubmit = () => { };
@@ -13,16 +15,20 @@ export const TextInputFieldState1: FC = () => {
     <Form onSubmit={handleFormSubmit}>
       {({ handleSubmit }: FormRenderProps) => (
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
-          <legend className={styles.legend}>
-            1. TextInputField, state: enabled, required
-            <LinkTo src="/FormFields/TextInputFields.tsx#L8" />
-          </legend>
-          <TextInputField name="username" label="Username" required />
+          <Legend
+            name="TextInputField"
+            src="/FormFields/TextInputFields.tsx#L8"
+            state="State: enabled, validation: required"
+          />
+          <TextInputField name="username" label="Username" validators={[required]} required />
         </form>
       )}
     </Form>
   );
 };
+
+const MIN_LENGH = 6;
+const minLength = validators.minLength(MIN_LENGH);
 
 export const TextInputFieldState2: FC = () => {
   const handleFormSubmit = () => { };
@@ -32,11 +38,12 @@ export const TextInputFieldState2: FC = () => {
     <Form onSubmit={handleFormSubmit}>
       {({ handleSubmit }: FormRenderProps) => (
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
-          <legend className={styles.legend}>
-            2. TextInputField, state: enabled, not required
-            <LinkTo src="/FormFields/TextInputFields.tsx#L27" />
-          </legend>
-          <TextInputField name="username" label="Username" />
+          <Legend
+            name="TextInputField"
+            src="/FormFields/TextInputFields.tsx#L30"
+            state="State: enabled, validation: minLengh(6)"
+          />
+          <TextInputField name="address1" label="Address 1" validators={[minLength]} />
         </form>
       )}
     </Form>
@@ -51,19 +58,17 @@ export const TextInputFieldState3: FC = () => {
     <Form onSubmit={handleFormSubmit}>
       {({ handleSubmit }: FormRenderProps) => (
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
-          <legend className={styles.legend}>
-            3. TextInputField, state: disabled, not required
-            <LinkTo src="/FormFields/TextInputFields.tsx#L27" />
-          </legend>
-          <TextInputField name="username" label="Username" disabled />
+          <Legend
+            name="TextInputField"
+            src="/FormFields/TextInputFields.tsx#L53"
+            state="State: enabled, validation: none"
+          />
+          <TextInputField name="address2" label="Address 2" />
         </form>
       )}
     </Form>
   );
 };
-
-const MIN_LENGH = 6;
-const minLength = validators.minLength(MIN_LENGH);
 
 export const TextInputFieldState4: FC = () => {
   const handleFormSubmit = () => { };
@@ -73,11 +78,12 @@ export const TextInputFieldState4: FC = () => {
     <Form onSubmit={handleFormSubmit}>
       {({ handleSubmit }: FormRenderProps) => (
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
-          <legend className={styles.legend}>
-            4. TextInputField, state: enabled, not required, minLengh(6)
-            <LinkTo src="/FormFields/TextInputFields.tsx#L27" />
-          </legend>
-          <TextInputField name="username" label="Username" validators={[minLength]} />
+          <Legend
+            name="TextInputField"
+            src="/FormFields/TextInputFields.tsx#L73"
+            state="State: disabled, validation: none"
+          />
+          <TextInputField name="social-status" label="Social status" disabled />
         </form>
       )}
     </Form>
