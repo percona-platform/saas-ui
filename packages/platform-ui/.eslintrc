@@ -33,7 +33,7 @@
         "functions": "always-multiline"
       }
     ],
-    "no-restricted-imports": 0,
+    "no-restricted-imports": "error",
     "no-param-reassign": ["error", { "ignorePropertyModificationsForRegex": ["^acc$"] }],
     "react/jsx-curly-brace-presence": ["error"],
     "react/jsx-boolean-value": ["error"],
@@ -80,10 +80,11 @@
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
       { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
     ],
-    // "no-inline-styles/no-inline-styles": [2],
+    "no-inline-styles/no-inline-styles": ["warn"],
     "max-classes-per-file": ["error"],
     "no-shadow": ["error"],
-    "no-unused-expressions": ["error"]
+    "no-unused-expressions": ["error"],
+    "arrow-parens": ["error"]
   },
   "overrides": [
     {

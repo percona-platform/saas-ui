@@ -7,7 +7,7 @@ import { getStyles } from '../styles';
 
 const { required } = validators;
 
-export const TextInputFieldState1: FC = () => {
+const TextInputFieldState1: FC = () => {
   const handleFormSubmit = () => { };
   const styles = useStyles(getStyles);
 
@@ -30,7 +30,7 @@ export const TextInputFieldState1: FC = () => {
 const MIN_LENGH = 6;
 const minLength = validators.minLength(MIN_LENGH);
 
-export const TextInputFieldState2: FC = () => {
+const TextInputFieldState2: FC = () => {
   const handleFormSubmit = () => { };
   const styles = useStyles(getStyles);
 
@@ -50,7 +50,7 @@ export const TextInputFieldState2: FC = () => {
   );
 };
 
-export const TextInputFieldState3: FC = () => {
+const TextInputFieldState3: FC = () => {
   const handleFormSubmit = () => { };
   const styles = useStyles(getStyles);
 
@@ -70,7 +70,7 @@ export const TextInputFieldState3: FC = () => {
   );
 };
 
-export const TextInputFieldState4: FC = () => {
+const TextInputFieldState4: FC = () => {
   const handleFormSubmit = () => { };
   const styles = useStyles(getStyles);
 

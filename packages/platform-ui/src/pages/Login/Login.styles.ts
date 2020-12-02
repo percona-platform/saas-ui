@@ -27,7 +27,7 @@ export const getStyles = (theme: GrafanaTheme) => ({
     width: 100%;
   `,
   divider: css`
-    margin: 1.5em 0px;
+    margin: 1em 0px;
     text-align: center;
   `,
   submitButton: css`
