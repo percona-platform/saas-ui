@@ -108,6 +108,5 @@
   },
   "bugs": {
     "url": "https://github.com/percona-platform/saas-ui/issues"
-  },
-  "proxy": "https://platform-dev.percona.com"
+  }
 }
