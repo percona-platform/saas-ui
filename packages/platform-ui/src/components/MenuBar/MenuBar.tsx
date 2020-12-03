@@ -17,7 +17,7 @@ const { ThemeDark, ThemeLight } = Icons;
 export const MenuBar: FC = () => {
   const styles = useStyles(getStyles);
   const dispatch = useDispatch();
-  const { email } = useSelector(getAuth);
+  const { authenticated, email } = useSelector(getAuth);
   const currentTheme = useSelector(getCurrentTheme);
 
   const logout = useCallback(async () => {
@@ -58,13 +58,15 @@ export const MenuBar: FC = () => {
                     {theme.isDark && <ThemeLight width={22} height={22} />}
                   </div>
                 </li>
-                <li>
-                  <Dropdown toggle={DropdownToggle}>
-                    <span data-qa="menu-bar-profile-dropdown-logout" onClick={logout}>
-                      {Messages.logout}
-                    </span>
-                  </Dropdown>
-                </li>
+                {authenticated && (
+                  <li>
+                    <Dropdown toggle={DropdownToggle}>
+                      <span data-qa="menu-bar-profile-dropdown-logout" onClick={logout}>
+                        {Messages.logout}
+                      </span>
+                    </Dropdown>
+                  </li>
+                )}
               </ul>
             </nav>
           </div>
