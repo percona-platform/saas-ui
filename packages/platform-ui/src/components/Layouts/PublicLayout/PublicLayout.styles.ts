@@ -10,6 +10,7 @@ export const getStyles = (theme: GrafanaTheme) => {
       min-height: 100vh;
       padding: 2em;
       justify-content: space-between;
+      color: ${colors.text};
       background-color: ${colors.dashboardBg};
       @media (max-width: ${breakpoints.md}) {
         flex-direction: column;
