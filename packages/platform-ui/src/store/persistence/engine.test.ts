@@ -1,11 +1,12 @@
 import { loadState, saveState } from 'store/persistence/engine';
 import { STATE_LOCALSTORAGE_KEY } from 'core/constants';
+import { AppState } from 'store/types';
 
 const TEST_STATE = {
   auth: {
     pending: false, email: 'test@test.test', authenticated: false, authCheckCompleted: true,
   },
-};
+} as AppState;
 const TEST_ERROR = Error('test error');
 
 let getItem: jest.SpyInstance;

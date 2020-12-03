@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useStyles } from '@grafana/ui';
 import { Messages } from 'core/messages';
-import logo from 'assets/percona-logo.svg';
+import { ReactComponent as PerconaLogo } from 'assets/percona-logo-wide.svg';
 import { getStyles } from './PublicLayout.styles';
 
 export const PublicLayout: FC = ({ children }) => {
@@ -11,8 +11,7 @@ export const PublicLayout: FC = ({ children }) => {
     <main className={styles.main}>
       <div className={styles.leftZone}>
         <div className={styles.logo}>
-          <img src={logo} alt={Messages.logoAlt} />
-          <h1>{Messages.companyName}</h1>
+          <PerconaLogo />
         </div>
         <div className={styles.description}>{Messages.productDescription}</div>
       </div>

@@ -19,7 +19,8 @@ export const loadState = (): AppState | undefined => {
 
 export const saveState = (state: AppState) => {
   try {
-    const serializedState = JSON.stringify(state);
+    const { auth, router } = state;
+    const serializedState = JSON.stringify({ auth, router });
 
     localStorage.setItem(STATE_LOCALSTORAGE_KEY, serializedState);
   } catch (e) {

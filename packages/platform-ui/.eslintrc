@@ -33,17 +33,17 @@
         "functions": "always-multiline"
       }
     ],
-    "no-restricted-imports": 0,
+    "no-restricted-imports": "error",
     "no-param-reassign": ["error", { "ignorePropertyModificationsForRegex": ["^acc$"] }],
     "react/jsx-curly-brace-presence": ["error"],
     "react/jsx-boolean-value": ["error"],
     "react/jsx-filename-extension": ["off"],
-    // We need spread to create HOCs
+    // It's a bad practice, but in certain use cases we have no choice
     "react/jsx-props-no-spreading": ["off"],
     "react/prop-types": ["off"],
     "react/display-name": ["off"],
+    "react/no-array-index-key": ["error"],
     "max-len": ["error", { "code": 110, "ignoreStrings": true, "ignoreRegExpLiterals": true }],
-    "prettier/prettier": ["off"],
     "quotes": ["error", "single"],
     "import/extensions": ["off"],
     "import/no-extraneous-dependencies": [
@@ -55,11 +55,11 @@
     // no-unused-vars doesn't work with typescript
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/ban-ts-ignore": ["error"],
     // We use a lot of snake case variables in code interacting with API
     "camelcase": ["off"],
     // It's more convinient to declare big helpers functions below the main method
     "no-use-before-define": ["off"],
-    // Don't need these
     "jsx-a11y": ["off"],
     "jsx-a11y/anchor-is-valid": ["off"],
     "jsx-a11y/click-events-have-key-events": ["off"],
@@ -68,7 +68,7 @@
     "jsx-a11y/label-has-associated-control": ["error"],
     "no-dupe-args": ["error"],
     "no-new-object": ["error"],
-    // "no-magic-numbers": ["error"],
+    "no-magic-numbers": ["error"],
     "padding-line-between-statements": [
       "error",
       { "blankLine": "always", "prev": "*", "next": "return" },
@@ -80,12 +80,25 @@
       { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
       { "blankLine": "any", "prev": ["const", "let", "var"], "next": ["const", "let", "var"] }
     ],
-    // "no-inline-styles/no-inline-styles": [2],
-    // ENABLE LATER
-    "max-classes-per-file": ["off"],
+    "no-inline-styles/no-inline-styles": ["warn"],
+    "max-classes-per-file": ["error"],
     "no-shadow": ["error"],
-    "react/no-array-index-key": ["error"],
-    "@typescript-eslint/ban-ts-ignore": ["error"],
-    "no-unused-expressions": ["error"]
-  }
+    "no-unused-expressions": ["error"],
+    "arrow-parens": ["error"]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.test.ts",
+        "**/*.test.tsx"
+      ],
+      "env": {
+        "jest": true
+      },
+      "plugins": ["jest"],
+      "rules": {
+        "no-magic-numbers": ["off"]
+      }
+    }
+  ]
 }

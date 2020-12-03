@@ -8,30 +8,42 @@ const button = css`
   width: 180px;
 `;
 
-export const getStyles = (theme: GrafanaTheme) => ({
-  container: css`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 2em;
+export const getStyles = (theme: GrafanaTheme) => {
+  const { colors, spacing, typography } = theme;
 
-    p {
-      margin: 0.5em 0;
-    }
-  `,
-  title: css`
-    text-align: center;
-    color: ${theme.colors.text};
-    font-size: ${theme.typography.heading.h3};
-    font-weight: ${theme.typography.weight.regular};
-    margin: ${theme.spacing.formMargin};
-  `,
-  // TODO: make this work in platform-core
-  logoutButton: css`
-    ${button}
-  `,
-  downloadPMMButton: css`
-    ${button}
-    text-decoration: none;
-  `,
-});
+  return {
+    container: css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 2em;
+
+      p {
+        margin: 0.5em 0;
+      }
+    `,
+    title: css`
+      text-align: center;
+      color: ${colors.text};
+      font-size: ${typography.heading.h3};
+      font-weight: ${typography.weight.regular};
+      margin: ${spacing.formMargin};
+    `,
+    message: css`
+      color: ${colors.text};
+    `,
+    email: css`
+      font-style: italic;
+      font-weight: ${typography.weight.bold};
+      color: ${colors.textStrong};
+    `,
+    // TODO: make this work in platform-core
+    logoutButton: css`
+      ${button}
+    `,
+    downloadPMMButton: css`
+      ${button}
+      text-decoration: none;
+    `,
+  };
+};

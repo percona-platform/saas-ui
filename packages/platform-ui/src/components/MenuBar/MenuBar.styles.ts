@@ -7,9 +7,11 @@ export const getStyles = (theme: GrafanaTheme) => {
   const link = css`
     &:hover,
     &:active {
-      background-color: ${colors.bg3};
+      background-color: ${theme.isLight ? colors.bg3 : colors.bg1};
     }
   `;
+
+  const menuBorderColor = theme.isLight ? colors.border1 : colors.border2;
 
   return {
     menuBar: css`
@@ -17,7 +19,6 @@ export const getStyles = (theme: GrafanaTheme) => {
       border-bottom: ${border.width.sm} solid ${colors.border1};
       display: flex;
       height: 60px;
-      width: 100vw;
 
       nav {
         height: 100%;
@@ -32,7 +33,7 @@ export const getStyles = (theme: GrafanaTheme) => {
 
           li {
             height: 100%;
-            width: 70px;
+            width: 60px;
             position: relative;
 
             & > * {
@@ -50,7 +51,7 @@ export const getStyles = (theme: GrafanaTheme) => {
 
       li::before {
         content: '';
-        border-right: ${border.width.sm} solid ${colors.border1};
+        border-right: ${border.width.sm} solid ${menuBorderColor};
         height: 100%;
         position: absolute;
         top: 0;
@@ -58,9 +59,10 @@ export const getStyles = (theme: GrafanaTheme) => {
       }
     `,
     rightSide: css`
+      color: ${colors.text};
       li::before {
         content: '';
-        border-left: ${border.width.sm} solid ${colors.border1};
+        border-left: ${border.width.sm} solid ${menuBorderColor};
         height: 100%;
         position: absolute;
         top: 0;
@@ -72,7 +74,7 @@ export const getStyles = (theme: GrafanaTheme) => {
     profileIcon: css`
       height: 23px;
     `,
-    profileDropdownToggle: css`
+    menuIcon: css`
       ${link}
       cursor: pointer;
     `,

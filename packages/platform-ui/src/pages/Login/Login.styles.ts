@@ -7,40 +7,43 @@ const centeredButton = css`
   justify-content: center;
 `;
 
-export const getStyles = (theme: GrafanaTheme) => ({
-  legend: css`
-    color: ${theme.colors.text};
-    font-size: ${theme.typography.heading.h3};
-    font-weight: ${theme.typography.weight.regular};
-    margin: ${theme.spacing.formMargin};
-    text-align: center;
-  `,
-  link: css`
-    font-size: 1em;
-    height: 1em;
-    padding: 0;
-    vertical-align: baseline;
-  `,
-  form: css`
-    max-width: 325px;
-    min-width: 250px;
-    width: 100%;
-  `,
-  divider: css`
-    margin: 1.5em 0px;
-    text-align: center;
-  `,
-  submitButton: css`
-    ${centeredButton}
-    margin-bottom: ${theme.spacing.formInputMargin};
-  `,
-  loginButton: css`
-    ${centeredButton}
-    margin-bottom: ${theme.spacing.formInputMargin};
-  `,
-  gotoSignup: css`
-    ${centeredButton}
-    color: ${theme.colors.linkExternal};
-    text-decoration: none;
-  `,
-});
+export const getStyles = (theme: GrafanaTheme) => {
+  const { colors, spacing, typography } = theme;
+
+  return {
+    legend: css`
+      font-size: ${typography.heading.h3};
+      font-weight: ${typography.weight.regular};
+      margin: ${spacing.formMargin};
+      text-align: center;
+    `,
+    link: css`
+      font-size: 1em;
+      height: 1em;
+      padding: 0;
+      vertical-align: baseline;
+    `,
+    form: css`
+      max-width: 325px;
+      min-width: 250px;
+      width: 100%;
+    `,
+    divider: css`
+      margin: 1em 0px;
+      text-align: center;
+    `,
+    submitButton: css`
+      ${centeredButton}
+      margin-bottom: ${spacing.formInputMargin};
+    `,
+    loginButton: css`
+      ${centeredButton}
+      margin-bottom: ${spacing.formInputMargin};
+    `,
+    gotoSignup: css`
+      ${centeredButton}
+      color: ${colors.linkExternal};
+      text-decoration: none;
+    `,
+  };
+};

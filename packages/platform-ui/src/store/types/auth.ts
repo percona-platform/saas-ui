@@ -1,8 +1,8 @@
 export interface AuthState {
+  authCheckCompleted: boolean;
   authenticated: boolean;
   email?: string;
   pending: boolean;
-  authCheckCompleted: boolean;
 }
 
 export interface Credentials {

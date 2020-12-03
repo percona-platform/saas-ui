@@ -24,14 +24,13 @@ dev:                   ## Run the ui dev locally
 e2e:
 	lerna run cy:run
 
-generate-types:         ## Generate typescript types
-	lerna run build:types --scope='@percona/platform-core'
-
-test:                   ## Run tests
+test:                   ## Run unit tests
 	lerna run test:ci
 
-build:                  ## Build projects artifacts
+build-core:             ## Build platform-core
 	lerna run build --scope='@percona/platform-core'
+
+build-ui:               ## Build platform-ui
 	lerna run build --scope='@percona/platform-ui'
 
 docker-build:           ## Build Docker image

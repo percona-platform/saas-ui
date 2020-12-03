@@ -1,46 +1,35 @@
-import React, { FC, useCallback, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { FC, useEffect } from 'react';
+import { Switch, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { PrivateRoute, PublicRoute, Authenticated } from 'components';
-import { LoginPage, SignupPage } from 'pages';
-import { authRefreshAction, getAuth } from 'store/auth';
+import { LoginPage, SignupPage, UIDemo } from 'pages';
+import { authRefreshAction } from 'store/auth';
 import { Routes } from 'core/routes';
-import { Messages } from './Main.messages';
 
 export const Main: FC = () => {
-  const auth = useSelector(getAuth);
   const dispatch = useDispatch();
 
-  const callRefreshSession = useCallback(() => {
+  useEffect(() => {
     dispatch(authRefreshAction.request());
   }, [dispatch]);
 
-  useEffect(() => {
-    callRefreshSession();
-  }, [callRefreshSession]);
-
   return (
     <>
-      {auth.authCheckCompleted ? (
         <Switch>
-          <PrivateRoute path={Routes.root} exact>
+          <PrivateRoute exact path={Routes.root}>
             <Authenticated />
           </PrivateRoute>
-          <PublicRoute path={Routes.login}>
+          <PublicRoute exact path={Routes.login}>
             <LoginPage />
           </PublicRoute>
-          <PublicRoute path={Routes.signup}>
+          <PublicRoute exact path={Routes.signup}>
             <SignupPage />
           </PublicRoute>
-          <Route path="*">
-            <NotFound />
-          </Route>
+          <PublicRoute path={Routes.ui}>
+            <UIDemo />
+          </PublicRoute>
+          <Redirect to={Routes.login} />
         </Switch>
-      ) : null}
     </>
   );
 };
-
-function NotFound() {
-  return <h2>{Messages.pageNotFound}</h2>;
-}

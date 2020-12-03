@@ -2,7 +2,7 @@ import { css } from 'emotion';
 import { GrafanaTheme } from '@grafana/data';
 
 export const getStyles = (theme: GrafanaTheme) => {
-  const { breakpoints, palette, typography } = theme;
+  const { colors, breakpoints, palette, typography } = theme;
 
   return {
     main: css`
@@ -10,6 +10,8 @@ export const getStyles = (theme: GrafanaTheme) => {
       min-height: 100vh;
       padding: 2em;
       justify-content: space-between;
+      color: ${colors.text};
+      background-color: ${colors.dashboardBg};
       @media (max-width: ${breakpoints.md}) {
         flex-direction: column;
         padding: 4em 2em;
@@ -28,29 +30,19 @@ export const getStyles = (theme: GrafanaTheme) => {
       display: flex;
       justify-content: center;
       align-items: center;
-      img {
-        width: 50px;
-        @media (min-width: ${breakpoints.sm}) {
-          width: 50px;
-        }
+      margin-top: 1em;
+      svg {
+        width: 220px;
+        height: 70px;
         @media (min-width: ${breakpoints.md}) {
-          width: 70px;
+          width: 300px;
+          height: 100px;
         }
         @media (min-width: ${breakpoints.lg}) {
-          width: 100px;
+          width: 470px;
+          height: 150px;
         }
-        margin-right: 2em;
-      }
-      h1 {
-        font-size: 2em;
-        @media (min-width: ${breakpoints.md}) {
-          font-size: 2.5em;
-        }
-        @media (min-width: ${breakpoints.lg}) {
-          font-size: 3em;
-        }
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
+        margin-top: 1em;
       }
     `,
     centerZone: css`
@@ -70,6 +62,7 @@ export const getStyles = (theme: GrafanaTheme) => {
       }
     `,
     description: css`
+      color: ${colors.text};
       font-size: ${typography.size.md};
       @media (min-width: ${breakpoints.md}) {
         /* No preset value here */
@@ -86,7 +79,7 @@ export const getStyles = (theme: GrafanaTheme) => {
         display: none;
       }
       max-width: 350px;
-      margin: 2em 0 3em;
+      margin: 1em 0 2em;
       text-align: center;
     `,
     rightZone: css`
