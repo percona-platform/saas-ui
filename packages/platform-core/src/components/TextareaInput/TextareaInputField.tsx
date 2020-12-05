@@ -1,7 +1,7 @@
 import React, { FC, useMemo, ReactNode } from 'react';
 import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-final-form';
 import { cx } from 'emotion';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
 import { getStyles } from './TextInput.styles';
 import { FieldTextareaAttrs } from '../../shared/types';
@@ -46,8 +46,7 @@ export const TextareaInputField: FC<TextareaInputFieldProps> = React.memo(
     validators,
     ...fieldConfig
   }) => {
-    const theme = useTheme();
-    const styles = useMemo(() => getStyles(theme), [theme]);
+    const styles = useStyles(getStyles);
     const inputId = `input-${name}-id`;
     const validate = useMemo(() => (Array.isArray(validators) ? compose(...validators) : undefined), [
       validators,
