@@ -3,7 +3,7 @@ import { Field, FieldMetaState, FieldInputProps, UseFieldConfig } from 'react-fi
 import { cx } from 'emotion';
 import { useStyles } from '@grafana/ui';
 import { Validator, compose } from '../../shared/validators';
-import { getStyles } from './TextInput.styles';
+import { getStyles } from './TextareaInput.styles';
 import { FieldTextareaAttrs } from '../../shared/types';
 
 /**

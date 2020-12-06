@@ -57,7 +57,7 @@ export const getStyles = (theme: GrafanaTheme) => {
       &:hover {
         border-color: ${colors.formInputBorderHover};
       }
-      &[disabled]: {
+      &:disabled {
         background-color: ${colors.formInputBgDisabled};
         color: ${colors.formInputDisabledText};
       }
