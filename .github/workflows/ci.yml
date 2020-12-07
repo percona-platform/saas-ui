@@ -128,17 +128,37 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      - name: Trigger dispatch
+      - name: Trigger dispatch in ${{ github.head_ref }} branch
         uses: percona-platform/workflow-dispatch@v1
+        continue-on-error: true
+        id: branch_dispatch
         with:
           workflow: E2E
-          repo: percona-platform/cicd
           token: ${{ secrets.ROBOT_TOKEN }}
-          ref: main
-          inputs: '{
+          repo: percona-platform/cicd
+          ref: ${{ github.head_ref }}
+          inputs: |
+            {
                 "branch": "${{ github.head_ref }}",
                 "repo": "${{ github.repository }}",
                 "${{ github.event.repository.name }}": "${{ needs.docker.outputs.docker_tag }}",
                 "ui_tests_branch": "${{ github.head_ref }}",
                 "sha": "${{ github.event.pull_request.head.sha }}"
-                }'
+            }
+
+      - name: Trigger dispatch in main branch 
+        uses: percona-platform/workflow-dispatch@v1
+        if: ${{ steps.branch_dispatch.outcome != 'success' }}
+        with:
+          workflow: E2E
+          token: ${{ secrets.ROBOT_TOKEN }}
+          repo: percona-platform/cicd
+          ref: main
+          inputs: |
+            {
+                "branch": "${{ github.head_ref }}",
+                "repo": "${{ github.repository }}",
+                "${{ github.event.repository.name }}": "${{ needs.docker.outputs.docker_tag }}",
+                "ui_tests_branch": "${{ github.head_ref }}",
+                "sha": "${{ github.event.pull_request.head.sha }}"
+            }
