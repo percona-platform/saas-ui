@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { Tab, TabsBar, TabContent, useStyles } from '@grafana/ui';
 import { PrivateLayout } from 'components';
 import { TextInputFields } from './components/FormFields';
+import { RadioButtons } from './components/Buttons';
 import { TabKeys } from './UIDemo.types';
 import { getStyles } from './UIDemo.styles';
 
@@ -25,7 +26,7 @@ const tabs: Array<TabstripTab> = [
   {
     label: 'Buttons',
     key: TabKeys.buttons,
-    component: '',
+    component: <RadioButtons />,
   },
 ];
 
