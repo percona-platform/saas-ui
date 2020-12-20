@@ -155,11 +155,50 @@ const RadioButtonGroupState4: FC = () => {
   );
 };
 
+const options5 = [
+  { label: 'Lowest', value: 'lowest', icon: 'bolt' },
+  { label: 'Medium', value: 'medium', icon: 'arrow-right' },
+  { label: 'High', value: 'high', icon: 'arrow-up' },
+  { label: 'Highest', value: 'highest', icon: 'clock' },
+];
+const initialValues5 = { retention: 'medium' };
+
+const RadioButtonGroupState5: FC = () => {
+  const handleFormSubmit = () => { };
+  const styles = useStyles(getStyles);
+
+  return (
+    <Form onSubmit={handleFormSubmit} initialValues={initialValues5}>
+      {({ form, handleSubmit, invalid, pristine, values }: FormRenderProps) => (
+        <form data-qa="radio-button-group-demo-form" className={styles.wideForm} onSubmit={handleSubmit}>
+          <Legend
+            name="RadioButtonGroupField"
+            src="/Buttons/RadioButtonGroups.tsx#L158"
+            state="State: all disabled, validation: undefined, initialValue: medium"
+          />
+          <RadioButtonGroupField
+            name="retention"
+            label="Retention"
+            options={options5}
+            disabled
+            fullWidth
+          />
+          <HorizontalGroup>
+            <Button type="submit" onClick={prettify(values)} disabled={invalid}>Submit</Button>
+            <Button type="reset" variant="secondary" onClick={form.reset} disabled={pristine}>Reset</Button>
+          </HorizontalGroup>
+        </form>
+      )}
+    </Form>
+  );
+};
+
 export const RadioButtonGroups: FC = () => (
   <>
     <RadioButtonGroupState1 />
     <RadioButtonGroupState2 />
     <RadioButtonGroupState3 />
     <RadioButtonGroupState4 />
+    <RadioButtonGroupState5 />
   </>
 );

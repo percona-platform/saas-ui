@@ -36,13 +36,6 @@ export const getStylesFn = (size: RadioButtonSize, fullWidth?: boolean) => (them
       opacity: 0;
       z-index: -1000;
 
-      &:checked + label {
-        border: ${borderActive};
-        color: ${textColorActive};
-        background: ${bgActive};
-        z-index: 3;
-      }
-
       &:focus + label {
         ${focusCss(theme)};
         z-index: 3;
@@ -52,6 +45,13 @@ export const getStylesFn = (size: RadioButtonSize, fullWidth?: boolean) => (them
         cursor: default;
         background: ${bgDisabled};
         color: ${textColor};
+      }
+
+      &:checked + label {
+        border: ${borderActive};
+        color: ${textColorActive};
+        background: ${bgActive};
+        z-index: 3;
       }
 
       &:disabled + label:hover {

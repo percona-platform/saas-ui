@@ -5,10 +5,11 @@ import { RadioButtonProps } from './RadioButton.types';
 import { getStylesFn } from './RadioButton.styles';
 
 export const RadioButton: FC<RadioButtonProps> = ({
-  active = false,
+  checked = false,
   children,
   disabled = false,
   fullWidth,
+  inputProps,
   name,
   onChange,
   size = 'md',
@@ -22,12 +23,13 @@ export const RadioButton: FC<RadioButtonProps> = ({
     <>
       <input
         id={inputId.current}
+        {...inputProps}
         type="radio"
         data-qa={`${name}-radio-button`}
         className={styles.radio}
         onChange={onChange}
         disabled={disabled}
-        checked={active}
+        checked={checked}
         name={name}
       />
       <label className={styles.radioLabel} htmlFor={inputId.current}>

@@ -6,6 +6,7 @@ import {
 import { Icon, useStyles } from '@grafana/ui';
 import { SelectableValue } from '@grafana/data';
 import { Validator, compose } from '../../shared/validators';
+import { FieldInputAttrs } from '../../shared/types';
 import { RadioButtonSize, RadioButton } from './RadioButton';
 import { getStyles } from './RadioButtonGroup.styles';
 
@@ -15,6 +16,7 @@ interface RadioButtonGroupFieldProps extends UseFieldConfig<string>{
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
+  inputProps?: FieldInputAttrs;
   label?: string;
   name: string;
   options: RadionButtonGroupOptions;
@@ -33,6 +35,7 @@ export function RadioButtonGroupField({
   className,
   disabled,
   fullWidth = false,
+  inputProps,
   label,
   name,
   options,
@@ -42,7 +45,6 @@ export function RadioButtonGroupField({
   validators,
   ...fieldConfig
 }: RadioButtonGroupFieldProps) {
-  // const [currentValue, setCurrentValue] = useState<T>();
   const handleOnChange = useCallback(
     (option: SelectableValue<string>, input) => {
       return () => {
@@ -50,7 +52,6 @@ export function RadioButtonGroupField({
           return;
         }
 
-        // setCurrentValue(option.value);
         input.onChange(option.value);
       };
     },
@@ -73,16 +74,18 @@ export function RadioButtonGroupField({
                 {`${label}${required ? ' *' : ''}`}
               </div>
             )}
+            {/* this field is auxiliary, i.e. it helps address the validation, which is tricky otherwise */}
             <input
               {...input}
-              data-qa={`${name}-radio-button`}
+              data-qa={`${name}-radio-state`}
               className={styles.input}
             />
             {options.map((o) => (
               <RadioButton
-                active={input.value === o.value}
+                checked={input.value === o.value}
                 disabled={o.disabled || disabled}
                 fullWidth={fullWidth}
+                inputProps={inputProps}
                 key={o.label}
                 name={name}
                 onChange={handleOnChange(o, input)}
