@@ -6,55 +6,55 @@ import {
 import { Icon, useStyles } from '@grafana/ui';
 import { SelectableValue } from '@grafana/data';
 import { Validator, compose } from '../../shared/validators';
-import { RadioButtonSize, RadioButton } from '../RadioButton';
+import { RadioButtonSize, RadioButton } from './RadioButton';
 import { getStyles } from './RadioButtonGroup.styles';
 
-type RadionButtonGroupOptions<T> = Array<SelectableValue<T> & { disabled?: boolean }>;
+type RadionButtonGroupOptions = Array<SelectableValue<string> & { disabled?: boolean }>;
 
-interface RadioButtonGroupFieldProps<T> extends UseFieldConfig<T>{
+interface RadioButtonGroupFieldProps extends UseFieldConfig<string>{
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
   label?: string;
   name: string;
-  onChange?: (value?: T) => void;
-  options: RadionButtonGroupOptions<T>;
+  options: RadionButtonGroupOptions;
   required?: boolean;
   showErrorOnBlur?: boolean;
   size?: RadioButtonSize;
   validators?: Validator[];
-  value?: T;
 }
 
-interface NumberFieldRenderProps {
-  input: FieldInputProps<number>;
-  meta: FieldMetaState<number>;
+interface RadioGroupFieldRenderProps {
+  input: FieldInputProps<string>;
+  meta: FieldMetaState<string>;
 }
 
-export function RadioButtonGroupField<T>({
+export function RadioButtonGroupField({
   className,
   disabled,
   fullWidth = false,
   label,
   name,
-  onChange,
   options,
   required = false,
   showErrorOnBlur = false,
   size = 'md',
   validators,
-  value,
   ...fieldConfig
-}: RadioButtonGroupFieldProps<T>) {
+}: RadioButtonGroupFieldProps) {
+  // const [currentValue, setCurrentValue] = useState<T>();
   const handleOnChange = useCallback(
-    (option: SelectableValue) => {
+    (option: SelectableValue<string>, input) => {
       return () => {
-        if (onChange) {
-          onChange(option.value);
+        if (option.disabled) {
+          return;
         }
+
+        // setCurrentValue(option.value);
+        input.onChange(option.value);
       };
     },
-    [onChange],
+    [],
   );
   const styles = useStyles(getStyles);
   const validate = useMemo(() => (Array.isArray(validators) ? compose(...validators) : undefined), [
@@ -62,8 +62,8 @@ export function RadioButtonGroupField<T>({
   ]);
 
   return (
-    <Field {...fieldConfig} type="radio" name={name} validate={validate}>
-      {({ input, meta }: NumberFieldRenderProps) => {
+    <Field {...fieldConfig} type="text" name={name} validate={validate}>
+      {({ input, meta }: RadioGroupFieldRenderProps) => {
         const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
         return (
@@ -73,15 +73,20 @@ export function RadioButtonGroupField<T>({
                 {`${label}${required ? ' *' : ''}`}
               </div>
             )}
+            <input
+              {...input}
+              data-qa={`${name}-radio-button`}
+              className={styles.input}
+            />
             {options.map((o) => (
               <RadioButton
-                active={value === o.value}
+                active={input.value === o.value}
                 disabled={o.disabled || disabled}
-                key={o.label}
-                onChange={handleOnChange(o)}
-                name={name}
-                size={size}
                 fullWidth={fullWidth}
+                key={o.label}
+                name={name}
+                onChange={handleOnChange(o, input)}
+                size={size}
               >
                 {o.icon && <Icon name={o.icon} className={styles.icon} />}
                 {o.label}

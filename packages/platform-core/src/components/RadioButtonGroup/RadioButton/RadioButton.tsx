@@ -14,18 +14,18 @@ export const RadioButton: FC<RadioButtonProps> = ({
 }) => {
   const getStyles = useMemo(() => getStylesFn(size, fullWidth), [size, fullWidth]);
   const styles = useStyles(getStyles);
-  const timestamp = new Date().valueOf();
+  const timestamp = new Date().valueOf() + Math.floor(Math.random() * 100);
   const id = useRef(`radio-btn-${timestamp}`);
 
   return (
     <>
       <input
+        id={id.current}
         type="radio"
         data-qa={`${name}-radio-button`}
         className={styles.radio}
         onChange={onChange}
         disabled={disabled}
-        id={id.current}
         checked={active}
         name={name}
       />

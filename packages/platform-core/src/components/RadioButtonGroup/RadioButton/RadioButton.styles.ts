@@ -16,7 +16,6 @@ export const focusCss = (theme: GrafanaTheme) => `
 `;
 
 export const getStylesFn = (size: RadioButtonSize, fullWidth?: boolean) => (theme: GrafanaTheme) => {
-
   const { border, colors, height, isLight, palette, spacing, typography } = theme;
   const textColor = colors.textSemiWeak;
   const textColorHover = colors.text;
@@ -27,7 +26,6 @@ export const getStylesFn = (size: RadioButtonSize, fullWidth?: boolean) => (them
   const bg = colors.bodyBg;
   const bgDisabled = isLight ? palette.gray95 : palette.gray15;
   const bgActive = colors.bg2;
-
   const labelBorder = `1px solid ${borderColor}`;
   const borderActive = `1px solid ${borderColorActive}`;
   const borderHover = `1px solid ${borderColorHover}`;

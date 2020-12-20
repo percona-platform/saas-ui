@@ -85,9 +85,10 @@ export const getStyles = (theme: GrafanaTheme) => {
       color: ${colors.formLabel};
     `,
     field: css`
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
+      position: relative;
+      &:not(:last-child) {
+        margin-bottom: ${spacing.formInputMargin};
+      }
       label {
         border-radius: 0px;
         &:first-of-type {
@@ -97,6 +98,9 @@ export const getStyles = (theme: GrafanaTheme) => {
           border-radius: 0px 2px 2px 0px;
         }
       }
+    `,
+    input: css`
+      display: none;
     `,
     icon: css`
       margin-right: 6px;

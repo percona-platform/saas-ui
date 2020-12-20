@@ -1,1 +1,1 @@
-export * from './RadioGroups';
+export * from './RadioButtonGroups';

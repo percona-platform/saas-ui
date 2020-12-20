@@ -26,9 +26,15 @@ export const getStyles = (theme: GrafanaTheme) => {
     linkButton: css`
       vertical-align: baseline;
       padding: 0 ${spacing.sm};
+      font-weight: ${typography.weight.regular};
     `,
     form: css`
       max-width: 400px;
+      min-width: 250px;
+      width: 100%;
+    `,
+    wideForm: css`
+      max-width: 600px;
       min-width: 250px;
       width: 100%;
     `,
