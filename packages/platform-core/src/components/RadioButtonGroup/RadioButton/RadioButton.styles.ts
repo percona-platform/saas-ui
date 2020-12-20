@@ -59,7 +59,8 @@ export const getStylesFn = (size: RadioButtonSize, fullWidth?: boolean) => (them
       }
     `,
     radioLabel: css`
-      display: inline-block;
+      display: flex;
+      justify-content: center;
       position: relative;
       font-size: ${typography.size[size]};
       height: ${height[size]}px;
@@ -73,7 +74,7 @@ export const getStylesFn = (size: RadioButtonSize, fullWidth?: boolean) => (them
       background: ${bg};
       cursor: pointer;
       z-index: 1;
-      flex: ${fullWidth ? '1 0 0' : 0};
+      flex: ${fullWidth ? '1 1 0%' : 'none'};
       text-align: center;
       user-select: none;
 

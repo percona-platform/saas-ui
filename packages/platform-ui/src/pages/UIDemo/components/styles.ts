@@ -30,12 +30,10 @@ export const getStyles = (theme: GrafanaTheme) => {
     `,
     form: css`
       max-width: 400px;
-      min-width: 250px;
       width: 100%;
     `,
     wideForm: css`
       max-width: 600px;
-      min-width: 250px;
       width: 100%;
     `,
     submitButton: css`

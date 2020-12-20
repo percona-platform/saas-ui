@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Form, FormRenderProps } from 'react-final-form';
 import { Button, useStyles, HorizontalGroup } from '@grafana/ui';
-import { RadioButtonGroupField, validators } from '@percona/platform-core';
+import { CheckboxField, RadioButtonGroupField, TextInputField, validators } from '@percona/platform-core';
 import { Legend } from '../Legend';
 import { getStyles } from '../styles';
 
@@ -161,7 +161,7 @@ const options5 = [
   { label: 'High', value: 'high', icon: 'arrow-up' },
   { label: 'Highest', value: 'highest', icon: 'clock' },
 ];
-const initialValues5 = { retention: 'medium' };
+const initialValues5 = { retention: 'medium', frequency: 'medium', policy: 'Moderate', fullWidth: true };
 
 const RadioButtonGroupState5: FC = () => {
   const handleFormSubmit = () => { };
@@ -174,15 +174,24 @@ const RadioButtonGroupState5: FC = () => {
           <Legend
             name="RadioButtonGroupField"
             src="/Buttons/RadioButtonGroups.tsx#L158"
-            state="State: all disabled, validation: undefined, initialValue: medium"
+            state="State: all disabled, validation: undefined, initialValue: medium, extra: fullWidth toggle"
           />
+          <RadioButtonGroupField
+            name="frequency"
+            label="Frequency"
+            options={options5}
+            disabled
+            fullWidth={values.fullWidth}
+          />
+          <TextInputField name="policy" label="Retention policy" required validators={[required]} />
           <RadioButtonGroupField
             name="retention"
             label="Retention"
             options={options5}
             disabled
-            fullWidth
+            fullWidth={values.fullWidth}
           />
+          <CheckboxField name="fullWidth" label="Toggle fullWidth" />
           <HorizontalGroup>
             <Button type="submit" onClick={prettify(values)} disabled={invalid}>Submit</Button>
             <Button type="reset" variant="secondary" onClick={form.reset} disabled={pristine}>Reset</Button>

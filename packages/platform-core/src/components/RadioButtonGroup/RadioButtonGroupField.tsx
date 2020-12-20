@@ -68,7 +68,7 @@ export function RadioButtonGroupField({
         const validationError = ((!showErrorOnBlur && meta.modified) || meta.touched) && meta.error;
 
         return (
-          <div className={cx(styles.field, className)}>
+          <div className={cx(styles.wrapper, className)}>
             {label && (
               <div className={styles.label} data-qa={`${name}-field-label`}>
                 {`${label}${required ? ' *' : ''}`}
@@ -80,21 +80,23 @@ export function RadioButtonGroupField({
               data-qa={`${name}-radio-state`}
               className={styles.input}
             />
-            {options.map((o) => (
-              <RadioButton
-                checked={input.value === o.value}
-                disabled={o.disabled || disabled}
-                fullWidth={fullWidth}
-                inputProps={inputProps}
-                key={o.label}
-                name={name}
-                onChange={handleOnChange(o, input)}
-                size={size}
-              >
-                {o.icon && <Icon name={o.icon} className={styles.icon} />}
-                {o.label}
-              </RadioButton>
-            ))}
+            <div className={styles.buttonContainer}>
+              {options.map((o) => (
+                <RadioButton
+                  checked={input.value === o.value}
+                  disabled={o.disabled || disabled}
+                  fullWidth={fullWidth}
+                  inputProps={inputProps}
+                  key={o.label}
+                  name={name}
+                  onChange={handleOnChange(o, input)}
+                  size={size}
+                >
+                  {o.icon && <Icon name={o.icon} className={styles.icon} />}
+                  {o.label}
+                </RadioButton>
+              ))}
+            </div>
             <div data-qa={`${name}-field-error-message`} className={styles.errorMessage}>
               {validationError}
             </div>
