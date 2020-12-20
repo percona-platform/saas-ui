@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback } from 'react';
+import { Redirect, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Tab, TabsBar, TabContent, useStyles } from '@grafana/ui';
 import { PrivateLayout } from 'components';
 import { TextInputFields } from './components/FormFields';
@@ -10,7 +11,7 @@ type TabstripKey = keyof typeof TabKeys;
 interface TabstripTab {
   label: string;
   key: TabstripKey;
-  component: React.ReactNode;
+  path: string;
 }
 
 type Tabstrip = Record<TabstripKey, TabstripTab>;
@@ -19,23 +20,27 @@ const tabs: Tabstrip = {
   [TabKeys.inputs]: {
     label: 'Form Elements',
     key: TabKeys.inputs,
-    component: <TextInputFields />,
+    path: `/ui/${TabKeys.inputs}`,
   },
   [TabKeys.overlays]: {
     label: 'Overlays',
     key: TabKeys.overlays,
-    component: '',
+    path: `/ui/${TabKeys.overlays}`,
   },
   [TabKeys.buttons]:{
     label: 'Buttons',
     key: TabKeys.buttons,
-    component: <RadioButtonGroups />,
+    path: `/ui/${TabKeys.buttons}`,
   },
 };
 
 export const UIDemo: FC = () => {
-  const [activeTab, setActiveTab] = useState<TabstripKey>(TabKeys.inputs);
+  const location = useLocation();
+  const history = useHistory();
   const styles = useStyles(getStyles);
+  const onChangeTab = useCallback((key: TabstripKey) => () => {
+    history.push(tabs[key].path);
+  }, [history]);
 
   return (
     <PrivateLayout>
@@ -47,14 +52,23 @@ export const UIDemo: FC = () => {
             <Tab
               key={tab.key}
               label={tab.label}
-              active={tab.key === activeTab}
-              onChangeTab={() => setActiveTab(tab.key)}
+              active={tab.path === location.pathname}
+              onChangeTab={onChangeTab(tab.key)}
               css=""
             />
           ))}
         </TabsBar>
         <TabContent>
-          {tabs[activeTab].component}
+          <Switch>
+            <Route exact path={tabs.inputs.path}>
+              <TextInputFields />
+            </Route>
+            <Route exact path={tabs.overlays.path} />
+            <Route exact path={tabs.buttons.path}>
+              <RadioButtonGroups />
+            </Route>
+            <Redirect to={tabs.inputs.path} />
+          </Switch>
         </TabContent>
       </div>
     </PrivateLayout>
