@@ -8,10 +8,10 @@ export interface StyleProps {
   theme: GrafanaTheme;
 }
 
-export const focusCss = (theme: GrafanaTheme) => `
+export const focusCss = ({ colors }: GrafanaTheme) => `
   outline: 2px dotted transparent;
   outline-offset: 2px;
-  box-shadow: 0 0 0 2px ${theme.colors.bodyBg}, 0 0 0px 4px ${theme.colors.formFocusOutline};
+  box-shadow: 0 0 0 2px ${colors.bodyBg}, 0 0 0px 4px ${colors.formFocusOutline};
   transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
 `;
 
@@ -53,13 +53,17 @@ export const getStylesFn = (size: RadioButtonSize, fullWidth?: boolean) => (them
         background: ${bgDisabled};
         color: ${textColor};
       }
+
+      &:disabled + label:hover {
+        border: ${labelBorder};
+      }
     `,
     radioLabel: css`
       display: inline-block;
       position: relative;
       font-size: ${typography.size[size]};
       height: ${height[size]}px;
-      // Deduct border from line-height for perfect vertical centering on windows and linux
+      // Subtract border from line-height for perfect vertical centering on windows and linux
       line-height: ${height[size] - 2}px;
       color: ${textColor};
       padding: 0 ${spacing[size]};
