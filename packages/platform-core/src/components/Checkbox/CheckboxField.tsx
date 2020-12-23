@@ -1,6 +1,6 @@
 import React, { FC, useMemo, ReactNode } from 'react';
 import { Field, UseFieldConfig, FieldMetaState, FieldInputProps } from 'react-final-form';
-import { useTheme } from '@grafana/ui';
+import { useStyles } from '@grafana/ui';
 import { cx } from 'emotion';
 import { getStyles } from './Checkbox.styles';
 import { Validator, compose } from '../../shared/validators';
@@ -29,8 +29,7 @@ export const CheckboxField: FC<CheckboxProps> = React.memo(({
   validators,
   ...fieldConfig
 }) => {
-  const theme = useTheme();
-  const styles = useMemo(() => getStyles(theme), [theme]);
+  const styles = useStyles(getStyles);
   const inputId = `input-${name}-id`;
   const validate = useMemo(() => (Array.isArray(validators) ? compose(...validators) : undefined), [
     validators,

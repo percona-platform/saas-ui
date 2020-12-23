@@ -1,11 +1,38 @@
 import { css } from 'emotion';
 import { GrafanaTheme } from '@grafana/data';
-import { stylesFactory } from '@grafana/ui';
 
-export const getStyles = stylesFactory((theme: GrafanaTheme) => {
+export const getStyles = (theme: GrafanaTheme) => {
   const {
-    border, colors, palette, spacing, typography,
+    border, colors, isDark, palette, spacing, typography,
   } = theme;
+
+  const focusBoxShadow = isDark
+    ? 'rgb(20, 22, 25) 0px 0px 0px 2px, rgb(31, 96, 196) 0px 0px 0px 4px'
+    : 'rgb(255, 255, 255) 0px 0px 0px 2px, rgb(87, 148, 242) 0px 0px 0px 4px';
+
+  const autofillFocusBoxShadow = isDark
+    ? css`
+      box-shadow: rgb(20, 22, 25) 0px 0px 0px 2px, rgb(31, 96, 196) 0px 0px 0px 4px,
+        rgba(255, 255, 255, 0) 0px 0px 0px 1px inset, rgb(11, 12, 14) 0px 0px 0px 100px inset !important;
+      -webkit-text-fill-color: rgb(199, 208, 217) !important;
+    `
+    : css`
+      box-shadow: rgb(255, 255, 255) 0px 0px 0px 2px, rgb(87, 148, 242) 0px 0px 0px 4px,
+        rgba(255, 255, 255, 0) 0px 0px 0px 1px inset, rgb(255, 255, 255) 0px 0px 0px 100px inset !important;
+      -webkit-text-fill-color: rgb(70, 76, 84) !important;
+    `;
+
+  const autofillBoxShadow = isDark
+    ? css`
+        box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px 1px inset,
+          rgb(11, 12, 14) 0px 0px 0px 100px inset !important;
+        -webkit-text-fill-color: rgb(199, 208, 217) !important;
+    `
+    : css`
+      box-shadow: rgba(255, 255, 255, 0) 0px 0px 0px 1px inset,
+        rgb(255, 255, 255) 0px 0px 0px 100px inset !important;
+      -webkit-text-fill-color: rgb(70, 76, 84) !important;
+    `;
 
   return {
     field: css`
@@ -58,7 +85,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       &:hover {
         border-color: ${colors.formInputBorderHover};
       }
-      &[disabled]: {
+      &:disabled {
         background-color: ${colors.formInputBgDisabled};
         color: ${colors.formInputDisabledText};
       }
@@ -66,12 +93,18 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       padding: 7px 8px;
       border-radius: 2px;
       outline: transparent dotted 2px;
+      &:-webkit-autofill, &:-webkit-autofill:hover {
+        ${autofillBoxShadow}
+      }
+      &:-webkit-autofill:focus {
+        ${autofillFocusBoxShadow}
+      }
       &:focus {
         outline-offset: 2px;
-        box-shadow: rgb(255, 255, 255) 0px 0px 0px 2px, rgb(87, 148, 242) 0px 0px 0px 4px;
+        box-shadow: ${focusBoxShadow};
         outline: none;
         transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1) 0s;
       }
     `,
   };
-});
+};

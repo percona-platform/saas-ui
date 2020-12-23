@@ -4,6 +4,7 @@ export * from './Icon';
 export * from './LoaderButton';
 export * from './Modal';
 export * from './PasswordInput';
+export * from './RadioButtonGroup';
 export * from './StepProgress';
 export * from './TextInput';
 export * from './TextareaInput';

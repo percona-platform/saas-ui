@@ -1,6 +1,5 @@
 import { css } from 'emotion';
 import { GrafanaTheme } from '@grafana/data';
-import { stylesFactory } from '@grafana/ui';
 
 const arrow = css`
   position: absolute;
@@ -10,7 +9,7 @@ const arrow = css`
   border-style: solid;
 `;
 
-export const getStyles = stylesFactory((theme: GrafanaTheme) => {
+export const getStyles = (theme: GrafanaTheme) => {
   const {
     border, colors, palette, spacing, typography,
   } = theme;
@@ -113,7 +112,7 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       &:hover {
         border-color: ${colors.formInputBorderHover};
       }
-      &[disabled]: {
+      &:disabled {
         background-color: ${colors.formInputBgDisabled};
         color: ${colors.formInputDisabledText};
       }
@@ -129,4 +128,4 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       }
     `,
   };
-});
+};

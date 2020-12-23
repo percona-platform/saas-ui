@@ -1,12 +1,11 @@
 import React, {
   FC,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
 import { cx } from 'emotion';
-import { useTheme, Icon } from '@grafana/ui';
+import { useStyles, Icon } from '@grafana/ui';
 import { getStyles } from './Step.styles';
 
 export interface StepProps {
@@ -36,8 +35,7 @@ export const Step: FC<StepProps> = ({
   dataQa,
   onClick,
 }) => {
-  const theme = useTheme();
-  const styles = useMemo(() => getStyles(theme), [theme]);
+  const styles = useStyles(getStyles);
   const stepCircleStatusStyles = {
     [styles.stepCircleCurrent]: status === StepStatus.current,
     [styles.stepCircleDone]: status === StepStatus.done,

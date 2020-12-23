@@ -1,8 +1,7 @@
 import { GrafanaTheme } from '@grafana/data';
-import { stylesFactory } from '@grafana/ui';
 import { css } from 'emotion';
 
-export const getStyles = stylesFactory((theme: GrafanaTheme) => {
+export const getStyles = (theme: GrafanaTheme) => {
   const { colors, spacing } = theme;
   const checkboxSize = '16px';
 
@@ -81,4 +80,4 @@ export const getStyles = stylesFactory((theme: GrafanaTheme) => {
       margin-bottom: ${theme.spacing.xs};
     `,
   };
-});
+};

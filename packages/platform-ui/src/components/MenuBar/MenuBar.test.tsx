@@ -1,8 +1,6 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
 import { TestContainer } from 'components/TestContainer';
-import { fireEvent } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import * as authApi from 'core/api/auth';
 import { dataQa } from '@percona/platform-core';
@@ -16,7 +14,6 @@ jest.mock('react-redux', () => ({
 
 jest.spyOn(authApi, 'signOut').mockImplementation(() => Promise.resolve({} as AuthPB.SignOutResponse));
 
-let container: HTMLElement;
 const mockAppState = {
   auth: {
     authenticated: true,
@@ -25,23 +22,17 @@ const mockAppState = {
 
 describe('MenuBar', () => {
   beforeEach(() => {
-    useSelector.mockImplementation((callback) => {
+    (useSelector as jest.Mock<any, any>).mockImplementation((callback) => {
       return callback(mockAppState);
     });
-    container = document.createElement('div');
-    document.body.appendChild(container);
   });
 
   afterEach(() => {
-    useSelector.mockClear();
-    unmountComponentAtNode(container);
-    container.remove();
+    (useSelector as jest.Mock<any, any>).mockClear();
   });
 
   test('clicking on the profile logout button calls the logout API', async () => {
-    act(() => {
-      render(<TestContainer><MenuBar /></TestContainer>, container);
-    });
+    const { container } = render(<TestContainer><MenuBar /></TestContainer>);
 
     act(() => {
       fireEvent.click(container.querySelector(dataQa('menu-bar-profile-dropdown-toggle'))!);
@@ -52,5 +43,17 @@ describe('MenuBar', () => {
     });
 
     expect(authApi.signOut).toBeCalledTimes(1);
+  });
+
+  test('unathenticated user should not see the profile menu', async () => {
+    (useSelector as jest.Mock<any, any>).mockImplementation((callback) => {
+      return callback({
+        auth: { authenticated: false },
+      });
+    });
+
+    const { container } = render(<TestContainer><MenuBar /></TestContainer>);
+
+    expect(container.querySelector(dataQa('menu-bar-profile-dropdown-logout'))).toEqual(null);
   });
 });
