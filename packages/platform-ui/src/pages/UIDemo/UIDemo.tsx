@@ -2,8 +2,9 @@ import React, { FC, useCallback } from 'react';
 import { Redirect, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Tab, TabsBar, TabContent, useStyles } from '@grafana/ui';
 import { PrivateLayout } from 'components';
-import { TextInputFields } from './components/FormFields';
-import { RadioButtonGroups } from './components/Buttons';
+import { CheckboxFields, PasswordInputFields, NumberInputFields, TextInputFields } from './components/FormFields';
+import { Modals } from './components/Overlays';
+import { Dropdowns, RadioButtonGroups, LoaderButtons, TableToolbars } from './components/Buttons';
 import { TabKeys } from './UIDemo.types';
 import { getStyles } from './UIDemo.styles';
 
@@ -62,10 +63,18 @@ export const UIDemo: FC = () => {
           <Switch>
             <Route exact path={tabs.inputs.path}>
               <TextInputFields />
+              <NumberInputFields />
+              <PasswordInputFields />
+              <CheckboxFields />
             </Route>
-            <Route exact path={tabs.overlays.path} />
+            <Route exact path={tabs.overlays.path}>
+              <Modals />
+            </Route>
             <Route exact path={tabs.buttons.path}>
+              <Dropdowns />
+              <LoaderButtons />
               <RadioButtonGroups />
+              <TableToolbars />
             </Route>
             <Redirect to={tabs.inputs.path} />
           </Switch>
