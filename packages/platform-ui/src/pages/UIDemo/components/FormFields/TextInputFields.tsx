@@ -3,6 +3,7 @@ import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
 import { TextInputField, validators } from '@percona/platform-core';
 import { Legend } from '../Legend';
+import { Heading } from '../Heading';
 import { getStyles } from '../styles';
 
 const { required } = validators;
@@ -17,7 +18,7 @@ const TextInputFieldState1: FC = () => {
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
           <Legend
             name="TextInputField"
-            src="/FormFields/TextInputFields.tsx#L8"
+            src="/FormFields/TextInputFields.tsx#L9-L29"
             state="State: enabled, validation: required"
           />
           <TextInputField name="username" label="Username" validators={[required]} required />
@@ -40,7 +41,7 @@ const TextInputFieldState2: FC = () => {
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
           <Legend
             name="TextInputField"
-            src="/FormFields/TextInputFields.tsx#L30"
+            src="/FormFields/TextInputFields.tsx#L31-L52"
             state="State: enabled, validation: minLengh(6)"
           />
           <TextInputField name="address1" label="Address 1" validators={[minLength]} />
@@ -60,7 +61,7 @@ const TextInputFieldState3: FC = () => {
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
           <Legend
             name="TextInputField"
-            src="/FormFields/TextInputFields.tsx#L53"
+            src="/FormFields/TextInputFields.tsx#L54-L72"
             state="State: enabled, validation: none"
           />
           <TextInputField name="address2" label="Address 2" />
@@ -80,7 +81,7 @@ const TextInputFieldState4: FC = () => {
         <form data-qa="text-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
           <Legend
             name="TextInputField"
-            src="/FormFields/TextInputFields.tsx#L73"
+            src="/FormFields/TextInputFields.tsx#L74-L92"
             state="State: disabled, validation: none"
           />
           <TextInputField name="social-status" label="Social status" disabled />
@@ -93,6 +94,7 @@ const TextInputFieldState4: FC = () => {
 // TODO: consider one component per file for easier file referencing
 export const TextInputFields: FC = () => (
   <>
+    <Heading title="TextInputField" />
     <TextInputFieldState1 />
     <TextInputFieldState2 />
     <TextInputFieldState3 />
