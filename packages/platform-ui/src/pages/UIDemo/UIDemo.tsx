@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react';
 import { Redirect, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Tab, TabsBar, TabContent, useStyles } from '@grafana/ui';
 import { PrivateLayout } from 'components';
-import { CheckboxFields, PasswordInputFields, NumberInputFields, TextInputFields } from './components/FormFields';
+import { CheckboxFields, PasswordInputFields, NumberInputFields, TextInputFields, TextareaInputFields } from './components/FormFields';
 import { Modals } from './components/Overlays';
 import { Dropdowns, RadioButtonGroups, LoaderButtons } from './components/Buttons';
 import { TabKeys } from './UIDemo.types';
@@ -64,6 +64,7 @@ export const UIDemo: FC = () => {
           <Switch>
             <Route exact path={tabs.inputs.path}>
               <TextInputFields />
+              <TextareaInputFields />
               <NumberInputFields />
               <PasswordInputFields />
               <CheckboxFields />
