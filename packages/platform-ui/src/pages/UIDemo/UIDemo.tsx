@@ -4,7 +4,7 @@ import { Tab, TabsBar, TabContent, useStyles } from '@grafana/ui';
 import { PrivateLayout } from 'components';
 import { CheckboxFields, PasswordInputFields, NumberInputFields, TextInputFields } from './components/FormFields';
 import { Modals } from './components/Overlays';
-import { Dropdowns, RadioButtonGroups, LoaderButtons, TableToolbars } from './components/Buttons';
+import { Dropdowns, RadioButtonGroups, LoaderButtons } from './components/Buttons';
 import { TabKeys } from './UIDemo.types';
 import { getStyles } from './UIDemo.styles';
 
@@ -75,7 +75,6 @@ export const UIDemo: FC = () => {
               <Dropdowns />
               <LoaderButtons />
               <RadioButtonGroups />
-              <TableToolbars />
             </Route>
             <Redirect to={tabs.inputs.path} />
           </Switch>
