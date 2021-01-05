@@ -17,7 +17,7 @@ interface TabstripTab {
 
 type Tabstrip = Record<TabstripKey, TabstripTab>;
 
-const tabs: Tabstrip = {
+export const tabs: Tabstrip = {
   [TabKeys.inputs]: {
     label: 'Form Elements',
     key: TabKeys.inputs,
@@ -45,7 +45,7 @@ export const UIDemo: FC = () => {
 
   return (
     <PrivateLayout>
-      <div className={styles.page}>
+      <div data-qa="demo-page-wrapper" className={styles.page}>
         <legend className={styles.legend}>UI Component Demo</legend>
         <TabsBar>
           {/* That css property is there to silence the error in the Tab's component type */}
@@ -55,6 +55,7 @@ export const UIDemo: FC = () => {
               label={tab.label}
               active={tab.path === location.pathname}
               onChangeTab={onChangeTab(tab.key)}
+              data-qa={`demo-page-${tab.key}-tab`}
               css=""
             />
           ))}
