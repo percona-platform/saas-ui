@@ -31,7 +31,7 @@ const ModalState1: FC = () => {
     <>
       <Legend
         name="Modal"
-        src="/Buttons/Modals.tsx#L8-L54"
+        src="/Overlays/Modals.tsx#L8-L54"
         state="State: title: string, extra: closeOnEscape toggle, closeOnClickaway toggle"
       />
       <div className={styles.tuningCheckbox}>
