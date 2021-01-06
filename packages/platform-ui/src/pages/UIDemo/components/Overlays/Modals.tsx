@@ -35,7 +35,7 @@ const ModalState1: FC = () => {
         state="State: title: string, extra: closeOnEscape toggle, closeOnClickaway toggle"
       />
       <div className={styles.tuningCheckbox}>
-        <Checkbox css="" label="Click on escape" value={closeOnEscape} onChange={handleChangeCloseOnEscape} />
+        <Checkbox css="" label="Close on escape" value={closeOnEscape} onChange={handleChangeCloseOnEscape} />
       </div>
       <div className={styles.tuningCheckbox}>
         <Checkbox css="" label="Click on click away" value={closeOnClickaway} onChange={handleChangeCloseOnClickaway} />
