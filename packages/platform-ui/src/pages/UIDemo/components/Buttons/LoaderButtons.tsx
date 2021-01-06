@@ -2,12 +2,12 @@ import React, { FC, useState } from 'react';
 import { useStyles, Select, Label } from '@grafana/ui';
 import { ComponentSize } from '@grafana/ui/types/size';
 import { SelectableValue } from '@grafana/data';
-import { LoaderButton } from '@percona/platform-core';
+import { sleep, LoaderButton } from '@percona/platform-core';
 import { Legend } from '../Legend';
 import { Heading } from '../Heading';
 import { getStyles } from '../styles';
 
-const TIMEOUT = 2000;
+const DELAY = 2000;
 
 const SIZE_OPTIONS: Array<SelectableValue<ComponentSize>> = [
   {label: 'xs', value: 'xs'},
@@ -22,7 +22,7 @@ const LoaderButtonState1: FC = () => {
 
   const handleClick = async () => {
     setLoading(true);
-    await new Promise((resolve) => { setTimeout(resolve, TIMEOUT); });
+    await sleep(DELAY);
     setLoading(false);
   };
 
@@ -53,7 +53,7 @@ const LoaderButtonState2: FC = () => {
 
   const handleClick = async () => {
     setLoading(true);
-    await new Promise((resolve) => { setTimeout(resolve, TIMEOUT); });
+    await sleep(DELAY);
     setLoading(false);
   };
 
