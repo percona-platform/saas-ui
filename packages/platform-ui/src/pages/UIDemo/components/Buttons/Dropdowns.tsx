@@ -1,6 +1,6 @@
 import React, { FC, forwardRef } from 'react';
 import { useStyles } from '@grafana/ui';
-import { Dropdown } from '@percona/platform-core';
+import { alert, Dropdown } from '@percona/platform-core';
 import { Legend } from '../Legend';
 import { Heading } from '../Heading';
 import { getStyles } from '../styles';
@@ -16,12 +16,10 @@ const DropdownState1: FC = () => {
   ));
 
   const handleFirstAction = () => {
-    /* eslint-disable-next-line no-alert */
     alert('First');
   };
 
   const handleSecondAction = () => {
-    /* eslint-disable-next-line no-alert */
     alert('Second');
   };
 
