@@ -61,7 +61,7 @@ const CheckboxFieldState3: FC = () => {
             src="/FormFields/CheckboxFields.tsx#L73-L91"
             state="State: disabled, validation: none"
           />
-          <CheckboxField name="enable-feature" label="Enable feature" disabled />
+          <CheckboxField name="enableFeature" label="Enable feature" disabled />
         </form>
       )}
     </Form>
