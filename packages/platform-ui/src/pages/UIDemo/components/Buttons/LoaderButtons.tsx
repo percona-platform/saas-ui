@@ -89,7 +89,7 @@ const LoaderButtonState4: FC = () => (
   <>
     <Legend
       name="LoaderButton"
-      src="/Buttons/LoaderButtons.tsx#L92-L97"
+      src="/Buttons/LoaderButtons.tsx#L88-L97"
       state="State: disabled, size: 'md'"
     />
     <LoaderButton disabled>Submit</LoaderButton>
