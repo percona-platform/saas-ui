@@ -41,7 +41,7 @@ const CheckboxFieldState2: FC = () => {
             src="/FormFields/CheckboxFields.tsx#L31-L49"
             state="State: enabled, validation: none"
           />
-          <CheckboxField name="agreed" label="I agree" />
+          <CheckboxField name="consent" label="I agree" />
         </form>
       )}
     </Form>
