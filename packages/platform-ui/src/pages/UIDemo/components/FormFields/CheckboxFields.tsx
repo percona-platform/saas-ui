@@ -58,7 +58,7 @@ const CheckboxFieldState3: FC = () => {
         <form data-qa="checkbox-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
           <Legend
             name="CheckboxField"
-            src="/FormFields/CheckboxFields.tsx#L73-L91"
+            src="/FormFields/CheckboxFields.tsx#L51-L69"
             state="State: disabled, validation: none"
           />
           <CheckboxField name="enableFeature" label="Enable feature" disabled />
