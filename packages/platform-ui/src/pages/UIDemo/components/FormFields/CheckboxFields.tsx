@@ -38,7 +38,7 @@ const CheckboxFieldState2: FC = () => {
         <form data-qa="checkbox-input-demo-form" className={styles.form} onSubmit={handleSubmit}>
           <Legend
             name="CheckboxField"
-            src="/FormFields/CheckboxFields.tsx#L9-L29"
+            src="/FormFields/CheckboxFields.tsx#L31-L49"
             state="State: enabled, validation: none"
           />
           <CheckboxField name="agreed" label="I agree" />
