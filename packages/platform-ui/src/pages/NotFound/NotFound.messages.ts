@@ -1,3 +1,3 @@
 export const Messages = {
-  pageNotFound: 'Page not found',
+  homepage: 'Home page',
 };
