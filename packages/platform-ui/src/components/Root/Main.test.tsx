@@ -92,7 +92,7 @@ describe('Main Page', () => {
       render(<TestContainer><Main /></TestContainer>, container);
       history.replace(NON_EXISTING_PAGE_PATH);
     });
-    expect(container.querySelector('[data-qa="404-image"]')).toBeDefined();
+    expect(container.querySelector('[data-qa^="404-image"]')).toBeDefined();
     expect(container.querySelector('[data-qa="404-home-button"]')).toBeDefined();
   });
 });
