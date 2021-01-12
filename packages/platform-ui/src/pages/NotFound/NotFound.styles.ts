@@ -19,7 +19,7 @@ export const getStyles = (theme: GrafanaTheme) => {
     homeButton: css`
       width: 180px;
       justify-content: center;
-      margin-top: ${spacingLg}
+      margin-top: ${spacingLg};
     `,
     logo: css`
       @media (max-width: ${breakpointSm}) {
