@@ -5,7 +5,6 @@ export const getStyles = (theme: GrafanaTheme) => {
   const {
     colors: { dashboardBg },
     spacing: { lg: spacingLg },
-    breakpoints: { sm: breakpointSm, md: breakpointMg, lg: breakpointLg },
   } = theme;
 
   return {
@@ -15,6 +14,7 @@ export const getStyles = (theme: GrafanaTheme) => {
       min-height: 100vh;
       background-color: ${dashboardBg};
       align-items: center;
+      padding: 2em; // TODO set this on core and change everywhere, as it's used several times
     `,
     homeButton: css`
       width: 180px;
@@ -22,18 +22,9 @@ export const getStyles = (theme: GrafanaTheme) => {
       margin-top: ${spacingLg};
     `,
     logo: css`
-      @media (max-width: ${breakpointSm}) {
-          width: 200px;
-      }
-      @media (min-width: ${breakpointSm}) {
-          width: 300px;
-      }
-      @media (min-width: ${breakpointMg}) {
-          width: 470px;
-      }
-      @media (min-width: ${breakpointLg}) {
-          width: 600px;
-      }
+      width: 100%;
+      min-width: 250px;
+      max-width: 600px;
     `,
   };
 };
