@@ -8,6 +8,7 @@ import { history } from 'core/history';
 import { Main } from './Main';
 
 const getAuth = jest.spyOn(authSelectors, 'getAuth');
+const NON_EXISTING_PAGE_PATH = '/a-non-existing-page';
 
 jest.spyOn(authApi, 'refreshSession');
 jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -72,8 +73,26 @@ describe('Main Page', () => {
 
     await act(async () => {
       render(<TestContainer><Main /></TestContainer>, container);
-      history.replace('/a-non-existing-page');
+      history.replace(NON_EXISTING_PAGE_PATH);
     });
     expect(history.location.pathname).toEqual('/login');
+  });
+
+  test('keep the URL path if 404 is presented', async () => {
+    await act(async () => {
+      render(<TestContainer><Main /></TestContainer>, container);
+      history.replace(NON_EXISTING_PAGE_PATH);
+    });
+
+    expect(history.location.pathname).toEqual(NON_EXISTING_PAGE_PATH);
+  });
+
+  test('redirect to NotFound if user is authenticated and the route does not exist', async () => {
+    await act(async () => {
+      render(<TestContainer><Main /></TestContainer>, container);
+      history.replace(NON_EXISTING_PAGE_PATH);
+    });
+    expect(container.querySelector('[data-qa="404-image"]')).toBeDefined();
+    expect(container.querySelector('[data-qa="404-home-button"]')).toBeDefined();
   });
 });
