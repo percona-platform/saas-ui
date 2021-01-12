@@ -1,10 +1,8 @@
-import React from 'react';
-import { Messages } from './NotFound.messages';
+import React, { FC } from 'react';
+import whiteLogo from 'assets/404-light.svg';
 
-export function NotFound() {
+export const NotFound: FC = () => {
   return (
-    <div>
-      <h2>{Messages.pageNotFound}</h2>
-    </div>
+    <img alt="404" src={whiteLogo} />
   );
 };
