@@ -1,12 +1,13 @@
 import React, { FC, useEffect } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PrivateRoute, PublicRoute, Authenticated } from 'components';
-import { LoginPage, SignupPage, UIDemo } from 'pages';
-import { authRefreshAction } from 'store/auth';
+import { LoginPage, SignupPage, UIDemo, NotFound } from 'pages';
+import {  authRefreshAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
 
 export const Main: FC = () => {
+  const { authenticated } = useSelector(getAuth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +29,9 @@ export const Main: FC = () => {
           <PublicRoute path={Routes.ui}>
             <UIDemo />
           </PublicRoute>
-          <Redirect to={Routes.login} />
+          {
+            authenticated ? <NotFound /> : <Redirect to={Routes.login} />
+          }
         </Switch>
     </>
   );
