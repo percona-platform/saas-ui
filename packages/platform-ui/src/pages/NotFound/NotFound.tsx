@@ -13,8 +13,8 @@ export const NotFound: FC = () => {
 
   return (
     <div className={styles.contentWrapper}>
-      <img className={styles.logo} alt="404" src={isDark ? darkLogo : whiteLogo} />
-      <Button className={styles.homeButton}>{Messages.homepage}</Button>
+      <img data-qa="404-image" className={styles.logo} alt="404" src={isDark ? darkLogo : whiteLogo} />
+      <Button data-qa="404-home-button" className={styles.homeButton}>{Messages.homepage}</Button>
     </div>
   );
 };
