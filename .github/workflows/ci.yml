@@ -128,7 +128,8 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      - run: echo "REPO=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+      - name: Set REPO env variable
+        run: echo "REPO=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
         
       - name: Trigger dispatch in ${{ github.head_ref }} branch
         uses: percona-platform/workflow-dispatch@v1
