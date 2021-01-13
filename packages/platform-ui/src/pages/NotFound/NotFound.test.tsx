@@ -26,21 +26,12 @@ describe('NotFound', () => {
     jest.clearAllMocks();
   });
 
-  test('sets correct dark image', () => {
+  test('has the 404 image', () => {
     act(() => {
       render(<TestContainer><NotFound /></TestContainer>, container);
     });
 
-    expect(container.querySelector('[data-qa="404-image-dark"]')).not.toBeNull();
-  });
-
-  test('sets correct light image', () => {
-    getTheme.mockImplementation(() => ({ isDark: false }) as GrafanaTheme);
-    act(() => {
-      render(<TestContainer><NotFound /></TestContainer>, container);
-    });
-
-    expect(container.querySelector('[data-qa="404-image-light"]')).not.toBeNull();
+    expect(container.querySelector('[data-qa="404-image"]')).not.toBeNull();
   });
 
   test('links to root', () => {
