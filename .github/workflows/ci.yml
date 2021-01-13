@@ -26,37 +26,37 @@ jobs:
       - name: Checkout code
         uses: percona-platform/checkout@v2
 
-      # use full version while v2 is in beta
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.2
-        with:
-          node-version: ${{ matrix.node-version }}
+#       # use full version while v2 is in beta
+#       - name: Install Node.js ${{ matrix.node-version }}
+#         uses: percona-platform/setup-node@v2.1.2
+#         with:
+#           node-version: ${{ matrix.node-version }}
 
-      - name: Enable node_modules cache
-        uses: percona-platform/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+#       - name: Enable node_modules cache
+#         uses: percona-platform/cache@v2
+#         with:
+#           path: |
+#             node_modules
+#             */*/node_modules
+#             ~/.npm
+#           key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
 
-      - name: Install tools
-        run: make init
+#       - name: Install tools
+#         run: make init
 
-      - name: Bootstrap projects
-        run: make bootstrap
+#       - name: Bootstrap projects
+#         run: make bootstrap
 
-      - name: Build platform-core artifacts
-        run: make build-core
+#       - name: Build platform-core artifacts
+#         run: make build-core
 
-      - name: Build platform-ui artifacts
-        run: make build-ui
+#       - name: Build platform-ui artifacts
+#         run: make build-ui
 
-      - name: Run tests
-        run: make test
+#       - name: Run tests
+#         run: make test
 
   docker:
     name: Build Docker image
@@ -82,43 +82,43 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Enable node_modules cache
-        uses: percona-platform/cache@v2
-        with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+#       - name: Enable node_modules cache
+#         uses: percona-platform/cache@v2
+#         with:
+#           path: |
+#             node_modules
+#             */*/node_modules
+#             ~/.npm
+#           key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
 
-      - name: Install tools
-        run: make init
+#       - name: Install tools
+#         run: make init
 
-      - name: Enable experimental Docker features for --squash flag
-        run: sudo .github/workflows/enable-docker-experimental.sh
+#       - name: Enable experimental Docker features for --squash flag
+#         run: sudo .github/workflows/enable-docker-experimental.sh
 
-      - name: Login in Docker registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u $GITHUB_ACTOR docker.pkg.github.com --password-stdin
+#       - name: Login in Docker registry
+#         run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u $GITHUB_ACTOR docker.pkg.github.com --password-stdin
 
-      - name: Extract Docker image tag
-        uses: percona-platform/extract-docker-tag-action@v1
+#       - name: Extract Docker image tag
+#         uses: percona-platform/extract-docker-tag-action@v1
 
-      - name: Bootstrap projects
-        run: make bootstrap
+#       - name: Bootstrap projects
+#         run: make bootstrap
 
-      - name: Build platform-core artifacts
-        run: make build-core
+#       - name: Build platform-core artifacts
+#         run: make build-core
 
-      - name: Build platform-ui artifacts
-        run: make build-ui
+#       - name: Build platform-ui artifacts
+#         run: make build-ui
 
-      - name: Build Docker image with tag "${{ env.DOCKER_TAG }}"
-        run: make docker-build
+#       - name: Build Docker image with tag "${{ env.DOCKER_TAG }}"
+#         run: make docker-build
 
-      - name: Push Docker image
-        run: make docker-push
+#       - name: Push Docker image
+#         run: make docker-push
 
   e2e:
     name: Dispatch E2E tests
@@ -127,10 +127,10 @@ jobs:
 
     runs-on: ubuntu-18.04
     env:
-      REPO: ${GITHUB_REPOSITORY#*/}
+      REPO1: ${GITHUB_REPOSITORY#*/}
 
     steps:
-      - run: echo ::set-env name=REPO::${GITHUB_REPOSITORY#*/}
+      - run: echo "REPO=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
       - name: Trigger dispatch in ${{ github.head_ref }} branch
         uses: percona-platform/workflow-dispatch@v1
         continue-on-error: true
