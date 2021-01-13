@@ -1,9 +1,7 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { fireEvent } from '@testing-library/react';
 import { GrafanaTheme } from '@grafana/data';
-import { history } from 'core/history';
 import { Routes } from 'core/routes';
 import * as themeSelectors from 'store/theme/theme.selectors';
 import { TestContainer } from 'components/TestContainer';
@@ -51,11 +49,10 @@ describe('NotFound', () => {
     });
 
     const button = container.querySelector('[data-qa="404-home-button"]');
+    const anchor = button?.querySelector('a');
 
-    if (button) {
-      fireEvent.click(button);
-    }
-
-    expect(history.location.pathname).toEqual(Routes.root);
+    expect(button).not.toBeNull();
+    expect(anchor).not.toBeNull();
+    expect(anchor?.getAttribute('href')).toEqual(Routes.root);
   });
 });
