@@ -3,8 +3,12 @@ import { GrafanaTheme } from '@grafana/data';
 
 export const getStyles = (theme: GrafanaTheme) => {
   const {
-    colors: { dashboardBg },
-    spacing: { lg: spacingLg },
+    colors: {
+      dashboardBg,
+    },
+    spacing: {
+      lg: spacingLg,
+    },
   } = theme;
 
   return {
