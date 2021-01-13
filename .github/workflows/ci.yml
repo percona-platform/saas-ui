@@ -126,6 +126,8 @@ jobs:
     needs: docker
 
     runs-on: ubuntu-18.04
+    env:
+      REPO: ${GITHUB_REPOSITORY#*/}
 
     steps:
       - name: Trigger dispatch in ${{ github.head_ref }} branch
@@ -141,7 +143,7 @@ jobs:
             {
                 "branch": "${{ github.head_ref }}",
                 "repo": "${{ github.repository }}",
-                "${{ github.event.repository.name }}": "${{ needs.docker.outputs.docker_tag }}",
+                "${{ env.REPO }}": "${{ needs.docker.outputs.docker_tag }}",
                 "ui_tests_branch": "${{ github.head_ref }}",
                 "sha": "${{ github.event.pull_request.head.sha }}"
             }
@@ -158,7 +160,7 @@ jobs:
             {
                 "branch": "${{ github.head_ref }}",
                 "repo": "${{ github.repository }}",
-                "${{ github.event.repository.name }}": "${{ needs.docker.outputs.docker_tag }}",
+                "${{ env.REPO }}": "${{ needs.docker.outputs.docker_tag }}",
                 "ui_tests_branch": "${{ github.head_ref }}",
                 "sha": "${{ github.event.pull_request.head.sha }}"
             }
