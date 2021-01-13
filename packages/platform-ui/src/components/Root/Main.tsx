@@ -29,9 +29,7 @@ export const Main: FC = () => {
           <PublicRoute path={Routes.ui}>
             <UIDemo />
           </PublicRoute>
-          {
-            authenticated ? <NotFound /> : <Redirect to={Routes.login} />
-          }
+          {authenticated ? <NotFound /> : <Redirect to={Routes.login} />}
         </Switch>
     </>
   );
