@@ -18,7 +18,8 @@ export const getStyles = (theme: GrafanaTheme) => {
       min-height: 100vh;
       background-color: ${dashboardBg};
       align-items: center;
-      padding: 2em; // TODO set this on core and change everywhere, as it's used several times
+      // TODO set this on core and change everywhere, as it's used several times
+      padding: 2em;
     `,
     homeButton: css`
       width: 180px;
