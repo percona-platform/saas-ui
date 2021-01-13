@@ -130,6 +130,7 @@ jobs:
       REPO: ${GITHUB_REPOSITORY#*/}
 
     steps:
+      - run: echo ::set-env name=REPO::${GITHUB_REPOSITORY#*/}
       - name: Trigger dispatch in ${{ github.head_ref }} branch
         uses: percona-platform/workflow-dispatch@v1
         continue-on-error: true
