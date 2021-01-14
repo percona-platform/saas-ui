@@ -4,6 +4,7 @@ import { dataQa } from '@percona/platform-core';
 import { Routes } from 'core/routes';
 import { TestContainer } from 'components/TestContainer';
 import { NotFound } from './NotFound';
+import { Messages } from './NotFound.messages';
 
 describe('NotFound', () => {
   test('has the 404 image', () => {
@@ -20,5 +21,12 @@ describe('NotFound', () => {
     expect(button).not.toBeNull();
     expect(anchor).not.toBeNull();
     expect(anchor?.getAttribute('href')).toEqual(Routes.root);
+  });
+
+  test('link contains only the configured text', () => {
+    const { container } = render(<TestContainer><NotFound /></TestContainer>);
+    const anchor = container.querySelector('a');
+
+    expect(anchor?.textContent).toEqual(Messages.homepage);
   });
 });
