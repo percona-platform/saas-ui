@@ -15,6 +15,7 @@ export const getStyles = (theme: GrafanaTheme) => {
     contentWrapper: css`
       display: flex;
       flex-direction: column;
+      justify-content: center;
       min-height: 100vh;
       background-color: ${dashboardBg};
       align-items: center;
