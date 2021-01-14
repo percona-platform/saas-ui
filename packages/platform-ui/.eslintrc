@@ -36,6 +36,7 @@
     "no-restricted-imports": "error",
     "no-param-reassign": ["error", { "ignorePropertyModificationsForRegex": ["^acc$"] }],
     "react/jsx-curly-brace-presence": ["error"],
+    "react/jsx-curly-newline": ["error", "never"],
     "react/jsx-boolean-value": ["error"],
     "react/jsx-filename-extension": ["off"],
     // It's a bad practice, but in certain use cases we have no choice
