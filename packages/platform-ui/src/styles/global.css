@@ -37,11 +37,6 @@ ul {
   padding: 0;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
 .Toastify__toast-container--top-right {
   /* place the container right below the top menu */
   top: 4em;

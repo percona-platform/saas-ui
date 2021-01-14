@@ -25,6 +25,11 @@ export const getStyles = (theme: GrafanaTheme) => {
       width: 180px;
       justify-content: center;
       margin-top: ${spacingLg};
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
     `,
     logo: css`
       width: 100%;
