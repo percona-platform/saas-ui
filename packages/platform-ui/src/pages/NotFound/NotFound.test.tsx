@@ -2,6 +2,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { GrafanaTheme } from '@grafana/data';
+import { dataQa } from '@percona/platform-core';
 import { Routes } from 'core/routes';
 import * as themeSelectors from 'store/theme/theme.selectors';
 import { TestContainer } from 'components/TestContainer';
@@ -31,7 +32,7 @@ describe('NotFound', () => {
       render(<TestContainer><NotFound /></TestContainer>, container);
     });
 
-    expect(container.querySelector('[data-qa="404-image"]')).not.toBeNull();
+    expect(container.querySelector(dataQa('404-image'))).not.toBeNull();
   });
 
   test('links to root', () => {
@@ -39,7 +40,7 @@ describe('NotFound', () => {
       render(<TestContainer><NotFound /></TestContainer>, container);
     });
 
-    const button = container.querySelector('[data-qa="404-home-button"]');
+    const button = container.querySelector(dataQa('404-home-button'));
     const anchor = button?.querySelector('a');
 
     expect(button).not.toBeNull();

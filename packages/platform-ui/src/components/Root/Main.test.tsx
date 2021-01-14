@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { dataQa } from '@percona/platform-core';
 import { TestContainer } from 'components/TestContainer';
 import * as authApi from 'core/api/auth';
 import * as authSelectors from 'store/auth/auth.selectors';
@@ -92,7 +93,7 @@ describe('Main Page', () => {
       render(<TestContainer><Main /></TestContainer>, container);
       history.replace(NON_EXISTING_PAGE_PATH);
     });
-    expect(container.querySelector('[data-qa="404-image"]')).not.toBeNull();
-    expect(container.querySelector('[data-qa="404-home-button"]')).not.toBeNull();
+    expect(container.querySelector(dataQa('404-image'))).not.toBeNull();
+    expect(container.querySelector(dataQa('404-home-button'))).not.toBeNull();
   });
 });
