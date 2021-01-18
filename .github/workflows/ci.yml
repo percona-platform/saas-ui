@@ -128,6 +128,9 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
+      - name: Set REPO env variable
+        run: echo "REPO=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
+        
       - name: Trigger dispatch in ${{ github.head_ref }} branch
         uses: percona-platform/workflow-dispatch@v1
         continue-on-error: true
@@ -141,7 +144,7 @@ jobs:
             {
                 "branch": "${{ github.head_ref }}",
                 "repo": "${{ github.repository }}",
-                "${{ github.event.repository.name }}": "${{ needs.docker.outputs.docker_tag }}",
+                "${{ env.REPO }}": "${{ needs.docker.outputs.docker_tag }}",
                 "ui_tests_branch": "${{ github.head_ref }}",
                 "sha": "${{ github.event.pull_request.head.sha }}"
             }
@@ -158,7 +161,7 @@ jobs:
             {
                 "branch": "${{ github.head_ref }}",
                 "repo": "${{ github.repository }}",
-                "${{ github.event.repository.name }}": "${{ needs.docker.outputs.docker_tag }}",
+                "${{ env.REPO }}": "${{ needs.docker.outputs.docker_tag }}",
                 "ui_tests_branch": "${{ github.head_ref }}",
                 "sha": "${{ github.event.pull_request.head.sha }}"
             }
