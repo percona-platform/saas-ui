@@ -28,7 +28,7 @@ jobs:
 
       # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.2
+        uses: percona-platform/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -78,7 +78,7 @@ jobs:
 
       # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.2
+        uses: percona-platform/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node-version }}
 
