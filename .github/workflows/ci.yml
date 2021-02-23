@@ -28,7 +28,7 @@ jobs:
 
       # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.2
+        uses: percona-platform/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -78,7 +78,7 @@ jobs:
 
       # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: percona-platform/setup-node@v2.1.2
+        uses: percona-platform/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -130,7 +130,7 @@ jobs:
     steps:
       - name: Set REPO env variable
         run: echo "REPO=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-        
+
       - name: Trigger dispatch in ${{ github.head_ref }} branch
         uses: percona-platform/workflow-dispatch@v1
         continue-on-error: true
@@ -149,7 +149,7 @@ jobs:
                 "sha": "${{ github.event.pull_request.head.sha }}"
             }
 
-      - name: Trigger dispatch in main branch 
+      - name: Trigger dispatch in main branch
         uses: percona-platform/workflow-dispatch@v1
         if: ${{ steps.branch_dispatch.outcome != 'success' }}
         with:
