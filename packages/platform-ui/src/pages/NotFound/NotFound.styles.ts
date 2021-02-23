@@ -11,15 +11,15 @@ export const getStyles = ({ colors, spacing }: GrafanaTheme) => ({
     align-items: center;
     padding: 2em;
   `,
+  link: css`
+    color: inherit;
+    text-decoration: none;
+    margin-top: ${spacing.lg};
+  `,
   homeButton: css`
     width: 180px;
+    padding: 0;
     justify-content: center;
-    margin-top: ${spacing.lg};
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
   `,
   logo: css`
     width: 100%;

@@ -19,9 +19,11 @@ export const NotFound: FC = () => {
   return (
     <div className={styles.contentWrapper}>
       <img data-qa="404-image" className={styles.logo} alt="404" src={logo} />
-      <Button data-qa="404-home-button" className={styles.homeButton}>
-        <Link to={Routes.root}>{Messages.homepage}</Link>
-      </Button>
+      <Link className={styles.link} to={Routes.root}>
+        <Button data-qa="404-home-button" className={styles.homeButton}>
+          {Messages.homepage}
+        </Button>
+      </Link>
     </div>
   );
 };
