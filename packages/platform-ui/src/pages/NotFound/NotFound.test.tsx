@@ -15,8 +15,8 @@ describe('NotFound', () => {
 
   test('links to root', () => {
     const { container } = render(<TestContainer><NotFound /></TestContainer>);
-    const button = container.querySelector(dataQa('404-home-button'));
-    const anchor = button?.querySelector('a');
+    const anchor = container.querySelector('a');
+    const button = anchor?.querySelector(dataQa('404-home-button'));
 
     expect(button).not.toBeNull();
     expect(anchor).not.toBeNull();
