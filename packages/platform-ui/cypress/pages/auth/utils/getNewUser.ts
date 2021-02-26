@@ -13,10 +13,11 @@ export const getFakeEmail = () => {
 
 export const getPassword = () => {
   return generate({
-    length: 8,
+    length: 10,
     numbers: true,
     lowercase: true,
     uppercase: true,
+    strict: true,
   });
 };
 
