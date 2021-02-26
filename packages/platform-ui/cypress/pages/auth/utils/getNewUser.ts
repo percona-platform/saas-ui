@@ -1,11 +1,11 @@
 import { ValidUser } from 'pages/common/interfaces/Auth';
 import faker from 'faker';
+import generator from 'generate-password';
 
 /*
-Using this lib due to a bug in a faker when passing a regex to a password function.
+Using generate-password lib due to a bug in a faker when passing a regex to a password function.
 https://github.com/Marak/faker.js/issues/826
 */
-const generator = require('generate-password');
 
 export const getFakeEmail = () => {
   return `${faker.internet.email()}.test`;
