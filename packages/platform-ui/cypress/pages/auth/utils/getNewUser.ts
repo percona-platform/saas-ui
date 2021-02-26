@@ -1,6 +1,6 @@
 import { ValidUser } from 'pages/common/interfaces/Auth';
 import faker from 'faker';
-import generator from 'generate-password';
+import { generate } from 'generate-password';
 
 /*
 Using generate-password lib due to a bug in a faker when passing a regex to a password function.
@@ -12,8 +12,8 @@ export const getFakeEmail = () => {
 };
 
 export const getPassword = () => {
-  return generator.generate({
-    length: 15,
+  return generate({
+    length: 8,
     numbers: true,
     lowercase: true,
     uppercase: true,
