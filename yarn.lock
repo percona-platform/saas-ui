@@ -2621,6 +2621,16 @@
   dependencies:
     "@types/node" ">= 8"
 
+"@percona/platform-core@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@percona/platform-core/-/platform-core-0.6.1.tgz#773fe0519abdab8b2adbc4b88a81d0a1b4425be0"
+  integrity sha512-a69I/bGb8Bovby5ARBA0tRJ+Fl+Y/cPmm++kxJ2pTSyar75oXLtGlpuPJS2qmF6w1L/bZ8lq6HiK83FuCQFc/A==
+  dependencies:
+    "@popperjs/core" "^2.5.3"
+    react-popper "^2.2.3"
+    react-scripts "3.4.3"
+    typescript "~3.7.5"
+
 "@popperjs/core@^2.5.3":
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.3.tgz#4982b0b66b7a4cf949b86f5d25a8cf757d3cfd9d"
@@ -8274,6 +8284,11 @@ gauge@~2.7.3:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
+
+generate-password@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/generate-password/-/generate-password-1.6.0.tgz#9dff4fcca7f831e6832d464509910fab333d0323"
+  integrity sha512-YUJTQkApkLT/fru0QdYWP0lVZdPKhF5kXCP24sgI4gR/vFMJFopCj5t1+9FAKIYcML/nxzx2PMkA1ymO1FC+tQ==
 
 genfun@^5.0.0:
   version "5.0.0"
