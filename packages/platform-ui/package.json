@@ -26,7 +26,7 @@
     "lint": "eslint --ext js,ts,tsx src",
     "lint:fix": "yarn lint --fix",
     "cy:open": "cypress open",
-    "cy:run": "cypress run --browser chrome --headless",
+    "cy:run": "cypress run --browser edge",
     "cy:merge": "mochawesome-merge cypress/reports/mocha/*.json > cypress/reports/report.json",
     "cy:report": "marge cypress/reports/*.json -f report -o cypress/reports/",
     "report:copyScreenshots": "cp -r cypress/screenshots cypress/reports",
