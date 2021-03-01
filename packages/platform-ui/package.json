@@ -83,6 +83,7 @@
     "eslint-plugin-no-inline-styles": "^1.0.5",
     "eslint-plugin-react-hooks": "^4.1.2",
     "faker": "^5.1.0",
+    "generate-password": "^1.6.0",
     "jest-canvas-mock": "^2.2.0",
     "mocha": "^8.1.3",
     "mochawesome": "^6.2.1",
