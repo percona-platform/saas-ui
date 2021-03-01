@@ -15,7 +15,7 @@ export const checkValidation = ({ element, text }: FieldValidation) => {
 
 export const checkPopUpMessage = (message: string) => {
   popUp().isVisible().hasText(message)
-    .then(element => {
+    .then((element) => {
       element.next('button').click();
     });
 };
