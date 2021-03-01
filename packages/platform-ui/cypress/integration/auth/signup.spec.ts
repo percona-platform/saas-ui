@@ -42,7 +42,7 @@ context('Sign Up', () => {
 
   it('SAAS-T85 - should see failed signup message', () => {
     runSignupAction(VALID_USER.user);
-    popUp().isVisible().hasText(INVALID_USER.invalidSignUpMessage);
+    popUp().isVisible().hasText(INVALID_USER.invalidSignUpMessage).siblings('button').click();
     signupForm().isVisible();
   });
 });
