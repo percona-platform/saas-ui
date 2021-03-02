@@ -16,7 +16,7 @@
   "failOnStatusCode": false,
   "ignoreTestFiles": ["*utils.js", "locators.js", "constants.js"],
   "testFiles": ["**/*spec.ts"],
-  "baseUrl": "https://platform-dev.percona.com",
+  "baseUrl": "https://platform.localhost",
   "retries": {
     "runMode": 1,
     "openMode": 0
