@@ -11,6 +11,7 @@
   "requestTimeout": 15000,
   "responseTimeout": 30000,
   "video": true,
+  "videoCompression": 25,
   "videoUploadOnPasses": false,
   "failOnStatusCode": false,
   "ignoreTestFiles": ["*utils.js", "locators.js", "constants.js"],
