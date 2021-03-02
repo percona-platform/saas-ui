@@ -15,21 +15,21 @@ export const Main: FC = () => {
 
   return (
     <>
-        <Switch>
-          <PrivateRoute exact path={Routes.root}>
-            <Authenticated />
-          </PrivateRoute>
-          <PublicRoute exact path={Routes.login}>
-            <LoginPage />
-          </PublicRoute>
-          <PublicRoute exact path={Routes.signup}>
-            <SignupPage />
-          </PublicRoute>
-          <PublicRoute path={Routes.ui}>
-            <UIDemo />
-          </PublicRoute>
-          <Redirect to={Routes.login} />
-        </Switch>
+      <Switch>
+        <PrivateRoute exact path={Routes.root}>
+          <Authenticated />
+        </PrivateRoute>
+        <PublicRoute exact path={Routes.login}>
+          <LoginPage />
+        </PublicRoute>
+        <PublicRoute exact path={Routes.signup}>
+          <SignupPage />
+        </PublicRoute>
+        <PublicRoute path={Routes.ui}>
+          <UIDemo />
+        </PublicRoute>
+        <Redirect to={Routes.login} />
+      </Switch>
     </>
   );
 };

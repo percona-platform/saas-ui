@@ -3,3 +3,4 @@ import * as logger from './logger';
 
 export { validators, logger };
 export * from './utils';
+export * from './alert';

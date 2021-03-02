@@ -2,8 +2,9 @@ import React, { FC, useCallback } from 'react';
 import { Redirect, Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import { Tab, TabsBar, TabContent, useStyles } from '@grafana/ui';
 import { PrivateLayout } from 'components';
-import { TextInputFields } from './components/FormFields';
-import { RadioButtonGroups } from './components/Buttons';
+import { CheckboxFields, PasswordInputFields, NumberInputFields, TextInputFields, TextareaInputFields } from './components/FormFields';
+import { Modals } from './components/Overlays';
+import { Dropdowns, RadioButtonGroups, LoaderButtons } from './components/Buttons';
 import { TabKeys } from './UIDemo.types';
 import { getStyles } from './UIDemo.styles';
 
@@ -16,7 +17,7 @@ interface TabstripTab {
 
 type Tabstrip = Record<TabstripKey, TabstripTab>;
 
-const tabs: Tabstrip = {
+export const tabs: Tabstrip = {
   [TabKeys.inputs]: {
     label: 'Form Elements',
     key: TabKeys.inputs,
@@ -44,7 +45,7 @@ export const UIDemo: FC = () => {
 
   return (
     <PrivateLayout>
-      <div className={styles.page}>
+      <div data-qa="demo-page-wrapper" className={styles.page}>
         <legend className={styles.legend}>UI Component Demo</legend>
         <TabsBar>
           {/* That css property is there to silence the error in the Tab's component type */}
@@ -54,6 +55,7 @@ export const UIDemo: FC = () => {
               label={tab.label}
               active={tab.path === location.pathname}
               onChangeTab={onChangeTab(tab.key)}
+              data-qa={`demo-page-${tab.key}-tab`}
               css=""
             />
           ))}
@@ -62,9 +64,17 @@ export const UIDemo: FC = () => {
           <Switch>
             <Route exact path={tabs.inputs.path}>
               <TextInputFields />
+              <TextareaInputFields />
+              <NumberInputFields />
+              <PasswordInputFields />
+              <CheckboxFields />
             </Route>
-            <Route exact path={tabs.overlays.path} />
+            <Route exact path={tabs.overlays.path}>
+              <Modals />
+            </Route>
             <Route exact path={tabs.buttons.path}>
+              <Dropdowns />
+              <LoaderButtons />
               <RadioButtonGroups />
             </Route>
             <Redirect to={tabs.inputs.path} />

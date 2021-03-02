@@ -28,6 +28,22 @@ export const getStyles = (theme: GrafanaTheme) => {
       padding: 0 ${spacing.sm};
       font-weight: ${typography.weight.regular};
     `,
+    tuningCheckbox: css`
+      margin-bottom: 10px;
+    `,
+    dropdownToggle: css`
+      padding: 5px 10px;
+    `,
+    loaderButton: css`
+      justify-content: center;
+      width: 150px;
+    `,
+    sizeSelect: css`
+      max-width: 150px;
+    `,
+    sizeSelectLabel: css`
+      margin-top: 10px;
+    `,
     form: css`
       max-width: 400px;
       width: 100%;

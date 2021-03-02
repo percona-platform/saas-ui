@@ -3,6 +3,7 @@ import { Form, FormRenderProps } from 'react-final-form';
 import { Button, useStyles, HorizontalGroup } from '@grafana/ui';
 import { CheckboxField, RadioButtonGroupField, TextInputField, validators } from '@percona/platform-core';
 import { Legend } from '../Legend';
+import { Heading } from '../Heading';
 import { getStyles } from '../styles';
 
 const { required } = validators;
@@ -25,7 +26,7 @@ const RadioButtonGroupState1: FC = () => {
         <form data-qa="radio-button-group-demo-form" className={styles.wideForm} onSubmit={handleSubmit}>
           <Legend
             name="RadioButtonGroupField"
-            src="/Buttons/RadioButtonGroups.tsx#L8"
+            src="/Buttons/RadioButtonGroups.tsx#L9-L47"
             state="State: [elem1: enabled, elem2: disabled, elem3: enabled], validation: required, initialValue: 'lowest'"
           />
           <RadioButtonGroupField
@@ -63,7 +64,7 @@ const RadioButtonGroupState2: FC = () => {
         <form data-qa="radio-button-group-demo-form" className={styles.wideForm} onSubmit={handleSubmit}>
           <Legend
             name="RadioButtonGroupField"
-            src="/Buttons/RadioButtonGroups.tsx#L48"
+            src="/Buttons/RadioButtonGroups.tsx#L49-L85"
             state="State: all enabled, validation: required, initialValue: 'highest'"
           />
           <RadioButtonGroupField
@@ -100,7 +101,7 @@ const RadioButtonGroupState3: FC = () => {
         <form data-qa="radio-button-group-demo-form" className={styles.wideForm} onSubmit={handleSubmit}>
           <Legend
             name="RadioButtonGroupField"
-            src="/Buttons/RadioButtonGroups.tsx#L86"
+            src="/Buttons/RadioButtonGroups.tsx#L87-L122"
             state="State: all enabled, validation: required, initialValue: undefined"
           />
           <RadioButtonGroupField
@@ -137,7 +138,7 @@ const RadioButtonGroupState4: FC = () => {
         <form data-qa="radio-button-group-demo-form" className={styles.wideForm} onSubmit={handleSubmit}>
           <Legend
             name="RadioButtonGroupField"
-            src="/Buttons/RadioButtonGroups.tsx#L123"
+            src="/Buttons/RadioButtonGroups.tsx#L124-L157"
             state="State: all but elem4 enabled, validation: undefined, initialValue: undefined"
           />
           <RadioButtonGroupField
@@ -173,7 +174,7 @@ const RadioButtonGroupState5: FC = () => {
         <form data-qa="radio-button-group-demo-form" className={styles.wideForm} onSubmit={handleSubmit}>
           <Legend
             name="RadioButtonGroupField"
-            src="/Buttons/RadioButtonGroups.tsx#L158"
+            src="/Buttons/RadioButtonGroups.tsx#L159-L204"
             state="State: all disabled, validation: undefined, initialValue: medium, extra: fullWidth toggle"
           />
           <RadioButtonGroupField
@@ -204,6 +205,7 @@ const RadioButtonGroupState5: FC = () => {
 
 export const RadioButtonGroups: FC = () => (
   <>
+    <Heading title="RadioButtonGroup" />
     <RadioButtonGroupState1 />
     <RadioButtonGroupState2 />
     <RadioButtonGroupState3 />
