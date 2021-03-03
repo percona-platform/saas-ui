@@ -29,6 +29,6 @@ export const INVALID_USER: InvalidUser = {
     email: 'nonexistingemail@mail.com.test',
     password: 'Password123',
   },
-  invalidLoginMessage: 'Incorrect username or password.',
+  invalidLoginMessage: 'Incorrect username or password.111',
   invalidSignUpMessage: 'There was a problem during the sign up process, please try again',
 };
