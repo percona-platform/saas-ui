@@ -37,7 +37,7 @@
   "dependencies": {
     "@grafana/data": "7.1.3",
     "@grafana/ui": "7.1.3",
-    "@percona/platform-core": "^0.6.1",
+    "@percona/platform-core": "^0.7.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.1.3",
@@ -67,12 +67,12 @@
     "typescript": "~3.7.5"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^5.4.11",
+    "@cypress/webpack-preprocessor": "^5.6.0",
     "@grafana/eslint-config": "^2.0.3",
-    "@testing-library/cypress": "^7.0.1",
+    "@testing-library/cypress": "^7.0.4",
     "@types/faker": "^5.1.2",
     "@types/react-redux": "^7.1.9",
-    "cypress": "^5.6.0",
+    "cypress": "^6.5.0",
     "cypress-cy-select": "^0.2.2",
     "cypress-multi-reporters": "^1.4.0",
     "eslint-config-airbnb": "^18.2.0",
@@ -83,11 +83,12 @@
     "eslint-plugin-no-inline-styles": "^1.0.5",
     "eslint-plugin-react-hooks": "^4.1.2",
     "faker": "^5.1.0",
+    "generate-password": "^1.6.0",
     "jest-canvas-mock": "^2.2.0",
-    "mocha": "^8.1.3",
-    "mochawesome": "^6.2.1",
+    "mocha": "^8.3.0",
+    "mochawesome": "^6.2.2",
     "mochawesome-merge": "^4.2.0",
-    "mochawesome-report-generator": "^5.1.0"
+    "mochawesome-report-generator": "^5.2.0"
   },
   "keywords": [
     "percona",

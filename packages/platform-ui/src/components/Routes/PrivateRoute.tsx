@@ -21,8 +21,7 @@ export const PrivateRoute: FC<RouteProps> = ({ children, ...rest }) => {
               state: { from: location },
             }}
           />
-        )
-      }
+        )}
     />
   );
 };
