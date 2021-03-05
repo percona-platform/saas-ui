@@ -22,8 +22,7 @@ export const PublicRoute: FC<RouteProps> = ({ children, ...rest }) => {
               state: { from: location },
             }}
           />
-        )
-      }
+        )}
     />
   );
 };
