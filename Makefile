@@ -1,5 +1,6 @@
+SHELL := /bin/bash
 DOCKER_TAG ?= latest
-DOCKER_IMAGE = docker.pkg.github.com/percona-platform/saas-ui/saas-ui:$(DOCKER_TAG)
+DOCKER_IMAGE = docker.pkg.github.com/percona-platform/saas-ui/saas-ui
 
 default: help
 
@@ -34,7 +35,12 @@ build-ui:               ## Build platform-ui
 	lerna run build --scope='@percona/platform-ui'
 
 docker-build:           ## Build Docker image
-	docker build --squash --tag $(DOCKER_IMAGE) .
+	docker build --squash --tag $(DOCKER_IMAGE):$(DOCKER_TAG) .
 
 docker-push:            ## Push Docker image
-	docker push $(DOCKER_IMAGE)
+	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)
+
+docker-tag:
+	if [[ "$(DOCKER_TAG)" == "latest" ]]; then exit 0; fi; \
+	    docker tag $(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKER_IMAGE):dev-latest; \
+	    docker push $(DOCKER_IMAGE):dev-latest;
