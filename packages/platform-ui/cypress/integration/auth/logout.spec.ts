@@ -19,7 +19,7 @@ context('Logout', () => {
     runLoginAction(newUser.user);
   });
 
-  // Unskip after new auth flow done
+  // Unskip in scope of https://jira.percona.com/browse/SAAS-513 after new auth flow done
   it.skip('SAAS-T80 - should be able to logout', () => {
     profileIcon().isVisible().click();
     dropdownMenu().isVisible();

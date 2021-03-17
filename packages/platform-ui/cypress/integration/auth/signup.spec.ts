@@ -33,7 +33,7 @@ context('Sign Up', () => {
     loginForm().isVisible();
   });
 
-  // Unskip after new auth flow done
+  // Unskip in scope of https://jira.percona.com/browse/SAAS-513 after new auth flow done
   it.skip('SAAS-T78 - should be able to signup and login with new account', () => {
     runSignUpFlow(newUser);
     runLoginAction(newUser.user);
