@@ -19,7 +19,8 @@ context('Logout', () => {
     runLoginAction(newUser.user);
   });
 
-  it('SAAS-T80 - should be able to logout', () => {
+  // Unskip after new auth flow done
+  it.skip('SAAS-T80 - should be able to logout', () => {
     profileIcon().isVisible().click();
     dropdownMenu().isVisible();
     logoutButton().click();
