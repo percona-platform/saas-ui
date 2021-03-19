@@ -6,12 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   CheckboxField,
   LoaderButton,
-  PasswordInputField,
   TextInputField,
   validators,
 } from '@percona/platform-core';
 import { PublicLayout } from 'components';
-import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { authSignupAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
 import { Messages } from './Signup.messages';
@@ -20,12 +18,10 @@ import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 
 const {
-  containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue,
+  email, required, requiredTrue,
 } = validators;
-const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
 const emailValidators = [required, email];
-const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
 
 export const SignupPage: FC = () => {
   const styles = useStyles(getStyles);
@@ -43,12 +39,6 @@ export const SignupPage: FC = () => {
           <form data-qa="signup-form" className={styles.form} onSubmit={handleSubmit}>
             <legend className={styles.legend}>{Messages.signUp}</legend>
             <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
-            <PasswordInputField
-              name="password"
-              label={Messages.passwordLabel}
-              validators={passwordValidators}
-              required
-            />
             <CheckboxField name="consent" label={<CheckboxLabel />} validators={[requiredTrue]} />
             <LoaderButton
               data-qa="login-submit-button"
