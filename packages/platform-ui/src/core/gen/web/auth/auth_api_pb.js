@@ -267,7 +267,9 @@ proto.percona.platform.auth.v1.SignUpRequest.prototype.toObject = function(opt_i
 proto.percona.platform.auth.v1.SignUpRequest.toObject = function(includeInstance, msg) {
   var f, obj = {
     email: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    password: jspb.Message.getFieldWithDefault(msg, 2, "")
+    password: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    firstName: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    lastName: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -312,6 +314,14 @@ proto.percona.platform.auth.v1.SignUpRequest.deserializeBinaryFromReader = funct
       var value = /** @type {string} */ (reader.readString());
       msg.setPassword(value);
       break;
+    case 3:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setFirstName(value);
+      break;
+    case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setLastName(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -355,6 +365,20 @@ proto.percona.platform.auth.v1.SignUpRequest.serializeBinaryToWriter = function(
       f
     );
   }
+  f = message.getFirstName();
+  if (f.length > 0) {
+    writer.writeString(
+      3,
+      f
+    );
+  }
+  f = message.getLastName();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
 };
 
 
@@ -391,6 +415,42 @@ proto.percona.platform.auth.v1.SignUpRequest.prototype.getPassword = function() 
  */
 proto.percona.platform.auth.v1.SignUpRequest.prototype.setPassword = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional string first_name = 3;
+ * @return {string}
+ */
+proto.percona.platform.auth.v1.SignUpRequest.prototype.getFirstName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.auth.v1.SignUpRequest} returns this
+ */
+proto.percona.platform.auth.v1.SignUpRequest.prototype.setFirstName = function(value) {
+  return jspb.Message.setProto3StringField(this, 3, value);
+};
+
+
+/**
+ * optional string last_name = 4;
+ * @return {string}
+ */
+proto.percona.platform.auth.v1.SignUpRequest.prototype.getLastName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.percona.platform.auth.v1.SignUpRequest} returns this
+ */
+proto.percona.platform.auth.v1.SignUpRequest.prototype.setLastName = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
 };
 
 
