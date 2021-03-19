@@ -7,5 +7,5 @@ export interface AuthState {
 
 export interface Credentials {
   email: string;
-  password: string;
+  password?: string;
 }

@@ -2,4 +2,5 @@ import { AuthPB } from 'core';
 
 export type SignIn = ({ email, password }: AuthPB.SignInRequest.AsObject) => Promise<AuthPB.SignInResponse>;
 
-export type SignUp = ({ email, password }: AuthPB.SignUpRequest.AsObject) => Promise<AuthPB.SignUpResponse>;
+export type SignUp = ({ email, firstName, lastName, password }: AuthPB.SignUpRequest.AsObject) =>
+  Promise<AuthPB.SignUpResponse>;
