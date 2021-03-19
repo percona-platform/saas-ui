@@ -25,7 +25,7 @@ export const authSignupAction = createAsyncAction(
   'SIGNUP_USER_REQUEST',
   'SIGNUP_USER_SUCCESS',
   'SIGNUP_USER_FAILURE',
-)<{ email: string; password: string }, undefined, grpcWeb.Error>();
+)<{ email: string; firstName: string, lastName: string, password: string }, undefined, grpcWeb.Error>();
 
 export const authLogoutAction = createAsyncAction(
   'LOGOUT_USER_REQUEST',
