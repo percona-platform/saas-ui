@@ -5,5 +5,5 @@ export const Messages = {
   signOutFailed: 'Logout failed, please try again',
   signOutSucceeded: 'You are now logged out',
   signUpFailed: 'There was a problem during the sign up process, please try again',
-  signUpSucceeded: 'A confirmation email has been sent to you',
+  signUpSucceeded: 'An account activation email has been sent to you',
 };
