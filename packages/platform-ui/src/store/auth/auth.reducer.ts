@@ -1,5 +1,5 @@
 import { createAsyncAction, ActionType, getType } from 'typesafe-actions';
-import { AuthState } from 'store/types';
+import { AuthState, LoginPayload, SignupPayload, LogoutPayload } from 'store/types';
 import * as grpcWeb from 'grpc-web';
 
 const DEFAULT_STATE: AuthState = {
@@ -19,19 +19,19 @@ export const authLoginAction = createAsyncAction(
   'LOGIN_USER_REQUEST',
   'LOGIN_USER_SUCCESS',
   'LOGIN_USER_FAILURE',
-)<{ email: string; password: string }, Pick<AuthState, 'email'>, grpcWeb.Error>();
+)<LoginPayload, Pick<AuthState, 'email'>, grpcWeb.Error>();
 
 export const authSignupAction = createAsyncAction(
   'SIGNUP_USER_REQUEST',
   'SIGNUP_USER_SUCCESS',
   'SIGNUP_USER_FAILURE',
-)<{ email: string; firstName: string, lastName: string, password: string }, undefined, grpcWeb.Error>();
+)<SignupPayload, undefined, grpcWeb.Error>();
 
 export const authLogoutAction = createAsyncAction(
   'LOGOUT_USER_REQUEST',
   'LOGOUT_USER_SUCCESS',
   'LOGOUT_USER_FAILURE',
-)<{ email: string }, undefined, grpcWeb.Error>();
+)<LogoutPayload, undefined, grpcWeb.Error>();
 
 export type AuthActions = (
   ActionType<typeof authRefreshAction>

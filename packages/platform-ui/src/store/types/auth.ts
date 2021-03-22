@@ -5,7 +5,18 @@ export interface AuthState {
   pending: boolean;
 }
 
-export interface Credentials {
+export interface LoginPayload {
   email: string;
+  password: string;
+}
+
+export interface SignupPayload {
+  email: string;
+  firstName: string;
+  lastName: string;
   password?: string;
+}
+
+export interface LogoutPayload {
+  email: string;
 }

@@ -12,9 +12,9 @@ import {
 import { PublicLayout } from 'components';
 import { authSignupAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
+import { SignupPayload } from 'store/types';
 import { Messages } from './Signup.messages';
 import { getStyles } from './Signup.styles';
-import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 
 const {
@@ -29,7 +29,7 @@ export const SignupPage: FC = () => {
   const dispatch = useDispatch();
   const { pending } = useSelector(getAuth);
 
-  const handleSignupSubmit = async (credentials: Credentials) => {
+  const handleSignupSubmit = async (credentials: SignupPayload) => {
     dispatch(authSignupAction.request(credentials));
   };
 

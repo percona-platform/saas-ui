@@ -1,10 +1,3 @@
-export interface Credentials {
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-}
-
 export interface SignUpProps {
   userEmail: string | undefined;
   getSettings: () => void;
