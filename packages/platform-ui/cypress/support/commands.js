@@ -1,4 +1,5 @@
 import '@testing-library/cypress/add-commands';
+import 'cypress-mailosaur';
 
 // Assert that previous element is visible
 Cypress.Commands.add('isVisible', { prevSubject: 'element' },

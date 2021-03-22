@@ -7,9 +7,8 @@
       "@src/*": ["../src/*"]
     },
     "types": [
-      "node",
       "cypress",
-      "../node_modules/cypress"
+      "./index.d.ts"
     ]
   },
   "files": [
