@@ -26,7 +26,7 @@ export const signIn: SignIn = ({ email, password }) => {
   return apiClient.signIn(request, {});
 };
 
-export const signUp: SignUp = ({ email, firstName = 'First', lastName = 'Last' }) => {
+export const signUp: SignUp = ({ email, firstName, lastName }) => {
   const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
 
   const request = new SignUpRequest();

@@ -22,6 +22,7 @@ const {
 } = validators;
 
 const emailValidators = [required, email];
+const nameValidators = [required];
 
 export const SignupPage: FC = () => {
   const styles = useStyles(getStyles);
@@ -39,6 +40,8 @@ export const SignupPage: FC = () => {
           <form data-qa="signup-form" className={styles.form} onSubmit={handleSubmit}>
             <legend className={styles.legend}>{Messages.signUp}</legend>
             <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
+            <TextInputField name="firstName" label={Messages.firstName} validators={nameValidators} required />
+            <TextInputField name="lastName" label={Messages.lastName} validators={nameValidators} required />
             <CheckboxField name="consent" label={<CheckboxLabel />} validators={[requiredTrue]} />
             <LoaderButton
               data-qa="login-submit-button"
