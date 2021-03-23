@@ -59,7 +59,7 @@ context('Sign Up', () => {
       cy.mailosaurGetMessage(Cypress.env('MAILOSAUR_SAAS_SERVER_ID'), {sentTo: userEmail}, {timeout: 20000})
         .then((message) => {
           const link = message.html!.links!
-            .find(({ text }) => text === '  Activate Okta Account  ')!.href;
+            .find(({ text }) => text!.trim() === 'Activate Okta Account')!.href;
 
           cy.visit(link!);
           cy.get('[name="newPassword"]').type(userPassword);
