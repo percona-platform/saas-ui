@@ -32,7 +32,7 @@ export const getUser = (email = getFakeEmail(), password = getPassword()): Valid
       lastName: faker.name.lastName(),
     },
     signedInMessage,
-    activationEmailSentMessage: 'A confirmation email has been sent to you',
+    activationEmailSentMessage: 'An account activation email has been sent to you',
     loggedOutMessage: 'You are now logged out',
   };
 };

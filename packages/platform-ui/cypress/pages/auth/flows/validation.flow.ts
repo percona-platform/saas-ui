@@ -2,6 +2,9 @@ import {
   emailField,
   emailFieldLabel,
   emailValidation,
+  firstNameField,
+  firstNameValidation,
+  lastNameField, lastNameValidation,
   passwordField,
   passwordValidation,
   submitButton,
@@ -37,10 +40,19 @@ export const runFieldsValidationFlow = (page: Pages) => {
 
   if (page === Pages.SignUp) {
     fillField({ field: emailField, value: EXISTING_USER.user.email });
+    firstNameField().focus();
+    lastNameField().focus();
+    firstNameField().focus();
+    checkValidation({element: firstNameValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD});
+    checkValidation({element: lastNameValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD});
+    fillField({ field: firstNameField, value: EXISTING_USER.user.firstName });
+    fillField({ field: lastNameField, value: EXISTING_USER.user.lastName });
     termsCheckbox().click({ force: true });
     submitButton().isEnabled();
     termsCheckbox().click({ force: true });
     emailField().click();
     termsValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
+    termsCheckbox().click({ force: true });
+    submitButton().isVisible().isEnabled();
   }
 };

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import { pageDetailsMap, Pages } from 'pages/common/constants';
-import { submitButton, termsCheckbox } from 'pages/auth/view/selectors';
+import { firstNameField, lastNameField, submitButton, termsCheckbox } from 'pages/auth/view/selectors';
 import { ValidUser } from 'pages/common/interfaces/Auth';
 import { fillEmailPassword, fillEmail } from 'pages/auth/view/behavior/auth';
 import { downloadPMMLink, homeIcon, profileIcon } from 'pages/main/view/selectors';
@@ -17,7 +17,7 @@ export const runLoginFlow = (user: ValidUser) => {
 };
 
 const runAuthFlow = (user: ValidUser, page: Pages) => {
-  const { email } = user.user;
+  const { email, firstName, lastName } = user.user;
 
   submitButton().isVisible().isDisabled();
 
@@ -33,6 +33,8 @@ const runAuthFlow = (user: ValidUser, page: Pages) => {
 
   if (page === Pages.SignUp) {
     fillEmail(email);
+    firstNameField().type(firstName);
+    lastNameField().type(lastName);
     termsCheckbox().click({ force: true });
     submitButton().isVisible().isEnabled().click();
     checkPopUpMessage(user.activationEmailSentMessage);
