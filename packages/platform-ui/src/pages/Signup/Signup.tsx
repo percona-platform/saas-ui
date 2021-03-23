@@ -6,33 +6,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   CheckboxField,
   LoaderButton,
-  PasswordInputField,
   TextInputField,
   validators,
 } from '@percona/platform-core';
 import { PublicLayout } from 'components';
-import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { authSignupAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
+import { SignupPayload } from 'store/types';
 import { Messages } from './Signup.messages';
 import { getStyles } from './Signup.styles';
-import { Credentials } from './Signup.types';
 import { CheckboxLabel } from './CheckboxLabel';
 
 const {
-  containsLowercase, containsNumber, containsUppercase, email, required, requiredTrue,
+  email, required, requiredTrue,
 } = validators;
-const minLength = validators.minLength(PASSWORD_MIN_LENGTH);
 
 const emailValidators = [required, email];
-const passwordValidators = [required, minLength, containsNumber, containsLowercase, containsUppercase];
+const nameValidators = [required];
 
 export const SignupPage: FC = () => {
   const styles = useStyles(getStyles);
   const dispatch = useDispatch();
   const { pending } = useSelector(getAuth);
 
-  const handleSignupSubmit = async (credentials: Credentials) => {
+  const handleSignupSubmit = async (credentials: SignupPayload) => {
     dispatch(authSignupAction.request(credentials));
   };
 
@@ -43,12 +40,8 @@ export const SignupPage: FC = () => {
           <form data-qa="signup-form" className={styles.form} onSubmit={handleSubmit}>
             <legend className={styles.legend}>{Messages.signUp}</legend>
             <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
-            <PasswordInputField
-              name="password"
-              label={Messages.passwordLabel}
-              validators={passwordValidators}
-              required
-            />
+            <TextInputField name="firstName" label={Messages.firstName} validators={nameValidators} required />
+            <TextInputField name="lastName" label={Messages.lastName} validators={nameValidators} required />
             <CheckboxField name="consent" label={<CheckboxLabel />} validators={[requiredTrue]} />
             <LoaderButton
               data-qa="login-submit-button"

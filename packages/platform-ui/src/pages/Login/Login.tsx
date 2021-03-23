@@ -7,7 +7,7 @@ import {
   LoaderButton, PasswordInputField, TextInputField, validators,
 } from '@percona/platform-core';
 import { authLoginAction, getAuth } from 'store/auth';
-import { Credentials } from 'store/types';
+import { LoginPayload } from 'store/types';
 import { PASSWORD_MIN_LENGTH } from 'core/constants';
 import { PublicLayout } from 'components';
 import { Routes } from 'core/routes';
@@ -28,7 +28,7 @@ export const LoginPage: FC = () => {
   const { pending } = useSelector(getAuth);
 
   const handleLoginSubmit = useCallback(
-    (credentials: Credentials) => {
+    (credentials: LoginPayload) => {
       dispatch(authLoginAction.request(credentials));
     },
     [dispatch],

@@ -10,6 +10,12 @@ export class SignUpRequest extends jspb.Message {
   getPassword(): string;
   setPassword(value: string): SignUpRequest;
 
+  getFirstName(): string;
+  setFirstName(value: string): SignUpRequest;
+
+  getLastName(): string;
+  setLastName(value: string): SignUpRequest;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): SignUpRequest.AsObject;
   static toObject(includeInstance: boolean, msg: SignUpRequest): SignUpRequest.AsObject;
@@ -22,6 +28,8 @@ export namespace SignUpRequest {
   export type AsObject = {
     email: string,
     password: string,
+    firstName: string,
+    lastName: string,
   }
 }
 
