@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 import { pageDetailsMap, Pages } from 'pages/common/constants';
-import { submitButton, termsCheckbox } from 'pages/auth/view/selectors';
+import { firstNameField, lastNameField, submitButton, termsCheckbox } from 'pages/auth/view/selectors';
 import { ValidUser } from 'pages/common/interfaces/Auth';
-import { fillEmailPassword } from 'pages/auth/view/behavior/auth';
+import { fillEmailPassword, fillEmail } from 'pages/auth/view/behavior/auth';
 import { downloadPMMLink, homeIcon, profileIcon } from 'pages/main/view/selectors';
 import { checkPopUpMessage } from 'pages/common/view/behavior/common';
 import { DOWNLOAD_PMM_LINK } from 'pages/main/constants/constants';
@@ -17,12 +17,12 @@ export const runLoginFlow = (user: ValidUser) => {
 };
 
 const runAuthFlow = (user: ValidUser, page: Pages) => {
-  const { email } = user.user;
+  const { email, firstName, lastName } = user.user;
 
   submitButton().isVisible().isDisabled();
-  fillEmailPassword(user.user);
 
   if (page === Pages.Login) {
+    fillEmailPassword(user.user);
     submitButton().isVisible().isEnabled().click();
     checkPopUpMessage(user.signedInMessage);
     cy.contains(email);
@@ -32,9 +32,12 @@ const runAuthFlow = (user: ValidUser, page: Pages) => {
   }
 
   if (page === Pages.SignUp) {
+    fillEmail(email);
+    firstNameField().type(firstName);
+    lastNameField().type(lastName);
     termsCheckbox().click({ force: true });
     submitButton().isVisible().isEnabled().click();
-    checkPopUpMessage(user.signedUpMessage);
+    checkPopUpMessage(user.activationEmailSentMessage);
     cy.url().should('contain', pageDetailsMap[Pages.Login].url);
   }
 };
