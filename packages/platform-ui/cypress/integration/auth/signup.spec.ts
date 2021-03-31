@@ -42,7 +42,7 @@ context('Sign Up', () => {
     runSignUpFlow(newUser);
   });
 
-  it('should not be able to login with not activated account', () => {
+  it('should not be able to login with inactive account', () => {
     cy.visit(pageDetailsMap[Pages.Login].url);
     cy.task('getUser').then(({ userEmail, userPassword }) => {
       newUser.user.email = userEmail;
@@ -56,16 +56,17 @@ context('Sign Up', () => {
 
   it('should be able to activate account', { baseUrl: null}, () => {
     cy.task('getUser').then(({ userEmail, userPassword }) => {
-      cy.mailosaurGetMessage(Cypress.env('MAILOSAUR_SAAS_SERVER_ID'), {sentTo: userEmail}, {timeout: 20000})
+      cy.mailosaurGetMessage(Cypress.env('MAILOSAUR_SAAS_SERVER_ID'), { sentTo: userEmail }, { timeout: 20000 })
         .then((message) => {
           const link = message.html!.links!
-            .find(({ text }) => text!.trim() === 'Activate Okta Account')!.href;
+            .find(({ text }) => text!.trim() === 'Activate')!.href;
 
           cy.visit(link!);
           cy.get('[name="newPassword"]').type(userPassword);
           cy.get('[name="verifyPassword"]').type(userPassword);
           cy.get('#next-button').click();
-          cy.get('.migration-modal').should('be.visible');
+          cy.get('[data-se="user-menu"]').isVisible();
+          cy.url().should('include', '/app/UserHome');
         });
     });
   });
