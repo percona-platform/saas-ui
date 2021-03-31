@@ -2,21 +2,23 @@
 
 export const setAliases = () => {
     cy.server();
-    cy.route({
+
+    cy.intercept({
       method: 'POST',
       url: '/percona.platform.auth.v1.AuthAPI/RefreshSession',
     }).as('refresh');
-    cy.route({
+
+    cy.intercept({
       method: 'POST',
       url: '/percona.platform.auth.v1.AuthAPI/SignIn',
     }).as('signin');
 
-    cy.route({
+    cy.intercept({
       method: 'POST',
       url: '/percona.platform.auth.v1.AuthAPI/SignUp',
     }).as('signup');
 
-    cy.route({
+    cy.intercept({
       method: 'POST',
       url: '/percona.platform.auth.v1.AuthAPI/SignOut',
     }).as('signout');

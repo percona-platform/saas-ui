@@ -8,7 +8,7 @@ https://github.com/Marak/faker.js/issues/826
 */
 
 export const getFakeEmail = () => {
-  return `${faker.internet.email()}.test`;
+  return `${faker.name.firstName()}.${faker.name.lastName()}@${Cypress.env('MAILOSAUR_SAAS_SERVER_ID')}.mailosaur.net`;
 };
 
 export const getPassword = () => {
@@ -21,17 +21,18 @@ export const getPassword = () => {
   });
 };
 
-export const getNewUser = (): ValidUser => {
-  const email = getFakeEmail();
-  const password = getPassword();
+export const getUser = (email = getFakeEmail(), password = getPassword()): ValidUser => {
+  const signedInMessage = `You are signed in as ${email}`;
 
   return {
     user: {
       email,
       password,
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName(),
     },
-    signedInMessage: `You are signed in as ${email}`,
-    signedUpMessage: 'You have successfully created your credentials',
+    signedInMessage,
+    activationEmailSentMessage: 'An account activation email has been sent to you',
     loggedOutMessage: 'You are now logged out',
   };
 };

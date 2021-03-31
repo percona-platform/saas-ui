@@ -1,12 +1,14 @@
 export interface User {
   email: string;
+  firstName: string;
+  lastName: string;
   password: string;
 }
 
 export type ValidUser = {
   user: User;
   signedInMessage: string;
-  signedUpMessage: string;
+  activationEmailSentMessage: string;
   loggedOutMessage: string;
 }
 

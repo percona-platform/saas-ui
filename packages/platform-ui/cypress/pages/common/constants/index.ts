@@ -1,4 +1,5 @@
-import { InvalidUser, ValidUser } from 'pages/common/interfaces/Auth';
+import { InvalidUser } from 'pages/common/interfaces/Auth';
+import { getUser } from 'pages/auth/utils/getUser';
 
 export enum Pages {
   Login = 'Login',
@@ -14,19 +15,13 @@ export const pageDetailsMap = {
   },
 };
 
-export const VALID_USER: ValidUser = {
-  user: {
-    email: 'test@mail.com',
-    password: 'Password123',
-  },
-  signedInMessage: 'You are signed in as test@mail.com',
-  signedUpMessage: 'You have successfully created your credentials',
-  loggedOutMessage: 'You are now logged out',
-};
+export const EXISTING_USER = getUser('test@mail.com', 'MySecretPassword123');
 
 export const INVALID_USER: InvalidUser = {
   user: {
     email: 'nonexistingemail@mail.com.test',
+    firstName: 'John',
+    lastName: 'Doe',
     password: 'Password123',
   },
   invalidLoginMessage: 'Incorrect username or password.',

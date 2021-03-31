@@ -1,22 +1,17 @@
 /// <reference types="cypress" />
 
-import { pageDetailsMap, Pages } from 'pages/common/constants';
+import { EXISTING_USER, pageDetailsMap, Pages } from 'pages/common/constants';
 import { loginForm } from 'pages/auth/view/selectors';
 import { popUp } from 'pages/common/view/selectors';
 import { setAliases } from 'pages/auth/requests/requests';
 import { runLoginAction } from 'pages/auth/actions/login.action';
 import { dropdownMenu, logoutButton, profileIcon } from 'pages/main/view/selectors';
-import { getNewUser } from 'pages/auth/utils/getNewUser';
-import { runSignupAction } from 'pages/auth/actions/signup.action';
-
-const newUser = getNewUser();
 
 context('Logout', () => {
   beforeEach(() => {
     setAliases();
     cy.visit(pageDetailsMap[Pages.Login].url);
-    runSignupAction(newUser.user);
-    runLoginAction(newUser.user);
+    runLoginAction(EXISTING_USER.user);
   });
 
   it('SAAS-T80 - should be able to logout', () => {
@@ -24,6 +19,6 @@ context('Logout', () => {
     dropdownMenu().isVisible();
     logoutButton().click();
     loginForm().isVisible();
-    popUp().hasText(newUser.loggedOutMessage);
+    popUp().hasText(EXISTING_USER.loggedOutMessage);
   });
 });
