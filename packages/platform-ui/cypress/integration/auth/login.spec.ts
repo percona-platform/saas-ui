@@ -28,7 +28,8 @@ context('Login', () => {
     signupForm().isVisible();
   });
 
-  it('SAAS-T111 SAAS-T81 - should be able to login', () => {
+  // TODO: unskip in scope of https://jira.percona.com/browse/SAAS-528
+  it.skip('SAAS-T111 SAAS-T81 - should be able to login', () => {
     runLoginFlow(EXISTING_USER);
   });
 

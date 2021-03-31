@@ -4,7 +4,8 @@ import {
   emailValidation,
   firstNameField,
   firstNameValidation,
-  lastNameField, lastNameValidation,
+  lastNameField,
+  lastNameValidation,
   passwordField,
   passwordValidation,
   submitButton,
@@ -43,8 +44,8 @@ export const runFieldsValidationFlow = (page: Pages) => {
     firstNameField().focus();
     lastNameField().focus();
     firstNameField().focus();
-    checkValidation({element: firstNameValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD});
-    checkValidation({element: lastNameValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD});
+    checkValidation({ element: firstNameValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD });
+    checkValidation({ element: lastNameValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD });
     fillField({ field: firstNameField, value: EXISTING_USER.user.firstName });
     fillField({ field: lastNameField, value: EXISTING_USER.user.lastName });
     termsCheckbox().click({ force: true });

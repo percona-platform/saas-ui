@@ -14,7 +14,8 @@ context('Logout', () => {
     runLoginAction(EXISTING_USER.user);
   });
 
-  it('SAAS-T80 - should be able to logout', () => {
+  // TODO: unskip in scope of https://jira.percona.com/browse/SAAS-528
+  it.skip('SAAS-T80 - should be able to logout', () => {
     profileIcon().isVisible().click();
     dropdownMenu().isVisible();
     logoutButton().click();
