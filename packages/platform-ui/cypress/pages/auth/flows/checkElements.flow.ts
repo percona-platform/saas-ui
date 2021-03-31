@@ -19,11 +19,13 @@ export const runPageElementsFlow = (page: Pages) => {
   form().isVisible();
   emailFieldLabel().contains('Email *');
   emailField().isVisible();
-  passwordFieldLabel().contains('Password *');
-  passwordField().isVisible();
   submitButton().isVisible().isDisabled();
 
-  if (isLoginPage) signUpLink().hasAttr('href', '/signup');
+  if (isLoginPage) {
+    passwordFieldLabel().contains('Password *');
+    passwordField().isVisible();
+    signUpLink().hasAttr('href', '/signup');
+  }
 
   if (!isLoginPage) {
     termsText().isVisible()

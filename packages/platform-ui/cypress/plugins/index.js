@@ -5,6 +5,10 @@
 /**
  * @type {Cypress.PluginConfig}
  */
+
+let userEmail;
+let userPassword;
+
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
@@ -16,6 +20,16 @@ module.exports = (on, config) => {
     }
 
     return launchOptions;
+  });
+
+  // Solution to pass email and password between tests when cross-origin takes place
+  // https://github.com/cypress-io/cypress/issues/6562#issuecomment-595042151
+  on('task', {
+    setEmail: ( email ) => userEmail = email,
+    setPassword: ( password ) => userPassword = password,
+    getUser: () => {
+      return { userEmail, userPassword };
+    },
   });
 };
 

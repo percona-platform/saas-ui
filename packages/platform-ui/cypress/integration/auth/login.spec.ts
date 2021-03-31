@@ -3,14 +3,10 @@ import { loginForm, signupForm, signUpLink } from 'pages/auth/view/selectors';
 import { runFieldsValidationFlow } from 'pages/auth/flows/validation.flow';
 import { runLoginFlow } from 'pages/auth/flows/auth.flow';
 import { runPageElementsFlow } from 'pages/auth/flows/checkElements.flow';
-import { INVALID_USER, pageDetailsMap, Pages } from 'pages/common/constants';
+import { INVALID_USER, EXISTING_USER, pageDetailsMap, Pages } from 'pages/common/constants';
 import { setAliases } from 'pages/auth/requests/requests';
 import { runLoginAction } from 'pages/auth/actions/login.action';
 import { popUp } from 'pages/common/view/selectors';
-import { runSignupAction } from 'pages/auth/actions/signup.action';
-import { getNewUser } from 'pages/auth/utils/getNewUser';
-
-const newUser = getNewUser();
 
 context('Login', () => {
   beforeEach(() => {
@@ -33,9 +29,7 @@ context('Login', () => {
   });
 
   it('SAAS-T111 SAAS-T81 - should be able to login', () => {
-    runSignupAction(newUser.user);
-    popUp().siblings('button').click();
-    runLoginFlow(newUser);
+    runLoginFlow(EXISTING_USER);
   });
 
   it('SAAS-T86 - should see invalid username or password message', () => {

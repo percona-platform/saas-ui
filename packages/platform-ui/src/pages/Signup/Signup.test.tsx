@@ -35,11 +35,13 @@ describe('Platform Sign up', () => {
     });
 
     const emailInput = container.querySelector('[data-qa="email-text-input"]');
-    const passwordInput = container.querySelector('[data-qa="password-password-input"]');
+    const firstNameInput = container.querySelector('[data-qa="firstName-text-input"]');
+    const lastNameInput = container.querySelector('[data-qa="lastName-text-input"]');
     const checkbox = container.querySelector('[data-qa="consent-checkbox-input"]');
 
     fireEvent.change(emailInput!, { target: { value: 'test@test.test' } });
-    fireEvent.change(passwordInput!, { target: { value: 'FooBar123!!!' } });
+    fireEvent.change(firstNameInput!, { target: { value: 'Firstname' } });
+    fireEvent.change(lastNameInput!, { target: { value: 'Lastname' } });
     fireEvent.click(checkbox!);
 
     expect(container.querySelector('[data-qa="login-submit-button"]')?.hasAttribute('disabled')).toBe(false);
@@ -51,12 +53,14 @@ describe('Platform Sign up', () => {
     });
 
     const emailInput = container.querySelector('[data-qa="email-text-input"]');
-    const passwordInput = container.querySelector('[data-qa="password-password-input"]');
+    const firstNameInput = container.querySelector('[data-qa="firstName-text-input"]');
+    const lastNameInput = container.querySelector('[data-qa="lastName-text-input"]');
     const checkbox = container.querySelector('[data-qa="consent-checkbox-input"]');
     const logoutButton = container.querySelector('[data-qa="login-submit-button"]');
 
     fireEvent.change(emailInput!, { target: { value: 'test@test.test' } });
-    fireEvent.change(passwordInput!, { target: { value: 'FooBar123!!!' } });
+    fireEvent.change(firstNameInput!, { target: { value: 'Firstname' } });
+    fireEvent.change(lastNameInput!, { target: { value: 'Lastname' } });
     fireEvent.click(checkbox!);
 
     await act(async () => {

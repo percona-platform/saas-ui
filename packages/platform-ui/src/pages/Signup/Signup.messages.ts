@@ -6,6 +6,7 @@ export const Messages = {
   or: 'or',
   agreementFirstPart: 'Check here to indicate that you have read and agree to the ',
   agreementSecondPart: 'and',
-  passwordLabel: 'Password',
   emailLabel: 'Email',
+  firstName: 'First name',
+  lastName: 'Last name',
 };
