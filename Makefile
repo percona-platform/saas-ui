@@ -9,29 +9,18 @@ help:                   ## Display this help message
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
 init:                   ## Install development tools
-	npm install -g lerna
-
-bootstrap:              ## Bootstrap projects
-	lerna bootstrap
-	lerna link
+	npm i
 
 dev:                   ## Run the ui dev locally
-	lerna bootstrap
-	lerna run build --scope='@percona/platform-core'
-	lerna link
-	lerna run start --scope='@percona/platform-ui'
-
+	npm start
 e2e:
-	lerna run cy:run
+	npm run cy:run
 
 test:                   ## Run unit tests
-	lerna run test:ci
+	npm run test:ci
 
-build-core:             ## Build platform-core
-	lerna run build --scope='@percona/platform-core'
-
-build-ui:               ## Build platform-ui
-	lerna run build --scope='@percona/platform-ui'
+build:                  ## Build artifacts
+	npm run build
 
 docker-build:           ## Build Docker image
 	docker build --squash --tag $(DOCKER_IMAGE) .
