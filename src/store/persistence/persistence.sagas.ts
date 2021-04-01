@@ -5,9 +5,10 @@ import { saveState } from 'store/persistence/engine';
 import {
   authRefreshAction, authLoginAction, authSignupAction, authLogoutAction,
 } from 'store/auth/auth.reducer';
+import { AppState } from 'store/types';
 
 export function* save() {
-  const state = yield select();
+  const state: AppState = yield select();
 
   yield call(saveState, state);
 }
