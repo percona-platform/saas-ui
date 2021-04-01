@@ -22,9 +22,7 @@ const mockAppState = {
 
 describe('MenuBar', () => {
   beforeEach(() => {
-    (useSelector as jest.Mock<any, any>).mockImplementation((callback) => {
-      return callback(mockAppState);
-    });
+    (useSelector as jest.Mock<any, any>).mockImplementation((callback) => callback(mockAppState));
   });
 
   afterEach(() => {
@@ -46,11 +44,10 @@ describe('MenuBar', () => {
   });
 
   test('unathenticated user should not see the profile menu', async () => {
-    (useSelector as jest.Mock<any, any>).mockImplementation((callback) => {
-      return callback({
+    (useSelector as jest.Mock<any, any>).mockImplementation((callback) => callback({
         auth: { authenticated: false },
-      });
-    });
+      }),
+    );
 
     const { container } = render(<TestContainer><MenuBar /></TestContainer>);
 

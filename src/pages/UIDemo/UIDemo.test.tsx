@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, act, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { dataQa } from '@percona/platform-core';
 import { TestContainer } from 'components/TestContainer';
 import * as authApi from 'core/api/auth';
