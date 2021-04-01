@@ -5,6 +5,7 @@ import {
 import {
   refreshSession, signIn, signUp, signOut,
 } from 'core/api/auth';
+import { SignUp } from 'core/api/types';
 import { Messages } from 'core/api/messages';
 import * as grpcWeb from 'grpc-web';
 import { toast } from 'react-toastify';
@@ -68,7 +69,7 @@ type AuthSignupRequestGenerator = Generator<StrictEffect, void, AuthPB.SignUpRes
 
 export function* authSignupRequest(action: AuthSignupActionRequest): AuthSignupRequestGenerator {
   try {
-    yield call(signUp, action.payload);
+    yield call<SignUp>(signUp, action.payload);
 
     yield put(authSignupAction.success());
   } catch (e) {

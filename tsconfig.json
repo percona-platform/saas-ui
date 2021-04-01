@@ -24,7 +24,12 @@
   },
   "include": [
     "src",
-    "../../node_modules/@testing-library/jest-dom/node_modules/@types/testing-library__jest-dom/index.d.ts",
-    "../platform-core/dist/index.d.ts"
+  ],
+  "exclude": [
+    "./src/**/**.test.tsx",
+    "./src/**/**.test.ts",
+    "./src/setupTests.ts",
+    "./node_modules/**/*",
+    "dist"
   ]
 }

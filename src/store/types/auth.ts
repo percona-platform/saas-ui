@@ -14,7 +14,7 @@ export interface SignupPayload {
   email: string;
   firstName: string;
   lastName: string;
-  password?: string;
+  password: string;
 }
 
 export interface LogoutPayload {

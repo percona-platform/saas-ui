@@ -20,7 +20,7 @@
     "runMode": 1,
     "openMode": 0
   },
-  "reporter": "../../../node_modules/cypress-multi-reporters/lib/MultiReporters.js",
+  "reporter": "./node_modules/cypress-multi-reporters/lib/MultiReporters.js",
   "reporterOptions": {
     "configFile": "reporter.json",
     "html": false,

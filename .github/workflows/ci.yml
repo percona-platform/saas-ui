@@ -26,34 +26,28 @@ jobs:
       - name: Checkout code
         uses: percona-platform/checkout@v2
 
-      # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
         uses: percona-platform/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Enable node_modules cache
+      - name: Cache node modules
         uses: percona-platform/cache@v2
+        env:
+          cache-name: cache-node-modules
         with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: Install tools
         run: make init
 
-      - name: Bootstrap projects
-        run: make bootstrap
-
-      - name: Build platform-core artifacts
-        run: make build-core
-
       - name: Build platform-ui artifacts
-        run: make build-ui
+        run: make build
 
       - name: Run tests
         run: make test
@@ -76,22 +70,22 @@ jobs:
       - name: Checkout code
         uses: percona-platform/checkout@v2
 
-      # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
         uses: percona-platform/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Enable node_modules cache
+      - name: Cache node modules
         uses: percona-platform/cache@v2
+        env:
+          cache-name: cache-node-modules
         with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: Install tools
         run: make init
@@ -105,14 +99,8 @@ jobs:
       - name: Extract Docker image tag
         uses: percona-platform/extract-docker-tag-action@v1
 
-      - name: Bootstrap projects
-        run: make bootstrap
-
-      - name: Build platform-core artifacts
-        run: make build-core
-
-      - name: Build platform-ui artifacts
-        run: make build-ui
+      - name: Build platform UI artifacts
+        run: make build
 
       - name: Build Docker image with tag "${{ env.DOCKER_TAG }}"
         run: make docker-build
