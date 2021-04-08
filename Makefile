@@ -21,7 +21,7 @@ test:                   ## Run unit tests
 	npm run test:ci
 
 build:                  ## Build artifacts
-	npm run build
+	npm run lint && npm run build
 
 docker-build:           ## Build Docker image
 	docker build --squash --tag $(DOCKER_IMAGE) .

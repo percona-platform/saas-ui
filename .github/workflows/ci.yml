@@ -43,14 +43,14 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install tools
+      - name: Install dependencies
         run: make init
+
+      - name: Run unit tests
+        run: make test
 
       - name: Build platform-ui artifacts
         run: make build
-
-      - name: Run tests
-        run: make test
 
   docker:
     name: Build Docker image
