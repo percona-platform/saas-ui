@@ -87,7 +87,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install tools
+      - name: Install dependencies
         run: make init
 
       - name: Enable experimental Docker features for --squash flag

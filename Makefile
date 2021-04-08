@@ -8,12 +8,13 @@ help:                   ## Display this help message
 	@grep '^[a-zA-Z]' $(MAKEFILE_LIST) | \
 		awk -F ':.*?## ' 'NF==2 {printf "  %-26s%s\n", $$1, $$2}'
 
-init:                   ## Install development tools
+init:                   ## Install dependencies
 	npm i
 
-dev:                   ## Run the ui dev locally
+dev:                    ## Develop locally
 	npm start
-e2e:
+
+e2e:					## Run e2e tests
 	npm run cy:run
 
 test:                   ## Run unit tests
