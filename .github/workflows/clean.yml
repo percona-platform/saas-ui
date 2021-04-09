@@ -20,28 +20,28 @@ jobs:
       - name: Checkout code
         uses: percona-platform/checkout@v2
 
-      # use full version while v2 is in beta
       - name: Install Node.js ${{ matrix.node-version }}
         uses: percona-platform/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Enable node_modules cache
+      - name: Cache node modules
         uses: percona-platform/cache@v2
+        env:
+          cache-name: cache-node-modules
         with:
-          path: |
-            node_modules
-            */*/node_modules
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-${{ matrix.node-version }}-yarn-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
 
       - name: Install tools
         run: make init
 
       - name: Clean node_modules cache
         run: |
-          rm -fr node_modules/*
+          rm -rf node_modules
           git status
           git clean -xdn
