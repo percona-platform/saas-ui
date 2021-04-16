@@ -191,3 +191,43 @@ export namespace ResetPasswordResponse {
   }
 }
 
+export class GetProfileRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetProfileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetProfileRequest): GetProfileRequest.AsObject;
+  static serializeBinaryToWriter(message: GetProfileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetProfileRequest;
+  static deserializeBinaryFromReader(message: GetProfileRequest, reader: jspb.BinaryReader): GetProfileRequest;
+}
+
+export namespace GetProfileRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetProfileResponse extends jspb.Message {
+  getEmail(): string;
+  setEmail(value: string): GetProfileResponse;
+
+  getFirstName(): string;
+  setFirstName(value: string): GetProfileResponse;
+
+  getLastName(): string;
+  setLastName(value: string): GetProfileResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetProfileResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetProfileResponse): GetProfileResponse.AsObject;
+  static serializeBinaryToWriter(message: GetProfileResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetProfileResponse;
+  static deserializeBinaryFromReader(message: GetProfileResponse, reader: jspb.BinaryReader): GetProfileResponse;
+}
+
+export namespace GetProfileResponse {
+  export type AsObject = {
+    email: string,
+    firstName: string,
+    lastName: string,
+  }
+}
+
