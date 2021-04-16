@@ -2,6 +2,8 @@ export interface AuthState {
   authCheckCompleted: boolean;
   authenticated: boolean;
   email?: string;
+  firstName?: string;
+  lastName?: string;
   pending: boolean;
 }
 
@@ -19,4 +21,10 @@ export interface SignupPayload {
 
 export interface LogoutPayload {
   email: string;
+}
+
+export interface GetProfilePayload {
+  email: string;
+  firstName: string;
+  lastName: string;
 }
