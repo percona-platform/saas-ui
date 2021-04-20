@@ -3,7 +3,7 @@ import {
   all, put, call, takeLatest, StrictEffect,
 } from 'redux-saga/effects';
 import {
-  refreshSession, signIn, signUp, signOut,
+  refreshSession, signIn, signUp, signOut, getProfile,
 } from 'core/api/auth';
 import { SignUp } from 'core/api/types';
 import { Messages } from 'core/api/messages';
@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import { Routes } from 'core/routes';
 import { history } from 'core/history';
 import {
-  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction,
+  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction, authGetProfileAction,
 } from './auth.reducer';
 
 type AuthRefreshSessionRequestGenerator = Generator<StrictEffect, void, AuthPB.RefreshSessionResponse>;
@@ -119,6 +119,34 @@ export function* authLogoutSuccess(): AuthLogoutSuccessGenerator {
   history.replace(Routes.root);
 }
 
+type AuthGetProfileRequestGenerator = Generator<StrictEffect, void, AuthPB.GetProfileResponse>;
+
+export function* authGetProfileRequest(): AuthGetProfileRequestGenerator {
+  try {
+    const response: AuthPB.GetProfileResponse = yield call(getProfile);
+
+    yield put(authGetProfileAction.success({
+      email: response.getEmail(),
+      firstName: response.getFirstName(),
+      lastName: response.getLastName(),
+    }));
+  } catch (e) {
+    if (e.code !== grpcWeb.StatusCode.UNAUTHENTICATED) {
+      console.error(e);
+    }
+
+    yield put(authGetProfileAction.failure(e));
+  }
+}
+
+type AuthGetProfileFailureGenerator = Generator<StrictEffect, void, never>;
+
+export function* authGetProfileFailure():
+AuthGetProfileFailureGenerator {
+  yield call([toast, toast.error], Messages.genericAPIFailure);
+  history.replace(Routes.root);
+}
+
 export function* authSagas() {
   yield all([
     takeLatest(authRefreshAction.request, authRefreshSessionRequest),
@@ -131,5 +159,7 @@ export function* authSagas() {
     takeLatest(authLogoutAction.request, authLogoutRequest),
     takeLatest(authLogoutAction.success, authLogoutSuccess),
     takeLatest(authLogoutAction.failure, authLogoutFailure),
+    takeLatest(authGetProfileAction.request, authGetProfileRequest),
+    takeLatest(authGetProfileAction.failure, authGetProfileFailure),
   ]);
 }
