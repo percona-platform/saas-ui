@@ -21,9 +21,19 @@ import {
   authSignupFailure,
   authSignupRequest,
   authSignupSuccess,
+  authGetProfileRequest,
+  authGetProfileFailure,
+  authUpdateProfileRequest,
+  authUpdateProfileSuccess,
+  authUpdateProfileFailure,
 } from './auth.sagas';
 import {
-  authRefreshAction, authLoginAction, authSignupAction, authLogoutAction,
+  authRefreshAction,
+  authLoginAction,
+  authSignupAction,
+  authLogoutAction,
+  authGetProfileAction,
+  authUpdateProfileAction,
 } from './auth.reducer';
 
 const TEST_EMAIL = 'test@test.test';
@@ -70,6 +80,11 @@ describe('Auth Sagas', () => {
       takeLatest(authLogoutAction.request, authLogoutRequest),
       takeLatest(authLogoutAction.success, authLogoutSuccess),
       takeLatest(authLogoutAction.failure, authLogoutFailure),
+      takeLatest(authGetProfileAction.request, authGetProfileRequest),
+      takeLatest(authGetProfileAction.failure, authGetProfileFailure),
+      takeLatest(authUpdateProfileAction.request, authUpdateProfileRequest),
+      takeLatest(authUpdateProfileAction.failure, authUpdateProfileFailure),
+      takeLatest(authUpdateProfileAction.success, authUpdateProfileSuccess),
     ]);
 
     expect(genObj.next().value).toEqual(expected);
@@ -267,5 +282,47 @@ describe('Auth Sagas', () => {
     expect(toastSuccess).toBeCalledWith(Messages.signOutSucceeded);
     expect(historyReplace).toBeCalledTimes(1);
     expect(historyReplace).toBeCalledWith(Routes.root);
+  });
+
+  test('authGetProfileRequest succeeds', async () => {
+    const getProfile = jest.spyOn(authApi, 'getProfile').mockImplementation(() => Promise.resolve({
+      getEmail: () => 'test@test.test',
+      getFirstName: () => 'Firstname',
+      getLastName: () => 'test@test.test',
+    } as AuthPB.GetProfileResponse));
+
+    await runSagaPromise(authGetProfileRequest as Saga);
+
+    expect(dispatchedActions).toEqual([authGetProfileAction.success({
+      email: 'test@test.test',
+      firstName: 'Firstname',
+      lastName: 'test@test.test',
+    })]);
+
+    expect(getProfile).toHaveBeenCalledTimes(1);
+
+    getProfile.mockRestore();
+  });
+
+  test('authGetProfileRequest fails', async () => {
+    const error = { code: grpcWeb.StatusCode.CANCELLED };
+
+    const getProfile = jest.spyOn(authApi, 'getProfile').mockImplementation(() => Promise.reject(error));
+
+    await runSagaPromise(authGetProfileRequest as Saga);
+
+    expect(dispatchedActions).toEqual([authGetProfileAction.failure(error as grpcWeb.Error)]);
+    expect(getProfile).toHaveBeenCalledTimes(1);
+
+    getProfile.mockRestore();
+  });
+
+  test('authGetProfileFailure', async () => {
+    await runSagaPromise(authGetProfileFailure as Saga, TEST_MESSAGE);
+
+    expect(toastError).toBeCalledTimes(1);
+    expect(toastError).toBeCalledWith(Messages.genericAPIFailure);
+    expect(consoleError).toBeCalledTimes(1);
+    expect(consoleError).toBeCalledWith(TEST_MESSAGE);
   });
 });
