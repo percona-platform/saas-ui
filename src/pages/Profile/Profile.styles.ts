@@ -32,6 +32,9 @@ export const getStyles = (theme: GrafanaTheme) => {
         }
       }
     `,
-    emailField: css``,
+    buttonWrapper: css`
+      display: flex;
+      justify-content: flex-end;
+    `,
   };
 };
