@@ -19,20 +19,22 @@ export const ProfilePage: FC = () => {
 
   return (
     <PrivateLayout>
-      <Form onSubmit={() => {}}>
-        {({ handleSubmit }: FormRenderProps) => (
-          <form data-qa="login-form" onSubmit={handleSubmit}>
-            <legend className={styles.legend}>{Messages.profile}</legend>
-            <div className={styles.nameFields}>
-              <TextInputField disabled label={Messages.firstNameLabel} name="profile-first-name" value={firstName} />
-              <TextInputField disabled label={Messages.lastNameLabel} name="profile-last-name" value={lastName} />
-            </div>
-            <div className={styles.emailField}>
-              <TextInputField disabled label={Messages.emailLabel} name="profile-email" value={email} />
-            </div>
-          </form>
-        )}
-      </Form>
+      <main className={styles.wrapper}>
+        <Form initialValues={{ email, firstName, lastName }} onSubmit={() => {}}>
+          {({ handleSubmit }: FormRenderProps) => (
+            <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
+              <legend className={styles.legend}>{Messages.profile}</legend>
+              <div className={styles.nameFields}>
+                <TextInputField disabled label={Messages.firstNameLabel} name="firstName" />
+                <TextInputField disabled label={Messages.lastNameLabel} name="lastName" />
+              </div>
+              <div className={styles.emailField}>
+                <TextInputField disabled label={Messages.emailLabel} name="email" />
+              </div>
+            </form>
+          )}
+        </Form>
+      </main>
     </PrivateLayout>
   );
 };
