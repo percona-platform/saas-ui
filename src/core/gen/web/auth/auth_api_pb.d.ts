@@ -231,3 +231,39 @@ export namespace GetProfileResponse {
   }
 }
 
+export class UpdateProfileRequest extends jspb.Message {
+  getFirstName(): string;
+  setFirstName(value: string): UpdateProfileRequest;
+
+  getLastName(): string;
+  setLastName(value: string): UpdateProfileRequest;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateProfileRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateProfileRequest): UpdateProfileRequest.AsObject;
+  static serializeBinaryToWriter(message: UpdateProfileRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateProfileRequest;
+  static deserializeBinaryFromReader(message: UpdateProfileRequest, reader: jspb.BinaryReader): UpdateProfileRequest;
+}
+
+export namespace UpdateProfileRequest {
+  export type AsObject = {
+    firstName: string,
+    lastName: string,
+  }
+}
+
+export class UpdateProfileResponse extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): UpdateProfileResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: UpdateProfileResponse): UpdateProfileResponse.AsObject;
+  static serializeBinaryToWriter(message: UpdateProfileResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): UpdateProfileResponse;
+  static deserializeBinaryFromReader(message: UpdateProfileResponse, reader: jspb.BinaryReader): UpdateProfileResponse;
+}
+
+export namespace UpdateProfileResponse {
+  export type AsObject = {
+  }
+}
+
