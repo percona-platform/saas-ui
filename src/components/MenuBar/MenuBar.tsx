@@ -6,6 +6,7 @@ import { Dropdown, Icons } from '@percona/platform-core';
 import { Routes } from 'core/routes';
 import { authLogoutAction, getAuth } from 'store/auth';
 import { getCurrentTheme, themeChangeRequestAction } from 'store/theme';
+import { history } from 'core/history';
 import { ReactComponent as Profile } from 'assets/profile.svg';
 import logo from 'assets/percona-logo.svg';
 import { getStyles } from './MenuBar.styles';
@@ -19,6 +20,10 @@ export const MenuBar: FC = () => {
   const dispatch = useDispatch();
   const { authenticated, email } = useSelector(getAuth);
   const currentTheme = useSelector(getCurrentTheme);
+
+  const goToProfilePage = async () => {
+    history.replace(Routes.profile);
+  };
 
   const logout = useCallback(async () => {
     dispatch(authLogoutAction.request({ email: email! }));
@@ -63,6 +68,9 @@ export const MenuBar: FC = () => {
                     <Dropdown toggle={DropdownToggle}>
                       <span data-qa="menu-bar-profile-dropdown-logout" onClick={logout}>
                         {Messages.logout}
+                      </span>
+                      <span data-qa="menu-bar-profile-dropdown-profile" onClick={goToProfilePage}>
+                        {Messages.profile}
                       </span>
                     </Dropdown>
                   </li>
