@@ -18,7 +18,6 @@
     "type": "git",
     "url": "git+https://github.com/percona-platform/saas-ui.git"
   },
-  "proxy": "https://platform-dev.percona.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
