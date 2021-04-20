@@ -23,8 +23,7 @@ export interface LogoutPayload {
   email: string;
 }
 
-export interface GetProfilePayload {
-  email: string;
+export interface UpdateProfilePayload {
   firstName: string;
   lastName: string;
 }
