@@ -131,19 +131,17 @@ export function* authGetProfileRequest(): AuthGetProfileRequestGenerator {
       lastName: response.getLastName(),
     }));
   } catch (e) {
-    if (e.code !== grpcWeb.StatusCode.UNAUTHENTICATED) {
-      console.error(e);
-    }
-
     yield put(authGetProfileAction.failure(e));
   }
 }
 
+type AuthGetProfileActionFailure = ReturnType<typeof authGetProfileAction.failure>;
 type AuthGetProfileFailureGenerator = Generator<StrictEffect, void, never>;
 
-export function* authGetProfileFailure():
+export function* authGetProfileFailure(action: AuthGetProfileActionFailure):
 AuthGetProfileFailureGenerator {
   yield call([toast, toast.error], Messages.genericAPIFailure);
+  console.error(action.payload);
   history.replace(Routes.root);
 }
 
