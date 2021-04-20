@@ -5,6 +5,14 @@ export const getStyles = (theme: GrafanaTheme) => {
   const { colors, spacing, typography } = theme;
 
    return {
+    wrapper: css`
+      display: flex;
+      justify-content: center;
+    `,
+    form: css`
+      flex: 1;
+      max-width: 600px;
+    `,
     legend: css`
       font-size: ${typography.heading.h3};
       font-weight: ${typography.weight.regular};
