@@ -5,6 +5,8 @@ import * as grpcWeb from 'grpc-web';
 const DEFAULT_STATE: AuthState = {
   authenticated: false,
   email: undefined,
+  firstName: undefined,
+  lastName: undefined,
   pending: false,
   authCheckCompleted: false,
 };
@@ -33,15 +35,48 @@ export const authLogoutAction = createAsyncAction(
   'LOGOUT_USER_FAILURE',
 )<LogoutPayload, undefined, grpcWeb.Error>();
 
+export const authGetProfileAction = createAsyncAction(
+  'GET_PROFILE_USER_REQUEST',
+  'GET_PROFILE_USER_SUCCESS',
+  'GET_PROFILE_USER_FAILURE',
+)<undefined, Pick<AuthState, 'email' | 'firstName' | 'lastName'>, grpcWeb.Error>();
+
 export type AuthActions = (
   ActionType<typeof authRefreshAction>
   | ActionType<typeof authSignupAction>
   | ActionType<typeof authLoginAction>
   | ActionType<typeof authLogoutAction>
+  | ActionType<typeof authGetProfileAction>
 );
 
 export function authReducer(state: AuthState = DEFAULT_STATE, action: AuthActions): AuthState {
   switch (action.type) {
+    // Get Profile
+    case getType(authGetProfileAction.request):
+      return {
+        ...state,
+        pending: true,
+      };
+    case getType(authGetProfileAction.success):
+      return {
+        ...state,
+        authenticated: true,
+        email: action.payload.email,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        pending: false,
+        authCheckCompleted: true,
+      };
+    case getType(authGetProfileAction.failure):
+      return {
+        ...state,
+        authenticated: false,
+        email: undefined,
+        firstName: undefined,
+        lastName: undefined,
+        pending: false,
+        authCheckCompleted: true,
+      };
     // Refresh
     case getType(authRefreshAction.request):
       return {
