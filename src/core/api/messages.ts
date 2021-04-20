@@ -7,4 +7,5 @@ export const Messages = {
   signUpFailed: 'There was a problem during the sign up process, please try again',
   signUpSucceeded: 'An account activation email has been sent to you',
   genericAPIFailure: 'An error occurred while requesting data, please try again',
+  updateProfileSucceeded: 'Your profile information has been saved',
 };
