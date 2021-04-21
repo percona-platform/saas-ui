@@ -26,10 +26,8 @@
     "src",
   ],
   "exclude": [
-    "./src/**/**.test.tsx",
-    "./src/**/**.test.ts",
     "./src/setupTests.ts",
     "./node_modules/**/*",
-    "dist"
+    "build"
   ]
 }

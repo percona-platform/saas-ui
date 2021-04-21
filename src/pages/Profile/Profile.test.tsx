@@ -1,7 +1,6 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { dataQa } from '@percona/platform-core';
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { TestContainer } from 'components/TestContainer';
 import * as authApi from 'core/api/auth';
 import { ProfilePage } from './Profile';
@@ -19,30 +18,31 @@ jest.mock('store/auth/auth.selectors', () => ({
   }),
 }));
 
-let container: HTMLElement;
-
 describe('Profile Page', () => {
   test('has save button disabled at start-up', async () => {
-    await act(async () => {
-      ({ container } = render(<TestContainer><ProfilePage /></TestContainer>));
-    });
+    render(<TestContainer><ProfilePage /></TestContainer>);
 
-    expect(container.querySelector(dataQa('profile-submit-button'))?.hasAttribute('disabled')).toBe(true);
+    expect(await screen.findByTestId('profile-submit-button')).toBeDisabled();
+  });
+
+  test('displays form values it gets from the store', async () => {
+    render(<TestContainer><ProfilePage /></TestContainer>);
+
+    expect(await screen.findByRole('form')).toHaveFormValues({
+      firstName: 'Firstname',
+      lastName: 'Lastname',
+    });
   });
 
   test('calls the update profile API on save button click', async () => {
-    await act(async () => {
-      ({ container } = render(<TestContainer><ProfilePage /></TestContainer>));
-    });
+    render(<TestContainer><ProfilePage /></TestContainer>);
 
-    const firstNameInput = container.querySelector(dataQa('firstName-text-input'));
-    const saveButton = container.querySelector(dataQa('profile-submit-button'));
+    const firstNameInput = await screen.findByTestId('firstName-text-input');
+    const saveButton = await screen.findByTestId('profile-submit-button');
 
-    fireEvent.change(firstNameInput!, { target: { value: 'Newfirstname' } });
+    userEvent.type(firstNameInput, 'Newfirstname');
 
-    await act(async () => {
-      fireEvent.click(saveButton!);
-    });
+    userEvent.click(saveButton);
 
     expect(authApi.updateProfile).toBeCalledTimes(1);
   });
