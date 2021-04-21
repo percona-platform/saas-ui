@@ -5,18 +5,8 @@ import { TestContainer } from 'components/TestContainer';
 import * as authApi from 'core/api/auth';
 import { ProfilePage } from './Profile';
 
-jest.spyOn(authApi, 'getProfile');
-jest.spyOn(authApi, 'updateProfile');
-
-jest.mock('store/auth/auth.selectors', () => ({
-  getAuth: () => ({
-    email: 'test@test.test',
-    firstName: 'Firstname',
-    lastName: 'Lastname',
-    pending: false,
-    authenticated: true,
-  }),
-}));
+jest.mock('core/api/auth');
+jest.mock('store/auth/auth.selectors');
 
 describe('Profile Page', () => {
   test('has save button disabled at start-up', async () => {

@@ -19,8 +19,8 @@ export const ProfilePage: FC = () => {
   }, [dispatch]);
 
   const handleUpdateProfileSubmit = useCallback(
-    ({ firstName: newFirstName, lastName: newLastName }: UpdateProfilePayload) => {
-      dispatch(authUpdateProfileAction.request({ firstName: newFirstName, lastName: newLastName }));
+    (payload: UpdateProfilePayload) => {
+      dispatch(authUpdateProfileAction.request(payload));
     },
     [dispatch],
   );
