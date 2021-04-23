@@ -21,7 +21,7 @@ export const MenuBar: FC = () => {
   const { authenticated, email } = useSelector(getAuth);
   const currentTheme = useSelector(getCurrentTheme);
 
-  const goToProfilePage = async () => {
+  const goToProfilePage = () => {
     history.replace(Routes.profile);
   };
 
