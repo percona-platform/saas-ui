@@ -4,24 +4,21 @@ import { SignIn, SignUp, UpdateProfile } from './types';
 
 const { AuthAPIClient } = AuthGRPC;
 const {
-  // RefreshSessionRequest,
+  RefreshSessionRequest,
   SignInRequest,
   SignUpRequest,
   SignOutRequest,
-  // GetProfileRequest,
+  GetProfileRequest,
   UpdateProfileRequest,
 } = AuthPB;
 
-export const refreshSession = () =>
-  // const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
+export const refreshSession = () => {
+  const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
 
-  // const request = new RefreshSessionRequest();
+  const request = new RefreshSessionRequest();
 
-  // return apiClient.refreshSession(request, {});
-   ({
-    getEmail: () => 'test@gmail.com',
-  })
-;
+  return apiClient.refreshSession(request, {});
+};
 
 export const signIn: SignIn = ({ email, password }) => {
   const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
@@ -55,18 +52,13 @@ export const signOut = () => {
   return apiClient.signOut(request, {});
 };
 
-export const getProfile = () =>
-  // const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
+export const getProfile = () => {
+  const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
 
-  // const request = new GetProfileRequest();
+  const request = new GetProfileRequest();
 
-  // return apiClient.getProfile(request, {});
-   ({
-    getFirstName: () => 'Nicola',
-    getLastName: () => 'Lamacchia',
-    getEmail: () => 'test@gmail.com',
-  })
-;
+  return apiClient.getProfile(request, {});
+};
 
 export const updateProfile: UpdateProfile = ({ firstName, lastName }) => {
   const apiClient = new AuthAPIClient(PLATFORM_BASE_URL, null, null);
