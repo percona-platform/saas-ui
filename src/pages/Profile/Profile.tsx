@@ -3,7 +3,7 @@ import { Routes } from 'core/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
-import { LoaderButton, TextInputField } from '@percona/platform-core';
+import { LoaderButton, TextInputField, validators } from '@percona/platform-core';
 import { authGetProfileAction, authUpdateProfileAction, getAuth } from 'store/auth';
 import { UpdateProfilePayload } from 'store/types';
 import { PrivateLayout } from 'components/Layouts';
@@ -34,8 +34,8 @@ export const ProfilePage: FC = () => {
             <form name="login-form" data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
               <legend className={styles.legend}>{Messages.profile}</legend>
               <div className={styles.nameFields}>
-                <TextInputField label={Messages.firstNameLabel} name="firstName" />
-                <TextInputField label={Messages.lastNameLabel} name="lastName" />
+                <TextInputField validate={validators.required} label={Messages.firstNameLabel} name="firstName" />
+                <TextInputField validate={validators.required} label={Messages.lastNameLabel} name="lastName" />
               </div>
               <div className={styles.emailFieldWrapper}>
                 <TextInputField disabled label={Messages.emailLabel} name="email" />

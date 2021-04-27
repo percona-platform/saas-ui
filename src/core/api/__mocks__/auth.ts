@@ -1,4 +1,3 @@
-
 export const getProfile = () => Promise.resolve({
   getEmail: () => 'email@test.mail.com',
   getFirstName: () => 'FirstName',
