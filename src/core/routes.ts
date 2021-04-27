@@ -6,4 +6,5 @@ export const Routes = {
   signup: '/signup',
   welcome: '/welcome',
   profile: '/profile',
+  changeEmail: 'https://okta.percona.com/enduser/settings',
 };

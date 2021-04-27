@@ -1,4 +1,5 @@
 import React, { FC, useCallback, useEffect } from 'react';
+import { Routes } from 'core/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
@@ -36,7 +37,12 @@ export const ProfilePage: FC = () => {
                 <TextInputField label={Messages.firstNameLabel} name="firstName" />
                 <TextInputField label={Messages.lastNameLabel} name="lastName" />
               </div>
-              <TextInputField disabled label={Messages.emailLabel} name="email" />
+              <div className={styles.emailFieldWrapper}>
+                <TextInputField disabled label={Messages.emailLabel} name="email" />
+                  <a href={Routes.changeEmail} target="_blank" data-qa="profile-change-email-button" className={styles.externalLink} rel="noreferrer">
+                    {Messages.changeEmail}
+                  </a>
+              </div>
               <div className={styles.buttonWrapper}>
                 <LoaderButton loading={pending} data-qa="profile-submit-button" type="submit" disabled={!valid || pending || pristine}>
                   Save

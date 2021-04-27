@@ -28,13 +28,20 @@ export const getStyles = (theme: GrafanaTheme) => {
         justify-content: space-between;
 
         &:not(:last-child) {
-          margin-right: 16px;
+          margin-right: ${spacing.md};
         }
       }
+    `,
+    emailFieldWrapper: css`
+      margin-bottom: ${spacing.md};
     `,
     buttonWrapper: css`
       display: flex;
       justify-content: flex-end;
+    `,
+    externalLink: css`
+      color: ${colors.linkExternal};
+      text-decoration: none;
     `,
   };
 };
