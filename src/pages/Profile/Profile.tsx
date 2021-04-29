@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useEffect } from 'react';
 import { Routes } from 'core/routes';
+import { MAX_NAME_LENGTH } from 'core/constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormRenderProps } from 'react-final-form';
 import { useStyles } from '@grafana/ui';
@@ -9,6 +10,9 @@ import { UpdateProfilePayload } from 'store/types';
 import { PrivateLayout } from 'components/Layouts';
 import { getStyles } from './Profile.styles';
 import { Messages } from './Profile.messages';
+
+const { required, maxLength } = validators;
+const nameValidators = [required, maxLength(MAX_NAME_LENGTH)];
 
 export const ProfilePage: FC = () => {
   const styles = useStyles(getStyles);
@@ -34,8 +38,8 @@ export const ProfilePage: FC = () => {
             <form name="login-form" data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
               <legend className={styles.legend}>{Messages.profile}</legend>
               <div className={styles.nameFields}>
-                <TextInputField validate={validators.required} label={Messages.firstNameLabel} name="firstName" />
-                <TextInputField validate={validators.required} label={Messages.lastNameLabel} name="lastName" />
+                <TextInputField validators={nameValidators} label={Messages.firstNameLabel} name="firstName" />
+                <TextInputField validators={nameValidators} label={Messages.lastNameLabel} name="lastName" />
               </div>
               <div className={styles.emailFieldWrapper}>
                 <TextInputField disabled label={Messages.emailLabel} name="email" />

@@ -11,3 +11,5 @@ export const PLATFORM_BASE_URL = process.env.REACT_APP_PLATFORM_BASE_URL!;
 export const STATE_LOCALSTORAGE_KEY = 'state';
 
 export const THEME_STORAGE_KEY = 'percona.saas.theme';
+
+export const MAX_NAME_LENGTH = 50;
