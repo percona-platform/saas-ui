@@ -4,4 +4,5 @@ export const Messages = {
   lastNameLabel: 'Last name',
   emailLabel: 'Email',
   changeEmail: 'Change email address',
+  save: 'Save',
 };

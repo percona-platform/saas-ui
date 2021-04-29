@@ -49,7 +49,7 @@ export const ProfilePage: FC = () => {
               </div>
               <div className={styles.buttonWrapper}>
                 <LoaderButton loading={pending} data-qa="profile-submit-button" type="submit" disabled={!valid || pending || pristine}>
-                  Save
+                  {Messages.save}
                 </LoaderButton>
               </div>
             </form>
