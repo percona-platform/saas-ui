@@ -43,9 +43,9 @@ export const ProfilePage: FC = () => {
               </div>
               <div className={styles.emailFieldWrapper}>
                 <TextInputField disabled label={Messages.emailLabel} name="email" />
-                  <a href={Routes.changeEmail} target="_blank" data-qa="profile-change-email-button" className={styles.externalLink} rel="noreferrer">
-                    {Messages.changeEmail}
-                  </a>
+                <a href={Routes.changeEmail} target="_blank" data-qa="profile-change-email-button" className={styles.externalLink} rel="noreferrer">
+                  {Messages.changeEmail}
+                </a>
               </div>
               <div className={styles.buttonWrapper}>
                 <LoaderButton loading={pending} data-qa="profile-submit-button" type="submit" disabled={!valid || pending || pristine}>
