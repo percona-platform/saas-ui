@@ -10,6 +10,11 @@ const centeredButton = css`
 export const getStyles = (theme: GrafanaTheme) => {
   const { colors, spacing, typography } = theme;
 
+  const externalLink = css`
+    color: ${colors.linkExternal};
+    text-decoration: none;
+  `;
+
   return {
     legend: css`
       font-size: ${typography.heading.h3};
@@ -42,8 +47,13 @@ export const getStyles = (theme: GrafanaTheme) => {
     `,
     gotoSignup: css`
       ${centeredButton}
-      color: ${colors.linkExternal};
-      text-decoration: none;
+      ${externalLink}
+    `,
+    resetPasswordLinkWrapper: css`
+      margin-bottom: ${spacing.xl};
+    `,
+    resetPasswordLink: css`
+      ${externalLink}
     `,
   };
 };

@@ -48,6 +48,11 @@ export const LoginPage: FC = () => {
               inputProps={{ autoComplete: 'off' }}
               required
             />
+            <div className={styles.resetPasswordLinkWrapper}>
+              <a href={Routes.resetPassword} className={styles.resetPasswordLink} target="_blank" data-qa="login-reset-password-button" rel="noreferrer">
+                {Messages.forgotPassword}
+              </a>
+            </div>
             <LoaderButton
               data-qa="login-submit-button"
               className={styles.loginButton}

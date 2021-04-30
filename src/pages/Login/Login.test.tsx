@@ -1,63 +1,48 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import { fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { TestContainer } from 'components/TestContainer';
 import * as authApi from 'core/api/auth';
 import { LoginPage } from './Login';
 
 jest.spyOn(authApi, 'signIn');
 
-let container: HTMLElement;
-
 describe('Platform Login', () => {
-  beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
+  test('has login button disabled at start-up', async () => {
+    render(<TestContainer><LoginPage /></TestContainer>);
+
+    expect(await screen.findByTestId('login-submit-button')).toBeDisabled();
   });
 
-  afterEach(() => {
-    unmountComponentAtNode(container);
-    container.remove();
+  test('has a "forgot password" button', async () => {
+    render(<TestContainer><LoginPage /></TestContainer>);
+
+    expect(await screen.findByTestId('login-reset-password-button')).toBeDefined();
   });
 
-  test('has login button disabled at start-up', () => {
-    act(() => {
-      render(<TestContainer><LoginPage /></TestContainer>, container);
-    });
+  test('submit button is enabled after valid input in form fields', async () => {
+    render(<TestContainer><LoginPage /></TestContainer>);
 
-    expect(container.querySelector('[data-qa="login-submit-button"]')?.hasAttribute('disabled')).toBe(true);
-  });
+    const emailInput = await screen.findByTestId('email-text-input');
+    const passwordInput = await screen.findByTestId('password-password-input');
 
-  test('submit button is enabled after valid input in form fields', () => {
-    act(() => {
-      render(<TestContainer><LoginPage /></TestContainer>, container);
-    });
+    userEvent.type(emailInput, 'test@test.test');
+    userEvent.type(passwordInput, 'FooBar123!!!');
 
-    const emailInput = container.querySelector('[data-qa="email-text-input"]');
-    const passwordInput = container.querySelector('[data-qa="password-password-input"]');
-
-    fireEvent.change(emailInput!, { target: { value: 'test@test.test' } });
-    fireEvent.change(passwordInput!, { target: { value: 'FooBar123!!!' } });
-
-    expect(container.querySelector('[data-qa="login-submit-button"]')?.hasAttribute('disabled')).toBe(false);
+    expect(await screen.findByTestId('login-submit-button')).not.toBeDisabled();
   });
 
   test('calls the login api on login button click', async () => {
-    act(() => {
-      render(<TestContainer><LoginPage /></TestContainer>, container);
-    });
+    render(<TestContainer><LoginPage /></TestContainer>);
 
-    const emailInput = container.querySelector('[data-qa="email-text-input"]');
-    const passwordInput = container.querySelector('[data-qa="password-password-input"]');
-    const loginButton = container.querySelector('[data-qa="login-submit-button"]');
+    const emailInput = await screen.findByTestId('email-text-input');
+    const passwordInput = await screen.findByTestId('password-password-input');
+    const loginButton = await screen.findByTestId('login-submit-button');
 
-    fireEvent.change(emailInput!, { target: { value: 'test@test.test' } });
-    fireEvent.change(passwordInput!, { target: { value: 'FooBar123!!!' } });
+    userEvent.type(emailInput, 'test@test.test');
+    userEvent.type(passwordInput, 'FooBar123!!!');
 
-    await act(async () => {
-      fireEvent.click(loginButton!);
-    });
+    userEvent.click(loginButton);
 
     expect(authApi.signIn).toBeCalledTimes(1);
   });

@@ -4,4 +4,5 @@ export const Messages = {
   or: 'or',
   passwordLabel: 'Password',
   emailLabel: 'Email',
+  forgotPassword: 'Forgot password',
 };
