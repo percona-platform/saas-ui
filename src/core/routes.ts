@@ -1,3 +1,5 @@
+import { OKTA_BASE_URL } from 'core/constants';
+
 export const Routes = {
   root: '/',
   ui: '/ui',
@@ -5,4 +7,6 @@ export const Routes = {
   logout: '/logout',
   signup: '/signup',
   welcome: '/welcome',
+  profile: '/profile',
+  changeEmail: `https://${OKTA_BASE_URL}/enduser/settings`,
 };

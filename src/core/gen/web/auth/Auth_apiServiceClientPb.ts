@@ -235,5 +235,85 @@ export class AuthAPIClient {
     this.methodInfoResetPassword);
   }
 
+  methodInfoGetProfile = new grpcWeb.AbstractClientBase.MethodInfo(
+    auth_auth_api_pb.GetProfileResponse,
+    (request: auth_auth_api_pb.GetProfileRequest) => {
+      return request.serializeBinary();
+    },
+    auth_auth_api_pb.GetProfileResponse.deserializeBinary
+  );
+
+  getProfile(
+    request: auth_auth_api_pb.GetProfileRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_auth_api_pb.GetProfileResponse>;
+
+  getProfile(
+    request: auth_auth_api_pb.GetProfileRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: auth_auth_api_pb.GetProfileResponse) => void): grpcWeb.ClientReadableStream<auth_auth_api_pb.GetProfileResponse>;
+
+  getProfile(
+    request: auth_auth_api_pb.GetProfileRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: auth_auth_api_pb.GetProfileResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.auth.v1.AuthAPI/GetProfile',
+        request,
+        metadata || {},
+        this.methodInfoGetProfile,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.auth.v1.AuthAPI/GetProfile',
+    request,
+    metadata || {},
+    this.methodInfoGetProfile);
+  }
+
+  methodInfoUpdateProfile = new grpcWeb.AbstractClientBase.MethodInfo(
+    auth_auth_api_pb.UpdateProfileResponse,
+    (request: auth_auth_api_pb.UpdateProfileRequest) => {
+      return request.serializeBinary();
+    },
+    auth_auth_api_pb.UpdateProfileResponse.deserializeBinary
+  );
+
+  updateProfile(
+    request: auth_auth_api_pb.UpdateProfileRequest,
+    metadata: grpcWeb.Metadata | null): Promise<auth_auth_api_pb.UpdateProfileResponse>;
+
+  updateProfile(
+    request: auth_auth_api_pb.UpdateProfileRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: auth_auth_api_pb.UpdateProfileResponse) => void): grpcWeb.ClientReadableStream<auth_auth_api_pb.UpdateProfileResponse>;
+
+  updateProfile(
+    request: auth_auth_api_pb.UpdateProfileRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.Error,
+               response: auth_auth_api_pb.UpdateProfileResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/percona.platform.auth.v1.AuthAPI/UpdateProfile',
+        request,
+        metadata || {},
+        this.methodInfoUpdateProfile,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/percona.platform.auth.v1.AuthAPI/UpdateProfile',
+    request,
+    metadata || {},
+    this.methodInfoUpdateProfile);
+  }
+
 }
 

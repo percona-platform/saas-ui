@@ -12,17 +12,18 @@ import {
 import { PublicLayout } from 'components';
 import { authSignupAction, getAuth } from 'store/auth';
 import { Routes } from 'core/routes';
+import { MAX_NAME_LENGTH } from 'core/constants';
 import { SignupPayload } from 'store/types';
 import { Messages } from './Signup.messages';
 import { getStyles } from './Signup.styles';
 import { CheckboxLabel } from './CheckboxLabel';
 
 const {
-  email, required, requiredTrue,
+  email, required, requiredTrue, maxLength,
 } = validators;
 
 const emailValidators = [required, email];
-const nameValidators = [required];
+const nameValidators = [required, maxLength(MAX_NAME_LENGTH)];
 
 export const SignupPage: FC = () => {
   const styles = useStyles(getStyles);

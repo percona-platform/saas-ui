@@ -8,6 +8,12 @@ export const PASSWORD_MIN_LENGTH = 10;
 
 export const PLATFORM_BASE_URL = process.env.REACT_APP_PLATFORM_BASE_URL!;
 
+export const PROD_BASE_URL = 'platform.percona.com';
+
+export const OKTA_BASE_URL = process.env.REACT_APP_OKTA_BASE_URL!;
+
 export const STATE_LOCALSTORAGE_KEY = 'state';
 
 export const THEME_STORAGE_KEY = 'percona.saas.theme';
+
+export const MAX_NAME_LENGTH = 50;

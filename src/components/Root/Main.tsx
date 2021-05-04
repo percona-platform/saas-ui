@@ -2,8 +2,8 @@ import React, { FC, useEffect } from 'react';
 import { Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { PrivateRoute, PublicRoute, Authenticated } from 'components';
-import { LoginPage, SignupPage, UIDemo, NotFound } from 'pages';
-import {  authRefreshAction } from 'store/auth';
+import { LoginPage, SignupPage, ProfilePage, UIDemo, NotFound } from 'pages';
+import { authRefreshAction } from 'store/auth';
 import { Routes } from 'core/routes';
 
 export const Main: FC = () => {
@@ -25,6 +25,9 @@ export const Main: FC = () => {
           <PublicRoute exact path={Routes.signup}>
             <SignupPage />
           </PublicRoute>
+          <PrivateRoute exact path={Routes.profile}>
+            <ProfilePage />
+          </PrivateRoute>
           <PublicRoute path={Routes.ui}>
             <UIDemo />
           </PublicRoute>
