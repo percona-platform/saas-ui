@@ -25,7 +25,7 @@ export const runFieldsValidationFlow = (page: Pages) => {
 
   if (page === Pages.Login) {
     passwordField().click();
-    cy.get('a').focus();
+    cy.get('a').last().focus();
     checkValidation({ element: passwordValidation, text: VALIDATION_MESSAGES.REQUIRED_FIELD });
     fillField({ field: passwordField, value: 'test' });
     checkValidation({ element: passwordValidation, text: VALIDATION_MESSAGES.SHORT_PASSWORD });
