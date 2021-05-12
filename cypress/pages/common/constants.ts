@@ -1,3 +1,4 @@
+/// <reference types="cypress" />
 import { InvalidUser } from 'pages/common/interfaces/Auth';
 import { getUser } from 'pages/auth/getUser';
 

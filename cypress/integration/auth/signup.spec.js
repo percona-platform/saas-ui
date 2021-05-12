@@ -94,7 +94,7 @@ context('Sign Up', () => {
 
   it('should be able to activate account', { baseUrl: null }, () => {
     cy.task('getUser').then(({ userEmail, userPassword }) => {
-      cy.mailosaurGetMessage(Cypress.env('MAILOSAUR_SAAS_SERVER_ID'), { sentTo: userEmail }, { timeout: 20000 })
+      cy.mailosaurGetMessage(Cypress.env('MAILOSAUR_UI_TESTS_SERVER_ID'), { sentTo: userEmail }, { timeout: 20000 })
         .then((message) => {
           const link = message.html.links
             .find(({ text }) => text.trim() === 'Activate').href;

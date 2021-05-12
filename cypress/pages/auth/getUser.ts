@@ -6,7 +6,7 @@ Using generate-password lib due to a bug in a faker when passing a regex to a pa
 https://github.com/Marak/faker.js/issues/826
 */
 
-const getFakeEmail = () => `${faker.name.firstName()}.${faker.name.lastName()}@${Cypress.env('MAILOSAUR_SAAS_SERVER_ID')}.mailosaur.net`;
+const getFakeEmail = () => `${faker.name.firstName()}.${faker.name.lastName()}@${Cypress.env('MAILOSAUR_UI_TESTS_SERVER_ID')}.mailosaur.net`;
 
 const getPassword = () => generate({
     length: 10,
