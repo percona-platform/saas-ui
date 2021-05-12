@@ -1,14 +1,28 @@
-/// <reference types="cypress" />
 import { EXISTING_USER, INVALID_USER, pageDetailsMap, Pages } from 'pages/common/constants';
-import { runFieldsValidationFlow } from 'pages/auth/flows/validation.flow';
-import { runPageElementsFlow } from 'pages/auth/flows/checkElements.flow';
-import { runLoginFlow, runSignUpFlow } from 'pages/auth/flows/auth.flow';
-import { getUser } from 'pages/auth/utils/getUser';
-import { setAliases } from 'pages/auth/requests/requests';
-import { popUp } from 'pages/common/view/selectors';
-import { loginForm, signupForm, signUpLink, submitButton } from 'pages/auth/view/selectors';
-import { runSignupAction } from 'pages/auth/actions/signup.action';
-import { fillEmailPassword } from 'pages/auth/view/behavior/auth';
+import { getUser } from 'pages/auth/getUser';
+import { setAliases } from 'pages/auth/requests';
+import {
+  emailField,
+  emailFieldLabel,
+  firstNameField,
+  firstNameValidation,
+  lastNameField,
+  lastNameValidation,
+  loginForm,
+  signupForm,
+  signUpLink,
+  submitButton,
+  termsCheckbox,
+  termsText,
+  termsValidation,
+} from 'pages/auth/selectors';
+import {
+  PRIVACY_POLICY_URL,
+  TERMS_MESSAGE,
+  TERMS_OF_SERVICE_URL,
+  VALIDATION_MESSAGES,
+} from 'pages/auth/constants';
+import { checkEmailValidation } from './helper';
 
 const newUser = getUser();
 
@@ -19,12 +33,37 @@ context('Sign Up', () => {
 
   it('SAAS-T82 - should be able to see the signup form', () => {
     cy.visit(pageDetailsMap[Pages.SignUp].url);
-    runPageElementsFlow(Pages.SignUp);
+    signupForm().isVisible();
+    emailFieldLabel().contains('Email *');
+    emailField().isVisible();
+    submitButton().isDisabled();
+    termsText().isVisible()
+      .hasText(TERMS_MESSAGE)
+      .find('a').hasAttr('href', TERMS_OF_SERVICE_URL)
+      .next().hasAttr('href', PRIVACY_POLICY_URL);
+    submitButton().isDisabled();
+    signUpLink().hasAttr('href', '/login');
   });
 
   it('SAAS-T115 - should have validation for signup input fields', () => {
     cy.visit(pageDetailsMap[Pages.SignUp].url);
-    runFieldsValidationFlow(Pages.SignUp);
+    checkEmailValidation();
+    submitButton().isVisible().isDisabled();
+    emailField().clear().type(EXISTING_USER.user.email);
+    firstNameField().focus();
+    lastNameField().focus();
+    firstNameField().focus();
+    firstNameValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
+    lastNameValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
+    firstNameField().clear().type(EXISTING_USER.user.firstName);
+    lastNameField().clear().type(EXISTING_USER.user.lastName);
+    termsCheckbox().click({ force: true });
+    submitButton().isEnabled();
+    termsCheckbox().click({ force: true });
+    emailField().click();
+    termsValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
+    termsCheckbox().click({ force: true });
+    submitButton().isEnabled();
   });
 
   it('SAAS-T83 - should be able to open the login page from the signup', () => {
@@ -39,7 +78,7 @@ context('Sign Up', () => {
     cy.task('setPassword', newUser.user.password);
 
     cy.visit(pageDetailsMap[Pages.SignUp].url);
-    runSignUpFlow(newUser);
+    cy.runSignUpFlow(newUser);
   });
 
   it('should not be able to login with inactive account', () => {
@@ -47,21 +86,20 @@ context('Sign Up', () => {
     cy.task('getUser').then(({ userEmail, userPassword }) => {
       newUser.user.email = userEmail;
       newUser.user.password = userPassword;
-      fillEmailPassword(newUser.user);
-      submitButton().isVisible().isEnabled().click();
-      popUp().isVisible().hasText(INVALID_USER.invalidLoginMessage);
+      cy.runLoginAction(newUser.user, true);
+      cy.checkPopUpMessage(INVALID_USER.invalidLoginMessage);
       loginForm().isVisible();
     });
   });
 
-  it('should be able to activate account', { baseUrl: null}, () => {
+  it('should be able to activate account', { baseUrl: null }, () => {
     cy.task('getUser').then(({ userEmail, userPassword }) => {
       cy.mailosaurGetMessage(Cypress.env('MAILOSAUR_SAAS_SERVER_ID'), { sentTo: userEmail }, { timeout: 20000 })
         .then((message) => {
-          const link = message.html!.links!
-            .find(({ text }) => text!.trim() === 'Activate')!.href;
+          const link = message.html.links
+            .find(({ text }) => text.trim() === 'Activate').href;
 
-          cy.visit(link!);
+          cy.visit(link);
           cy.get('[name="newPassword"]').type(userPassword);
           cy.get('[name="verifyPassword"]').type(userPassword);
           cy.get('#next-button').click();
@@ -77,14 +115,14 @@ context('Sign Up', () => {
       newUser.user.email = userEmail;
       newUser.user.password = userPassword;
       newUser.signedInMessage = `You are signed in as ${userEmail}`;
-      runLoginFlow(newUser);
+      cy.runLoginFlow(newUser);
     });
   });
 
   it('SAAS-T85 - should see failed signup message', () => {
     cy.visit(pageDetailsMap[Pages.SignUp].url);
-    runSignupAction(EXISTING_USER.user);
-    popUp().isVisible().hasText(INVALID_USER.invalidSignUpMessage).siblings('button').click();
+    cy.runSignUpAction(EXISTING_USER.user);
+    cy.checkPopUpMessage(INVALID_USER.invalidSignUpMessage);
     signupForm().isVisible();
   });
 });

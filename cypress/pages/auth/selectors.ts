@@ -18,3 +18,4 @@ export const firstNameField = () => cy.get('qa:firstName-text-input');
 export const firstNameValidation = () => cy.get('qa:firstName-field-error-message');
 export const lastNameField = () => cy.get('qa:lastName-text-input');
 export const lastNameValidation = () => cy.get('qa:lastName-field-error-message');
+export const forgotPassword = () => cy.get('qa:login-reset-password-button');

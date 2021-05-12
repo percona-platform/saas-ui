@@ -27,9 +27,7 @@ module.exports = (on, config) => {
   on('task', {
     setEmail: ( email ) => userEmail = email,
     setPassword: ( password ) => userPassword = password,
-    getUser: () => {
-      return { userEmail, userPassword };
-    },
+    getUser: () => ({ userEmail, userPassword }),
   });
 };
 
