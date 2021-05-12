@@ -26,6 +26,7 @@
     "test:ci": "CI=true react-scripts test",
     "test:coverage": "react-scripts test --coverage --watchAll=false --collectCoverageFrom=src/**/*.{ts,tsx,js} --collectCoverageFrom=!src/core/gen/**/*",
     "lint": "eslint --ext js,ts,tsx src",
+    "lint:tests": "eslint --ext js,ts cypress",
     "lint:fix": "npm run lint -- --fix",
     "cy:open": "cypress open",
     "cy:run": "cypress run --browser chrome --headless",
