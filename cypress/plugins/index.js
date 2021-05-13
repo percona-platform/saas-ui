@@ -1,12 +1,10 @@
 /// <reference types="cypress" />
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
+import dotenv from 'dotenv';
 
-const path = require('path');
-
-const envFile = process.env.CI ? '.env' : '.env.local';
-
-require('dotenv').config({path: path.resolve(process.cwd(), envFile)});
+dotenv.config({path: '.env.local'});
+dotenv.config();
 
 /**
  * @type {Cypress.PluginConfig}
