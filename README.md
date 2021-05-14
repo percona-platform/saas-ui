@@ -22,10 +22,10 @@ When developing locally, you'll want to route your API requests to a dev server.
 To execute E2E tests locally you need to set related environment variables first. By default `.env.local` file is used as a source,
 so you have to create it from `.env`:
 
-```shell script
+```sh
 cp .env .env.local
 ```
 
-Then we should update `.env.local` with correct secrets.
+Then you should update `.env.local` with correct secrets.
 
 To execute E2E tests just use `npm run cy:run`
