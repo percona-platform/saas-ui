@@ -10,7 +10,7 @@ declare namespace Cypress {
      *
      * @example
      *   const user = EXISTING_USER;
-     *   cy.runLoginFlow(user);
+     *   cy.runLoginAction(user);
      * @param user
      * @param shouldFail
      */
