@@ -1,4 +1,3 @@
-import { ValidUser } from 'pages/common/interfaces/Auth';
 import faker from 'faker';
 import { generate } from 'generate-password';
 
@@ -7,21 +6,17 @@ Using generate-password lib due to a bug in a faker when passing a regex to a pa
 https://github.com/Marak/faker.js/issues/826
 */
 
-export const getFakeEmail = () => {
-  return `${faker.name.firstName()}.${faker.name.lastName()}@${Cypress.env('MAILOSAUR_SAAS_SERVER_ID')}.mailosaur.net`;
-};
+const getFakeEmail = () => `${faker.name.firstName()}.${faker.name.lastName()}@${Cypress.env('MAILOSAUR_UI_TESTS_SERVER_ID')}.mailosaur.net`;
 
-export const getPassword = () => {
-  return generate({
+const getPassword = () => generate({
     length: 10,
     numbers: true,
     lowercase: true,
     uppercase: true,
     strict: true,
   });
-};
 
-export const getUser = (email = getFakeEmail(), password = getPassword()): ValidUser => {
+export const getUser = (email = getFakeEmail(), password = getPassword()) => {
   const signedInMessage = `You are signed in as ${email}`;
 
   return {

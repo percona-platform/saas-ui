@@ -1,5 +1,4 @@
-import '@testing-library/cypress/add-commands';
-import 'cypress-mailosaur';
+import { popUp } from 'pages/common/selectors';
 
 // Assert that previous element is visible
 Cypress.Commands.add('isVisible', { prevSubject: 'element' },
@@ -33,5 +32,15 @@ Cypress.Commands.add('hasText', { prevSubject: 'element' },
 Cypress.Commands.add('hasAttr', { prevSubject: 'element' },
   ($element, key, value) => {
     cy.wrap($element).should('have.attr', key, value);
+  },
+);
+
+// Assert that previous element contains passed attribute and value
+Cypress.Commands.add('checkPopUpMessage',
+  (message) => {
+    popUp().isVisible().hasText(message)
+      .then((element) => {
+        element.next('button').click();
+      });
   },
 );
