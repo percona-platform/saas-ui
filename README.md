@@ -26,6 +26,6 @@ so you have to create it from `.env`:
 cp .env .env.local
 ```
 
-Then you should update `.env.local` with correct secrets.
+Then you should update `.env.local` with your own secrets.
 
 To execute E2E tests just use `npm run cy:run`
