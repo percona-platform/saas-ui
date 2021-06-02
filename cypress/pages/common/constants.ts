@@ -1,6 +1,8 @@
+/// <reference types="cypress" />
 import { InvalidUser } from 'pages/common/interfaces/Auth';
-import { getUser } from 'pages/auth/utils/getUser';
+import { getUser } from 'pages/auth/getUser';
 
+// eslint-disable-next-line no-shadow
 export enum Pages {
   Login = 'Login',
   SignUp = 'SignUp',
@@ -15,7 +17,7 @@ export const pageDetailsMap = {
   },
 };
 
-export const EXISTING_USER = getUser('test@mail.com', 'MySecretPassword123');
+export const EXISTING_USER = getUser(Cypress.env('PORTAL_USER_EMAIL'), Cypress.env('PORTAL_USER_PASSWORD'));
 
 export const INVALID_USER: InvalidUser = {
   user: {

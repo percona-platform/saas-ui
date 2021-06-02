@@ -1,7 +1,9 @@
-import './commands';
 import addContext from 'mochawesome/addContext';
 import setup from 'cypress-cy-select';
 import {configure} from '@testing-library/cypress';
+
+import './ui';
+import './actions';
 
 // cypress-cy-select config
 const config = {
@@ -27,7 +29,7 @@ Cypress.on('test:after:run', (test, runnable) => {
     addContext({test}, imageUrl);
   }
 
-// Generating video name in order to link in to the mocha report
+// Generating video name in order to link it to the mocha report
   const videoUrl = `videos/${Cypress.spec.name}.mp4`;
 
   addContext({test}, videoUrl);

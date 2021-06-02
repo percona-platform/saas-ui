@@ -14,7 +14,7 @@
   "videoUploadOnPasses": false,
   "failOnStatusCode": false,
   "ignoreTestFiles": ["*utils.js", "locators.js", "constants.js"],
-  "testFiles": ["**/*spec.ts"],
+  "testFiles": ["**/*spec.js"],
   "baseUrl": "https://platform.localhost",
   "retries": {
     "runMode": 1,
