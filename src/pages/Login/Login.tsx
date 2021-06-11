@@ -40,7 +40,7 @@ export const LoginPage: FC = () => {
         {({ handleSubmit, pristine, valid }: FormRenderProps) => (
           <form data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
             <legend className={styles.legend}>{Messages.signIn}</legend>
-            <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
+            <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} parse={(value) => value.trim()} required />
             <PasswordInputField
               name="password"
               label={Messages.passwordLabel}

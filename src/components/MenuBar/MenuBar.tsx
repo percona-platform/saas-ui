@@ -66,11 +66,11 @@ export const MenuBar: FC = () => {
                 {authenticated && (
                   <li>
                     <Dropdown toggle={DropdownToggle}>
-                      <span data-qa="menu-bar-profile-dropdown-logout" onClick={logout}>
-                        {Messages.logout}
-                      </span>
                       <span data-qa="menu-bar-profile-dropdown-profile" onClick={goToProfilePage}>
                         {Messages.profile}
+                      </span>
+                      <span data-qa="menu-bar-profile-dropdown-logout" onClick={logout}>
+                        {Messages.logout}
                       </span>
                     </Dropdown>
                   </li>

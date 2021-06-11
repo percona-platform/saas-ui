@@ -38,8 +38,8 @@ export const ProfilePage: FC = () => {
             <form name="login-form" data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
               <legend className={styles.legend}>{Messages.profile}</legend>
               <div className={styles.nameFields}>
-                <TextInputField validators={nameValidators} label={Messages.firstNameLabel} name="firstName" />
-                <TextInputField validators={nameValidators} label={Messages.lastNameLabel} name="lastName" />
+                <TextInputField validators={nameValidators} label={Messages.firstNameLabel} name="firstName" parse={(value) => value.trim()} />
+                <TextInputField validators={nameValidators} label={Messages.lastNameLabel} name="lastName" parse={(value) => value.trim()} />
               </div>
               <div className={styles.emailFieldWrapper}>
                 <TextInputField disabled label={Messages.emailLabel} name="email" />
