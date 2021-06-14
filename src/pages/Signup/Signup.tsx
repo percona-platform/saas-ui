@@ -40,9 +40,9 @@ export const SignupPage: FC = () => {
         {({ handleSubmit, pristine, valid }: FormRenderProps) => (
           <form data-qa="signup-form" className={styles.form} onSubmit={handleSubmit}>
             <legend className={styles.legend}>{Messages.signUp}</legend>
-            <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} required />
-            <TextInputField name="firstName" label={Messages.firstName} validators={nameValidators} required />
-            <TextInputField name="lastName" label={Messages.lastName} validators={nameValidators} required />
+            <TextInputField name="email" label={Messages.emailLabel} validators={emailValidators} parse={(value) => value.trim()} required />
+            <TextInputField name="firstName" label={Messages.firstName} validators={nameValidators} parse={(value) => value.trim()} required />
+            <TextInputField name="lastName" label={Messages.lastName} validators={nameValidators} parse={(value) => value.trim()} required />
             <CheckboxField name="consent" label={<CheckboxLabel />} validators={[requiredTrue]} />
             <LoaderButton
               data-qa="login-submit-button"
