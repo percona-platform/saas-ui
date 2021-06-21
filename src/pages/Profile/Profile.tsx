@@ -43,8 +43,8 @@ export const ProfilePage: FC = () => {
               </div>
               <div className={styles.emailFieldWrapper}>
                 <TextInputField disabled label={Messages.emailLabel} name="email" />
-                <a href={Routes.changeEmail} target="_blank" data-qa="profile-change-email-button" className={styles.externalLink} rel="noreferrer">
-                  {Messages.changeEmail}
+                <a href={Routes.editProfile} target="_blank" data-qa="profile-edit-button" className={styles.externalLink} rel="noreferrer">
+                  {Messages.editProfile}
                 </a>
               </div>
               <div className={styles.buttonWrapper}>
