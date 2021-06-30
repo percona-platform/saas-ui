@@ -1,6 +1,12 @@
 name: "CodeQL"
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+  pull_request:
 
 jobs:
   analyze:
