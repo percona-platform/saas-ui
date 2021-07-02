@@ -35,7 +35,7 @@ export const ProfilePage: FC = () => {
       <main className={styles.wrapper}>
         <Form initialValues={{ email, firstName, lastName }} onSubmit={handleUpdateProfileSubmit}>
           {({ handleSubmit, valid, pristine }: FormRenderProps) => (
-            <form name="login-form" data-qa="login-form" className={styles.form} onSubmit={handleSubmit}>
+            <form name="profile-form" data-qa="profile-form" className={styles.form} onSubmit={handleSubmit}>
               <legend className={styles.legend}>{Messages.profile}</legend>
               <div className={styles.nameFields}>
                 <TextInputField validators={nameValidators} label={Messages.firstNameLabel} name="firstName" parse={(value) => value.trim()} />
