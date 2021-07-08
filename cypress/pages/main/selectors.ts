@@ -2,6 +2,7 @@
 // to specify data-qa attribute selector add prefix 'qa:' to the locator
 
 export const logoutButton = () => cy.get('qa:menu-bar-profile-dropdown-logout');
+export const profileButton = () => cy.get('qa:menu-bar-profile-dropdown-profile');
 export const downloadPMMLink = () => cy.get('span').contains('Download PMM').parent().parent();
 export const profileIcon = () => cy.get('qa:menu-bar-profile-dropdown-toggle');
 export const dropdownMenu = () => cy.get('qa:dropdown-menu-menu');
