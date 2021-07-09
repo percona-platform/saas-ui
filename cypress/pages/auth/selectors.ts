@@ -14,6 +14,8 @@ export const signUpLink = () => cy.get('qa:signup-action-button');
 export const termsCheckbox = () => cy.get('qa:consent-checkbox-input');
 export const termsText = () => cy.get('qa:consent-field-label');
 export const termsValidation = () => cy.get('qa:consent-field-error-message');
+export const firstNameFieldLabel = () => cy.get('qa:firstName-field-label');
+export const lastNameFieldLabel = () => cy.get('qa:lastName-field-label');
 export const firstNameField = () => cy.get('qa:firstName-text-input');
 export const firstNameValidation = () => cy.get('qa:firstName-field-error-message');
 export const lastNameField = () => cy.get('qa:lastName-text-input');

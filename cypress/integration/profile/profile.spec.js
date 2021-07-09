@@ -1,14 +1,21 @@
-import { EXISTING_USER, pageDetailsMap, Pages } from 'pages/common/constants';
+import { EXISTING_USER, pageDetailsMap, Pages, MESSAGES as commonMessages } from 'pages/common/constants';
 import { getUser } from 'pages/auth/getUser';
 import { setAliases } from 'pages/auth/requests';
 import { dropdownMenu, profileButton, profileIcon } from 'pages/main/selectors';
-import { OKTA_PROFILE_SETTINGS, MESSAGES } from 'pages/profile/constants';
-import { changeEmailLink, updateProfileButton } from 'pages/profile/selectors';
+import { OKTA_PROFILE_SETTINGS, MESSAGES, labels } from 'pages/profile/constants';
+import {
+  changeEmailLink,
+  profileForm,
+  updateProfileButton,
+} from 'pages/profile/selectors';
 import {
   emailField,
+  emailFieldLabel,
   firstNameField,
+  firstNameFieldLabel,
   firstNameValidation,
   lastNameField,
+  lastNameFieldLabel,
   lastNameValidation,
 } from 'pages/auth/selectors';
 
@@ -57,13 +64,13 @@ context('User Profile', () => {
     cy.url().should('be.eq', `${Cypress.config().baseUrl}${pageDetailsMap[Pages.Profile].url}`);
 
     // Verify Profile Settings form elements
-    cy.get('form > legend').hasText('Profile Settings');
+    profileForm().find('legend').hasText(labels.profileSettingsTitle);
     emailField().isDisabled();
-    cy.get('qa:email-field-label').hasText('Email');
+    emailFieldLabel().hasText(labels.profileSettingsTitle);
     emailField().hasAttr('value', newUser.user.email);
     verifyFields();
-    cy.get('qa:firstName-field-label').hasText('First name');
-    cy.get('qa:lastName-field-label').hasText('Last name');
+    firstNameFieldLabel().hasText(labels.firstNameLabel);
+    lastNameFieldLabel().hasText(labels.lastNameLabel);
     updateProfileButton().isDisabled();
   });
 
@@ -72,7 +79,7 @@ context('User Profile', () => {
     changeEmailLink()
       .hasAttr('href', OKTA_PROFILE_SETTINGS)
       .hasAttr('target', '_blank')
-      .hasText('Change email address');
+      .hasText(labels.editProfileLink);
   });
 
   it('SAAS-T130 should have validation for user profile fields', () => {
@@ -85,9 +92,9 @@ context('User Profile', () => {
     firstNameField().focus();
 
     // Verify first name and last name fields can't be empty
-    firstNameValidation().hasText('Required field');
+    firstNameValidation().hasText(commonMessages.REQUIRED_FIELD);
     updateProfileButton().isDisabled();
-    lastNameValidation().hasText('Required field');
+    lastNameValidation().hasText(commonMessages.REQUIRED_FIELD);
     updateProfileButton().isDisabled();
 
     // Verify validation error for string length
