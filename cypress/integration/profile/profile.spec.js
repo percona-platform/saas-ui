@@ -66,7 +66,7 @@ context('User Profile', () => {
     // Verify Profile Settings form elements
     profileForm().find('legend').hasText(labels.profileSettingsTitle);
     emailField().isDisabled();
-    emailFieldLabel().hasText(labels.profileSettingsTitle);
+    emailFieldLabel().hasText(labels.emailLabel);
     emailField().hasAttr('value', newUser.user.email);
     verifyFields();
     firstNameFieldLabel().hasText(labels.firstNameLabel);
