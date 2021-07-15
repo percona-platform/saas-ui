@@ -1,4 +1,4 @@
-import { authLoginAction, authSignupAction } from '@src/store/auth/auth.reducer';
+import { authLoginAction, authSignupAction, authLogoutAction } from '@src/store/auth/auth.reducer';
 
 
 Cypress.Commands.add('runLoginAction',
@@ -19,5 +19,13 @@ Cypress.Commands.add('runSignUpAction',
     cy.window().its('store')
       .invoke('dispatch', authSignupAction.request(user));
     cy.wait('@signup');
+  },
+);
+
+Cypress.Commands.add('runLogoutAction',
+  () => {
+    cy.window().its('store')
+      .invoke('dispatch', authLogoutAction.request());
+    cy.wait('@signout');
   },
 );

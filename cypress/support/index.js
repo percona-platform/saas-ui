@@ -4,6 +4,7 @@ import {configure} from '@testing-library/cypress';
 
 import './ui';
 import './actions';
+import './api';
 
 // cypress-cy-select config
 const config = {
