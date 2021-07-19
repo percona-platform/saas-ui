@@ -103,10 +103,6 @@ context('Sign Up', () => {
           cy.get('[name="verifyPassword"]').type(userPassword);
           cy.get('#next-button').click();
           loginForm().isVisible();
-          // temp fix until post registration steps are defined
-          // cy.get('[data-se="org-logo"]').isVisible();
-          // cy.get('[data-se="dropdown-menu-button-header"]').isVisible();
-          // cy.url().should('include', '/app/UserHome');
         });
     });
   });
