@@ -10,7 +10,7 @@ export const PLATFORM_BASE_URL = process.env.REACT_APP_PLATFORM_BASE_URL!;
 
 export const PROD_BASE_URL = 'platform.percona.com';
 
-export const OKTA_BASE_URL = process.env.REACT_APP_OKTA_BASE_URL!;
+export const OKTA_BASE_URL = window.location.host === PROD_BASE_URL ? 'okta.percona.com' : 'okta-dev.percona.com';
 
 export const STATE_LOCALSTORAGE_KEY = 'state';
 
