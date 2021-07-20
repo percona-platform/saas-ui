@@ -11,7 +11,7 @@ import {
   passwordFieldLabel,
 } from 'pages/auth/selectors';
 import { setAliases } from 'pages/auth/requests';
-import { INVALID_USER, EXISTING_USER, pageDetailsMap, Pages } from 'pages/common/constants';
+import { MESSAGES, INVALID_USER, EXISTING_USER, pageDetailsMap, Pages } from 'pages/common/constants';
 import { VALIDATION_MESSAGES, FORGOT_PASSWORD_URL } from 'pages/auth/constants';
 import { checkEmailValidation } from './helper';
 
@@ -39,7 +39,7 @@ context('Login', () => {
     checkEmailValidation();
     passwordField().click();
     cy.get('a').last().focus();
-    passwordValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
+    passwordValidation().hasText(MESSAGES.REQUIRED_FIELD);
     passwordField().clear().type('test');
     passwordValidation().hasText(VALIDATION_MESSAGES.SHORT_PASSWORD);
     passwordField().type('testqwerty');
