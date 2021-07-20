@@ -76,7 +76,12 @@ export const getStyles = (theme: GrafanaTheme) => {
     `,
     menuIcon: css`
       ${link}
+      align-items: center;
       cursor: pointer;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      width: 100%;
     `,
     link: css`
       ${link}
