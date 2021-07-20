@@ -25,5 +25,13 @@ declare namespace Cypress {
      * @param user
      */
     runSignUpAction(user: User): Chainable;
+
+    /**
+     * Sign out current user. (without UI interaction)
+     *
+     * @example
+     *   cy.runLogoutAction();
+     */
+    runLogoutAction(): Chainable;
   }
 }

@@ -1,4 +1,4 @@
-import { EXISTING_USER, INVALID_USER, pageDetailsMap, Pages } from 'pages/common/constants';
+import { MESSAGES, EXISTING_USER, INVALID_USER, pageDetailsMap, Pages } from 'pages/common/constants';
 import { getUser } from 'pages/auth/getUser';
 import { setAliases } from 'pages/auth/requests';
 import {
@@ -20,7 +20,6 @@ import {
   PRIVACY_POLICY_URL,
   TERMS_MESSAGE,
   TERMS_OF_SERVICE_URL,
-  VALIDATION_MESSAGES,
 } from 'pages/auth/constants';
 import { checkEmailValidation } from './helper';
 
@@ -53,15 +52,15 @@ context('Sign Up', () => {
     firstNameField().focus();
     lastNameField().focus();
     firstNameField().focus();
-    firstNameValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
-    lastNameValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
+    firstNameValidation().hasText(MESSAGES.REQUIRED_FIELD);
+    lastNameValidation().hasText(MESSAGES.REQUIRED_FIELD);
     firstNameField().clear().type(EXISTING_USER.user.firstName);
     lastNameField().clear().type(EXISTING_USER.user.lastName);
     termsCheckbox().click({ force: true });
     submitButton().isEnabled();
     termsCheckbox().click({ force: true });
     emailField().click();
-    termsValidation().hasText(VALIDATION_MESSAGES.REQUIRED_FIELD);
+    termsValidation().hasText(MESSAGES.REQUIRED_FIELD);
     termsCheckbox().click({ force: true });
     submitButton().isEnabled();
   });
@@ -103,9 +102,7 @@ context('Sign Up', () => {
           cy.get('[name="newPassword"]').type(userPassword);
           cy.get('[name="verifyPassword"]').type(userPassword);
           cy.get('#next-button').click();
-          cy.get('[data-se="org-logo"]').isVisible();
-          cy.get('[data-se="dropdown-menu-button-header"]').isVisible();
-          cy.url().should('include', '/app/UserHome');
+          loginForm().isVisible();
         });
     });
   });

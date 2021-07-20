@@ -6,6 +6,7 @@ import { getUser } from 'pages/auth/getUser';
 export enum Pages {
   Login = 'Login',
   SignUp = 'SignUp',
+  Profile = 'Profile',
 }
 
 export const pageDetailsMap = {
@@ -14,6 +15,9 @@ export const pageDetailsMap = {
   },
   [Pages.SignUp]: {
     url: '/signup',
+  },
+  [Pages.Profile]: {
+    url: '/profile',
   },
 };
 
@@ -28,4 +32,8 @@ export const INVALID_USER: InvalidUser = {
   },
   invalidLoginMessage: 'Incorrect username or password.',
   invalidSignUpMessage: 'There was a problem during the sign up process, please try again',
+};
+
+export const MESSAGES = {
+  REQUIRED_FIELD: 'Required field',
 };

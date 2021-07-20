@@ -2,6 +2,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 import dotenv from 'dotenv';
+import { oktaRequest } from './oktaRequest';
 
 dotenv.config({path: '.env.local'});
 dotenv.config();
@@ -22,6 +23,8 @@ module.exports = (on, config) => {
   config.env.PORTAL_USER_PASSWORD = process.env.PORTAL_USER_PASSWORD;
   config.env.MAILOSAUR_API_KEY = process.env.MAILOSAUR_API_KEY;
   config.env.MAILOSAUR_UI_TESTS_SERVER_ID = process.env.MAILOSAUR_UI_TESTS_SERVER_ID;
+  config.env.OKTA_TOKEN = process.env.OKTA_TOKEN;
+  config.env.OKTA_HOST = process.env.REACT_APP_OKTA_BASE_URL;
 
   // This code executes before the browser launch
   on('before:browser:launch', (browser, launchOptions) => {
@@ -40,6 +43,7 @@ module.exports = (on, config) => {
     // eslint-disable-next-line no-return-assign
     setPassword: ( password ) => userPassword = password,
     getUser: () => ({ userEmail, userPassword }),
+    oktaRequest,
   });
 
   return config;
