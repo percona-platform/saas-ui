@@ -108,6 +108,9 @@ jobs:
       - name: Push Docker image
         run: make docker-push
 
+      - name: Tag Docker image with dev-latest
+        run: make docker-tag
+
   e2e:
     name: Dispatch E2E tests
     timeout-minutes: 10
